@@ -64,7 +64,10 @@ public class TrangChu extends JFrame {
 	 * Create the frame.
 	 */
 	public TrangChu() {
-		this.setTitle("H1");
+
+		this.setTitle("Pull xuong");
+		this.setResizable(false);
+
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(1500, 800);
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
