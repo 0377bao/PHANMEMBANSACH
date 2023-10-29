@@ -9,5 +9,12 @@
 	<classpathentry kind="lib" path="src/lib/sqljdbc42.jar"/>
 	<classpathentry kind="lib" path="C:/Users/trong/Downloads/jfreechart-1.5.4.jar"/>
 	<classpathentry kind="lib" path="C:/Users/trong/Downloads/jcalendar-1.4.jar"/>
+	<classpathentry kind="lib" path="D:/Hoc_Tap/Nam3_Ki1/PTUD/BaiTapLon/PHANMEMBANSACH/PHANMEMBANSACH/src/lib/bridj-0.6.2-windows-only.jar"/>
+	<classpathentry kind="lib" path="D:/Hoc_Tap/Nam3_Ki1/PTUD/BaiTapLon/PHANMEMBANSACH/PHANMEMBANSACH/src/lib/core-3.3.0.jar"/>
+	<classpathentry kind="lib" path="D:/Hoc_Tap/Nam3_Ki1/PTUD/BaiTapLon/PHANMEMBANSACH/PHANMEMBANSACH/src/lib/javase-3.3.0.jar"/>
+	<classpathentry kind="lib" path="D:/Hoc_Tap/Nam3_Ki1/PTUD/BaiTapLon/PHANMEMBANSACH/PHANMEMBANSACH/src/lib/log4j-1.2.17.jar"/>
+	<classpathentry kind="lib" path="D:/Hoc_Tap/Nam3_Ki1/PTUD/BaiTapLon/PHANMEMBANSACH/PHANMEMBANSACH/src/lib/slf4j-api-1.7.4.jar"/>
+	<classpathentry kind="lib" path="D:/Hoc_Tap/Nam3_Ki1/PTUD/BaiTapLon/PHANMEMBANSACH/PHANMEMBANSACH/src/lib/slf4j-log4j12-1.7.30.jar"/>
+	<classpathentry kind="lib" path="D:/Hoc_Tap/Nam3_Ki1/PTUD/BaiTapLon/PHANMEMBANSACH/PHANMEMBANSACH/src/lib/webcam-capture-0.3.12.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

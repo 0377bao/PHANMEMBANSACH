@@ -30,7 +30,7 @@ import javax.swing.SwingConstants;
 
 public class TrangChu extends JFrame {
 
-	private String indexFrame = "Trang chủ";
+	public String indexFrame = "Trang chủ";
 	private JLabel lblAvtNhanVien;
 	private JLabel lblTenNhanVien;
 	private ButtonSidebar btnTrangChu;
@@ -64,10 +64,10 @@ public class TrangChu extends JFrame {
 	 * Create the frame.
 	 */
 	public TrangChu() {
-		this.setTitle("Hi");
-		this.setResizable(false);
+		this.setTitle("H1");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(1500, 800);
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.getContentPane().setLayout(null);
@@ -240,7 +240,7 @@ public class TrangChu extends JFrame {
 			btnTrangChu.setForeground(Color.white);
 		}
 		if(src.equals("Bán hàng")) {
-			pnlHienTai = new GUIBanHang();
+			pnlHienTai = new GUIBanHang(this);
 			btnBanHang.setBackground(colorBtnActive);
 			btnBanHang.setForeground(Color.white);
 		}

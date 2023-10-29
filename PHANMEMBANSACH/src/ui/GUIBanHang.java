@@ -18,6 +18,16 @@ import javax.swing.border.MatteBorder;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.table.DefaultTableModel;
 
+import com.github.sarxos.webcam.Webcam;
+import com.github.sarxos.webcam.WebcamPanel;
+import com.github.sarxos.webcam.WebcamResolution;
+import com.google.zxing.BinaryBitmap;
+import com.google.zxing.LuminanceSource;
+import com.google.zxing.MultiFormatReader;
+import com.google.zxing.NotFoundException;
+import com.google.zxing.Result;
+import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
+import com.google.zxing.common.HybridBinarizer;
 import com.toedter.calendar.JDateChooser;
 
 import CustomUI.MyButton;
@@ -27,19 +37,27 @@ import CustomUI.MyTable;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Date;
 import java.util.Locale;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import java.awt.Component;
+import java.awt.Dimension;
+
 import javax.swing.JTextArea;
 import javax.swing.JComboBox;
 import javax.swing.SwingConstants;
 
-public class GUIBanHang extends JPanel {
+public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
 	private DefaultTableModel modelHoaDonCho, modelGioHang, modelHoaDon, modelChiTietHoaDon;
 	private JTable tableHoaDonCho, tableGioHang, tableHoaDon, tableChiTietHoaDon;
 	private JTextField txtTimKhachHang;
@@ -48,7 +66,15 @@ public class GUIBanHang extends JPanel {
 	private JTextField txtQLHDTimHoaDon;
 	private JTextField txtQLHDMaNhanVien;
 	private JTextField txtQLHDDienThoaiKH;
-	public GUIBanHang() {
+	
+	//QR code
+	private TrangChu view;
+	private WebcamPanel panel = null;
+	private Webcam webcam = null;
+	private Executor executor = Executors.newSingleThreadExecutor(this);
+	private JPanel pnlKhungQuetMa;
+	public GUIBanHang(TrangChu view) {
+		this.view = view;
 		this.setBackground(new Color(255, 255, 255));
 		this.setBounds(250, 0, 1302, 800);
 		setLayout(null);
@@ -574,9 +600,9 @@ public class GUIBanHang extends JPanel {
 		lblQutMSn.setBounds(10, 10, 136, 20);
 		pnlQuetMa.add(lblQutMSn);
 		
-		JLabel lblKhungQuetMa = new JLabel("");
-		lblKhungQuetMa.setBorder(new LineBorder(new Color(0, 0, 0)));
-		lblKhungQuetMa.setBounds(10, 40, 232, 246);
+		pnlKhungQuetMa = new JPanel();
+		pnlKhungQuetMa.setBorder(new LineBorder(new Color(0, 0, 0)));
+		pnlKhungQuetMa.setBounds(10, 40, 232, 246);
 //		lấy hình gốc
 		//ImageIcon iconLblBgrQuetMa = new ImageIcon("src\\image\\imagepanel\\quetma.jpeg");
 //		phóng to hình
@@ -584,7 +610,7 @@ public class GUIBanHang extends JPanel {
 //		gán lại hình
 		//iconLblBgrQuetMa = new ImageIcon(scaledImageQuetMa);
 		//lblKhungQuetMa.setIcon(iconLblBgrQuetMa);
-		pnlQuetMa.add(lblKhungQuetMa);
+		pnlQuetMa.add(pnlKhungQuetMa);
 		
 		JPanel pnlQlHoaDon = new JPanel();
 		tabbedPane.addTab("Quản lý hóa đơn", null, pnlQlHoaDon, null);
@@ -784,5 +810,62 @@ public class GUIBanHang extends JPanel {
 //		        }
 //		    }
 //		});
+		
+		//Tạo webcam
+		initWebCam();
+	}
+	//Hàm tạo QR code
+	private void initWebCam() {
+		Dimension size = WebcamResolution.QVGA.getSize();
+		webcam = Webcam.getWebcams().get(0);
+		webcam.setViewSize(size);
+		
+		panel = new WebcamPanel(webcam);
+		panel.setSize(232, 246);
+		panel.setPreferredSize(size);
+		panel.setFPSDisplayed(true);
+		pnlKhungQuetMa.add(panel);
+		executor.execute(this);
+	}
+	@Override
+	public Thread newThread(Runnable r) {
+		// TODO Auto-generated method stub
+		Thread t = new Thread(r,"My Thread");
+		t.setDaemon(true);
+		
+		return t;
+	}
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		do {
+			try {
+				Thread.sleep(100);
+			}catch (InterruptedException ex) {
+				Logger.getLogger(GUIBanHang.class.getName()).log(Level.SEVERE,null,ex);
+			}
+			Result result = null;
+			BufferedImage image = null;
+			
+			if(webcam.isOpen()) {
+				if((image = webcam.getImage())==null) {
+					continue;
+				}
+			}
+			
+			LuminanceSource source = new BufferedImageLuminanceSource(image);
+			BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
+			
+			try {
+				result = new MultiFormatReader().decode(bitmap);
+			} catch (NotFoundException e) {
+				// TODO Auto-generated catch block
+				
+			}
+			if(result != null) {
+				txtMaSanPham.setText(result.getText());
+			}
+		}while((view.indexFrame.equals("Bán hàng")));
+		webcam.close();
 	}
 }
