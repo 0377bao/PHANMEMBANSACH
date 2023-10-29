@@ -7,6 +7,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="src/lib/sqljdbc42.jar"/>
+<<<<<<< HEAD
 	<classpathentry kind="lib" path="C:/Users/trong/Downloads/jfreechart-1.5.4.jar"/>
 	<classpathentry kind="lib" path="C:/Users/trong/Downloads/jcalendar-1.4.jar"/>
 	<classpathentry kind="lib" path="D:/Hoc_Tap/Nam3_Ki1/PTUD/BaiTapLon/PHANMEMBANSACH/PHANMEMBANSACH/src/lib/bridj-0.6.2-windows-only.jar"/>
@@ -16,5 +17,9 @@
 	<classpathentry kind="lib" path="D:/Hoc_Tap/Nam3_Ki1/PTUD/BaiTapLon/PHANMEMBANSACH/PHANMEMBANSACH/src/lib/slf4j-api-1.7.4.jar"/>
 	<classpathentry kind="lib" path="D:/Hoc_Tap/Nam3_Ki1/PTUD/BaiTapLon/PHANMEMBANSACH/PHANMEMBANSACH/src/lib/slf4j-log4j12-1.7.30.jar"/>
 	<classpathentry kind="lib" path="D:/Hoc_Tap/Nam3_Ki1/PTUD/BaiTapLon/PHANMEMBANSACH/PHANMEMBANSACH/src/lib/webcam-capture-0.3.12.jar"/>
+=======
+	<classpathentry kind="lib" path="src/lib/jcalendar-1.4.jar"/>
+	<classpathentry kind="lib" path="src/lib/jfreechart-1.5.4.jar"/>
+>>>>>>> 5aff81a69bcf57102223af9dca39cbde0054eb0a
 	<classpathentry kind="output" path="bin"/>
 </classpath>
