@@ -7,8 +7,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="src/lib/sqljdbc42.jar"/>
-	<classpathentry kind="lib" path="C:/Users/trong/Downloads/jfreechart-1.5.4.jar"/>
-	<classpathentry kind="lib" path="C:/Users/trong/Downloads/jcalendar-1.4.jar"/>
 	<classpathentry kind="lib" path="src/lib/jcalendar-1.4.jar"/>
 	<classpathentry kind="lib" path="src/lib/jfreechart-1.5.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
