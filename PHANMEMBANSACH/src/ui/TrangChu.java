@@ -64,16 +64,12 @@ public class TrangChu extends JFrame {
 	 * Create the frame.
 	 */
 	public TrangChu() {
-
-
-		this.setTitle("Pull xuong lan 2");
-		this.setResizable(false);
+		this.setTitle("PHẦN MỀM NHÀ SÁCH");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(1500, 800);
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.getContentPane().setLayout(null);
+		this.getContentPane().setLayout(new BorderLayout());
 		//xét logo
 		ImageIcon logoFrame = new ImageIcon(new ImageIcon("src\\image\\logodangnhap\\logo.png").getImage()
 				.getScaledInstance(70, 70, Image.SCALE_SMOOTH));
@@ -81,9 +77,9 @@ public class TrangChu extends JFrame {
 
 		JPanel pnlSideBar = new JPanel();
 		pnlSideBar.setBackground(new Color(97, 166, 247));
-		pnlSideBar.setBounds(0, 0, 250, 777);
+		pnlSideBar.setPreferredSize(new Dimension(250, 0));
 		pnlSideBar.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		getContentPane().add(pnlSideBar);
+		getContentPane().add(pnlSideBar, BorderLayout.WEST);
 		pnlSideBar.setLayout(null);
 
 		int widthLblAvtNhanVien = 130;

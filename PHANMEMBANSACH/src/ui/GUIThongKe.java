@@ -48,12 +48,12 @@ public class GUIThongKe extends JPanel {
 
 	public GUIThongKe() {
 		this.setBackground(new Color(240, 240, 240));
-		this.setBounds(250, 0, 1250, 800);
+		this.setBounds(250, 0, 1285, 800);
 		setLayout(null);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		tabbedPane.setBounds(0, 0, 1230, 760);
+		tabbedPane.setBounds(0, 0, 1257, 790);
 		add(tabbedPane);
 		
 		JPanel pnlCaNhan = new JPanel();
@@ -64,14 +64,14 @@ public class GUIThongKe extends JPanel {
 		pnlThongKeTrongNgay.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		pnlThongKeTrongNgay.setLayout(null);
 		pnlThongKeTrongNgay.setBackground(Color.WHITE);
-		pnlThongKeTrongNgay.setBounds(15, 11, 1190, 205);
+		pnlThongKeTrongNgay.setBounds(15, 11, 1214, 205);
 		pnlCaNhan.add(pnlThongKeTrongNgay);
 		
 		JPanel pnlSoHoaDon = new JPanel();
 		pnlSoHoaDon.setBackground(new Color(128, 128, 192));
 		pnlSoHoaDon.setBorder(new BevelBorder(BevelBorder.RAISED, null, new Color(192, 192, 192), null, null));
 		pnlSoHoaDon.setLayout(null);
-		pnlSoHoaDon.setBounds(30, 45, 260, 140);
+		pnlSoHoaDon.setBounds(42, 45, 260, 140);
 		pnlThongKeTrongNgay.add(pnlSoHoaDon);
 		
 		JLabel lblThongKeSoHoaDon = new JLabel("Số hóa đơn");
@@ -98,7 +98,7 @@ public class GUIThongKe extends JPanel {
 		pnlDoanhThu.setBackground(new Color(255, 128, 128));
 		pnlDoanhThu.setBorder(new BevelBorder(BevelBorder.RAISED, null, new Color(192, 192, 192), null, null));
 		pnlDoanhThu.setLayout(null);
-		pnlDoanhThu.setBounds(318, 45, 260, 140);
+		pnlDoanhThu.setBounds(330, 45, 260, 140);
 		pnlThongKeTrongNgay.add(pnlDoanhThu);
 		
 		JLabel lblThongKeDoanhThu = new JLabel("Doanh thu");
@@ -125,7 +125,7 @@ public class GUIThongKe extends JPanel {
 		pnlSoLuongSP.setBorder(new BevelBorder(BevelBorder.LOWERED, null, new Color(192, 192, 192), null, null));
 		pnlSoLuongSP.setBackground(new Color(122, 191, 81));
 		pnlSoLuongSP.setLayout(null);
-		pnlSoLuongSP.setBounds(610, 45, 260, 140);
+		pnlSoLuongSP.setBounds(622, 45, 260, 140);
 		pnlThongKeTrongNgay.add(pnlSoLuongSP);
 		
 		JLabel lblThongKeSoLuongSP = new JLabel("Số lượng sản phẩm");
@@ -152,7 +152,7 @@ public class GUIThongKe extends JPanel {
 		pnlSoLuongDoiTra.setBorder(new BevelBorder(BevelBorder.LOWERED, null, new Color(192, 192, 192), null, null));
 		pnlSoLuongDoiTra.setBackground(new Color(241, 169, 103));
 		pnlSoLuongDoiTra.setLayout(null);
-		pnlSoLuongDoiTra.setBounds(900, 45, 260, 140);
+		pnlSoLuongDoiTra.setBounds(912, 45, 260, 140);
 		pnlThongKeTrongNgay.add(pnlSoLuongDoiTra);
 		
 		JLabel lblThongKeSoLuongDDT = new JLabel("Số lượng đơn đổi trả");
@@ -184,17 +184,17 @@ public class GUIThongKe extends JPanel {
 		pnlThongKeTrongTuan.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		pnlThongKeTrongTuan.setLayout(null);
 		pnlThongKeTrongTuan.setBackground(Color.WHITE);
-		pnlThongKeTrongTuan.setBounds(15, 235, 612, 474);
+		pnlThongKeTrongTuan.setBounds(15, 235, 609, 515);
 		pnlCaNhan.add(pnlThongKeTrongTuan);
 		
 		JPanel pnlBieuDoThongKeCaNhan = new JPanel();
 		pnlBieuDoThongKeCaNhan.setLayout(null);
-		pnlBieuDoThongKeCaNhan.setBounds(23, 55, 569, 395);
+		pnlBieuDoThongKeCaNhan.setBounds(23, 55, 569, 439);
 		
 		JFreeChart barChart = ChartFactory.createBarChart("Biểu đồ doanh thu theo tuần", "Thứ", "VNĐ", taoBieuDoDoanhThuTuan(),PlotOrientation.VERTICAL,false,false,true);
 		ChartPanel cpnlDoanhThuTheoTuan = new ChartPanel(barChart);
 		
-		cpnlDoanhThuTheoTuan.setSize(549, 374);
+		cpnlDoanhThuTheoTuan.setSize(549, 419);
 		cpnlDoanhThuTheoTuan.setLocation(10, 10);
 		cpnlDoanhThuTheoTuan.setPreferredSize(new Dimension(500,400));
 		pnlBieuDoThongKeCaNhan.add(cpnlDoanhThuTheoTuan);
@@ -216,7 +216,7 @@ public class GUIThongKe extends JPanel {
 		pnlThongKeDanhSachHoaDon.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		pnlThongKeDanhSachHoaDon.setLayout(null);
 		pnlThongKeDanhSachHoaDon.setBackground(Color.WHITE);
-		pnlThongKeDanhSachHoaDon.setBounds(645, 235, 560, 474);
+		pnlThongKeDanhSachHoaDon.setBounds(645, 235, 584, 515);
 		pnlCaNhan.add(pnlThongKeDanhSachHoaDon);
 		
 		modelDanhSachHoaDonCaNhan = new DefaultTableModel(
@@ -233,10 +233,10 @@ public class GUIThongKe extends JPanel {
 		
 		tbDanhSachHoaDonCaNhan = new MyTable(modelDanhSachHoaDonCaNhan);		
 		tbDanhSachHoaDonCaNhan.getColumnModel().getColumn(2).setPreferredWidth(120);
-		tbDanhSachHoaDonCaNhan.setRowHeight(50);
+		tbDanhSachHoaDonCaNhan.setRowHeight(57);
 		
 		JScrollPane srcDanhSachHoaDonCaNhan = new JScrollPane(tbDanhSachHoaDonCaNhan,JScrollPane.VERTICAL_SCROLLBAR_NEVER, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		srcDanhSachHoaDonCaNhan.setBounds(20, 55, 515, 380);
+		srcDanhSachHoaDonCaNhan.setBounds(25, 60, 526, 433);
 		pnlThongKeDanhSachHoaDon.add(srcDanhSachHoaDonCaNhan);
 		
 		JLabel lblDanhSachHoaDonNhanVien = new JLabel("Danh sách hóa đơn");
@@ -256,7 +256,7 @@ public class GUIThongKe extends JPanel {
 		
 		JPanel pnlThongKeDoanhThuQuy = new JPanel();
 		pnlThongKeDoanhThuQuy.setBackground(new Color(255, 255, 255));
-		pnlThongKeDoanhThuQuy.setBounds(21, 20, 1180, 264);
+		pnlThongKeDoanhThuQuy.setBounds(21, 20, 1205, 264);
 		pnlCuaHang.add(pnlThongKeDoanhThuQuy);
 		pnlThongKeDoanhThuQuy.setLayout(null);
 		
@@ -289,13 +289,13 @@ public class GUIThongKe extends JPanel {
 		
 		JFreeChart chart = ChartFactory.createPieChart("Biểu đồ doanh thu theo quý", taoBieuDoDoanhThuTheoQuy(), true,true,true);
 		ChartPanel cpnlThongKeDoanhThuTheoQuy = new ChartPanel(chart);
-		cpnlThongKeDoanhThuTheoQuy.setSize(564, 240);
+		cpnlThongKeDoanhThuTheoQuy.setSize(594, 240);
 		cpnlThongKeDoanhThuTheoQuy.setLocation(576, 11);
 		pnlThongKeDoanhThuQuy.add(cpnlThongKeDoanhThuTheoQuy);
 		
 		JPanel pnlThongKeCacThanhPhanThangCH = new JPanel();
 		pnlThongKeCacThanhPhanThangCH.setBackground(new Color(255, 255, 255));
-		pnlThongKeCacThanhPhanThangCH.setBounds(21, 303, 1180, 403);
+		pnlThongKeCacThanhPhanThangCH.setBounds(21, 303, 1205, 434);
 		pnlCuaHang.add(pnlThongKeCacThanhPhanThangCH);
 		pnlThongKeCacThanhPhanThangCH.setLayout(null);
 		
@@ -449,7 +449,7 @@ public class GUIThongKe extends JPanel {
 		tbThongKeThanhPhanTrongThang = new MyTable(modelThongKeThanhPhanTrongThang);
 		
 		JScrollPane scrThongKeThanhPhanTrongThang = new JScrollPane(tbThongKeThanhPhanTrongThang);
-		scrThongKeThanhPhanTrongThang.setBounds(584, 57, 568, 333);
+		scrThongKeThanhPhanTrongThang.setBounds(600, 57, 571, 351);
 		pnlThongKeCacThanhPhanThangCH.add(scrThongKeThanhPhanTrongThang);
 		
 		
@@ -460,14 +460,14 @@ public class GUIThongKe extends JPanel {
 		JPanel pnlThongKeCacThanhPhanThangCH_1 = new JPanel();
 		pnlThongKeCacThanhPhanThangCH_1.setLayout(null);
 		pnlThongKeCacThanhPhanThangCH_1.setBackground(Color.WHITE);
-		pnlThongKeCacThanhPhanThangCH_1.setBounds(24, 22, 1176, 180);
+		pnlThongKeCacThanhPhanThangCH_1.setBounds(24, 22, 1207, 180);
 		pnlThongKeNhanVien.add(pnlThongKeCacThanhPhanThangCH_1);
 		
 		JPanel pnlSoHoaDonCH_1 = new JPanel();
 		pnlSoHoaDonCH_1.setLayout(null);
 		pnlSoHoaDonCH_1.setBorder(new BevelBorder(BevelBorder.RAISED, null, new Color(192, 192, 192), null, null));
 		pnlSoHoaDonCH_1.setBackground(new Color(128, 128, 192));
-		pnlSoHoaDonCH_1.setBounds(20, 43, 255, 115);
+		pnlSoHoaDonCH_1.setBounds(32, 42, 255, 115);
 		pnlThongKeCacThanhPhanThangCH_1.add(pnlSoHoaDonCH_1);
 		
 		JLabel lblThongKeSoHoaDonCH_1 = new JLabel("Tổng nhân viên");
@@ -494,13 +494,13 @@ public class GUIThongKe extends JPanel {
 		pnlDoanhThuCH_1.setLayout(null);
 		pnlDoanhThuCH_1.setBorder(new BevelBorder(BevelBorder.RAISED, null, new Color(192, 192, 192), null, null));
 		pnlDoanhThuCH_1.setBackground(new Color(255, 128, 128));
-		pnlDoanhThuCH_1.setBounds(312, 43, 255, 115);
+		pnlDoanhThuCH_1.setBounds(324, 42, 255, 115);
 		pnlThongKeCacThanhPhanThangCH_1.add(pnlDoanhThuCH_1);
 		
 		JLabel lblThongKeDoanhThuCH_1 = new JLabel("Nhân viên bán hàng");
 		lblThongKeDoanhThuCH_1.setForeground(Color.WHITE);
 		lblThongKeDoanhThuCH_1.setFont(new Font("Tahoma", Font.BOLD, 18));
-		lblThongKeDoanhThuCH_1.setBounds(25, 20, 179, 25);
+		lblThongKeDoanhThuCH_1.setBounds(25, 20, 220, 25);
 		pnlDoanhThuCH_1.add(lblThongKeDoanhThuCH_1);
 		
 		JLabel lblSoHoaDonCH_1_1 = new JLabel("20");
@@ -521,13 +521,13 @@ public class GUIThongKe extends JPanel {
 		pnlSoLuongSPCH_1.setLayout(null);
 		pnlSoLuongSPCH_1.setBorder(new BevelBorder(BevelBorder.LOWERED, null, new Color(192, 192, 192), null, null));
 		pnlSoLuongSPCH_1.setBackground(new Color(122, 191, 81));
-		pnlSoLuongSPCH_1.setBounds(604, 43, 255, 115);
+		pnlSoLuongSPCH_1.setBounds(616, 42, 255, 115);
 		pnlThongKeCacThanhPhanThangCH_1.add(pnlSoLuongSPCH_1);
 		
 		JLabel lblThongKeDoanhThuCH_1_1 = new JLabel("Nhân viên giao hàng");
 		lblThongKeDoanhThuCH_1_1.setForeground(Color.WHITE);
 		lblThongKeDoanhThuCH_1_1.setFont(new Font("Tahoma", Font.BOLD, 18));
-		lblThongKeDoanhThuCH_1_1.setBounds(25, 20, 190, 25);
+		lblThongKeDoanhThuCH_1_1.setBounds(25, 20, 230, 25);
 		pnlSoLuongSPCH_1.add(lblThongKeDoanhThuCH_1_1);
 		
 		JLabel lblSoHoaDonCH_1_1_1 = new JLabel("8");
@@ -548,7 +548,7 @@ public class GUIThongKe extends JPanel {
 		pnlSoLuongDoiTraCH_1.setLayout(null);
 		pnlSoLuongDoiTraCH_1.setBorder(new BevelBorder(BevelBorder.LOWERED, null, new Color(192, 192, 192), null, null));
 		pnlSoLuongDoiTraCH_1.setBackground(new Color(241, 169, 103));
-		pnlSoLuongDoiTraCH_1.setBounds(894, 43, 255, 109);
+		pnlSoLuongDoiTraCH_1.setBounds(906, 42, 255, 109);
 		pnlThongKeCacThanhPhanThangCH_1.add(pnlSoLuongDoiTraCH_1);
 		
 		JLabel lblThongKeDoanhThuCH_1_2 = new JLabel("Nhân viên quản lý");
@@ -578,12 +578,12 @@ public class GUIThongKe extends JPanel {
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(255, 255, 255));
-		panel.setBounds(24, 217, 665, 482);
+		panel.setBounds(24, 217, 665, 521);
 		
 		JFreeChart bCThongKeDoanhThuNhanVien = ChartFactory.createBarChart("Biểu đồ doanh thu theo tháng", "Mã nhân viên", "VNĐ", taoBieuDoDoanhThuNhanVien(),PlotOrientation.VERTICAL,false,true,true);
 		ChartPanel cpnlThongKeDoanhThuNhanVien= new ChartPanel(bCThongKeDoanhThuNhanVien);
 		cpnlThongKeDoanhThuNhanVien.setBackground(new Color(255, 255, 255));
-		cpnlThongKeDoanhThuNhanVien.setSize(645, 429);
+		cpnlThongKeDoanhThuNhanVien.setSize(645, 470);
 		cpnlThongKeDoanhThuNhanVien.setLocation(10, 30);
 		
 		
@@ -593,7 +593,7 @@ public class GUIThongKe extends JPanel {
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(255, 255, 255));
-		panel_1.setBounds(711, 217, 488, 482);
+		panel_1.setBounds(711, 217, 520, 521);
 		pnlThongKeNhanVien.add(panel_1);
 		panel_1.setLayout(null);
 		
@@ -638,7 +638,7 @@ public class GUIThongKe extends JPanel {
 		
 		
 		JScrollPane scrollPane = new JScrollPane(tbThongKeNhanVien,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		scrollPane.setBounds(20, 101, 450, 359);
+		scrollPane.setBounds(20, 101, 469, 398);
 		panel_1.add(scrollPane);
 		
 		JPanel pnlThongKeSanPham = new JPanel();
@@ -684,7 +684,7 @@ public class GUIThongKe extends JPanel {
 		JLabel lblNewLabel_4_1_1 = new JLabel("sản phẩm");
 		lblNewLabel_4_1_1.setForeground(Color.WHITE);
 		lblNewLabel_4_1_1.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblNewLabel_4_1_1.setBounds(118, 58, 97, 30);
+		lblNewLabel_4_1_1.setBounds(118, 58, 120, 30);
 		panel_7.add(lblNewLabel_4_1_1);
 		
 		JPanel panel_8 = new JPanel();
@@ -708,7 +708,7 @@ public class GUIThongKe extends JPanel {
 		JLabel lblNewLabel_4_1_1_2 = new JLabel("sản phẩm");
 		lblNewLabel_4_1_1_2.setForeground(Color.WHITE);
 		lblNewLabel_4_1_1_2.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblNewLabel_4_1_1_2.setBounds(127, 58, 97, 30);
+		lblNewLabel_4_1_1_2.setBounds(127, 58, 121, 30);
 		panel_8.add(lblNewLabel_4_1_1_2);
 		
 		JLabel lblNewLabel_4 = new JLabel("80");
@@ -720,12 +720,12 @@ public class GUIThongKe extends JPanel {
 		JLabel lblNewLabel_4_1_1_1 = new JLabel("sản phẩm");
 		lblNewLabel_4_1_1_1.setForeground(Color.WHITE);
 		lblNewLabel_4_1_1_1.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblNewLabel_4_1_1_1.setBounds(266, 22, 97, 30);
+		lblNewLabel_4_1_1_1.setBounds(266, 22, 154, 30);
 		panel_6.add(lblNewLabel_4_1_1_1);
 		
 		JPanel panel_4 = new JPanel();
 		panel_4.setBackground(new Color(255, 255, 255));
-		panel_4.setBounds(20, 320, 1181, 388);
+		panel_4.setBounds(20, 320, 1207, 430);
 		pnlThongKeSanPham.add(panel_4);
 		panel_4.setLayout(null);
 		
@@ -770,7 +770,7 @@ public class GUIThongKe extends JPanel {
 		tbDanhSachTop10SachTrongQuy = new MyTable(modelDanhSachTop10SachTrongQuy);
 		
 		JScrollPane scrollPane_1 = new JScrollPane(tbDanhSachTop10SachTrongQuy);
-		scrollPane_1.setBounds(30, 98, 545, 260);
+		scrollPane_1.setBounds(30, 98, 545, 307);
 		panel_4.add(scrollPane_1);
 		
 		modelDanhSachTop10VPPTrongQuy = new DefaultTableModel(
@@ -790,7 +790,7 @@ public class GUIThongKe extends JPanel {
 		tbDanhSachTop10VPPTrongQuy = new MyTable(modelDanhSachTop10VPPTrongQuy);
 		
 		JScrollPane scrollPane_2 = new JScrollPane(tbDanhSachTop10VPPTrongQuy);
-		scrollPane_2.setBounds(605, 98, 551, 260);
+		scrollPane_2.setBounds(605, 98, 573, 307);
 		panel_4.add(scrollPane_2);
 		
 		JLabel lblNewLabel_7 = new JLabel("Sách");
@@ -805,7 +805,7 @@ public class GUIThongKe extends JPanel {
 		
 		JPanel panel_9 = new JPanel();
 		panel_9.setBackground(new Color(255, 255, 255));
-		panel_9.setBounds(629, 20, 569, 277);
+		panel_9.setBounds(629, 20, 598, 277);
 		pnlThongKeSanPham.add(panel_9);
 		panel_9.setLayout(null);
 		
@@ -824,7 +824,7 @@ public class GUIThongKe extends JPanel {
 		tbDanhSachSanPhamDoiTra = new MyTable(modelDanhSachSanPhamDoiTra);
 		
 		JScrollPane srcDanhSachSanPhamBiDoiTra = new JScrollPane(tbDanhSachSanPhamDoiTra);
-		srcDanhSachSanPhamBiDoiTra.setBounds(23, 36, 521, 216);
+		srcDanhSachSanPhamBiDoiTra.setBounds(23, 36, 547, 216);
 		panel_9.add(srcDanhSachSanPhamBiDoiTra);
 		
 		JLabel lblNewLabel_8 = new JLabel("Danh sách sản phẩm bị đổi trả");

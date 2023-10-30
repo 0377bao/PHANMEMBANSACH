@@ -21,10 +21,10 @@ public class GUITrangChu extends JPanel {
 		this.setBounds(250, 0, 1250, 800);
 		this.setLayout(null);
 		JLabel lblBgr = new JLabel(new ImageIcon("src\\image\\imagepanel\\hinhnentrangchu.jpg"));
-		lblBgr.setBounds(0, 0, 1250, 800);
+		lblBgr.setBounds(0, 0, 1267, 800);
 		this.add(lblBgr);
 		JLabel lblBgrTrangChu = new JLabel();
-		lblBgrTrangChu.setBounds(29, 22, 1183, 625);
+		lblBgrTrangChu.setBounds(29, 22, 1227, 625);
 		lblBgrTrangChu.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
 //		lấy hình gốc
 		ImageIcon iconLblBgr = new ImageIcon("src\\image\\imagepanel\\hinhnentrangchu.jpg");

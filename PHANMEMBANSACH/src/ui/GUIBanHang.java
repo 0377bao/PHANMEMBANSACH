@@ -856,6 +856,8 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
 			LuminanceSource source = new BufferedImageLuminanceSource(image);
 			BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
 			
+			
+			
 			try {
 				result = new MultiFormatReader().decode(bitmap);
 			} catch (NotFoundException e) {
