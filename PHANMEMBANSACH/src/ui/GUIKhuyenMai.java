@@ -98,7 +98,7 @@ public class GUIKhuyenMai extends JPanel {
 		btnLuu = new MyButton("Lưu");
 		btnLuu.setBackground(new Color(97, 166, 247));
 		btnLuu.setBounds(348, 183, 120, 30);
-		btnLuu.setIcon(new ImageIcon("src\\image\\giaohang\\iconsave.png"));
+		btnLuu.setIcon(new ImageIcon("src\\image\\khuyenmai\\iconsave.png"));
 		panel.add(btnLuu);
 		
 		JPanel panel_3 = new JPanel();
@@ -140,14 +140,14 @@ public class GUIKhuyenMai extends JPanel {
 		
 		btnXoaTrang = new MyButton("Xóa trắng");
 		btnXoaTrang.setBackground(new Color(97, 166, 247));
-		btnXoaTrang.setIcon(new ImageIcon("src\\image\\giaohang\\iconclean.png"));
+		btnXoaTrang.setIcon(new ImageIcon("src\\image\\khuyenmai\\iconclean.png"));
 		btnXoaTrang.setBounds(107, 187, 120, 30);
 		panel_3.add(btnXoaTrang);
 		
 		btnThem = new MyButton("Thêm ");
 		btnThem.setBackground(new Color(97, 166, 247));
 		btnThem.setBounds(290, 187, 120, 30);
-		btnThem.setIcon(new ImageIcon("src\\image\\giaohang\\iconplus.png"));
+		btnThem.setIcon(new ImageIcon("src\\image\\khuyenmai\\iconplus.png"));
 		panel_3.add(btnThem);
 		
 		
@@ -284,7 +284,7 @@ public class GUIKhuyenMai extends JPanel {
 		JButton btnNewButton = new JButton("");
 		btnNewButton.setEnabled(false);
 		btnNewButton.setBounds(311, 349, 30, 30);
-		btnNewButton.setIcon(new ImageIcon("src\\image\\giaohang\\iconarrowdown.png"));
+		btnNewButton.setIcon(new ImageIcon("src\\image\\khuyenmai\\iconarrowdown.png"));
 		panel_6.add(btnNewButton);
 		
 		JLabel lblNewLabel_6 = new JLabel("Chi tiết chương trình khuyến mãi");
