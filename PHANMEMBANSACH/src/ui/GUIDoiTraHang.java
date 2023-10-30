@@ -68,7 +68,7 @@ public class GUIDoiTraHang extends JPanel {
 		setLayout(null);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(0, 0, 1230, 760);
+		tabbedPane.setBounds(0, 0, 1300, 793);
 		add(tabbedPane);
 		
 		JPanel pnlDonDoiTra = new JPanel();
@@ -183,7 +183,7 @@ public class GUIDoiTraHang extends JPanel {
 		JPanel pnlDanhSachHoaDon = new JPanel();
 		pnlDanhSachHoaDon.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		pnlDanhSachHoaDon.setBackground(new Color(255, 255, 255));
-		pnlDanhSachHoaDon.setBounds(27, 316, 542, 392);
+		pnlDanhSachHoaDon.setBounds(27, 316, 542, 424);
 		pnlDonDoiTra.add(pnlDanhSachHoaDon);
 		pnlDanhSachHoaDon.setLayout(null);
 		
@@ -208,14 +208,14 @@ public class GUIDoiTraHang extends JPanel {
 		tbDanhSachHoaDon = new MyTable(modelDanhSachHoaDon);		
 		tbDanhSachHoaDon.getColumnModel().getColumn(2).setPreferredWidth(120);
 		srcDanhSachHoaDon = new JScrollPane(tbDanhSachHoaDon,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		srcDanhSachHoaDon.setBounds(20, 40, 500, 341);
+		srcDanhSachHoaDon.setBounds(20, 40, 500, 370);
 		
 		pnlDanhSachHoaDon.add(srcDanhSachHoaDon);
 		
 		JPanel pnlSanPhamTrongHoaDon = new JPanel();
 		pnlSanPhamTrongHoaDon.setBackground(new Color(255, 255, 255));
 		pnlSanPhamTrongHoaDon.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		pnlSanPhamTrongHoaDon.setBounds(592, 28, 611, 332);
+		pnlSanPhamTrongHoaDon.setBounds(592, 28, 638, 332);
 		pnlDonDoiTra.add(pnlSanPhamTrongHoaDon);
 		pnlSanPhamTrongHoaDon.setLayout(null);
 		
@@ -243,7 +243,7 @@ public class GUIDoiTraHang extends JPanel {
 
 		
 		JScrollPane srcDanhSachSanPham = new JScrollPane(tbDanhSachSanPham,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		srcDanhSachSanPham.setBounds(20, 35, 576, 240);
+		srcDanhSachSanPham.setBounds(20, 35, 593, 240);
 		pnlSanPhamTrongHoaDon.add(srcDanhSachSanPham);
 		
 		JComboBox cbPhuongThucDoiTra = new MyCombobox();
@@ -269,7 +269,7 @@ public class GUIDoiTraHang extends JPanel {
 		JPanel pnlThongTinDonDoiTra = new JPanel();
 		pnlThongTinDonDoiTra.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		pnlThongTinDonDoiTra.setBackground(new Color(255, 255, 255));
-		pnlThongTinDonDoiTra.setBounds(592, 384, 611, 324);
+		pnlThongTinDonDoiTra.setBounds(592, 384, 638, 356);
 		pnlDonDoiTra.add(pnlThongTinDonDoiTra);
 		pnlThongTinDonDoiTra.setLayout(null);
 		
@@ -296,7 +296,7 @@ public class GUIDoiTraHang extends JPanel {
 		txtDiemHoanTra.setEnabled(false);
 		txtDiemHoanTra.setFont(new Font("Times New Roman", Font.PLAIN, 15));
 		txtDiemHoanTra.setDisabledTextColor(Color.black);
-		txtDiemHoanTra.setBounds(477, 11, 96, 20);
+		txtDiemHoanTra.setBounds(477, 11, 114, 20);
 		pnlThongTinDonDoiTra.add(txtDiemHoanTra);
 		txtDiemHoanTra.setColumns(10);
 		
@@ -326,25 +326,25 @@ public class GUIDoiTraHang extends JPanel {
 		tbDonDoiTra = new MyTable(modelDonDoiTra);	
 		
 		JScrollPane srcDonDoiTra = new JScrollPane(tbDonDoiTra,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		srcDonDoiTra.setBounds(15, 80, 580, 138);
+		srcDonDoiTra.setBounds(15, 80, 602, 184);
 		pnlThongTinDonDoiTra.add(srcDonDoiTra);
 		
 		JLabel lblTongSoLuongDoi = new JLabel("Tổng số lượng sản phẩm đổi hàng:");
 		lblTongSoLuongDoi.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblTongSoLuongDoi.setBounds(30, 244, 220, 20);
+		lblTongSoLuongDoi.setBounds(30, 275, 220, 20);
 		pnlThongTinDonDoiTra.add(lblTongSoLuongDoi);
 		
 		txtTongSoLuongDoi = new JTextField();
 		txtTongSoLuongDoi.setHorizontalAlignment(SwingConstants.RIGHT);
 		txtTongSoLuongDoi.setEnabled(false);
-		txtTongSoLuongDoi.setBounds(259, 245, 135, 20);
+		txtTongSoLuongDoi.setBounds(259, 276, 135, 20);
 		txtTongSoLuongDoi.setDisabledTextColor(Color.black);
 		pnlThongTinDonDoiTra.add(txtTongSoLuongDoi);
 		txtTongSoLuongDoi.setColumns(10);
 		
 		JLabel lblTongTienTra = new JLabel("Tổng tiền phải trả:");
 		lblTongTienTra.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblTongTienTra.setBounds(30, 274, 150, 20);
+		lblTongTienTra.setBounds(30, 305, 150, 20);
 		pnlThongTinDonDoiTra.add(lblTongTienTra);
 		
 		txtTongTienTra = new JTextField();
@@ -354,7 +354,7 @@ public class GUIDoiTraHang extends JPanel {
 		txtTongTienTra.setEnabled(false);
 		txtTongTienTra.setText("1.000.000");
 		txtTongTienTra.setColumns(10);
-		txtTongTienTra.setBounds(259, 275, 135, 20);
+		txtTongTienTra.setBounds(259, 306, 135, 20);
 		txtTongTienTra.setDisabledTextColor(Color.red);
 		pnlThongTinDonDoiTra.add(txtTongTienTra);
 		
@@ -362,20 +362,20 @@ public class GUIDoiTraHang extends JPanel {
 		btnHoanThanhDon.setForeground(new Color(255, 255, 255));
 		btnHoanThanhDon.setBackground(new Color(87, 255, 130));
 		btnHoanThanhDon.setFont(new Font("Times New Roman", Font.BOLD, 16));
-		btnHoanThanhDon.setBounds(434, 244, 139, 23);
+		btnHoanThanhDon.setBounds(434, 275, 139, 23);
 		pnlThongTinDonDoiTra.add(btnHoanThanhDon);
 		
 		JButton btnHuy = new MyButton("Hủy đơn");
 		btnHuy.setForeground(new Color(255, 255, 255));
 		btnHuy.setBackground(new Color(255, 83, 83));
 		btnHuy.setFont(new Font("Times New Roman", Font.BOLD, 16));
-		btnHuy.setBounds(434, 274, 139, 23);
+		btnHuy.setBounds(434, 305, 139, 23);
 		pnlThongTinDonDoiTra.add(btnHuy);
 		
 		MyButton btnXoaSanPham = new MyButton("Xóa");
 		btnXoaSanPham.setForeground(Color.WHITE);
 		btnXoaSanPham.setFont(new Font("Times New Roman", Font.BOLD, 16));
-		btnXoaSanPham.setBounds(453, 43, 120, 23);
+		btnXoaSanPham.setBounds(465, 43, 126, 23);
 		pnlThongTinDonDoiTra.add(btnXoaSanPham);
 		
 		JPanel pnlQuanLyDonDoiTra = new JPanel();
@@ -388,7 +388,7 @@ public class GUIDoiTraHang extends JPanel {
 		JPanel pnlThongTinDonDoiTraQL = new JPanel();
 		pnlThongTinDonDoiTraQL.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		pnlThongTinDonDoiTraQL.setBackground(new Color(255, 255, 255));
-		pnlThongTinDonDoiTraQL.setBounds(23, 25, 1172, 226);
+		pnlThongTinDonDoiTraQL.setBounds(23, 25, 1198, 226);
 		pnlQuanLyDonDoiTra.add(pnlThongTinDonDoiTraQL);
 		pnlThongTinDonDoiTraQL.setLayout(null);
 		
@@ -559,7 +559,7 @@ public class GUIDoiTraHang extends JPanel {
 		JPanel pnlTimKiemDonDoiTraQL = new JPanel();
 		pnlTimKiemDonDoiTraQL.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		pnlTimKiemDonDoiTraQL.setBackground(new Color(255, 255, 255));
-		pnlTimKiemDonDoiTraQL.setBounds(658, 267, 538, 180);
+		pnlTimKiemDonDoiTraQL.setBounds(658, 267, 563, 180);
 		pnlQuanLyDonDoiTra.add(pnlTimKiemDonDoiTraQL);
 		pnlTimKiemDonDoiTraQL.setLayout(null);
 		
@@ -610,7 +610,7 @@ public class GUIDoiTraHang extends JPanel {
 		JPanel pnlDanhSachDonDoiTraQL = new JPanel();
 		pnlDanhSachDonDoiTraQL.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		pnlDanhSachDonDoiTraQL.setBackground(new Color(255, 255, 255));
-		pnlDanhSachDonDoiTraQL.setBounds(23, 462, 1172, 250);
+		pnlDanhSachDonDoiTraQL.setBounds(23, 462, 1198, 292);
 		pnlQuanLyDonDoiTra.add(pnlDanhSachDonDoiTraQL);
 		pnlDanhSachDonDoiTraQL.setLayout(null);
 		
@@ -637,7 +637,7 @@ public class GUIDoiTraHang extends JPanel {
 		tbDonDoiTraQL = new MyTable(modelDonDoiTraQL);	
 		
 		JScrollPane srcDanhSachDonDoiTraQL = new JScrollPane(tbDonDoiTraQL, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		srcDanhSachDonDoiTraQL.setBounds(30, 41, 1121, 198);
+		srcDanhSachDonDoiTraQL.setBounds(30, 41, 1142, 229);
 		pnlDanhSachDonDoiTraQL.add(srcDanhSachDonDoiTraQL);
 
 	}

@@ -50,7 +50,6 @@ import java.util.logging.Logger;
 
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import java.awt.Component;
 import java.awt.Dimension;
 
 import javax.swing.JTextArea;
@@ -73,6 +72,7 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
 	private Webcam webcam = null;
 	private Executor executor = Executors.newSingleThreadExecutor(this);
 	private JPanel pnlKhungQuetMa;
+    
 	public GUIBanHang(TrangChu view) {
 		this.view = view;
 		this.setBackground(new Color(255, 255, 255));
@@ -863,6 +863,7 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
 				
 			}
 			if(result != null) {
+				
 				txtMaSanPham.setText(result.getText());
 			}
 		}while((view.indexFrame.equals("Bán hàng")));
