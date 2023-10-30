@@ -203,27 +203,27 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
 		btnHuyHoaDon.setForeground(new Color(255, 255, 255));
 		btnHuyHoaDon.setBackground(new Color(255, 0, 0));
 		btnHuyHoaDon.setFont(new Font("Tahoma", Font.BOLD, 12));
-		//btnHuyHoaDon.setIcon(new ImageIcon("src\\image\\iconcontrolbtntrangchu\\iconnhantrang.png"));
+		btnHuyHoaDon.setIcon(new ImageIcon("src\\image\\iconcontrolbtntrangchu\\iconnhantrang.png"));
 		btnHuyHoaDon.setBounds(10, 578, 140, 30);
 		pnlThanhToan.add(btnHuyHoaDon);
 		
 		JButton btnLamMoiHoaDon = new MyButton("Làm mới");
 		btnLamMoiHoaDon.setFont(new Font("Tahoma", Font.BOLD, 12));
-		//btnLamMoiHoaDon.setIcon(new ImageIcon("src\\image\\iconcontrolbtntrangchu\\iconlammoi.png"));
+		btnLamMoiHoaDon.setIcon(new ImageIcon("src\\image\\iconcontrolbtntrangchu\\iconlammoi.png"));
 		btnLamMoiHoaDon.setBounds(168, 578, 140, 30);
 		pnlThanhToan.add(btnLamMoiHoaDon);
 		
 		JButton btnTaoMoiHoaDon = new MyButton("Tạo hóa đơn");
 		btnTaoMoiHoaDon.setBackground(new Color(255, 255, 128));
 		btnTaoMoiHoaDon.setFont(new Font("Tahoma", Font.BOLD, 12));
-		//btnTaoMoiHoaDon.setIcon(new ImageIcon("src\\image\\iconcontrolbtntrangchu\\icontaomoi.png"));
+		btnTaoMoiHoaDon.setIcon(new ImageIcon("src\\image\\iconcontrolbtntrangchu\\icontaomoi.png"));
 		btnTaoMoiHoaDon.setBounds(10, 618, 298, 39);
 		pnlThanhToan.add(btnTaoMoiHoaDon);
 		
 		JButton btnThanhTon = new MyButton("Thanh toán");
 		btnThanhTon.setBackground(new Color(128, 255, 128));
 		btnThanhTon.setFont(new Font("Tahoma", Font.BOLD, 14));
-		//btnThanhTon.setIcon(new ImageIcon("src\\image\\iconcontrolbtntrangchu\\iconthanhtoan.png"));
+		btnThanhTon.setIcon(new ImageIcon("src\\image\\iconcontrolbtntrangchu\\iconthanhtoan.png"));
 		btnThanhTon.setBounds(10, 667, 298, 69);
 		pnlThanhToan.add(btnThanhTon);
 		
@@ -319,7 +319,7 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
 		MyButton btnThemSanPham = new MyButton("Thêm sản phẩm");
 		btnThemSanPham.setText("Thêm");
 		btnThemSanPham.setBackground(new Color(255, 255, 128));
-		//btnThemSanPham.setIcon(new ImageIcon("src\\image\\iconcontrolbtntrangchu\\iconcong.png"));
+		btnThemSanPham.setIcon(new ImageIcon("src\\image\\iconcontrolbtntrangchu\\iconcong.png"));
 		btnThemSanPham.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnThemSanPham.setBounds(540, 165, 131, 35);
 		pnlSanPham.add(btnThemSanPham);
@@ -328,12 +328,12 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
 		lblAnhSanPham.setBounds(21, 77, 131, 189);
 		lblAnhSanPham.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
 //		lấy hình gốc
-		//ImageIcon iconLblBgr = new ImageIcon("src\\image\\imagepanel\\hinhnen.jpeg");
+		ImageIcon iconLblBgr = new ImageIcon("src\\image\\imagepanel\\hinhnen.jpeg");
 //		phóng to hình
-		//Image scaledImage = ((ImageIcon) iconLblBgr).getImage().getScaledInstance(lblAnhSanPham.getWidth(), lblAnhSanPham.getHeight(), Image.SCALE_SMOOTH);
+		Image scaledImage = ((ImageIcon) iconLblBgr).getImage().getScaledInstance(lblAnhSanPham.getWidth(), lblAnhSanPham.getHeight(), Image.SCALE_SMOOTH);
 //		gán lại hình
-        //iconLblBgr = new ImageIcon(scaledImage);
-        //lblAnhSanPham.setIcon(iconLblBgr);
+        iconLblBgr = new ImageIcon(scaledImage);
+        lblAnhSanPham.setIcon(iconLblBgr);
         pnlSanPham.add(lblAnhSanPham);
         
         JPanel pnlSanPhamSach = new JPanel();
@@ -603,13 +603,6 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
 		pnlKhungQuetMa = new JPanel();
 		pnlKhungQuetMa.setBorder(new LineBorder(new Color(0, 0, 0)));
 		pnlKhungQuetMa.setBounds(10, 40, 232, 246);
-//		lấy hình gốc
-		//ImageIcon iconLblBgrQuetMa = new ImageIcon("src\\image\\imagepanel\\quetma.jpeg");
-//		phóng to hình
-		//Image scaledImageQuetMa = ((ImageIcon) iconLblBgrQuetMa).getImage().getScaledInstance(lblKhungQuetMa.getWidth(), lblKhungQuetMa.getHeight(), Image.SCALE_SMOOTH);
-//		gán lại hình
-		//iconLblBgrQuetMa = new ImageIcon(scaledImageQuetMa);
-		//lblKhungQuetMa.setIcon(iconLblBgrQuetMa);
 		pnlQuetMa.add(pnlKhungQuetMa);
 		
 		JPanel pnlQlHoaDon = new JPanel();
