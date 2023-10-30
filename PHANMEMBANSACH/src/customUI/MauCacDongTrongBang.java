@@ -1,4 +1,4 @@
-package CustomUI;
+package customUI;
 
 import java.awt.Color;
 import java.awt.Component;

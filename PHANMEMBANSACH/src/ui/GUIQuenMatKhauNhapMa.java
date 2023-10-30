@@ -12,8 +12,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import CustomUI.CustumImage;
-import CustomUI.MyButton;
+import customUI.CustumImage;
+import customUI.MyButton;
 
 import javax.swing.border.BevelBorder;
 import java.awt.Font;
