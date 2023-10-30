@@ -1,3 +1,19 @@
 /ui/
+<<<<<<< HEAD
 /mapdata/
 /connect/
+=======
+/view/
+/image/
+<<<<<<< HEAD
+=======
+/dso/
+/dao/
+>>>>>>> 87021863c8fd0659d9f75d907fe88391044edf6c
+/DAO/
+/BUS/
+/bus/
+/customUI/
+>>>>>>> 7fa27477355ce8141493a20e6d7836daa4cf485b
+/CustomUI/
+/controller/

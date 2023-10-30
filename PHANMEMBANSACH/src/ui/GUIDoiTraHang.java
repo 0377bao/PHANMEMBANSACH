@@ -11,16 +11,16 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTabbedPane;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
-
-import CustomUI.MyButton;
-import CustomUI.MyCombobox;
-import CustomUI.MyTable;
-
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import customUI.MyButton;
+import customUI.MyCombobox;
+import customUI.MyTable;
+
 import javax.swing.JScrollPane;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;

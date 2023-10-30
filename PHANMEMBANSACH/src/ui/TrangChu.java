@@ -9,9 +9,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import CustomUI.CustumImage;
-import CustomUI.ButtonSidebar;
 import controller.XuLyDieuHuongPhamMem;
+import customUI.ButtonSidebar;
+import customUI.CustumImage;
+import entity.NhanVien;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -46,24 +47,28 @@ public class TrangChu extends JFrame {
 	private ButtonSidebar btnHoTro;
 	private Color colorBtnActive = new Color(10, 110, 227);
 	private JPanel pnlHienTai;
+	private NhanVien nvHienTai = null;
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TrangChu frame = new TrangChu();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					TrangChu frame = new TrangChu();
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
 	 */
-	public TrangChu() {
+	
+	
+	public TrangChu(NhanVien nv) {
+		this.nvHienTai = nv;
 		this.setTitle("PHẦN MỀM NHÀ SÁCH");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(1500, 800);
@@ -83,12 +88,12 @@ public class TrangChu extends JFrame {
 		pnlSideBar.setLayout(null);
 
 		int widthLblAvtNhanVien = 130;
-		lblAvtNhanVien = new JLabel(new CustumImage().taoHinhTronAvt("src\\image\\avtemployee\\avt.jpg", widthLblAvtNhanVien));
+		lblAvtNhanVien = new JLabel(new CustumImage().taoHinhTronAvt(nv.getHinhAnh(), widthLblAvtNhanVien));
 		lblAvtNhanVien.setAlignmentX(Component.CENTER_ALIGNMENT);
 		lblAvtNhanVien.setBounds(60, 20, widthLblAvtNhanVien, widthLblAvtNhanVien);
 		pnlSideBar.add(lblAvtNhanVien);
 
-		lblTenNhanVien = new JLabel("Nguyễn Trọng Đạt");
+		lblTenNhanVien = new JLabel(nvHienTai.getTenNhanVien());
 		lblTenNhanVien.setBounds(10, 150, 230, 50);
 		lblTenNhanVien.setHorizontalAlignment(JLabel.CENTER);
 		lblTenNhanVien.setFont(new Font("Segoe UI", Font.BOLD, 20));

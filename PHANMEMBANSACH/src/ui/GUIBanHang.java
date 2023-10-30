@@ -30,9 +30,9 @@ import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.HybridBinarizer;
 import com.toedter.calendar.JDateChooser;
 
-import CustomUI.MyButton;
-import CustomUI.MyCombobox;
-import CustomUI.MyTable;
+import customUI.MyButton;
+import customUI.MyCombobox;
+import customUI.MyTable;
 
 import javax.swing.JLabel;
 import java.awt.Font;

@@ -18,9 +18,10 @@ import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
-import CustomUI.MyButton;
-import CustomUI.MyCombobox;
-import CustomUI.MyTable;
+import customUI.MyButton;
+import customUI.MyCombobox;
+import customUI.MyTable;
+
 import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;

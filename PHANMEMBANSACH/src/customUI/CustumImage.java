@@ -1,4 +1,4 @@
-package CustomUI;
+package customUI;
 
 import java.awt.Graphics2D;
 import java.awt.Image;

@@ -8,12 +8,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
-
-import CustomUI.MyButton;
-import CustomUI.MyTable;
-
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+
+import customUI.MyButton;
+import customUI.MyTable;
+
 import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
 import java.awt.event.ActionListener;

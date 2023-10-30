@@ -13,9 +13,9 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
-import CustomUI.MyButton;
-import CustomUI.MyCombobox;
-import CustomUI.MyTable;
+import customUI.MyButton;
+import customUI.MyCombobox;
+import customUI.MyTable;
 
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
