@@ -58,9 +58,6 @@ public class GUISanPham extends JPanel {
 	private JTextField txtLocTheLoaiS;
 	private JTextField txtLocNamXB;
 	private JTextField txtLocTacGia;
-	private DefaultTableModel model;
-	private JTable tableSach;
-	private JScrollPane scrSach;
 	private MyCombobox cboLocNCC;
 	private MyCombobox cboLocNCCS;
 	private MyCombobox cboNhaCungCap;
@@ -77,12 +74,9 @@ public class GUISanPham extends JPanel {
 	private JButton btnTaiLai;
 	private JButton btnTimMaS;
 	private JButton btnTimMa;
-	private MyTable table;
-	private JScrollPane scr;
 	private JComboBox cboLocTrangThaiS;
 	private JLabel lblTrangThai_1;
 	private JCheckBox chkTrangThai_1;
-	private JPanel pnlHinhAnh_1;
 
 	public GUISanPham() {
 		this.setBackground(new Color(255, 255, 255));
@@ -104,7 +98,7 @@ public class GUISanPham extends JPanel {
 		// thông tin sách
 		JPanel pnlThongTinS = new JPanel();
 		pnlThongTinS.setBackground(new Color(255, 255, 255));
-		pnlThongTinS.setBounds(20, 20, 1225, 255);
+		pnlThongTinS.setBounds(20, 20, 1235, 255);
 		pnlThongTinS.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Th\u00F4ng Tin S\u1EA3n Ph\u1EA9m",
 				TitledBorder.LEADING, TitledBorder.BELOW_TOP, null, new Color(0, 0, 0)));
 		pnlSach.add(pnlThongTinS);
@@ -259,11 +253,12 @@ public class GUISanPham extends JPanel {
 
 		JPanel pnlHinhAnh = new JPanel();
 		pnlHinhAnh.setBackground(new Color(255, 255, 255));
-		pnlHinhAnh.setBounds(1046, 30, 135, 180);
+		pnlHinhAnh.setBounds(1020, 30, 180, 180);
 		pnlHinhAnh.setBorder(null);
 		pnlHinhAnh.setForeground(new Color(255, 255, 255));
 		pnlThongTinS.add(pnlHinhAnh);
-		//ImageIcon anhSach = new ImageIcon("src/image/sanpham/tuoi-tre-dang-gia-bao-nhieu.png");
+		// ImageIcon anhSach = new
+		// ImageIcon("src/image/sanpham/tuoi-tre-dang-gia-bao-nhieu.png");
 		pnlHinhAnh.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		JLabel lblHinhAnhS = new JLabel();
 //		lblHinhAnhS.setIcon(new ImageIcon(GUISanPham.class.getResource("/image/product/SPS4.jpg")));
@@ -289,7 +284,7 @@ public class GUISanPham extends JPanel {
 		// tìm kiếm
 		JPanel pnlTimKiemS = new JPanel();
 		pnlTimKiemS.setBackground(new Color(255, 255, 255));
-		pnlTimKiemS.setBounds(20, 290, 900, 195);
+		pnlTimKiemS.setBounds(20, 290, 910, 195);
 		pnlTimKiemS.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "T\u00ECm Ki\u1EBFm",
 				TitledBorder.LEADING, TitledBorder.BELOW_TOP, null, new Color(0, 0, 0)));
 		pnlSach.add(pnlTimKiemS);
@@ -368,7 +363,7 @@ public class GUISanPham extends JPanel {
 		pnlChucNang.setBackground(new Color(255, 255, 255));
 		pnlChucNang.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Ch\u1EE9c N\u0103ng",
 				TitledBorder.LEADING, TitledBorder.BELOW_TOP, null, new Color(0, 0, 0)));
-		pnlChucNang.setBounds(935, 290, 310, 195);
+		pnlChucNang.setBounds(945, 290, 310, 195);
 		pnlSach.add(pnlChucNang);
 		pnlChucNang.setLayout(null);
 
@@ -405,17 +400,17 @@ public class GUISanPham extends JPanel {
 		pnlTableS.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Danh S\u00E1ch S\u1EA3n Ph\u1EA9m",
 				TitledBorder.LEADING, TitledBorder.BELOW_TOP, null, new Color(0, 0, 0)));
 		pnlTableS.setBackground(new Color(255, 255, 255));
-		pnlTableS.setBounds(20, 500, 1225, 263);
+		pnlTableS.setBounds(20, 500, 1235, 263);
 		pnlSach.add(pnlTableS);
 		String[] colsSach = { "Mã SP", "Tên sản phẩm", "Nhà cung cấp", "Tác giả", "Thể loại", "Nhà xuất bản",
 				"Năm xuất bản", "Kệ", "Số lượng", "Giá nhập" };
-		model = new DefaultTableModel(colsSach, 0);
+		DefaultTableModel modelS = new DefaultTableModel(colsSach, 0);
 		pnlTableS.setLayout(null);
-		tableSach = new MyTable(model);
-		scrSach = new JScrollPane(tableSach, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+		JTable tableSach = new MyTable(modelS);
+		JScrollPane scrSach = new JScrollPane(tableSach, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrSach.setLocation(29, 20);
-		scrSach.setSize(1171, 233);
+		scrSach.setSize(1184, 233);
 		pnlTableS.add(scrSach);
 
 		// Tab văn phòng phẩm
@@ -427,7 +422,7 @@ public class GUISanPham extends JPanel {
 		// thông tin văn phòng phẩm
 		JPanel pnlThongTin = new JPanel();
 		pnlThongTin.setBackground(new Color(255, 255, 255));
-		pnlThongTin.setBounds(20, 20, 1225, 255);
+		pnlThongTin.setBounds(20, 20, 1235, 255);
 		pnlThongTin.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Th\u00F4ng Tin S\u1EA3n Ph\u1EA9m",
 				TitledBorder.LEADING, TitledBorder.BELOW_TOP, null, new Color(0, 0, 0)));
 		pnlVPP.add(pnlThongTin);
@@ -566,17 +561,19 @@ public class GUISanPham extends JPanel {
 		cboDanhMuc.setBounds(609, 114, 337, 25);
 		pnlThongTin.add(cboDanhMuc);
 
-		pnlHinhAnh_1 = new JPanel();
+		JPanel pnlHinhAnh_1 = new JPanel();
 		pnlHinhAnh_1.setBackground(new Color(255, 255, 255));
 		pnlHinhAnh_1.setBounds(1020, 30, 180, 180);
 		pnlThongTin.add(pnlHinhAnh_1);
 		pnlHinhAnh_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		
+
 		JLabel lblHinhAnh = new JLabel();
 		lblHinhAnh.setBounds(1046, 30, 135, 180);
 		pnlHinhAnh_1.add(lblHinhAnh);
-		//ImageIcon anhSP = new ImageIcon("src/image/sanpham/tuoi-tre-dang-gia-bao-nhieu.png");
-		//lblHinhAnh.setIcon(new ImageIcon(GUISanPham.class.getResource("/image/sanpham/balo-nu.png")));
+		// ImageIcon anhSP = new
+		// ImageIcon("src/image/sanpham/tuoi-tre-dang-gia-bao-nhieu.png");
+		// lblHinhAnh.setIcon(new
+		// ImageIcon(GUISanPham.class.getResource("/image/sanpham/balo-nu.png")));
 
 		btnHinhAnh = new MyButton("Chọn ảnh ");
 		btnHinhAnh.setBounds(1067, 220, 100, 21);
@@ -598,7 +595,7 @@ public class GUISanPham extends JPanel {
 		// tìm kiếm
 		JPanel pnlTimKiem = new JPanel();
 		pnlTimKiem.setBackground(new Color(255, 255, 255));
-		pnlTimKiem.setBounds(20, 290, 900, 195);
+		pnlTimKiem.setBounds(20, 290, 910, 195);
 		pnlTimKiem.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "T\u00ECm Ki\u1EBFm",
 				TitledBorder.LEADING, TitledBorder.BELOW_TOP, null, null));
 		pnlVPP.add(pnlTimKiem);
@@ -668,21 +665,23 @@ public class GUISanPham extends JPanel {
 		pnlChucNang_1.setBackground(new Color(255, 255, 255));
 		pnlChucNang_1.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Ch\u1EE9c N\u0103ng",
 				TitledBorder.LEADING, TitledBorder.BELOW_TOP, null, new Color(0, 0, 0)));
-		pnlChucNang_1.setBounds(935, 290, 310, 195);
+		pnlChucNang_1.setBounds(945, 290, 310, 195);
 		pnlVPP.add(pnlChucNang_1);
 		pnlChucNang_1.setLayout(null);
 
 		btnThemSP = new MyButton("THÊM SẢN PHẨM");
 		btnThemSP.setFont(new Font("Tahoma", Font.BOLD, 13));
-		//btnThemSP.setBackground(new Color(36, 204, 86));
-		//btnThemSP.setIcon(new ImageIcon(GUISanPham.class.getResource("/image/sanpham/icons8-add-24.png")));
+		// btnThemSP.setBackground(new Color(36, 204, 86));
+		// btnThemSP.setIcon(new
+		// ImageIcon(GUISanPham.class.getResource("/image/sanpham/icons8-add-24.png")));
 		btnThemSP.setForeground(new Color(255, 255, 255));
 		btnThemSP.setText("Thêm");
 		btnThemSP.setBounds(35, 48, 100, 30);
 		pnlChucNang_1.add(btnThemSP);
 
 		btnCapNhat = new MyButton("CẬP NHẬT ");
-		//btnCapNhat.setIcon(new ImageIcon(GUISanPham.class.getResource("/image/sanpham/icons8-update-24.png")));
+		// btnCapNhat.setIcon(new
+		// ImageIcon(GUISanPham.class.getResource("/image/sanpham/icons8-update-24.png")));
 		btnCapNhat.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnCapNhat.setBackground(new Color(158, 16, 205));
 		btnCapNhat.setText("Cập nhật");
@@ -691,7 +690,8 @@ public class GUISanPham extends JPanel {
 		pnlChucNang_1.add(btnCapNhat);
 
 		btnXoaTrang = new MyButton("XÓA TRẮNG");
-		//btnXoaTrang.setIcon(new ImageIcon(GUISanPham.class.getResource("/image/sanpham/icons8-clean-24.png")));
+		// btnXoaTrang.setIcon(new
+		// ImageIcon(GUISanPham.class.getResource("/image/sanpham/icons8-clean-24.png")));
 		btnXoaTrang.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnXoaTrang.setBackground(new Color(249, 101, 45));
 		btnXoaTrang.setText("Xóa trắng");
@@ -700,7 +700,8 @@ public class GUISanPham extends JPanel {
 		pnlChucNang_1.add(btnXoaTrang);
 
 		btnTaiLai = new MyButton("TẢI LẠI");
-		//btnTaiLai.setIcon(new ImageIcon(GUISanPham.class.getResource("/image/sanpham/icons8-reload-24.png")));
+		// btnTaiLai.setIcon(new
+		// ImageIcon(GUISanPham.class.getResource("/image/sanpham/icons8-reload-24.png")));
 		btnTaiLai.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnTaiLai.setText("Tải lại");
 		btnTaiLai.setForeground(new Color(255, 255, 255));
@@ -712,18 +713,18 @@ public class GUISanPham extends JPanel {
 		pnlTable.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Danh S\u00E1ch S\u1EA3n Ph\u1EA9m",
 				TitledBorder.LEADING, TitledBorder.BELOW_TOP, null, new Color(0, 0, 0)));
 		pnlTable.setBackground(new Color(255, 255, 255));
-		pnlTable.setBounds(20, 500, 1225, 263);
+		pnlTable.setBounds(20, 500, 1235, 263);
 		pnlVPP.add(pnlTable);
 
 		String[] cols = { "Mã SP", "Tên sản phẩm", "Nhà cung cấp", "Danh mục", "Thể loại", "Chất liệu", "Kệ",
 				"Số lượng", "Giá nhập" };
-		model = new DefaultTableModel(cols, 0);
+		DefaultTableModel model = new DefaultTableModel(cols, 0);
 		pnlTable.setLayout(null);
-		table = new MyTable(model);
-		scr = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+		JTable table = new MyTable(model);
+		JScrollPane scr = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scr.setLocation(29, 20);
-		scr.setSize(1171, 233);
+		scr.setSize(1184, 233);
 		pnlTable.add(scr);
 
 		tabbedPane.addTab("Sách", pnlSach);

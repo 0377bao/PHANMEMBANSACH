@@ -59,7 +59,7 @@ public class GUINhanVien extends JPanel implements ActionListener, FocusListener
 
 		JPanel pnl = new JPanel();
 		pnl.setBackground(new Color(240, 240, 240));
-		pnl.setBounds(20, 20, 1240, 780);
+		pnl.setBounds(20, 20, 1250, 780);
 		this.add(pnl);
 		pnl.setLayout(null);
 
@@ -67,7 +67,7 @@ public class GUINhanVien extends JPanel implements ActionListener, FocusListener
 		pnlThongTinNV.setBackground(new Color(255, 255, 255));
 		pnlThongTinNV.setBorder(new TitledBorder(null, "Th\u00F4ng Tin Nh\u00E2n Vi\u00EAn", TitledBorder.LEADING,
 				TitledBorder.BELOW_TOP, null, new Color(0, 0, 0)));
-		pnlThongTinNV.setBounds(20, 20, 650, 365);
+		pnlThongTinNV.setBounds(20, 20, 672, 365);
 		pnl.add(pnlThongTinNV);
 		pnlThongTinNV.setLayout(null);
 
@@ -196,7 +196,7 @@ public class GUINhanVien extends JPanel implements ActionListener, FocusListener
 		pnlTimKiemNV.setBackground(new Color(255, 255, 255));
 		pnlTimKiemNV.setBorder(new TitledBorder(null, "T\u00ECm Ki\u1EBFm", TitledBorder.LEADING,
 				TitledBorder.BELOW_TOP, null, new Color(0, 0, 0)));
-		pnlTimKiemNV.setBounds(20, 400, 650, 75);
+		pnlTimKiemNV.setBounds(20, 400, 672, 75);
 		pnl.add(pnlTimKiemNV);
 		pnlTimKiemNV.setLayout(null);
 
@@ -213,7 +213,7 @@ public class GUINhanVien extends JPanel implements ActionListener, FocusListener
 				TitledBorder.BELOW_TOP, null, new Color(0, 0, 0)));
 		pnlTaiKhoan.setForeground(new Color(0, 0, 0));
 		pnlTaiKhoan.setBackground(new Color(255, 255, 255));
-		pnlTaiKhoan.setBounds(685, 20, 510, 175);
+		pnlTaiKhoan.setBounds(708, 20, 520, 175);
 		pnl.add(pnlTaiKhoan);
 		pnlTaiKhoan.setLayout(null);
 
@@ -250,7 +250,7 @@ public class GUINhanVien extends JPanel implements ActionListener, FocusListener
 		pnlChucNang.setBackground(new Color(255, 255, 255));
 		pnlChucNang.setBorder(new TitledBorder(null, "Ch\u1EE9c N\u0103ng", TitledBorder.LEADING,
 				TitledBorder.BELOW_TOP, null, new Color(0, 0, 0)));
-		pnlChucNang.setBounds(685, 210, 510, 175);
+		pnlChucNang.setBounds(708, 210, 520, 175);
 		pnl.add(pnlChucNang);
 		pnlChucNang.setLayout(null);
 
@@ -280,7 +280,7 @@ public class GUINhanVien extends JPanel implements ActionListener, FocusListener
 		pnlChucNang.add(btnTaiLai);
 
 		JPanel pnlLocNV = new JPanel();
-		pnlLocNV.setBounds(685, 400, 510, 75);
+		pnlLocNV.setBounds(708, 400, 520, 75);
 		pnl.add(pnlLocNV);
 		pnlLocNV.setBorder(new TitledBorder(null, "L\u1ECDc Nh\u00E2n Vi\u00EAn", TitledBorder.LEADING,
 				TitledBorder.BELOW_TOP, null, new Color(0, 0, 0)));
@@ -288,7 +288,8 @@ public class GUINhanVien extends JPanel implements ActionListener, FocusListener
 		pnlLocNV.setLayout(null);
 
 		btnLocGioiTinh = new MyButton("Lọc theo giới tính");
-		//btnLocGioiTinh.setIcon(new ImageIcon(GUINhanVien.class.getResource("/image/sanpham/icons8-filter-16.png")));
+		// btnLocGioiTinh.setIcon(new
+		// ImageIcon(GUINhanVien.class.getResource("/image/sanpham/icons8-filter-16.png")));
 		btnLocGioiTinh.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnLocGioiTinh.setForeground(new Color(255, 255, 255));
 		btnLocGioiTinh.setText("Giới tính");
@@ -296,7 +297,8 @@ public class GUINhanVien extends JPanel implements ActionListener, FocusListener
 		pnlLocNV.add(btnLocGioiTinh);
 
 		btnLocChucVu = new MyButton("Lọc theo chức vụ");
-		//btnLocChucVu.setIcon(new ImageIcon(GUINhanVien.class.getResource("/image/sanpham/icons8-filter-16.png")));
+		// btnLocChucVu.setIcon(new
+		// ImageIcon(GUINhanVien.class.getResource("/image/sanpham/icons8-filter-16.png")));
 		btnLocChucVu.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnLocChucVu.setForeground(new Color(255, 255, 255));
 		btnLocChucVu.setText("Chức vụ");
@@ -308,7 +310,7 @@ public class GUINhanVien extends JPanel implements ActionListener, FocusListener
 		pnlTable.setBorder(new TitledBorder(null, "Danh s\u00E1ch nh\u00E2n vi\u00EAn", TitledBorder.LEADING,
 				TitledBorder.BELOW_TOP, null, new Color(0, 0, 0)));
 		pnlTable.setBackground(new Color(255, 255, 255));
-		pnlTable.setBounds(20, 490, 1175, 280);
+		pnlTable.setBounds(20, 490, 1208, 280);
 		pnl.add(pnlTable);
 		String[] cols = { "Mã nhân viên", "Tên nhân viên", "Số điện thoại", "Giới tính", "CCCD", "Email", "Chức vụ",
 				"Địa chỉ", "Mật khẩu" };
@@ -318,7 +320,7 @@ public class GUINhanVien extends JPanel implements ActionListener, FocusListener
 		scr = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scr.setLocation(20, 25);
-		scr.setSize(1133, 234);
+		scr.setSize(1166, 237);
 		pnlTable.add(scr);
 
 		// dữ liệu mẫu
@@ -331,9 +333,7 @@ public class GUINhanVien extends JPanel implements ActionListener, FocusListener
 
 		// sự kiện
 		btnXoaTrang.addActionListener(this);
-
 		txtTimNV.addFocusListener(this);
-
 		table.addMouseListener(this);
 	}
 
