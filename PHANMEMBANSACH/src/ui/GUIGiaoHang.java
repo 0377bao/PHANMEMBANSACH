@@ -230,7 +230,7 @@ public class GUIGiaoHang extends JPanel implements ActionListener{
 			btnTinhKhoangCach.setBounds(224, 66, 149, 27);
 			panel_5.add(btnTinhKhoangCach);
 			btnTinhKhoangCach.setBackground(new Color(255, 0, 0));
-			btnTinhKhoangCach.setIcon(new ImageIcon("src\\image\\giaohang\\iconmap.png"));
+			btnTinhKhoangCach.setIcon(new ImageIcon("src\\image\\iconbtnGiaoHang\\iconmap.png"));
 			
 			txtSoKG = new JTextField();
 			txtSoKG.setBounds(117, 34, 256, 20);
@@ -265,27 +265,27 @@ public class GUIGiaoHang extends JPanel implements ActionListener{
 			
 			btnTaoDonHang.setBackground(new Color(97, 166, 247));
 			btnTaoDonHang.setBounds(1030, 247, 186, 30);
-			btnTaoDonHang.setIcon(new ImageIcon("src\\image\\giaohang\\icontaodon.png"));
+			btnTaoDonHang.setIcon(new ImageIcon("src\\image\\iconbtnGiaoHang\\icongiaohang.png"));
 			pnlGiaoHang.add(btnTaoDonHang);
 			
 			btnTaoMaDonHang = new MyButton("Tạo mã đơn hàng");
 			
 			btnTaoMaDonHang.setBackground(new Color(97, 166, 247));
 			btnTaoMaDonHang.setBounds(797, 247, 186, 30);
-			btnTaoMaDonHang.setIcon(new ImageIcon("src\\image\\giaohang\\iconqr.png"));
+			btnTaoMaDonHang.setIcon(new ImageIcon("src\\image\\iconbtnGiaoHang\\iconqr.png"));
 			pnlGiaoHang.add(btnTaoMaDonHang);
 			
 			btnInPhieuDonHang = new MyButton("In phiếu đơn hàng");
 			btnInPhieuDonHang.setBackground(new Color(97, 166, 247));
 			btnInPhieuDonHang.setBounds(556, 247, 194, 30);
-			btnInPhieuDonHang.setIcon(new ImageIcon("src\\image\\giaohang\\iconprint.png"));
+			btnInPhieuDonHang.setIcon(new ImageIcon("src\\image\\iconbtnGiaoHang\\iconprint.png"));
 			pnlGiaoHang.add(btnInPhieuDonHang);
 			
 			btnHuyTaoDon = new MyButton("In phiếu đơn hàng");
 			btnHuyTaoDon.setText("Hủy tạo đơn");
 			btnHuyTaoDon.setBackground(new Color(97, 166, 247));
 			btnHuyTaoDon.setBounds(323, 247, 194, 30);
-			btnHuyTaoDon.setIcon(new ImageIcon("src\\image\\giaohang\\iconcancel.png"));
+			btnHuyTaoDon.setIcon(new ImageIcon("src\\image\\iconbtnGiaoHang\\iconcancel.png"));
 			pnlGiaoHang.add(btnHuyTaoDon);
 			
 			JLabel lblTìmKiem = new JLabel("Tìm kiếm");
@@ -363,7 +363,7 @@ public class GUIGiaoHang extends JPanel implements ActionListener{
 			btnThanhCong.setBackground(new Color(0, 255, 128));
 			
 			btnThanhCong.setBounds(645, 720, 163, 30);
-			btnThanhCong.setIcon(new ImageIcon("src\\image\\giaohang\\iconsuccesfull.png"));
+			btnThanhCong.setIcon(new ImageIcon("src\\image\\iconbtnGiaoHang\\iconsuccesfull.png"));
 			pnlGiaoHang.add(btnThanhCong);
 			
 			btnHuyDon = new MyButton("Bị hủy");
