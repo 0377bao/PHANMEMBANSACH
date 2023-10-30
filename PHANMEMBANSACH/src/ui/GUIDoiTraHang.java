@@ -64,11 +64,12 @@ public class GUIDoiTraHang extends JPanel {
 	private JTextField txtMaHoaDonQLDDT;
 	public GUIDoiTraHang() {
 		this.setBackground(new Color(255, 255, 255));
-		this.setBounds(250, 0, 1250, 800);
+		this.setBounds(250, 0, 1285, 800);
 		setLayout(null);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(0, 0, 1300, 793);
+
+		tabbedPane.setBounds(0, 0, 1270, 790);
 		add(tabbedPane);
 		
 		JPanel pnlDonDoiTra = new JPanel();
@@ -183,7 +184,9 @@ public class GUIDoiTraHang extends JPanel {
 		JPanel pnlDanhSachHoaDon = new JPanel();
 		pnlDanhSachHoaDon.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		pnlDanhSachHoaDon.setBackground(new Color(255, 255, 255));
-		pnlDanhSachHoaDon.setBounds(27, 316, 542, 424);
+
+		pnlDanhSachHoaDon.setBounds(27, 316, 542, 425);
+
 		pnlDonDoiTra.add(pnlDanhSachHoaDon);
 		pnlDanhSachHoaDon.setLayout(null);
 		
@@ -208,14 +211,18 @@ public class GUIDoiTraHang extends JPanel {
 		tbDanhSachHoaDon = new MyTable(modelDanhSachHoaDon);		
 		tbDanhSachHoaDon.getColumnModel().getColumn(2).setPreferredWidth(120);
 		srcDanhSachHoaDon = new JScrollPane(tbDanhSachHoaDon,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		srcDanhSachHoaDon.setBounds(20, 40, 500, 370);
+
+		srcDanhSachHoaDon.setBounds(20, 40, 500, 367);
+
 		
 		pnlDanhSachHoaDon.add(srcDanhSachHoaDon);
 		
 		JPanel pnlSanPhamTrongHoaDon = new JPanel();
 		pnlSanPhamTrongHoaDon.setBackground(new Color(255, 255, 255));
 		pnlSanPhamTrongHoaDon.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		pnlSanPhamTrongHoaDon.setBounds(592, 28, 638, 332);
+
+		pnlSanPhamTrongHoaDon.setBounds(592, 28, 646, 332);
+
 		pnlDonDoiTra.add(pnlSanPhamTrongHoaDon);
 		pnlSanPhamTrongHoaDon.setLayout(null);
 		
@@ -243,7 +250,9 @@ public class GUIDoiTraHang extends JPanel {
 
 		
 		JScrollPane srcDanhSachSanPham = new JScrollPane(tbDanhSachSanPham,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		srcDanhSachSanPham.setBounds(20, 35, 593, 240);
+
+		srcDanhSachSanPham.setBounds(20, 35, 605, 240);
+
 		pnlSanPhamTrongHoaDon.add(srcDanhSachSanPham);
 		
 		JComboBox cbPhuongThucDoiTra = new MyCombobox();
@@ -256,20 +265,22 @@ public class GUIDoiTraHang extends JPanel {
 		JButton btnTaoDonDoiTtra = new MyButton("Tạo đơn");
 		btnTaoDonDoiTtra.setForeground(new Color(255, 255, 255));
 		btnTaoDonDoiTtra.setFont(new Font("Times New Roman", Font.BOLD, 16));
-		btnTaoDonDoiTtra.setBounds(307, 294, 120, 23);
+		btnTaoDonDoiTtra.setBounds(360, 294, 120, 23);
 		pnlSanPhamTrongHoaDon.add(btnTaoDonDoiTtra);
 		
 		JButton btnThemSanPham = new MyButton("Xóa");
 		btnThemSanPham.setText("Thêm");
 		btnThemSanPham.setForeground(new Color(255, 255, 255));
 		btnThemSanPham.setFont(new Font("Times New Roman", Font.BOLD, 16));
-		btnThemSanPham.setBounds(458, 294, 120, 23);
+		btnThemSanPham.setBounds(505, 294, 120, 23);
 		pnlSanPhamTrongHoaDon.add(btnThemSanPham);
 		
 		JPanel pnlThongTinDonDoiTra = new JPanel();
 		pnlThongTinDonDoiTra.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		pnlThongTinDonDoiTra.setBackground(new Color(255, 255, 255));
-		pnlThongTinDonDoiTra.setBounds(592, 384, 638, 356);
+
+		pnlThongTinDonDoiTra.setBounds(592, 384, 646, 357);
+
 		pnlDonDoiTra.add(pnlThongTinDonDoiTra);
 		pnlThongTinDonDoiTra.setLayout(null);
 		
@@ -289,14 +300,16 @@ public class GUIDoiTraHang extends JPanel {
 		
 		JLabel lblDiemHoanTra = new JLabel("Điểm hoàn trả");
 		lblDiemHoanTra.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblDiemHoanTra.setBounds(380, 11, 100, 20);
+		lblDiemHoanTra.setBounds(414, 11, 100, 20);
 		pnlThongTinDonDoiTra.add(lblDiemHoanTra);
 		
 		txtDiemHoanTra = new JTextField();
 		txtDiemHoanTra.setEnabled(false);
 		txtDiemHoanTra.setFont(new Font("Times New Roman", Font.PLAIN, 15));
 		txtDiemHoanTra.setDisabledTextColor(Color.black);
-		txtDiemHoanTra.setBounds(477, 11, 114, 20);
+
+		txtDiemHoanTra.setBounds(524, 12, 96, 20);
+
 		pnlThongTinDonDoiTra.add(txtDiemHoanTra);
 		txtDiemHoanTra.setColumns(10);
 		
@@ -326,25 +339,33 @@ public class GUIDoiTraHang extends JPanel {
 		tbDonDoiTra = new MyTable(modelDonDoiTra);	
 		
 		JScrollPane srcDonDoiTra = new JScrollPane(tbDonDoiTra,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		srcDonDoiTra.setBounds(15, 80, 602, 184);
+
+		srcDonDoiTra.setBounds(15, 80, 605, 178);
+
 		pnlThongTinDonDoiTra.add(srcDonDoiTra);
 		
 		JLabel lblTongSoLuongDoi = new JLabel("Tổng số lượng sản phẩm đổi hàng:");
 		lblTongSoLuongDoi.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblTongSoLuongDoi.setBounds(30, 275, 220, 20);
+
+		lblTongSoLuongDoi.setBounds(30, 282, 260, 20);
+
 		pnlThongTinDonDoiTra.add(lblTongSoLuongDoi);
 		
 		txtTongSoLuongDoi = new JTextField();
 		txtTongSoLuongDoi.setHorizontalAlignment(SwingConstants.RIGHT);
 		txtTongSoLuongDoi.setEnabled(false);
-		txtTongSoLuongDoi.setBounds(259, 276, 135, 20);
+
+		txtTongSoLuongDoi.setBounds(299, 285, 135, 20);
+
 		txtTongSoLuongDoi.setDisabledTextColor(Color.black);
 		pnlThongTinDonDoiTra.add(txtTongSoLuongDoi);
 		txtTongSoLuongDoi.setColumns(10);
 		
 		JLabel lblTongTienTra = new JLabel("Tổng tiền phải trả:");
 		lblTongTienTra.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblTongTienTra.setBounds(30, 305, 150, 20);
+
+		lblTongTienTra.setBounds(30, 312, 150, 20);
+
 		pnlThongTinDonDoiTra.add(lblTongTienTra);
 		
 		txtTongTienTra = new JTextField();
@@ -354,7 +375,9 @@ public class GUIDoiTraHang extends JPanel {
 		txtTongTienTra.setEnabled(false);
 		txtTongTienTra.setText("1.000.000");
 		txtTongTienTra.setColumns(10);
-		txtTongTienTra.setBounds(259, 306, 135, 20);
+
+		txtTongTienTra.setBounds(299, 315, 135, 20);
+
 		txtTongTienTra.setDisabledTextColor(Color.red);
 		pnlThongTinDonDoiTra.add(txtTongTienTra);
 		
@@ -362,20 +385,26 @@ public class GUIDoiTraHang extends JPanel {
 		btnHoanThanhDon.setForeground(new Color(255, 255, 255));
 		btnHoanThanhDon.setBackground(new Color(87, 255, 130));
 		btnHoanThanhDon.setFont(new Font("Times New Roman", Font.BOLD, 16));
-		btnHoanThanhDon.setBounds(434, 275, 139, 23);
+
+		btnHoanThanhDon.setBounds(481, 282, 139, 23);
+
 		pnlThongTinDonDoiTra.add(btnHoanThanhDon);
 		
 		JButton btnHuy = new MyButton("Hủy đơn");
 		btnHuy.setForeground(new Color(255, 255, 255));
 		btnHuy.setBackground(new Color(255, 83, 83));
 		btnHuy.setFont(new Font("Times New Roman", Font.BOLD, 16));
-		btnHuy.setBounds(434, 305, 139, 23);
+
+		btnHuy.setBounds(481, 312, 139, 23);
+
 		pnlThongTinDonDoiTra.add(btnHuy);
 		
 		MyButton btnXoaSanPham = new MyButton("Xóa");
 		btnXoaSanPham.setForeground(Color.WHITE);
 		btnXoaSanPham.setFont(new Font("Times New Roman", Font.BOLD, 16));
-		btnXoaSanPham.setBounds(465, 43, 126, 23);
+
+		btnXoaSanPham.setBounds(500, 46, 120, 23);
+
 		pnlThongTinDonDoiTra.add(btnXoaSanPham);
 		
 		JPanel pnlQuanLyDonDoiTra = new JPanel();
@@ -388,7 +417,9 @@ public class GUIDoiTraHang extends JPanel {
 		JPanel pnlThongTinDonDoiTraQL = new JPanel();
 		pnlThongTinDonDoiTraQL.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		pnlThongTinDonDoiTraQL.setBackground(new Color(255, 255, 255));
-		pnlThongTinDonDoiTraQL.setBounds(23, 25, 1198, 226);
+
+		pnlThongTinDonDoiTraQL.setBounds(23, 25, 1214, 226);
+
 		pnlQuanLyDonDoiTra.add(pnlThongTinDonDoiTraQL);
 		pnlThongTinDonDoiTraQL.setLayout(null);
 		
@@ -420,7 +451,7 @@ public class GUIDoiTraHang extends JPanel {
 		txtMaDonDoiTraQL = new JTextField();
 		txtMaDonDoiTraQL.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		txtMaDonDoiTraQL.setEnabled(false);
-		txtMaDonDoiTraQL.setBounds(292, 21, 179, 20);
+		txtMaDonDoiTraQL.setBounds(292, 21, 222, 20);
 		txtMaDonDoiTraQL.setDisabledTextColor(Color.black);
 		pnlThongTinDonDoiTraQL.add(txtMaDonDoiTraQL);
 		txtMaDonDoiTraQL.setColumns(10);
@@ -430,14 +461,14 @@ public class GUIDoiTraHang extends JPanel {
 		txtTenNhanVienQL.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		txtTenNhanVienQL.setColumns(10);
 		txtTenNhanVienQL.setDisabledTextColor(Color.black);
-		txtTenNhanVienQL.setBounds(292, 56, 179, 20);
+		txtTenNhanVienQL.setBounds(292, 56, 222, 20);
 		pnlThongTinDonDoiTraQL.add(txtTenNhanVienQL);
 		
 		txtPhuongThucQL = new JTextField();
 		txtPhuongThucQL.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		txtPhuongThucQL.setEnabled(false);
 		txtPhuongThucQL.setColumns(10);
-		txtPhuongThucQL.setBounds(292, 91, 179, 20);
+		txtPhuongThucQL.setBounds(292, 91, 222, 20);
 		txtPhuongThucQL.setDisabledTextColor(Color.black);
 		pnlThongTinDonDoiTraQL.add(txtPhuongThucQL);
 		
@@ -446,14 +477,14 @@ public class GUIDoiTraHang extends JPanel {
 		txtCTKMQL.setEnabled(false);
 		txtCTKMQL.setColumns(10);
 		txtCTKMQL.setDisabledTextColor(Color.black);
-		txtCTKMQL.setBounds(292, 126, 269, 20);
+		txtCTKMQL.setBounds(292, 126, 222, 20);
 		pnlThongTinDonDoiTraQL.add(txtCTKMQL);
 		
 		txtTongTienTraQL = new JTextField();
 		txtTongTienTraQL.setEnabled(false);
 		txtTongTienTraQL.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		txtTongTienTraQL.setColumns(10);
-		txtTongTienTraQL.setBounds(292, 161, 179, 20);
+		txtTongTienTraQL.setBounds(292, 161, 222, 20);
 		txtTongTienTraQL.setDisabledTextColor(Color.black);
 		pnlThongTinDonDoiTraQL.add(txtTongTienTraQL);
 		
@@ -481,7 +512,7 @@ public class GUIDoiTraHang extends JPanel {
 		txtNgayLapQL.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		txtNgayLapQL.setEnabled(false);
 		txtNgayLapQL.setColumns(10);
-		txtNgayLapQL.setBounds(868, 56, 179, 20);
+		txtNgayLapQL.setBounds(868, 56, 222, 20);
 		txtNgayLapQL.setDisabledTextColor(Color.black);
 		pnlThongTinDonDoiTraQL.add(txtNgayLapQL);
 		
@@ -489,7 +520,7 @@ public class GUIDoiTraHang extends JPanel {
 		txtTenKhachHangQL.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		txtTenKhachHangQL.setEnabled(false);
 		txtTenKhachHangQL.setColumns(10);
-		txtTenKhachHangQL.setBounds(868, 91, 179, 20);
+		txtTenKhachHangQL.setBounds(868, 91, 222, 20);
 		txtTenKhachHangQL.setDisabledTextColor(Color.black);
 		pnlThongTinDonDoiTraQL.add(txtTenKhachHangQL);
 		
@@ -497,7 +528,7 @@ public class GUIDoiTraHang extends JPanel {
 		txtDiemHoanTraQL.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		txtDiemHoanTraQL.setEnabled(false);
 		txtDiemHoanTraQL.setColumns(10);
-		txtDiemHoanTraQL.setBounds(868, 126, 179, 20);
+		txtDiemHoanTraQL.setBounds(868, 126, 222, 20);
 		txtDiemHoanTraQL.setDisabledTextColor(Color.black);
 		pnlThongTinDonDoiTraQL.add(txtDiemHoanTraQL);
 		
@@ -505,7 +536,7 @@ public class GUIDoiTraHang extends JPanel {
 		txtTongSoLuongDoiQL.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		txtTongSoLuongDoiQL.setEnabled(false);
 		txtTongSoLuongDoiQL.setColumns(10);
-		txtTongSoLuongDoiQL.setBounds(868, 161, 179, 20);
+		txtTongSoLuongDoiQL.setBounds(868, 161, 222, 20);
 		txtTongSoLuongDoiQL.setDisabledTextColor(Color.black);
 		pnlThongTinDonDoiTraQL.add(txtTongSoLuongDoiQL);
 		
@@ -524,7 +555,7 @@ public class GUIDoiTraHang extends JPanel {
 		txtMaHoaDonQLDDT.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		txtMaHoaDonQLDDT.setEnabled(false);
 		txtMaHoaDonQLDDT.setColumns(10);
-		txtMaHoaDonQLDDT.setBounds(868, 21, 179, 20);
+		txtMaHoaDonQLDDT.setBounds(868, 21, 222, 20);
 		txtMaHoaDonQLDDT.setDisabledTextColor(Color.black);
 		pnlThongTinDonDoiTraQL.add(txtMaHoaDonQLDDT);
 		
@@ -559,7 +590,9 @@ public class GUIDoiTraHang extends JPanel {
 		JPanel pnlTimKiemDonDoiTraQL = new JPanel();
 		pnlTimKiemDonDoiTraQL.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		pnlTimKiemDonDoiTraQL.setBackground(new Color(255, 255, 255));
-		pnlTimKiemDonDoiTraQL.setBounds(658, 267, 563, 180);
+
+		pnlTimKiemDonDoiTraQL.setBounds(658, 267, 579, 180);
+
 		pnlQuanLyDonDoiTra.add(pnlTimKiemDonDoiTraQL);
 		pnlTimKiemDonDoiTraQL.setLayout(null);
 		
@@ -570,47 +603,49 @@ public class GUIDoiTraHang extends JPanel {
 		
 		JLabel lblMaDonDoiTraTimKiemQL = new JLabel("Mã đơn đổi trả:");
 		lblMaDonDoiTraTimKiemQL.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblMaDonDoiTraTimKiemQL.setBounds(89, 42, 100, 20);
+		lblMaDonDoiTraTimKiemQL.setBounds(113, 41, 100, 20);
 		pnlTimKiemDonDoiTraQL.add(lblMaDonDoiTraTimKiemQL);
 		
 		JLabel lblSDTTimkiemQL = new JLabel("Số điện thoại:");
 		lblSDTTimkiemQL.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblSDTTimkiemQL.setBounds(89, 72, 100, 20);
+		lblSDTTimkiemQL.setBounds(113, 71, 100, 20);
 		pnlTimKiemDonDoiTraQL.add(lblSDTTimkiemQL);
 		
 		JLabel lblTenNhanVienTimKiemQL = new JLabel("Tên nhân viên:");
 		lblTenNhanVienTimKiemQL.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblTenNhanVienTimKiemQL.setBounds(89, 102, 100, 20);
+		lblTenNhanVienTimKiemQL.setBounds(113, 101, 100, 20);
 		pnlTimKiemDonDoiTraQL.add(lblTenNhanVienTimKiemQL);
 		
 		txtMaDonDoiTraTimKiemQL = new JTextField();
 		txtMaDonDoiTraTimKiemQL.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		txtMaDonDoiTraTimKiemQL.setBounds(242, 41, 213, 20);
+		txtMaDonDoiTraTimKiemQL.setBounds(266, 40, 213, 20);
 		pnlTimKiemDonDoiTraQL.add(txtMaDonDoiTraTimKiemQL);
 		txtMaDonDoiTraTimKiemQL.setColumns(10);
 		
 		txtSDTTimKiemQL = new JTextField();
 		txtSDTTimKiemQL.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		txtSDTTimKiemQL.setColumns(10);
-		txtSDTTimKiemQL.setBounds(242, 71, 213, 20);
+		txtSDTTimKiemQL.setBounds(266, 70, 213, 20);
 		pnlTimKiemDonDoiTraQL.add(txtSDTTimKiemQL);
 		
 		txtTenNhanVienTimKiemQL = new JTextField();
 		txtTenNhanVienTimKiemQL.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		txtTenNhanVienTimKiemQL.setColumns(10);
-		txtTenNhanVienTimKiemQL.setBounds(242, 101, 213, 20);
+		txtTenNhanVienTimKiemQL.setBounds(266, 100, 213, 20);
 		pnlTimKiemDonDoiTraQL.add(txtTenNhanVienTimKiemQL);
 		
 		JButton btnTaiLai = new MyButton("Tải lại");
 		btnTaiLai.setForeground(new Color(255, 255, 255));
 		btnTaiLai.setFont(new Font("Times New Roman", Font.BOLD, 17));
-		btnTaiLai.setBounds(201, 144, 130, 27);
+		btnTaiLai.setBounds(225, 143, 130, 27);
 		pnlTimKiemDonDoiTraQL.add(btnTaiLai);
 		
 		JPanel pnlDanhSachDonDoiTraQL = new JPanel();
 		pnlDanhSachDonDoiTraQL.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		pnlDanhSachDonDoiTraQL.setBackground(new Color(255, 255, 255));
-		pnlDanhSachDonDoiTraQL.setBounds(23, 462, 1198, 292);
+
+		pnlDanhSachDonDoiTraQL.setBounds(23, 462, 1214, 291);
+
 		pnlQuanLyDonDoiTra.add(pnlDanhSachDonDoiTraQL);
 		pnlDanhSachDonDoiTraQL.setLayout(null);
 		
@@ -637,7 +672,8 @@ public class GUIDoiTraHang extends JPanel {
 		tbDonDoiTraQL = new MyTable(modelDonDoiTraQL);	
 		
 		JScrollPane srcDanhSachDonDoiTraQL = new JScrollPane(tbDonDoiTraQL, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		srcDanhSachDonDoiTraQL.setBounds(30, 41, 1142, 229);
+
+		srcDanhSachDonDoiTraQL.setBounds(30, 41, 1158, 228);
 		pnlDanhSachDonDoiTraQL.add(srcDanhSachDonDoiTraQL);
 
 	}
