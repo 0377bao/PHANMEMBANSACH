@@ -9,9 +9,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import CustomUI.CustumImage;
-import CustomUI.ButtonSidebar;
 import controller.XuLyDieuHuongPhamMem;
+import customUI.ButtonSidebar;
+import customUI.CustumImage;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -47,18 +47,18 @@ public class TrangChu extends JFrame {
 	private Color colorBtnActive = new Color(10, 110, 227);
 	private JPanel pnlHienTai;
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TrangChu frame = new TrangChu();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					TrangChu frame = new TrangChu();
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.

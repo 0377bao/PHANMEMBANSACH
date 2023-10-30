@@ -13,7 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import CustomUI.CustumImage;
+import customUI.CustumImage;
 
 public class GUITrangChu extends JPanel {
 	public GUITrangChu() {

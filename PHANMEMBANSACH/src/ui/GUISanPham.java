@@ -10,15 +10,15 @@ import javax.swing.JTextField;
 import java.awt.FlowLayout;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
-
-import CustomUI.MyButton;
-import CustomUI.MyCombobox;
-import CustomUI.MyTable;
-
 import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+
+import customUI.MyButton;
+import customUI.MyCombobox;
+import customUI.MyTable;
+
 import java.awt.Font;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;

@@ -24,7 +24,8 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
 
-import CustomUI.MyTable;
+import customUI.MyTable;
+
 import javax.swing.border.BevelBorder;
 import javax.swing.SwingConstants;
 public class GUIThongKe extends JPanel {

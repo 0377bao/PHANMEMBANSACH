@@ -11,8 +11,8 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
-import CustomUI.MyButton;
-import CustomUI.MyTable;
+import customUI.MyButton;
+import customUI.MyTable;
 
 import javax.swing.JLabel;
 import java.awt.Font;

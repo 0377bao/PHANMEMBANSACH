@@ -21,8 +21,8 @@ import org.jxmapviewer.viewer.GeoPosition;
 import org.jxmapviewer.viewer.TileFactoryInfo;
 import org.jxmapviewer.viewer.WaypointPainter;
 
-import CustomUI.MyButton;
-import CustomUI.MyCombobox;
+import customUI.MyButton;
+import customUI.MyCombobox;
 import model.EvenWaypoint;
 import model.JXMapViewerCustom;
 import model.MyWayPoint;

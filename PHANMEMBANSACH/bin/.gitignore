@@ -7,3 +7,12 @@
 /ui/
 /view/
 /image/
+<<<<<<< HEAD
+=======
+/dso/
+/dao/
+>>>>>>> 87021863c8fd0659d9f75d907fe88391044edf6c
+/DAO/
+/BUS/
+/bus/
+/customUI/
