@@ -1,10 +1,24 @@
-/ui/
+<<<<<<< HEAD
+=======
+/mapdata/
+>>>>>>> 3f3e1930aa2f91f496f8c5cc0afe4d88fc8a395c
+/bus/
+/connect/
+/controller/
+/customUI/
+/dao/
+/entity/
 <<<<<<< HEAD
 /mapdata/
-/connect/
+/model/
+/ui/
+/view/
 =======
+/model/
+/ui/
 /view/
 /image/
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 /dso/
@@ -20,3 +34,6 @@
 /entity/
 /model/
 /testdl.class
+=======
+>>>>>>> 3f3e1930aa2f91f496f8c5cc0afe4d88fc8a395c
+>>>>>>> d725873b0ae1582662c6f05c27dba6358cb61b2d

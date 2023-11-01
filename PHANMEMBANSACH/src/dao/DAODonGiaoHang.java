@@ -32,9 +32,9 @@ public class DAODonGiaoHang {
 			   String maHoaDon = rs.getString("maHoaDon");
 			   HoaDon hd = new DAOHoaDon().timHoaDonTheoMa(maHoaDon);
 			   String maNhanVienGiaoHang = rs.getString("maNhanVienGiaoHang");
-			   NhanVien nvGiaoHang = (new BUSNhanVien()).layNhanVien(maNhanVienGiaoHang);
+			   NhanVien nvGiaoHang = (new BUSNhanVien()).layNhanVienTheoMa(maNhanVienGiaoHang);
 			   String maNhanVienBanHang = rs.getString("maNhanVien");
-			   NhanVien nvBanHang = (new BUSNhanVien()).layNhanVien(maNhanVienBanHang);
+			   NhanVien nvBanHang = (new BUSNhanVien()).layNhanVienTheoMa(maNhanVienBanHang);
 			   String ghiChu = rs.getString("ghiChu");
 			   DonGiaoHang dgh = new DonGiaoHang(maDonGiaoHang, tenKhachHang, sdt, diaChi, sokg, trangThai, ghiChu, tienVanChuyen, nvGiaoHang, nvBanHang, hd);
 			   dsDonHang.add(dgh);

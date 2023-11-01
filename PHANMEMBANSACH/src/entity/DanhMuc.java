@@ -12,6 +12,10 @@ public class DanhMuc {
 		this.tenDanhMuc = tenDanhMuc;
 	}
 
+	public DanhMuc(String maDanhMuc) {
+		this.maDanhMuc = maDanhMuc;
+	}
+
 	public String getMaDanhMuc() {
 		return maDanhMuc;
 	}
@@ -50,5 +54,4 @@ public class DanhMuc {
 		return "DanhMuc [maDanhMuc=" + maDanhMuc + ", tenDanhMuc=" + tenDanhMuc + "]";
 	}
 
-	
 }

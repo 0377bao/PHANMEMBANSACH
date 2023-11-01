@@ -94,6 +94,7 @@ public class GUIDangNhap extends JFrame {
 		txtTenDangNhap = new JTextField();
 		txtTenDangNhap.setFont(new Font("Tahoma", Font.BOLD, 13));
 		txtTenDangNhap.setBounds(327, 145, 317, 30);
+		txtTenDangNhap.setText("NV1");
 		pnlContent.add(txtTenDangNhap);
 		txtTenDangNhap.setColumns(10);
 
@@ -106,6 +107,7 @@ public class GUIDangNhap extends JFrame {
 		txtMatKhau.setFont(new Font("Tahoma", Font.BOLD, 13));
 		txtMatKhau.setColumns(10);
 		txtMatKhau.setBounds(327, 222, 317, 30);
+		txtMatKhau.setText("k123456");
 		pnlContent.add(txtMatKhau);
 
 		btnQuenMatKhau = new MyButton("Quên mật khẩu?");
@@ -140,7 +142,7 @@ public class GUIDangNhap extends JFrame {
 			boolean kiemTra = busTaiKhoan.kiemTraMatKhau(taiKhoan, matKhau);
 			if(kiemTra) {
 				JOptionPane.showMessageDialog(this, "Đăng nhập thành công");
-				new TrangChu(busNhanVien.layNhanVien(taiKhoan)).setVisible(true);
+				new TrangChu(busNhanVien.layNhanVienTheoMa(taiKhoan)).setVisible(true);
 				this.setVisible(false);
 				
 			}else {
