@@ -13,6 +13,10 @@ public class VanPhongPham extends SanPham {
 		this.danhMuc = danhMuc;
 	}
 
+	public VanPhongPham(String maSanPham) {
+		super(maSanPham);
+	}
+
 	public String getChatLieu() {
 		return chatLieu;
 	}

@@ -15,6 +15,10 @@ public class Sach extends SanPham {
 		this.namXuatBan = namXuatBan;
 	}
 
+	public Sach(String maSanPham) {
+		super(maSanPham);
+	}
+
 	public String getTacGia() {
 		return tacGia;
 	}

@@ -138,7 +138,7 @@ public class DonGiaoHang {
 	public float tinhTienVanChuyen() {
 		float result = 0;
 		// trường hợp giao hàng miễn phí
-		if (hoaDon.tinhTienCanThanhToan() >= 3000000) {
+		if (hoaDon.getThanhTien() >= 3000000) {
 			result = 0;
 		}
 		// trường hợp tính tiền vận chuyển

@@ -158,12 +158,12 @@ public class HoaDon {
 		return result;
 	}
 	
-	public float tinhTienCanThanhToan() {
+	public float getThanhTien() {
 		return tinhTongTien() - tinhGiamGia() - (diemGiamGia * 10000);
 	}
 	
 	public float tinhTienThua(float tienKhachDua) {
-		return tienKhachDua - tinhTienCanThanhToan();
+		return tienKhachDua - getThanhTien();
 	}
 
 	@Override

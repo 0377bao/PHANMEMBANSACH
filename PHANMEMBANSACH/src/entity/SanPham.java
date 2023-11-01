@@ -32,6 +32,12 @@ public class SanPham {
 		this.trangThai = trangThai;
 		this.nhaCungCap = nhaCungCap;
 	}
+	
+	public SanPham(String maSanPham) {
+		super();
+		this.maSanPham = maSanPham;
+	}
+
 	public String getMaSanPham() {
 		return maSanPham;
 	}
