@@ -5,13 +5,15 @@ import java.util.Objects;
 public class NhaCungCap {
 	private String maNhaCungCap;
 	private String tenNhaCungCap;
+	private String diaChi;
 	private String sdt;
 	private String email;
 
-	public NhaCungCap(String maNhaCungCap, String tenNhaCungCap, String sdt, String email) {
+	public NhaCungCap(String maNhaCungCap, String tenNhaCungCap,String diaChi, String sdt, String email) {
 		super();
 		this.maNhaCungCap = maNhaCungCap;
 		this.tenNhaCungCap = tenNhaCungCap;
+		this.diaChi = diaChi;
 		this.sdt = sdt;
 		this.email = email;
 	}
@@ -49,6 +51,13 @@ public class NhaCungCap {
 	}
 	
 	
+	public String getDiaChi() {
+		return diaChi;
+	}
+
+	public void setDiaChi(String diaChi) {
+		this.diaChi = diaChi;
+	}
 
 	@Override
 	public int hashCode() {
@@ -69,9 +78,11 @@ public class NhaCungCap {
 
 	@Override
 	public String toString() {
-		return "NhaCungCap [maNhaCungCap=" + maNhaCungCap + ", tenNhaCungCap=" + tenNhaCungCap + ", sdt=" + sdt
-				+ ", email=" + email + "]";
+		return "NhaCungCap [maNhaCungCap=" + maNhaCungCap + ", tenNhaCungCap=" + tenNhaCungCap + ", diaChi=" + diaChi
+				+ ", sdt=" + sdt + ", email=" + email + "]";
 	}
+
+	
 
 	
 }

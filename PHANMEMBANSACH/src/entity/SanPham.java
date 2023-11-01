@@ -16,7 +16,7 @@ public class SanPham {
 	private String trangThai;
 	private NhaCungCap nhaCungCap;
 	public SanPham(String maSanPham, String tenSanPham, int soLuongTon, float giaNhap, String theLoai, String ke,
-			String hinhAnh, float thue, float phanTramLoiNhuan, float giaBan, String trangThai,
+			String hinhAnh, float thue, float phanTramLoiNhuan,String trangThai,
 			NhaCungCap nhaCungCap) {
 		super();
 		this.maSanPham = maSanPham;
@@ -28,7 +28,7 @@ public class SanPham {
 		this.hinhAnh = hinhAnh;
 		this.thue = thue;
 		this.phanTramLoiNhuan = phanTramLoiNhuan;
-		this.giaBan = giaBan;
+		this.giaBan = this.getGiaBan();
 		this.trangThai = trangThai;
 		this.nhaCungCap = nhaCungCap;
 	}
@@ -86,12 +86,7 @@ public class SanPham {
 	public void setPhanTramLoiNhuan(float phanTramLoiNhuan) {
 		this.phanTramLoiNhuan = phanTramLoiNhuan;
 	}
-	public float getGiaBan() {
-		return giaBan;
-	}
-	public void setGiaBan(float giaBan) {
-		this.giaBan = giaBan;
-	}
+	
 	public String getTrangThai() {
 		return trangThai;
 	}
@@ -105,7 +100,9 @@ public class SanPham {
 		this.nhaCungCap = nhaCungCap;
 	}
 	
-	
+	public float getGiaBan() {
+		return giaNhap * phanTramLoiNhuan;
+	}
 
     @Override
 	public int hashCode() {
@@ -123,8 +120,11 @@ public class SanPham {
 		return Objects.equals(maSanPham, other.maSanPham);
 	}
 	@Override
-    public String toString() {
-    	// TODO Auto-generated method stub
-    	return super.toString();
-    }
+	public String toString() {
+		return "SanPham [maSanPham=" + maSanPham + ", tenSanPham=" + tenSanPham + ", soLuongTon=" + soLuongTon
+				+ ", giaNhap=" + giaNhap + ", theLoai=" + theLoai + ", ke=" + ke + ", hinhAnh=" + hinhAnh + ", thue="
+				+ thue + ", phanTramLoiNhuan=" + phanTramLoiNhuan + ", giaBan=" + giaBan + ", trangThai=" + trangThai
+				+ ", nhaCungCap=" + nhaCungCap + "]";
+	}
+	
 }

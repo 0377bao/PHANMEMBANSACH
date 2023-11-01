@@ -36,14 +36,13 @@ public class GUIDangNhap extends JFrame {
 	private MyButton btnDangNhap;
 	private BUSTaiKhoan busTaiKhoan = new BUSTaiKhoan();
 	private BUSNhanVien busNhanVien = new BUSNhanVien();
-
+	
 	public GUIDangNhap() {
 		this.setTitle("ĐĂNG NHẬP PHẦN MỀM");
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setBounds(100, 100, 994, 684);
 		this.setLocationRelativeTo(null);
-
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
