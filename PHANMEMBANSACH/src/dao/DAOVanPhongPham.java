@@ -37,12 +37,14 @@ public class DAOVanPhongPham {
 				float thue = rs.getFloat("thue");
 				float loiNhuan = rs.getFloat("phanTramLoiNhuan");
 				String chatLieu = rs.getString("chatLieu");
-				float giaBan = rs.getFloat("giaBan");
+
 				String trangThai = rs.getBoolean("trangThai") ? "Đang bán" : "Không còn bán";
 				DanhMuc maDM = new DanhMuc(rs.getString("maDanhMuc"));
 				NhaCungCap maNCC = new NhaCungCap(rs.getString("maNhaCungCap"));
 				VanPhongPham vpp = new VanPhongPham(maVPP, tenVPP, soLuongTon, giaNhap, theLoai, ke, hinhAnh, thue,
-						loiNhuan, giaBan, trangThai, maNCC, chatLieu, maDM);
+
+						loiNhuan, trangThai, maNCC, chatLieu, maDM);
+
 				dsVPP.add(vpp);
 			}
 		} catch (SQLException e) {
@@ -72,7 +74,8 @@ public class DAOVanPhongPham {
 			ps.setFloat(10, vpp.getPhanTramLoiNhuan());
 			ps.setString(11, vpp.getDanhMuc().getMaDanhMuc());
 			ps.setString(12, vpp.getChatLieu());
-			ps.setFloat(13, vpp.getGiaBan());
+
+
 			ps.setString(14, vpp.getTrangThai());
 			n = ps.executeUpdate();
 		} catch (SQLException e) {
@@ -94,7 +97,9 @@ public class DAOVanPhongPham {
 		PreparedStatement ps = null;
 		String sql = "update Sach set tenSanPham = ?, soLuongTon = ?, giaNhap = ?, theLoai = ?, ke = ?, "
 				+ "maNhaCungCap = ?, hinhAnh = ?, thue = ?, phanTramLoiNhuan = ?, tacGia = ?, nhaXuatBan = ?, "
-				+ "namXuatBan = ?, giaBan = ?, trangThai = ?";
+
+				+ "namXuatBan = ?, trangThai = ?";
+
 		int n = 0;
 		try {
 			ps = con.prepareStatement(sql);
@@ -109,7 +114,6 @@ public class DAOVanPhongPham {
 			ps.setFloat(9, vpp.getPhanTramLoiNhuan());
 			ps.setString(10, vpp.getDanhMuc().getMaDanhMuc());
 			ps.setString(11, vpp.getChatLieu());
-			ps.setFloat(12, vpp.getGiaBan());
 			ps.setString(13, vpp.getTrangThai());
 			ps.setString(14, vpp.getMaSanPham());
 			n = ps.executeUpdate();
@@ -144,7 +148,7 @@ public class DAOVanPhongPham {
 				String hinhAnh = rs.getString("hinhAnh").trim();
 				float thue = rs.getFloat("thue");
 				float phanTramLoiNhuan = rs.getFloat("phanTramLoiNhuan");
-				float giaBan = rs.getFloat("giaBan");
+
 				String trangThai = rs.getBoolean("trangThai") ? "Đang bán" : "Ngưng bán";
 				String maNhaCungCap = rs.getString("maNhaCungCap").trim();
 				NhaCungCap ncc = new NhaCungCap(maNhaCungCap);
@@ -153,7 +157,8 @@ public class DAOVanPhongPham {
 				String tenDanhMuc = rs.getString("tenDanhMuc").trim();
 				DanhMuc dm = new DanhMuc(maDanhMuc, tenDanhMuc);
 				sp = new VanPhongPham(maSP, tenSanPham, soLuongTon, giaNhap, theLoai, ke, hinhAnh, thue,
-						phanTramLoiNhuan, giaBan, trangThai, ncc, chatLieu, dm);
+
+						phanTramLoiNhuan, trangThai, ncc, chatLieu, dm);
 			}
 		} catch (Exception e) {
 			// TODO: handle exception

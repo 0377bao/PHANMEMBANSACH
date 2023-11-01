@@ -1,10 +1,21 @@
+<<<<<<< HEAD
+=======
+/mapdata/
+>>>>>>> 3f3e1930aa2f91f496f8c5cc0afe4d88fc8a395c
 /bus/
 /connect/
 /controller/
 /customUI/
 /dao/
 /entity/
+<<<<<<< HEAD
 /mapdata/
 /model/
 /ui/
 /view/
+=======
+/model/
+/ui/
+/view/
+/image/
+>>>>>>> 3f3e1930aa2f91f496f8c5cc0afe4d88fc8a395c

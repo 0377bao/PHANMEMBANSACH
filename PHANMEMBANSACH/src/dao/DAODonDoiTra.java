@@ -87,18 +87,8 @@ public class DAODonDoiTra {
 			statement.setString(1, DonDoiTra.getMaDonDoiTra());
 			Date date = Date.valueOf(DonDoiTra.getNgayDoiTra());
 			statement.setDate(2, date);
-			statement.setString(3, hoaDon.getHinhThucThanhToan());
-			statement.setString(4, hoaDon.getGhiChu());
-			statement.setFloat(5, hoaDon.getThanhTien());
-			statement.setString(6, hoaDon.getCtkm().getMaCTKM());
-			statement.setString(7, hoaDon.getNhanVien().getMaNhanVien());
-			statement.setString(8, hoaDon.getKhachHang().getMaKhachHang());
-			statement.setDouble(9, hoaDon.getDiemGiamGia());
-			statement.setDouble(10, hoaDon.getGiamGia());
-			n = statement.executeUpdate();
-			for (ChiTietHoaDon ct : hoaDon.getDsChiTietHoaDon()) {
-				m = new DAOChiTietHoaDon().themChiTietHoaDon(hoaDon.getMaHoaDon(), ct);
-			}
+			statement.setString(3, DonDoiTra.getPhuongThucDoiTra());
+			
 		}catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

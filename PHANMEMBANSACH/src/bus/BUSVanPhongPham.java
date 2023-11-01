@@ -20,6 +20,10 @@ public class BUSVanPhongPham {
 	public boolean suaSach(VanPhongPham vpp) {
 		return daoVPP.capNhatVanPhongPham(vpp);
 	}
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3f3e1930aa2f91f496f8c5cc0afe4d88fc8a395c
 	public VanPhongPham layVPPTheoMa(String maVPP) {
 		return daoVPP.timVanPhongPhamTheoMa(maVPP);
 	}

@@ -39,10 +39,10 @@ public class DAOSach {
 				String tg = rs.getString("tacGia");
 				String nhaXB = rs.getString("nhaXuatBan");
 				int namXB = rs.getInt("namXuatBan");
-				float giaBan = rs.getFloat("giaBan");
+
 				String trangThai = rs.getBoolean("trangThai") ? "Đang bán" : "Không còn bán";
 				NhaCungCap maNCC = new NhaCungCap(rs.getString("maNhaCungCap"));
-				Sach s = new Sach(maS, tenS, soLuongTon, giaNhap, theLoai, ke, hinhAnh, thue, loiNhuan, giaBan,
+				Sach s = new Sach(maS, tenS, soLuongTon, giaNhap, theLoai, ke, hinhAnh, thue, loiNhuan,
 						trangThai, maNCC, tg, nhaXB, namXB);
 				dsSach.add(s);
 			}
@@ -112,7 +112,6 @@ public class DAOSach {
 			ps.setString(10, s.getTacGia());
 			ps.setString(11, s.getNhaXuatBan());
 			ps.setInt(12, s.getNamXuatBan());
-			ps.setFloat(13, s.getGiaBan());
 			ps.setString(14, s.getTrangThai());
 			ps.setString(15, s.getMaSanPham());
 			n = ps.executeUpdate();
@@ -155,7 +154,9 @@ public class DAOSach {
 				String nhaXuatBan = rs.getString("nhaXuatBan").trim();
 				int namXuatBan = rs.getInt("namXuatBan");
 				sp = new Sach(maSP, tenSanPham, soLuongTon, giaNhap, theLoai, ke, hinhAnh, thue, phanTramLoiNhuan,
-						giaBan, trangThai, ncc, tacGia, nhaXuatBan, namXuatBan);
+
+						 trangThai, ncc, tacGia, nhaXuatBan, namXuatBan);
+
 			}
 		} catch (Exception e) {
 			System.out.println(e);
