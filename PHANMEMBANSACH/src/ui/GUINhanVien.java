@@ -9,24 +9,28 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
+import bus.BUSNhanVien;
+import controller.ControllerNhanVien;
 import customUI.MyButton;
 import customUI.MyCombobox;
 import customUI.MyTable;
+import entity.NhanVien;
 
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import javax.swing.ImageIcon;
 
-public class GUINhanVien extends JPanel implements ActionListener, FocusListener, MouseListener {
+public class GUINhanVien extends JPanel implements FocusListener {
 	private JTextField txtMaNV;
 	private JTextField txtTenNV;
 	private JTextField txtSdt;
@@ -51,6 +55,8 @@ public class GUINhanVien extends JPanel implements ActionListener, FocusListener
 	private JTextField txtTenTK;
 	private JTextField txtMatKhau;
 	private MyButton btnTaoTK;
+
+	private BUSNhanVien busNhanVien = new BUSNhanVien();
 
 	public GUINhanVien() {
 		this.setBackground(new Color(255, 255, 255));
@@ -271,6 +277,7 @@ public class GUINhanVien extends JPanel implements ActionListener, FocusListener
 		btnXoaTrang.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnXoaTrang.setForeground(new Color(255, 255, 255));
 		btnXoaTrang.setBounds(70, 93, 150, 30);
+		btnXoaTrang.setActionCommand("btnXoaTrang");
 		pnlChucNang.add(btnXoaTrang);
 
 		btnTaiLai = new MyButton("Tải lại");
@@ -324,20 +331,26 @@ public class GUINhanVien extends JPanel implements ActionListener, FocusListener
 		pnlTable.add(scr);
 
 		// dữ liệu mẫu
-		String[] row1 = { "NV1", "Tên nhân viên", "0147852369", "Nam", "CCCD", "Email", "Nhân viên", "Địa chỉ ABC",
-				"Mật khẩu" };
-		String[] row2 = { "NV2", "Tên nhân viên", "0147852369", "Nu", "CCCD", "Email", "Quản lý", "Địa chỉ 123",
-				"Mật khẩu" };
-		model.addRow(row1);
-		model.addRow(row2);
+//		String[] row1 = { "NV1", "Tên nhân viên", "0147852369", "Nam", "CCCD", "Email", "Nhân viên", "Địa chỉ ABC",
+//				"Mật khẩu" };
+//		String[] row2 = { "NV2", "Tên nhân viên", "0147852369", "Nu", "CCCD", "Email", "Quản lý", "Địa chỉ 123",
+//				"Mật khẩu" };
+//		model.addRow(row1);
+//		model.addRow(row2);
+		ArrayList<NhanVien> dsNV = busNhanVien.layDSNhanVien();
+		for (NhanVien nv : dsNV) {
+			model.addRow(new Object[] { nv.getMaNhanVien(), nv.getTenNhanVien(), nv.getSdt(), nv.isGioiTinh(),
+					nv.getcCCD(), nv.getEmail(), nv.getChucVu(), nv.getDiaChi(), nv.getTaiKhoan().getMatKhau() });
+		}
 
 		// sự kiện
-		btnXoaTrang.addActionListener(this);
+		btnXoaTrang.addActionListener(new ControllerNhanVien(this));
 		txtTimNV.addFocusListener(this);
-		table.addMouseListener(this);
+		table.addMouseListener(new ControllerNhanVien(this));
+
 	}
 
-	private void xoaTrang() {
+	public void xoaTrang() {
 		txtMaNV.setText("");
 		txtTenNV.setText("");
 		txtSdt.setText("");
@@ -350,14 +363,7 @@ public class GUINhanVien extends JPanel implements ActionListener, FocusListener
 		cboChucVu.setSelectedIndex(0);
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		Object o = e.getSource();
-		if (o.equals(btnXoaTrang)) {
-			xoaTrang();
-		}
-
-	}
+	
 
 	@Override
 	public void focusGained(FocusEvent e) {
@@ -377,8 +383,7 @@ public class GUINhanVien extends JPanel implements ActionListener, FocusListener
 		}
 	}
 
-	@Override
-	public void mouseClicked(MouseEvent e) {
+	public void chonThongTin() {
 		int r = table.getSelectedRow();
 		if (r != -1) {
 			txtMaNV.setText(model.getValueAt(r, 0).toString());
@@ -401,29 +406,5 @@ public class GUINhanVien extends JPanel implements ActionListener, FocusListener
 				cboChucVu.setSelectedIndex(2);
 			}
 		}
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-
 	}
 }

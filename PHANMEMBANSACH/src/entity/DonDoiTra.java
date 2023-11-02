@@ -10,15 +10,26 @@ public class DonDoiTra {
 	private ArrayList<ChiTietDonDoiTra> dsChiTietDonDoiTra = new ArrayList<>();
 	private HoaDon hoaDon;
 	private NhanVien nhanVien;
+	private String phuongThucDoiTra;
+
+	public String getPhuongThucDoiTra() {
+		return phuongThucDoiTra;
+	}
+
+	public void setPhuongThucDoiTra(String phuongThucDoiTra) {
+		this.phuongThucDoiTra = phuongThucDoiTra;
+	}
 
 	public DonDoiTra(String maDonDoiTra, LocalDate ngayDoiTra, ArrayList<ChiTietDonDoiTra> dsChiTietDonDoiTra,
-			HoaDon hoaDon, NhanVien nhanVien) {
+			HoaDon hoaDon, NhanVien nhanVien, String phuongThucDoiTra) {
 		super();
 		this.maDonDoiTra = maDonDoiTra;
 		this.ngayDoiTra = ngayDoiTra;
 		this.dsChiTietDonDoiTra = dsChiTietDonDoiTra;
 		this.hoaDon = hoaDon;
 		this.nhanVien = nhanVien;
+		this.phuongThucDoiTra = phuongThucDoiTra;
+
 	}
 
 	public String getMaDonDoiTra() {
@@ -67,7 +78,11 @@ public class DonDoiTra {
 	}
 	
 	public float tinhTienCanTra() {
-		return this.getHoaDon().getThanhTien();
+		float tongTien = 0;
+		for (ChiTietDonDoiTra ctddt : dsChiTietDonDoiTra) {
+			tongTien +=ctddt.getGiaBan()*ctddt.getSoLuongTra();
+		}
+		return tongTien;
 	}
 	
 	public int tinhSoLuongDoiHang() {
@@ -93,8 +108,11 @@ public class DonDoiTra {
 	@Override
 	public String toString() {
 		return "DonDoiTra [maDonDoiTra=" + maDonDoiTra + ", ngayDoiTra=" + ngayDoiTra + ", dsChiTietDonDoiTra="
-				+ dsChiTietDonDoiTra + ", hoaDon=" + hoaDon + ", nhanVien=" + nhanVien + "]";
+				+ dsChiTietDonDoiTra + ", hoaDon=" + hoaDon + ", nhanVien=" + nhanVien + ", phuongThucDoiTra="
+				+ phuongThucDoiTra + ", ngayLap=" + "]";
 	}
+
+	
 
 	
 

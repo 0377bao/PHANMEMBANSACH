@@ -55,20 +55,20 @@ public class KhachHang {
 	public int getDiemTichLuy() {
 		return diemTichLuy;
 	}
-	
-	public void setTongTienMua(float tongTienMua) {
-		this.tongTienMua = tongTienMua;
-	}
-	
-	public float getTongTienMua() {
-		return tongTienMua;
-	}
 
 	public void setDiemTichLuy(int diemTichLuy) {
 		this.diemTichLuy = diemTichLuy;
 	}
 	
-	
+
+
+	public float getTongTienMua() {
+		return tongTienMua;
+	}
+
+	public void setTongTienMua(float tongTienMua) {
+		this.tongTienMua = tongTienMua;
+	}
 
 	@Override
 	public int hashCode() {

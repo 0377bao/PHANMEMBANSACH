@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import bus.BUSSanPham;
 import connect.ConnectDB;
 import entity.ChiTietHoaDon;
 import entity.SanPham;
@@ -15,20 +16,13 @@ public class DAOChiTietHoaDon {
 		int n = 0;
 		ConnectDB.getInstance();
 		Connection con = ConnectDB.getConnection();
-		String sql = "insert into ChiTietHoaDon values (?, ?, ?, ?, ?)";
+		String sql = "insert into ChiTietHoaDon values (?, ?, ?, ?)";
 		try {
 			PreparedStatement statement = con.prepareStatement(sql);
 			statement.setInt(1, cthd.getSoLuongMua());
 			statement.setFloat(2, cthd.getGiaBan());
-			String maSP = cthd.getSanPham().getMaSanPham();
-			if(maSP.startsWith("SPS")) {
-				statement.setString(3, maSP);
-				statement.setString(5, "Trống");
-			} else {
-				statement.setString(5, maSP);
-				statement.setString(3, "Trống");
-			}
-			statement.setString(4, maHoaDon);
+			statement.setString(3, maHoaDon);
+			statement.setString(4, cthd.getSanPham().getMaSanPham());
 			n = statement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -49,14 +43,8 @@ public class DAOChiTietHoaDon {
 			while(rs.next()) {
 				int soLuongMua = rs.getInt("soLuongMua");
 				float giaBan = rs.getFloat("giaBan");
-				String maSach = rs.getString("maSach");
-				String maVPP = rs.getString("maVanPhongPham");
-				SanPham sp;
-				if(maSach.equals("Trống")) {
-					sp = new DAOSach().timSachTheoMa(maVPP);
-				} else {
-					sp = new DAOVanPhongPham().timVanPhongPhamTheoMa(maSach);
-				}
+				String maSanPham = rs.getString("maSanPham");
+				SanPham sp = new BUSSanPham().timKiemSanPham(maSanPham);
 				ds.add(new ChiTietHoaDon(soLuongMua, giaBan, sp));
 			}
 		} catch (SQLException e) {

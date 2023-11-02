@@ -36,6 +36,7 @@ import customUI.MyCombobox;
 import customUI.MyTable;
 import entity.Sach;
 import entity.SanPham;
+import entity.VanPhongPham;
 
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -89,6 +90,15 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
 	private JLabel lblNhaXuatBan;
 	private JLabel lblNamSanXuat;
 	private JLabel lblSoLuongTonSach;
+	private JPanel pnlSanPhamVPP;
+	private JLabel lblMaVPP;
+	private JLabel lblTenVPP;
+	private JLabel lblThueVPP;
+	private JLabel lblGiaVPP;
+	private JLabel lblTheLoaiVPP;
+	private JLabel lblDanhMuc;
+	private JLabel lblChatLieu;
+	private JLabel lblSoLuongTonVPP;
     
 	public GUIBanHang(TrangChu view) {
 		this.view = view;
@@ -451,18 +461,17 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
         lblSoLuongTonSach.setBounds(112, 208, 229, 15);
         pnlSanPhamSach.add(lblSoLuongTonSach);
         
-        JPanel pnlSanPhamVPP = new JPanel();
+        pnlSanPhamVPP = new JPanel();
         pnlSanPhamVPP.setLayout(null);
         pnlSanPhamVPP.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 0, 0), null, null, null));
         pnlSanPhamVPP.setBounds(179, 52, 351, 233);
-//        pnlSanPham.add(pnlSanPhamVPP);
         
         JLabel lblMSnPhm_1 = new JLabel("Mã sản phẩm:");
         lblMSnPhm_1.setFont(new Font("Tahoma", Font.BOLD, 12));
         lblMSnPhm_1.setBounds(10, 10, 89, 15);
         pnlSanPhamVPP.add(lblMSnPhm_1);
         
-        JLabel lblMaVPP = new JLabel("SP02");
+        lblMaVPP = new JLabel("SP02");
         lblMaVPP.setFont(new Font("Tahoma", Font.BOLD, 12));
         lblMaVPP.setBounds(112, 10, 229, 15);
         pnlSanPhamVPP.add(lblMaVPP);
@@ -472,7 +481,7 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
         lblTnSnPhm_1.setBounds(10, 35, 89, 15);
         pnlSanPhamVPP.add(lblTnSnPhm_1);
         
-        JLabel lblTenVPP = new JLabel("Balo đi học hai ngăn");
+        lblTenVPP = new JLabel("Balo đi học hai ngăn");
         lblTenVPP.setFont(new Font("Tahoma", Font.BOLD, 12));
         lblTenVPP.setBounds(112, 35, 229, 15);
         pnlSanPhamVPP.add(lblTenVPP);
@@ -482,7 +491,7 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
         lblThu_1.setBounds(10, 60, 89, 15);
         pnlSanPhamVPP.add(lblThu_1);
         
-        JLabel lblThueVPP = new JLabel("10");
+        lblThueVPP = new JLabel("10");
         lblThueVPP.setFont(new Font("Tahoma", Font.BOLD, 12));
         lblThueVPP.setBounds(112, 60, 229, 15);
         pnlSanPhamVPP.add(lblThueVPP);
@@ -492,7 +501,7 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
         lblGiBn_1.setBounds(10, 85, 89, 15);
         pnlSanPhamVPP.add(lblGiBn_1);
         
-        JLabel lblGiaVPP = new JLabel("200.000");
+        lblGiaVPP = new JLabel("200.000");
         lblGiaVPP.setForeground(Color.RED);
         lblGiaVPP.setFont(new Font("Tahoma", Font.BOLD, 12));
         lblGiaVPP.setBounds(112, 85, 229, 15);
@@ -503,7 +512,7 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
         lblThLoi_1.setBounds(10, 135, 89, 15);
         pnlSanPhamVPP.add(lblThLoi_1);
         
-        JLabel lblTheLoaiVPP = new JLabel("Balo chéo");
+        lblTheLoaiVPP = new JLabel("Balo chéo");
         lblTheLoaiVPP.setFont(new Font("Tahoma", Font.BOLD, 12));
         lblTheLoaiVPP.setBounds(112, 135, 229, 15);
         pnlSanPhamVPP.add(lblTheLoaiVPP);
@@ -513,7 +522,7 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
         lblTcGi_1.setBounds(10, 110, 89, 15);
         pnlSanPhamVPP.add(lblTcGi_1);
         
-        JLabel lblDanhMuc = new JLabel("Balo");
+        lblDanhMuc = new JLabel("Balo");
         lblDanhMuc.setFont(new Font("Tahoma", Font.BOLD, 12));
         lblDanhMuc.setBounds(112, 110, 229, 15);
         pnlSanPhamVPP.add(lblDanhMuc);
@@ -523,7 +532,7 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
         lblNhXutBn_1.setBounds(10, 160, 89, 15);
         pnlSanPhamVPP.add(lblNhXutBn_1);
         
-        JLabel lblChatLieu = new JLabel("Vải cô tông");
+        lblChatLieu = new JLabel("Vải cô tông");
         lblChatLieu.setFont(new Font("Tahoma", Font.BOLD, 12));
         lblChatLieu.setBounds(112, 160, 229, 15);
         pnlSanPhamVPP.add(lblChatLieu);
@@ -533,7 +542,7 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
         lblNmSnXut_1_1.setBounds(10, 185, 89, 15);
         pnlSanPhamVPP.add(lblNmSnXut_1_1);
         
-        JLabel lblSoLuongTonVPP = new JLabel("10");
+        lblSoLuongTonVPP = new JLabel("10");
         lblSoLuongTonVPP.setForeground(new Color(255, 128, 64));
         lblSoLuongTonVPP.setFont(new Font("Tahoma", Font.BOLD, 12));
         lblSoLuongTonVPP.setBounds(112, 185, 229, 15);
@@ -881,7 +890,8 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
 		        iconLblBgr = new ImageIcon(scaledImage);
 		        lblAnhSanPham.setIcon(iconLblBgr);
 		        pnlSanPham.add(lblAnhSanPham);
-		        pnlSanPham.repaint();
+		        pnlSanPham.remove(pnlSanPhamSach);
+		        pnlSanPham.remove(pnlSanPhamVPP);
 				if(sanPhamQuet.getMaSanPham().startsWith("SPS")) {
 			        lblMaSach.setText(sanPhamQuet.getMaSanPham());
 			        lblTenSach.setText(sanPhamQuet.getTenSanPham());
@@ -892,9 +902,19 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
 			        lblNhaXuatBan.setText(((Sach) sanPhamQuet).getNhaXuatBan());
 			        lblNamSanXuat.setText(((Sach) sanPhamQuet).getNamXuatBan() + "");
 			        lblSoLuongTonSach.setText(sanPhamQuet.getSoLuongTon() + "");
+			        pnlSanPham.add(pnlSanPhamSach);
 				} else {
-					
+					lblMaVPP.setText(sanPhamQuet.getMaSanPham());
+			        lblTenVPP.setText(sanPhamQuet.getTenSanPham());
+			        lblThueVPP.setText(sanPhamQuet.getThue() + "");
+			        lblGiaVPP.setText(sanPhamQuet.getGiaBan() + "");
+			        lblTheLoaiVPP.setText(sanPhamQuet.getTheLoai());
+			        lblSoLuongTonVPP.setText(sanPhamQuet.getSoLuongTon() + "");
+			        lblDanhMuc.setText(((VanPhongPham) sanPhamQuet).getDanhMuc().getTenDanhMuc());
+			        lblChatLieu.setText(((VanPhongPham) sanPhamQuet).getChatLieu() + "");
+					pnlSanPham.add(pnlSanPhamVPP);
 				}
+		        pnlSanPham.repaint();
 				resultScanQRBefore = result.getText();
 			}
 		}while(view.indexFrame.equals("Bán hàng"));

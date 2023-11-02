@@ -9,8 +9,7 @@ import java.util.ArrayList;
 import connect.ConnectDB;
 import entity.ChuongTrinhKhuyenMai;
 import entity.MucKhuyenMai;
-
-public class DAOChuongTrinhKhuyenMai {
+public class DAOChuongTrinhKhuyenMai {	
 	public ChuongTrinhKhuyenMai timChuongTrinhKhuyenMaiTheoMa(String maTim) {
 		ChuongTrinhKhuyenMai ctkm = null;
 		Connection con = ConnectDB.getConnection();

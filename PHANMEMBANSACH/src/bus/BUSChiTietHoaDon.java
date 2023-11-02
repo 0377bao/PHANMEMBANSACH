@@ -8,8 +8,6 @@ import java.util.ArrayList;
 
 import connect.ConnectDB;
 import dao.DAOChiTietHoaDon;
-import dao.DAOSach;
-import dao.DAOVanPhongPham;
 import entity.ChiTietHoaDon;
 import entity.SanPham;
 

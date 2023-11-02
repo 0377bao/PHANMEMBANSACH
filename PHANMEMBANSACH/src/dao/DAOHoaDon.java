@@ -9,7 +9,7 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
-
+import bus.BUSNhanVien;
 import connect.ConnectDB;
 import entity.ChiTietHoaDon;
 import entity.ChuongTrinhKhuyenMai;
@@ -36,7 +36,7 @@ public class DAOHoaDon {
 				String ghiChu = rs.getString("ghiChu").trim();
 				int diemGiamGia = rs.getInt("diemGiamGia");
 				float giamGia = rs.getFloat("giamGia");
-				NhanVien nv = new DAONhanVien().layNhanVien(rs.getString("maNhanVien"));
+				NhanVien nv = new DAONhanVien().layNhanVienTheoMa(rs.getString("maNhanVien"));
 				KhachHang kh = new DAOKhachHang().timKhachHangTheoMa(rs.getString("maKhachHang"));
 				ChuongTrinhKhuyenMai ctkm = new DAOChuongTrinhKhuyenMai().timChuongTrinhKhuyenMaiTheoMa(rs.getString("maCTKM"));
 				ArrayList<ChiTietHoaDon> cthd = new DAOChiTietHoaDon().layDSChiTietHoaDonCuaHoaDon(maHoaDon);
@@ -67,7 +67,7 @@ public class DAOHoaDon {
 				String ghiChu = rs.getString("ghiChu").trim();
 				int diemGiamGia = rs.getInt("diemGiamGia");
 				float giamGia = rs.getFloat("giamGia");
-				NhanVien nv = new DAONhanVien().layNhanVien(rs.getString("maNhanVien"));
+				NhanVien nv = new BUSNhanVien().layNhanVienTheoMa(rs.getString("maNhanVien"));
 				KhachHang kh = new DAOKhachHang().timKhachHangTheoMa(rs.getString("maKhachHang"));
 				ChuongTrinhKhuyenMai ctkm = new DAOChuongTrinhKhuyenMai().timChuongTrinhKhuyenMaiTheoMa(rs.getString("maCTKM"));
 				ArrayList<ChiTietHoaDon> cthd = new DAOChiTietHoaDon().layDSChiTietHoaDonCuaHoaDon(maHoaDon);

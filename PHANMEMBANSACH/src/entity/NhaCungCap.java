@@ -5,17 +5,27 @@ import java.util.Objects;
 public class NhaCungCap {
 	private String maNhaCungCap;
 	private String tenNhaCungCap;
+	private String diaChi;
 	private String sdt;
 	private String email;
-	private String diaChi;
 
-	public NhaCungCap(String maNhaCungCap, String tenNhaCungCap, String sdt, String email, String diaChi) {
+	public NhaCungCap(String maNhaCungCap, String tenNhaCungCap, String diaChi, String sdt, String email) {
 		super();
 		this.maNhaCungCap = maNhaCungCap;
 		this.tenNhaCungCap = tenNhaCungCap;
+		this.diaChi = diaChi;
 		this.sdt = sdt;
 		this.email = email;
 		this.diaChi = diaChi;
+	}
+
+	public NhaCungCap() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public NhaCungCap(String maNhaCungCap) {
+		this.maNhaCungCap = maNhaCungCap;
 	}
 
 	public String getMaNhaCungCap() {
@@ -34,6 +44,14 @@ public class NhaCungCap {
 		this.tenNhaCungCap = tenNhaCungCap;
 	}
 
+	public String getDiaChi() {
+		return diaChi;
+	}
+
+	public void setDiaChi(String diaChi) {
+		this.diaChi = diaChi;
+	}
+
 	public String getSdt() {
 		return sdt;
 	}
@@ -49,16 +67,6 @@ public class NhaCungCap {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-	public String getDiaChi() {
-		return diaChi;
-	}
-	
-	public void setDiaChi(String diaChi) {
-		this.diaChi = diaChi;
-	}
-	
-	
 
 	@Override
 	public int hashCode() {
@@ -79,9 +87,8 @@ public class NhaCungCap {
 
 	@Override
 	public String toString() {
-		return "NhaCungCap [maNhaCungCap=" + maNhaCungCap + ", tenNhaCungCap=" + tenNhaCungCap + ", sdt=" + sdt
-				+ ", email=" + email + ", diaChi= " + diaChi + "]";
+		return "NhaCungCap [maNhaCungCap=" + maNhaCungCap + ", tenNhaCungCap=" + tenNhaCungCap + ", diaChi=" + diaChi
+				+ ", sdt=" + sdt + ", email=" + email + "]";
 	}
 
-	
 }

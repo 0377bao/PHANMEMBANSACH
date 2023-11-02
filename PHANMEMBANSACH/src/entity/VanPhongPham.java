@@ -12,7 +12,6 @@ public class VanPhongPham extends SanPham {
 		this.chatLieu = chatLieu;
 		this.danhMuc = danhMuc;
 	}
-
 	public String getChatLieu() {
 		return chatLieu;
 	}
@@ -33,7 +32,5 @@ public class VanPhongPham extends SanPham {
 	public String toString() {
 		return super.toString() + "VanPhongPham [chatLieu=" + chatLieu + ", danhMuc=" + danhMuc + "]";
 	}
-
-	
 
 }
