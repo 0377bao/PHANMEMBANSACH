@@ -8,14 +8,16 @@ public class KhachHang {
 	private String sdt;
 	private String email;
 	private int diemTichLuy;
+	private float tongTienMua;
 
-	public KhachHang(String maKhachHang, String tenKhachHang, String sdt, String email, int diemTichLuy) {
+	public KhachHang(String maKhachHang, String tenKhachHang, String sdt, String email, int diemTichLuy, float tongTienMua) {
 		super();
 		this.maKhachHang = maKhachHang;
 		this.tenKhachHang = tenKhachHang;
 		this.sdt = sdt;
 		this.email = email;
 		this.diemTichLuy = diemTichLuy;
+		this.tongTienMua = tongTienMua;
 	}
 
 	public String getMaKhachHang() {
@@ -53,6 +55,14 @@ public class KhachHang {
 	public int getDiemTichLuy() {
 		return diemTichLuy;
 	}
+	
+	public void setTongTienMua(float tongTienMua) {
+		this.tongTienMua = tongTienMua;
+	}
+	
+	public float getTongTienMua() {
+		return tongTienMua;
+	}
 
 	public void setDiemTichLuy(int diemTichLuy) {
 		this.diemTichLuy = diemTichLuy;
@@ -80,7 +90,7 @@ public class KhachHang {
 	@Override
 	public String toString() {
 		return "KhachHang [maKhachHang=" + maKhachHang + ", tenKhachHang=" + tenKhachHang + ", sdt=" + sdt + ", email="
-				+ email + ", diemTichLuy=" + diemTichLuy + "]";
+				+ email + ", diemTichLuy=" + diemTichLuy +  ", tongTienMua= " + tongTienMua+ "]";
 	}
 
 	

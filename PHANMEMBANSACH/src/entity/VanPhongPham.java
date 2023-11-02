@@ -5,9 +5,9 @@ public class VanPhongPham extends SanPham {
 	private DanhMuc danhMuc;
 
 	public VanPhongPham(String maSanPham, String tenSanPham, int soLuongTon, float giaNhap, String theLoai, String ke,
-			String hinhAnh, float thue, float phanTramLoiNhuan, float giaBan, String trangThai, NhaCungCap nhaCungCap,
+			String hinhAnh, float thue, float phanTramLoiNhuan, String trangThai, NhaCungCap nhaCungCap,
 			String chatLieu, DanhMuc danhMuc) {
-		super(maSanPham, tenSanPham, soLuongTon, giaNhap, theLoai, ke, hinhAnh, thue, phanTramLoiNhuan, giaBan,
+		super(maSanPham, tenSanPham, soLuongTon, giaNhap, theLoai, ke, hinhAnh, thue, phanTramLoiNhuan,
 				trangThai, nhaCungCap);
 		this.chatLieu = chatLieu;
 		this.danhMuc = danhMuc;
@@ -31,7 +31,7 @@ public class VanPhongPham extends SanPham {
 
 	@Override
 	public String toString() {
-		return "VanPhongPham [chatLieu=" + chatLieu + ", danhMuc=" + danhMuc + "]";
+		return super.toString() + "VanPhongPham [chatLieu=" + chatLieu + ", danhMuc=" + danhMuc + "]";
 	}
 
 	

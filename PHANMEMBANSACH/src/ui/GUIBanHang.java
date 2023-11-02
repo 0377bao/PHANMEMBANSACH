@@ -30,9 +30,12 @@ import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.HybridBinarizer;
 import com.toedter.calendar.JDateChooser;
 
+import bus.BUSSanPham;
 import customUI.MyButton;
 import customUI.MyCombobox;
 import customUI.MyTable;
+import entity.Sach;
+import entity.SanPham;
 
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -65,6 +68,7 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
 	private JTextField txtQLHDTimHoaDon;
 	private JTextField txtQLHDMaNhanVien;
 	private JTextField txtQLHDDienThoaiKH;
+	String resultScanQRBefore = "null";
 	
 	//QR code
 	private TrangChu view;
@@ -72,6 +76,19 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
 	private Webcam webcam = null;
 	private Executor executor = Executors.newSingleThreadExecutor(this);
 	private JPanel pnlKhungQuetMa;
+	private ImageIcon iconLblBgr;
+	private JLabel lblAnhSanPham;
+	private JLabel lblMaSach;
+	private JLabel lblTenSach;
+	private JPanel pnlSanPhamSach;
+	private JPanel pnlSanPham;
+	private JLabel lblThueSach;
+	private JLabel lblGiaBanSach;
+	private JLabel lblTheLoaiSach;
+	private JLabel lblTacGia;
+	private JLabel lblNhaXuatBan;
+	private JLabel lblNamSanXuat;
+	private JLabel lblSoLuongTonSach;
     
 	public GUIBanHang(TrangChu view) {
 		this.view = view;
@@ -203,27 +220,27 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
 		btnHuyHoaDon.setForeground(new Color(255, 255, 255));
 		btnHuyHoaDon.setBackground(new Color(255, 0, 0));
 		btnHuyHoaDon.setFont(new Font("Tahoma", Font.BOLD, 12));
-		//btnHuyHoaDon.setIcon(new ImageIcon("src\\image\\iconcontrolbtntrangchu\\iconnhantrang.png"));
+		btnHuyHoaDon.setIcon(new ImageIcon("src\\image\\iconcontrolbtntrangchu\\iconnhantrang.png"));
 		btnHuyHoaDon.setBounds(10, 578, 140, 30);
 		pnlThanhToan.add(btnHuyHoaDon);
 		
 		JButton btnLamMoiHoaDon = new MyButton("Làm mới");
 		btnLamMoiHoaDon.setFont(new Font("Tahoma", Font.BOLD, 12));
-		//btnLamMoiHoaDon.setIcon(new ImageIcon("src\\image\\iconcontrolbtntrangchu\\iconlammoi.png"));
+		btnLamMoiHoaDon.setIcon(new ImageIcon("src\\image\\iconcontrolbtntrangchu\\iconlammoi.png"));
 		btnLamMoiHoaDon.setBounds(168, 578, 140, 30);
 		pnlThanhToan.add(btnLamMoiHoaDon);
 		
 		JButton btnTaoMoiHoaDon = new MyButton("Tạo hóa đơn");
 		btnTaoMoiHoaDon.setBackground(new Color(255, 255, 128));
 		btnTaoMoiHoaDon.setFont(new Font("Tahoma", Font.BOLD, 12));
-		//btnTaoMoiHoaDon.setIcon(new ImageIcon("src\\image\\iconcontrolbtntrangchu\\icontaomoi.png"));
+		btnTaoMoiHoaDon.setIcon(new ImageIcon("src\\image\\iconcontrolbtntrangchu\\icontaomoi.png"));
 		btnTaoMoiHoaDon.setBounds(10, 618, 298, 39);
 		pnlThanhToan.add(btnTaoMoiHoaDon);
 		
 		JButton btnThanhTon = new MyButton("Thanh toán");
 		btnThanhTon.setBackground(new Color(128, 255, 128));
 		btnThanhTon.setFont(new Font("Tahoma", Font.BOLD, 14));
-		//btnThanhTon.setIcon(new ImageIcon("src\\image\\iconcontrolbtntrangchu\\iconthanhtoan.png"));
+		btnThanhTon.setIcon(new ImageIcon("src\\image\\iconcontrolbtntrangchu\\iconthanhtoan.png"));
 		btnThanhTon.setBounds(10, 667, 298, 69);
 		pnlThanhToan.add(btnThanhTon);
 		
@@ -255,7 +272,7 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
 		JPanel pnlGioHang = new JPanel();
 		pnlGioHang.setBackground(new Color(255, 255, 255));
 		pnlGioHang.setBorder(new LineBorder(new Color(0, 0, 0)));
-		pnlGioHang.setBounds(10, 220, 939, 230);
+		pnlGioHang.setBounds(10, 525, 939, 230);
 		pnlBanHang.add(pnlGioHang);
 		pnlGioHang.setLayout(null);
 		
@@ -294,10 +311,10 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
 		pnlGioHang.add(btnCapNhat);
 		
 //		Phần panel sản phẩm
-		JPanel pnlSanPham = new JPanel();
+		pnlSanPham = new JPanel();
 		pnlSanPham.setBackground(new Color(255, 255, 255));
 		pnlSanPham.setBorder(new LineBorder(new Color(0, 0, 0)));
-		pnlSanPham.setBounds(272, 460, 677, 295);
+		pnlSanPham.setBounds(272, 220, 677, 295);
 		pnlBanHang.add(pnlSanPham);
 		pnlSanPham.setLayout(null);
 		
@@ -319,24 +336,24 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
 		MyButton btnThemSanPham = new MyButton("Thêm sản phẩm");
 		btnThemSanPham.setText("Thêm");
 		btnThemSanPham.setBackground(new Color(255, 255, 128));
-		//btnThemSanPham.setIcon(new ImageIcon("src\\image\\iconcontrolbtntrangchu\\iconcong.png"));
+		btnThemSanPham.setIcon(new ImageIcon("src\\image\\iconcontrolbtntrangchu\\iconcong.png"));
 		btnThemSanPham.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnThemSanPham.setBounds(540, 165, 131, 35);
 		pnlSanPham.add(btnThemSanPham);
 		
-		JLabel lblAnhSanPham = new JLabel();
+		lblAnhSanPham = new JLabel();
 		lblAnhSanPham.setBounds(21, 77, 131, 189);
 		lblAnhSanPham.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
 //		lấy hình gốc
-		//ImageIcon iconLblBgr = new ImageIcon("src\\image\\imagepanel\\hinhnen.jpeg");
+		iconLblBgr = new ImageIcon("src\\image\\imagepanel\\hinhnen.jpeg");
 //		phóng to hình
-		//Image scaledImage = ((ImageIcon) iconLblBgr).getImage().getScaledInstance(lblAnhSanPham.getWidth(), lblAnhSanPham.getHeight(), Image.SCALE_SMOOTH);
+		Image scaledImage = ((ImageIcon) iconLblBgr).getImage().getScaledInstance(lblAnhSanPham.getWidth(), lblAnhSanPham.getHeight(), Image.SCALE_SMOOTH);
 //		gán lại hình
-        //iconLblBgr = new ImageIcon(scaledImage);
-        //lblAnhSanPham.setIcon(iconLblBgr);
+        iconLblBgr = new ImageIcon(scaledImage);
+        lblAnhSanPham.setIcon(iconLblBgr);
         pnlSanPham.add(lblAnhSanPham);
         
-        JPanel pnlSanPhamSach = new JPanel();
+        pnlSanPhamSach = new JPanel();
         pnlSanPhamSach.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 0, 0), null, null, null));
         pnlSanPhamSach.setBounds(179, 52, 351, 233);
         pnlSanPham.add(pnlSanPhamSach);
@@ -347,7 +364,7 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
         lblMSnPhm.setBounds(10, 10, 89, 15);
         pnlSanPhamSach.add(lblMSnPhm);
         
-        JLabel lblMaSach = new JLabel("SP01");
+        lblMaSach = new JLabel();
         lblMaSach.setFont(new Font("Tahoma", Font.BOLD, 12));
         lblMaSach.setBounds(112, 10, 229, 15);
         pnlSanPhamSach.add(lblMaSach);
@@ -357,7 +374,7 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
         lblTnSnPhm.setBounds(10, 35, 89, 15);
         pnlSanPhamSach.add(lblTnSnPhm);
         
-        JLabel lblTenSach = new JLabel("Hóa học vô cơ 12");
+        lblTenSach = new JLabel();
         lblTenSach.setFont(new Font("Tahoma", Font.BOLD, 12));
         lblTenSach.setBounds(112, 35, 229, 15);
         pnlSanPhamSach.add(lblTenSach);
@@ -367,7 +384,7 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
         lblThu.setBounds(10, 60, 89, 15);
         pnlSanPhamSach.add(lblThu);
         
-        JLabel lblThueSach = new JLabel("0");
+        lblThueSach = new JLabel();
         lblThueSach.setFont(new Font("Tahoma", Font.BOLD, 12));
         lblThueSach.setBounds(112, 60, 229, 15);
         pnlSanPhamSach.add(lblThueSach);
@@ -377,7 +394,7 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
         lblGiBn.setBounds(10, 85, 89, 15);
         pnlSanPhamSach.add(lblGiBn);
         
-        JLabel lblGiaBanSach = new JLabel("20.000");
+        lblGiaBanSach = new JLabel();
         lblGiaBanSach.setForeground(new Color(255, 0, 0));
         lblGiaBanSach.setFont(new Font("Tahoma", Font.BOLD, 12));
         lblGiaBanSach.setBounds(112, 85, 229, 15);
@@ -388,7 +405,7 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
         lblThLoi.setBounds(10, 110, 89, 15);
         pnlSanPhamSach.add(lblThLoi);
         
-        JLabel lblTheLoaiSach = new JLabel("Sách giáo khoa");
+        lblTheLoaiSach = new JLabel();
         lblTheLoaiSach.setFont(new Font("Tahoma", Font.BOLD, 12));
         lblTheLoaiSach.setBounds(112, 110, 229, 15);
         pnlSanPhamSach.add(lblTheLoaiSach);
@@ -398,7 +415,7 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
         lblTcGi.setBounds(10, 135, 89, 15);
         pnlSanPhamSach.add(lblTcGi);
         
-        JLabel lblTacGia = new JLabel("Bộ giáo dục");
+        lblTacGia = new JLabel();
         lblTacGia.setFont(new Font("Tahoma", Font.BOLD, 12));
         lblTacGia.setBounds(112, 135, 229, 15);
         pnlSanPhamSach.add(lblTacGia);
@@ -408,7 +425,7 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
         lblNhXutBn.setBounds(10, 160, 89, 15);
         pnlSanPhamSach.add(lblNhXutBn);
         
-        JLabel lblNhaXuatBan = new JLabel("Bộ giáo dục");
+        lblNhaXuatBan = new JLabel();
         lblNhaXuatBan.setFont(new Font("Tahoma", Font.BOLD, 12));
         lblNhaXuatBan.setBounds(112, 160, 229, 15);
         pnlSanPhamSach.add(lblNhaXuatBan);
@@ -418,7 +435,7 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
         lblNmSnXut.setBounds(10, 185, 89, 15);
         pnlSanPhamSach.add(lblNmSnXut);
         
-        JLabel lblNamSanXuat = new JLabel("2010");
+        lblNamSanXuat = new JLabel();
         lblNamSanXuat.setFont(new Font("Tahoma", Font.BOLD, 12));
         lblNamSanXuat.setBounds(112, 185, 229, 15);
         pnlSanPhamSach.add(lblNamSanXuat);
@@ -428,7 +445,7 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
         lblSLngTn.setBounds(10, 208, 89, 15);
         pnlSanPhamSach.add(lblSLngTn);
         
-        JLabel lblSoLuongTonSach = new JLabel("10");
+        lblSoLuongTonSach = new JLabel();
         lblSoLuongTonSach.setForeground(new Color(255, 128, 0));
         lblSoLuongTonSach.setFont(new Font("Tahoma", Font.BOLD, 12));
         lblSoLuongTonSach.setBounds(112, 208, 229, 15);
@@ -591,7 +608,7 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
 		pnlQuetMa.setLayout(null);
 		pnlQuetMa.setBorder(new LineBorder(new Color(0, 0, 0)));
 		pnlQuetMa.setBackground(Color.WHITE);
-		pnlQuetMa.setBounds(10, 460, 252, 296);
+		pnlQuetMa.setBounds(10, 220, 252, 296);
 		pnlBanHang.add(pnlQuetMa);
 		
 		JLabel lblQutMSn = new JLabel("Quét mã sản phẩm");
@@ -603,13 +620,6 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
 		pnlKhungQuetMa = new JPanel();
 		pnlKhungQuetMa.setBorder(new LineBorder(new Color(0, 0, 0)));
 		pnlKhungQuetMa.setBounds(10, 40, 232, 246);
-//		lấy hình gốc
-		//ImageIcon iconLblBgrQuetMa = new ImageIcon("src\\image\\imagepanel\\quetma.jpeg");
-//		phóng to hình
-		//Image scaledImageQuetMa = ((ImageIcon) iconLblBgrQuetMa).getImage().getScaledInstance(lblKhungQuetMa.getWidth(), lblKhungQuetMa.getHeight(), Image.SCALE_SMOOTH);
-//		gán lại hình
-		//iconLblBgrQuetMa = new ImageIcon(scaledImageQuetMa);
-		//lblKhungQuetMa.setIcon(iconLblBgrQuetMa);
 		pnlQuetMa.add(pnlKhungQuetMa);
 		
 		JPanel pnlQlHoaDon = new JPanel();
@@ -702,7 +712,7 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
 		pnlQLHDChucNang.add(btnQLHDTaiLai);
 		
 		MyButton btnQLHDSapXep = new MyButton("Tìm");
-		btnQLHDSapXep.setText("Sắp xếp theo doanh thu");
+		btnQLHDSapXep.setText("Sắp xếp theo tổng tiền");
 		btnQLHDSapXep.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnQLHDSapXep.setBounds(70, 149, 163, 36);
 		pnlQLHDChucNang.add(btnQLHDSapXep);
@@ -852,23 +862,42 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
 					continue;
 				}
 			}
-			
 			LuminanceSource source = new BufferedImageLuminanceSource(image);
 			BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
-			
-			
-			
 			try {
 				result = new MultiFormatReader().decode(bitmap);
 			} catch (NotFoundException e) {
 				// TODO Auto-generated catch block
 				
 			}
-			if(result != null) {
-				
+			if(result != null && !result.getText().equals(resultScanQRBefore)) {
 				txtMaSanPham.setText(result.getText());
+				SanPham sanPhamQuet = new BUSSanPham().timKiemSanPham(result.getText());
+//				lấy hình gốc
+				iconLblBgr = new ImageIcon(sanPhamQuet.getHinhAnh());
+//				phóng to hình
+				Image scaledImage = ((ImageIcon) iconLblBgr).getImage().getScaledInstance(lblAnhSanPham.getWidth(), lblAnhSanPham.getHeight(), Image.SCALE_SMOOTH);
+//				gán lại hình
+		        iconLblBgr = new ImageIcon(scaledImage);
+		        lblAnhSanPham.setIcon(iconLblBgr);
+		        pnlSanPham.add(lblAnhSanPham);
+		        pnlSanPham.repaint();
+				if(sanPhamQuet.getMaSanPham().startsWith("SPS")) {
+			        lblMaSach.setText(sanPhamQuet.getMaSanPham());
+			        lblTenSach.setText(sanPhamQuet.getTenSanPham());
+			        lblThueSach.setText(sanPhamQuet.getThue() + "");
+			        lblGiaBanSach.setText(sanPhamQuet.getGiaBan() + "");
+			        lblTheLoaiSach.setText(sanPhamQuet.getTheLoai());
+			        lblTacGia.setText(((Sach) sanPhamQuet).getTacGia());
+			        lblNhaXuatBan.setText(((Sach) sanPhamQuet).getNhaXuatBan());
+			        lblNamSanXuat.setText(((Sach) sanPhamQuet).getNamXuatBan() + "");
+			        lblSoLuongTonSach.setText(sanPhamQuet.getSoLuongTon() + "");
+				} else {
+					
+				}
+				resultScanQRBefore = result.getText();
 			}
-		}while((view.indexFrame.equals("Bán hàng")));
+		}while(view.indexFrame.equals("Bán hàng"));
 		webcam.close();
 	}
 }

@@ -67,7 +67,7 @@ public class DonDoiTra {
 	}
 	
 	public float tinhTienCanTra() {
-		return this.getHoaDon().tinhTienCanThanhToan();
+		return this.getHoaDon().getThanhTien();
 	}
 	
 	public int tinhSoLuongDoiHang() {

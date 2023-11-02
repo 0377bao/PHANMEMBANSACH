@@ -15,6 +15,7 @@ public class HoaDon {
 	private KhachHang khachHang;
 	private ChuongTrinhKhuyenMai ctkm;
 	private ArrayList<ChiTietHoaDon> dsChiTietHoaDon = new ArrayList<>();
+	private float thanhTien;
 
 	public HoaDon(String maHoaDon, LocalDate ngayLap, String hinhThucThanhToan, String ghiChu, int diemGiamGia,
 			float giamGia, NhanVien nhanVien, KhachHang khachHang, ChuongTrinhKhuyenMai ctkm,
@@ -30,6 +31,7 @@ public class HoaDon {
 		this.khachHang = khachHang;
 		this.ctkm = ctkm;
 		this.dsChiTietHoaDon = dsChiTietHoaDon;
+		this.thanhTien = this.getThanhTien();
 	}
 
 	public String getMaHoaDon() {
@@ -112,7 +114,6 @@ public class HoaDon {
 		this.dsChiTietHoaDon = dsChiTietHoaDon;
 	}
 	
-	
 
 	@Override
 	public int hashCode() {
@@ -158,12 +159,12 @@ public class HoaDon {
 		return result;
 	}
 	
-	public float tinhTienCanThanhToan() {
+	public float getThanhTien() {
 		return tinhTongTien() - tinhGiamGia() - (diemGiamGia * 10000);
 	}
 	
 	public float tinhTienThua(float tienKhachDua) {
-		return tienKhachDua - tinhTienCanThanhToan();
+		return tienKhachDua - getThanhTien();
 	}
 
 	@Override

@@ -94,6 +94,7 @@ public class GUIDangNhap extends JFrame {
 
 		txtTenDangNhap = new JTextField();
 		txtTenDangNhap.setFont(new Font("Tahoma", Font.BOLD, 13));
+		txtTenDangNhap.setText("NV1");
 		txtTenDangNhap.setBounds(327, 145, 317, 30);
 		pnlContent.add(txtTenDangNhap);
 		txtTenDangNhap.setColumns(10);
@@ -105,6 +106,7 @@ public class GUIDangNhap extends JFrame {
 
 		txtMatKhau = new JPasswordField();
 		txtMatKhau.setFont(new Font("Tahoma", Font.BOLD, 13));
+		txtMatKhau.setText("k123456");
 		txtMatKhau.setColumns(10);
 		txtMatKhau.setBounds(327, 222, 317, 30);
 		pnlContent.add(txtMatKhau);
@@ -136,7 +138,7 @@ public class GUIDangNhap extends JFrame {
 		if(taiKhoan.equals("")) {
 			JOptionPane.showMessageDialog(this, "Tên tài khoản không được để trống");
 		}else if(matKhau.equals("")) {
-			JOptionPane.showConfirmDialog(this, "Mật khẩu không được để trống");
+			JOptionPane.showMessageDialog(this, "Mật khẩu không được để trống");
 		}else {
 			boolean kiemTra = busTaiKhoan.kiemTraMatKhau(taiKhoan, matKhau);
 			if(kiemTra) {
@@ -145,7 +147,7 @@ public class GUIDangNhap extends JFrame {
 				this.setVisible(false);
 				
 			}else {
-				JOptionPane.showMessageDialog(this, "Đăng nhập ko thành công");
+				JOptionPane.showMessageDialog(this, "Tài khoản hoặc mật khẩu không chính xác");
 			}
 		}
 	}

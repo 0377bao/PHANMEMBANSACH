@@ -7,13 +7,15 @@ public class NhaCungCap {
 	private String tenNhaCungCap;
 	private String sdt;
 	private String email;
+	private String diaChi;
 
-	public NhaCungCap(String maNhaCungCap, String tenNhaCungCap, String sdt, String email) {
+	public NhaCungCap(String maNhaCungCap, String tenNhaCungCap, String sdt, String email, String diaChi) {
 		super();
 		this.maNhaCungCap = maNhaCungCap;
 		this.tenNhaCungCap = tenNhaCungCap;
 		this.sdt = sdt;
 		this.email = email;
+		this.diaChi = diaChi;
 	}
 
 	public String getMaNhaCungCap() {
@@ -48,6 +50,14 @@ public class NhaCungCap {
 		this.email = email;
 	}
 	
+	public String getDiaChi() {
+		return diaChi;
+	}
+	
+	public void setDiaChi(String diaChi) {
+		this.diaChi = diaChi;
+	}
+	
 	
 
 	@Override
@@ -70,7 +80,7 @@ public class NhaCungCap {
 	@Override
 	public String toString() {
 		return "NhaCungCap [maNhaCungCap=" + maNhaCungCap + ", tenNhaCungCap=" + tenNhaCungCap + ", sdt=" + sdt
-				+ ", email=" + email + "]";
+				+ ", email=" + email + ", diaChi= " + diaChi + "]";
 	}
 
 	

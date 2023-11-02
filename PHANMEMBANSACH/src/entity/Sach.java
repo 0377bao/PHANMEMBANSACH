@@ -6,9 +6,9 @@ public class Sach extends SanPham {
 	private int namXuatBan;
 
 	public Sach(String maSanPham, String tenSanPham, int soLuongTon, float giaNhap, String theLoai, String ke,
-			String hinhAnh, float thue, float phanTramLoiNhuan, float giaBan, String trangThai, NhaCungCap nhaCungCap,
+			String hinhAnh, float thue, float phanTramLoiNhuan, String trangThai, NhaCungCap nhaCungCap,
 			String tacGia, String nhaXuatBan, int namXuatBan) {
-		super(maSanPham, tenSanPham, soLuongTon, giaNhap, theLoai, ke, hinhAnh, thue, phanTramLoiNhuan, giaBan,
+		super(maSanPham, tenSanPham, soLuongTon, giaNhap, theLoai, ke, hinhAnh, thue, phanTramLoiNhuan,
 				trangThai, nhaCungCap);
 		this.tacGia = tacGia;
 		this.nhaXuatBan = nhaXuatBan;
@@ -41,7 +41,7 @@ public class Sach extends SanPham {
 
 	@Override
 	public String toString() {
-		return "Sach [tacGia=" + tacGia + ", nhaXuatBan=" + nhaXuatBan + ", namXuatBan=" + namXuatBan + "]";
+		return super.toString() + "Sach [tacGia=" + tacGia + ", nhaXuatBan=" + nhaXuatBan + ", namXuatBan=" + namXuatBan + "]";
 	}
 
 	
