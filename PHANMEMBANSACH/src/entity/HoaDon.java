@@ -154,7 +154,7 @@ public class HoaDon {
 		float result = 0;
 		for(ChiTietHoaDon cthd : dsChiTietHoaDon) {
 			giamGia = kiemTraGiamGiaTheoChuongTrinh(cthd.getSanPham());
-			result += cthd.tinhThanhTien()*giamGia;
+			result += cthd.tinhThanhTien()*(giamGia/100);
 		}
 		return result;
 	}

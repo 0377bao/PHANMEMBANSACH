@@ -106,10 +106,10 @@ public class GUIDangNhap extends JFrame {
 
 		txtMatKhau = new JPasswordField();
 		txtMatKhau.setFont(new Font("Tahoma", Font.BOLD, 13));
-		txtMatKhau.setText("k123456");
+		txtMatKhau.setText("K123456");
 		txtMatKhau.setColumns(10);
 		txtMatKhau.setBounds(327, 222, 317, 30);
-		txtMatKhau.setText("k123456");
+		txtMatKhau.setText("K123456");
 		pnlContent.add(txtMatKhau);
 
 		btnQuenMatKhau = new MyButton("Quên mật khẩu?");

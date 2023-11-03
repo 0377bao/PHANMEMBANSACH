@@ -2,32 +2,30 @@ package ui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.EventQueue;
-import java.awt.Toolkit;
+
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
+
 
 import controller.XuLyDieuHuongPhamMem;
 import customUI.ButtonSidebar;
 import customUI.CustumImage;
+import entity.HoaDon;
 import entity.NhanVien;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
+
 import java.awt.Color;
 import java.awt.Component;
 
-import javax.swing.UIManager;
-import javax.swing.border.BevelBorder;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
+
 
 import java.awt.Font;
 import java.awt.Image;
-import javax.swing.SwingConstants;
+
 
 public class TrangChu extends JFrame {
 
@@ -249,7 +247,8 @@ public class TrangChu extends JFrame {
 			btnBanHang.setForeground(Color.white);
 		}
 		if(src.equals("Giao hàng")) {
-			pnlHienTai = new GUIGiaoHang();
+			HoaDon hd = null;
+			pnlHienTai = new GUIGiaoHang(hd);
 			btnGiaoHang.setBackground(colorBtnActive);
 			btnGiaoHang.setForeground(Color.white);
 		}
