@@ -7,10 +7,7 @@ import entity.NhanVien;
 
 public class BUSNhanVien {
 	private DAONhanVien daoNhanVien = new DAONhanVien();
-<<<<<<< HEAD
-	public NhanVien layNhanVienTheoMa(String maNV) {
-		return daoNhanVien.layNhanVien(maNV);
-=======
+
 	ArrayList<NhanVien> dsNV = daoNhanVien.layDSNhanVien();
 	
 	public ArrayList<NhanVien> layDSNhanVien(){
@@ -23,6 +20,6 @@ public class BUSNhanVien {
 	
 	public NhanVien layNhanVien(String maNV) {
 		return daoNhanVien.layNhanVienTheoMa(maNV);
->>>>>>> 3f3e1930aa2f91f496f8c5cc0afe4d88fc8a395c
+
 	}
 }
