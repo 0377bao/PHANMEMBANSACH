@@ -21,7 +21,7 @@ public class DAOMucKhuyenMai {
 			ResultSet rs = stmt.executeQuery();
 			while(rs.next()) {
 				String tenMucKhuyenMai = rs.getString("tenMucKhuyenMai").trim();
-				float phanTram = rs.getFloat("tiLeKhuyenMai") / 100;
+				float phanTram = rs.getFloat("tiLeKhuyenMai");
 				MucKhuyenMai mkm = new MucKhuyenMai(tenMucKhuyenMai, phanTram);
 				dsMucKhuyenMai.add(mkm);
 			}

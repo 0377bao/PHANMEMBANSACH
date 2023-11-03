@@ -464,7 +464,7 @@ public class GUIGiaoHang extends JPanel{
 			txtMaDonHangQL.setColumns(10);
 			
 			JLabel lblNewLabel_16 = new JLabel("Số điện thoại khách hàng:");
-			lblNewLabel_16.setBounds(327, 30, 141, 14);
+			lblNewLabel_16.setBounds(315, 30, 173, 14);
 			panel_6.add(lblNewLabel_16);
 			
 			txtSDTQL = new JTextField();

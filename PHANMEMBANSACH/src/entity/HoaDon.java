@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import bus.BUSHoaDon;
+
 public class HoaDon {
 	private String maHoaDon;
 	private LocalDate ngayLap;
@@ -140,21 +142,12 @@ public class HoaDon {
 		return result;
 	}
 	
-	public float kiemTraGiamGiaTheoChuongTrinh(SanPham sp) {
-		float phanTramGiam = 0;
-		for(MucKhuyenMai m : ctkm.getDsMucKhuyenMai()) {
-			if(sp.getTheLoai().equalsIgnoreCase(m.getTenMucKhuyenMai())) {
-				phanTramGiam = m.getTiLeKhuyenMai();
-			}
-		}
-		return phanTramGiam / 100;
-	}
-	
 	public float tinhGiamGia() {
 		float result = 0;
 		for(ChiTietHoaDon cthd : dsChiTietHoaDon) {
-			giamGia = kiemTraGiamGiaTheoChuongTrinh(cthd.getSanPham());
-			result += cthd.tinhThanhTien()*(giamGia/100);
+			giamGia = new BUSHoaDon().hamLayGiamGiaCuaChiTietHoaDon(this.ctkm, cthd.getSanPham());
+			result += cthd.tinhThanhTien() * giamGia / 100;
+
 		}
 		return result;
 	}

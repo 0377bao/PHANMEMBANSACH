@@ -98,4 +98,8 @@ public class BUSKhachHang {
         }
         tb.setModel(model);
     }
+    
+    public KhachHang timKhachHangTheoMa(String maKH) {
+    	return daoKhachHang.timKhachHangTheoMa(maKH);
+    }
 }

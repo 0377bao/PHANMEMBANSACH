@@ -30,13 +30,21 @@ import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.HybridBinarizer;
 import com.toedter.calendar.JDateChooser;
 
+import bus.BUSChuongTrinhKhuyenMai;
+import bus.BUSHoaDon;
+import bus.BUSKhachHang;
 import bus.BUSSanPham;
 import customUI.MyButton;
 import customUI.MyCombobox;
 import customUI.MyTable;
+import entity.ChiTietHoaDon;
+import entity.ChuongTrinhKhuyenMai;
+import entity.HoaDon;
+import entity.KhachHang;
 import entity.Sach;
 import entity.SanPham;
 import entity.VanPhongPham;
+import tool.Tools;
 
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -44,6 +52,7 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.Executor;
@@ -99,9 +108,30 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
 	private JLabel lblDanhMuc;
 	private JLabel lblChatLieu;
 	private JLabel lblSoLuongTonVPP;
-    
-	public GUIBanHang(TrangChu view) {
+	private JLabel lblMaKhachHang;
+	private JLabel lblTenKhachHang;
+	private JLabel lblDiemTichLuy;
+//	khai báo bus
+	private BUSHoaDon BUSHoaDon = new BUSHoaDon();
+	private BUSKhachHang busKhachHang = new BUSKhachHang();
+	private BUSChuongTrinhKhuyenMai busCTKM = new BUSChuongTrinhKhuyenMai();
+//	Phần dữ liệu cho hóa đơn
+	private ArrayList<HoaDon> dsHoaDonCho = new ArrayList<>();
+	private HoaDon hoaDonHienTai = null;
+	private KhachHang khachHang = busKhachHang.timKhachHangTheoMa("KH1");
+	private ChuongTrinhKhuyenMai ctkmCuaHoaDon = busCTKM.timChuongTrinhKhuyenMaiDangApDung();
+	private JLabel lblMaHoaDon;
+	private JLabel lblTongTien;
+	private JLabel lblTenChuongTrinhKhuyenMai;
+	private JLabel lblThanhToan;
+	private JLabel lblTienThua;
+	private JTextArea txtGhiChu;
+	private MyCombobox cbbHinhThucThanhToan;
+	private MyCombobox cbbDiemGiamGia;
+	public GUIBanHang(TrangChu view, ArrayList<HoaDon> ds) {
 		this.view = view;
+		this.dsHoaDonCho = ds;
+		this.hoaDonHienTai = dsHoaDonCho.size() == 0 ? null : dsHoaDonCho.get(0);
 		this.setBackground(new Color(255, 255, 255));
 		this.setBounds(250, 0, 1302, 800);
 		setLayout(null);
@@ -110,6 +140,7 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
 		tabbedPane.setBounds(0, 0, 1292, 793);
 		add(tabbedPane);
 		
+//		Phần bán hàng
 		JPanel pnlBanHang = new JPanel();
 		tabbedPane.addTab("Bán hàng", null, pnlBanHang, null);
 		pnlBanHang.setLayout(null);
@@ -129,22 +160,22 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
 		
 		JLabel lblMHan = new JLabel("Mã hóa đơn:");
 		lblMHan.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblMHan.setBounds(10, 40, 86, 30);
+		lblMHan.setBounds(10, 74, 86, 30);
 		pnlThanhToan.add(lblMHan);
 		
 		JLabel lblTngTin = new JLabel("Tổng tiền:");
 		lblTngTin.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblTngTin.setBounds(10, 80, 72, 30);
+		lblTngTin.setBounds(10, 114, 72, 30);
 		pnlThanhToan.add(lblTngTin);
 		
 		JLabel lblimGimGi = new JLabel("Điểm giảm giá:");
 		lblimGimGi.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblimGimGi.setBounds(10, 120, 99, 30);
+		lblimGimGi.setBounds(10, 154, 99, 30);
 		pnlThanhToan.add(lblimGimGi);
 		
-		JLabel lblTinGimGi = new JLabel("Tiền giảm giá:");
+		JLabel lblTinGimGi = new JLabel("Tên CTKM:");
 		lblTinGimGi.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblTinGimGi.setBounds(10, 160, 99, 30);
+		lblTinGimGi.setBounds(10, 34, 99, 30);
 		pnlThanhToan.add(lblTinGimGi);
 		
 		JLabel lblThanhTon = new JLabel("Thanh toán:");
@@ -172,25 +203,25 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
 		lblHnhThcThanh_1_1.setBounds(10, 400, 65, 30);
 		pnlThanhToan.add(lblHnhThcThanh_1_1);
 		
-		JLabel lblMaHoaDon = new JLabel("Vui lòng tạo!");
+		lblMaHoaDon = new JLabel("Vui lòng tạo!");
 		lblMaHoaDon.setForeground(new Color(255, 128, 64));
 		lblMaHoaDon.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblMaHoaDon.setBounds(170, 40, 138, 30);
+		lblMaHoaDon.setBounds(170, 74, 138, 30);
 		pnlThanhToan.add(lblMaHoaDon);
 		
-		JLabel lblTongTien = new JLabel("0");
+		lblTongTien = new JLabel("0");
 		lblTongTien.setHorizontalAlignment(SwingConstants.LEFT);
 		lblTongTien.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblTongTien.setBounds(170, 80, 138, 30);
+		lblTongTien.setBounds(170, 114, 138, 30);
 		pnlThanhToan.add(lblTongTien);
 		
-		JLabel lblTienGiamGia = new JLabel("0");
-		lblTienGiamGia.setHorizontalAlignment(SwingConstants.LEFT);
-		lblTienGiamGia.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblTienGiamGia.setBounds(170, 160, 138, 30);
-		pnlThanhToan.add(lblTienGiamGia);
+		lblTenChuongTrinhKhuyenMai = new JLabel("Không có giảm giá");
+		lblTenChuongTrinhKhuyenMai.setHorizontalAlignment(SwingConstants.LEFT);
+		lblTenChuongTrinhKhuyenMai.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblTenChuongTrinhKhuyenMai.setBounds(170, 34, 138, 30);
+		pnlThanhToan.add(lblTenChuongTrinhKhuyenMai);
 		
-		JLabel lblThanhToan = new JLabel("0");
+		lblThanhToan = new JLabel("0");
 		lblThanhToan.setForeground(new Color(255, 128, 64));
 		lblThanhToan.setHorizontalAlignment(SwingConstants.LEFT);
 		lblThanhToan.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -203,27 +234,27 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
 		pnlThanhToan.add(txtTienKhachDua);
 		txtTienKhachDua.setColumns(10);
 		
-		JLabel lblTienThua = new JLabel("0");
+		lblTienThua = new JLabel("0");
 		lblTienThua.setForeground(new Color(0, 128, 255));
 		lblTienThua.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblTienThua.setBounds(170, 280, 138, 30);
 		pnlThanhToan.add(lblTienThua);
 		
-		JTextArea txtGhiChu = new JTextArea();
+		txtGhiChu = new JTextArea();
 		txtGhiChu.setBounds(10, 441, 298, 108);
 		txtGhiChu.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		pnlThanhToan.add(txtGhiChu);
 		
-		JComboBox cbbHinhThucThanhToan = new MyCombobox();
+		cbbHinhThucThanhToan = new MyCombobox();
 		cbbHinhThucThanhToan.setFont(new Font("Tahoma", Font.BOLD, 13));
 		cbbHinhThucThanhToan.setBounds(10, 360, 298, 30);
 		cbbHinhThucThanhToan.addItem("Tiền mặt");
 		cbbHinhThucThanhToan.addItem("Chuyển khoản");
 		pnlThanhToan.add(cbbHinhThucThanhToan);
 		
-		JComboBox cbbDiemGiamGia = new MyCombobox();
+		cbbDiemGiamGia = new MyCombobox();
 		cbbDiemGiamGia.setFont(new Font("Tahoma", Font.BOLD, 13));
-		cbbDiemGiamGia.setBounds(170, 126, 138, 30);
+		cbbDiemGiamGia.setBounds(170, 154, 138, 30);
 		pnlThanhToan.add(cbbDiemGiamGia);
 		
 		JButton btnHuyHoaDon = new MyButton("Hủy hóa đơn");
@@ -271,10 +302,6 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
 		String[] colsHoaDonCho = {"Mã hóa đơn", "Ngày tạo","Nhân viên tạo", "Tên khách hàng", "Số điện thoại"};
 		modelHoaDonCho = new DefaultTableModel(colsHoaDonCho, 0);
 		tableHoaDonCho = new MyTable(modelHoaDonCho);
-		modelHoaDonCho.addRow(new Object[] {"HD1", "26/10/2023","NV1", "Nguyễn Văn A", "0353426938"});
-		modelHoaDonCho.addRow(new Object[] {"HD1", "26/10/2023","NV1", "Nguyễn Văn A", "0353426938"});
-		modelHoaDonCho.addRow(new Object[] {"HD1", "26/10/2023","NV1", "Nguyễn Văn A", "0353426938"});
-		modelHoaDonCho.addRow(new Object[] {"HD1", "26/10/2023","NV1", "Nguyễn Văn A", "0353426938"});
 		JScrollPane srcTbHoaDonCho = new JScrollPane(tableHoaDonCho);
 		srcTbHoaDonCho.setBounds(10, 39, 572, 151);
 		pnlHoaDonCho.add(srcTbHoaDonCho);
@@ -292,17 +319,13 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
 		lblTitleGiohang.setBounds(10, 10, 111, 20);
 		pnlGioHang.add(lblTitleGiohang);
 		
-		String[] colsGiohang = {"Mã sản phẩm", "Tên sản phẩm","Đơn giá", "Số lượng"};
+		String[] colsGiohang = {"Mã sản phẩm", "Tên sản phẩm", "Đơn giá", "Thuế","Số lượng", "Giảm giá", "Thành tiền"};
 		modelGioHang = new DefaultTableModel(colsGiohang, 0);
 		tableGioHang = new MyTable(modelGioHang);
-		modelGioHang.addRow(new Object[] {"SP1", "Sách giáo khoa","100.000", "2"});
-		modelGioHang.addRow(new Object[] {"SP1", "Sách giáo khoa","100.000", "2"});
-		modelGioHang.addRow(new Object[] {"SP1", "Sách giáo khoa","100.000", "2"});
-		modelGioHang.addRow(new Object[] {"SP1", "Sách giáo khoa","100.000", "2"});
-		modelGioHang.addRow(new Object[] {"SP1", "Sách giáo khoa","100.000", "2"});
 		JScrollPane srcTbGioHang = new JScrollPane(tableGioHang);
 		srcTbGioHang.setBounds(10, 39, 672, 181);
-		tableGioHang.getColumnModel().getColumn(1).setPreferredWidth(200);
+		tableGioHang.getColumnModel().getColumn(0).setPreferredWidth(70);
+		tableGioHang.getColumnModel().getColumn(1).setPreferredWidth(130);
 		pnlGioHang.add(srcTbGioHang);
 		
 		JButton btnXoaTatCa = new MyButton("Xóa tất cả");
@@ -355,7 +378,7 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
 		lblAnhSanPham.setBounds(21, 77, 131, 189);
 		lblAnhSanPham.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
 //		lấy hình gốc
-		iconLblBgr = new ImageIcon("src\\image\\imagepanel\\hinhnen.jpeg");
+		iconLblBgr = new ImageIcon("src\\image\\imagepanel\\logobrand.jpg");
 //		phóng to hình
 		Image scaledImage = ((ImageIcon) iconLblBgr).getImage().getScaledInstance(lblAnhSanPham.getWidth(), lblAnhSanPham.getHeight(), Image.SCALE_SMOOTH);
 //		gán lại hình
@@ -481,7 +504,7 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
         lblTnSnPhm_1.setBounds(10, 35, 89, 15);
         pnlSanPhamVPP.add(lblTnSnPhm_1);
         
-        lblTenVPP = new JLabel("Balo đi học hai ngăn");
+        lblTenVPP = new JLabel();
         lblTenVPP.setFont(new Font("Tahoma", Font.BOLD, 12));
         lblTenVPP.setBounds(112, 35, 229, 15);
         pnlSanPhamVPP.add(lblTenVPP);
@@ -491,7 +514,7 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
         lblThu_1.setBounds(10, 60, 89, 15);
         pnlSanPhamVPP.add(lblThu_1);
         
-        lblThueVPP = new JLabel("10");
+        lblThueVPP = new JLabel();
         lblThueVPP.setFont(new Font("Tahoma", Font.BOLD, 12));
         lblThueVPP.setBounds(112, 60, 229, 15);
         pnlSanPhamVPP.add(lblThueVPP);
@@ -501,7 +524,7 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
         lblGiBn_1.setBounds(10, 85, 89, 15);
         pnlSanPhamVPP.add(lblGiBn_1);
         
-        lblGiaVPP = new JLabel("200.000");
+        lblGiaVPP = new JLabel();
         lblGiaVPP.setForeground(Color.RED);
         lblGiaVPP.setFont(new Font("Tahoma", Font.BOLD, 12));
         lblGiaVPP.setBounds(112, 85, 229, 15);
@@ -512,7 +535,7 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
         lblThLoi_1.setBounds(10, 135, 89, 15);
         pnlSanPhamVPP.add(lblThLoi_1);
         
-        lblTheLoaiVPP = new JLabel("Balo chéo");
+        lblTheLoaiVPP = new JLabel();
         lblTheLoaiVPP.setFont(new Font("Tahoma", Font.BOLD, 12));
         lblTheLoaiVPP.setBounds(112, 135, 229, 15);
         pnlSanPhamVPP.add(lblTheLoaiVPP);
@@ -522,7 +545,7 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
         lblTcGi_1.setBounds(10, 110, 89, 15);
         pnlSanPhamVPP.add(lblTcGi_1);
         
-        lblDanhMuc = new JLabel("Balo");
+        lblDanhMuc = new JLabel();
         lblDanhMuc.setFont(new Font("Tahoma", Font.BOLD, 12));
         lblDanhMuc.setBounds(112, 110, 229, 15);
         pnlSanPhamVPP.add(lblDanhMuc);
@@ -532,7 +555,7 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
         lblNhXutBn_1.setBounds(10, 160, 89, 15);
         pnlSanPhamVPP.add(lblNhXutBn_1);
         
-        lblChatLieu = new JLabel("Vải cô tông");
+        lblChatLieu = new JLabel();
         lblChatLieu.setFont(new Font("Tahoma", Font.BOLD, 12));
         lblChatLieu.setBounds(112, 160, 229, 15);
         pnlSanPhamVPP.add(lblChatLieu);
@@ -542,7 +565,7 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
         lblNmSnXut_1_1.setBounds(10, 185, 89, 15);
         pnlSanPhamVPP.add(lblNmSnXut_1_1);
         
-        lblSoLuongTonVPP = new JLabel("10");
+        lblSoLuongTonVPP = new JLabel();
         lblSoLuongTonVPP.setForeground(new Color(255, 128, 64));
         lblSoLuongTonVPP.setFont(new Font("Tahoma", Font.BOLD, 12));
         lblSoLuongTonVPP.setBounds(112, 185, 229, 15);
@@ -588,7 +611,7 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
 		lblMKhchHng.setBounds(10, 10, 92, 15);
 		pnlKhachHangDaChon.add(lblMKhchHng);
 		
-		JLabel lblMaKhachHang = new JLabel("KH0");
+		lblMaKhachHang = new JLabel();
 		lblMaKhachHang.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblMaKhachHang.setBounds(112, 10, 195, 15);
 		pnlKhachHangDaChon.add(lblMaKhachHang);
@@ -598,7 +621,7 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
 		lblSdtKhchHng_1_2.setBounds(10, 35, 96, 15);
 		pnlKhachHangDaChon.add(lblSdtKhchHng_1_2);
 		
-		JLabel lblTenKhachHang = new JLabel("Khách hàng lẻ");
+		lblTenKhachHang = new JLabel();
 		lblTenKhachHang.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblTenKhachHang.setBounds(116, 35, 191, 15);
 		pnlKhachHangDaChon.add(lblTenKhachHang);
@@ -608,10 +631,12 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
 		lblSdtKhchHng_1_2_1.setBounds(10, 60, 82, 15);
 		pnlKhachHangDaChon.add(lblSdtKhchHng_1_2_1);
 		
-		JLabel lblDiemTichLuy = new JLabel("0");
+		lblDiemTichLuy = new JLabel();
 		lblDiemTichLuy.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblDiemTichLuy.setBounds(112, 60, 195, 15);
 		pnlKhachHangDaChon.add(lblDiemTichLuy);
+		
+		this.capNhatThongTinKhachHangGiaoDien();
 		
 		JPanel pnlQuetMa = new JPanel();
 		pnlQuetMa.setLayout(null);
@@ -631,6 +656,10 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
 		pnlKhungQuetMa.setBounds(10, 40, 232, 246);
 		pnlQuetMa.add(pnlKhungQuetMa);
 		
+		this.capNhatDSHoaDonCho();
+		this.capNhatHoaDonHienTai();
+		
+//		Phần quản lý hóa đơn
 		JPanel pnlQlHoaDon = new JPanel();
 		tabbedPane.addTab("Quản lý hóa đơn", null, pnlQlHoaDon, null);
 		pnlQlHoaDon.setLayout(null);
@@ -781,7 +810,7 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
 		lblChiTitHa.setBounds(10, 10, 137, 20);
 		pnlQLHDChiTietHoaDon.add(lblChiTitHa);
 		
-		String[] colsChiTietHoaDon = {"Mã sản phẩm", "Tên sản phẩm","Số lượng", "Giá bán", "Đơn giá", "Giảm giá", "Thành tiền"};
+		String[] colsChiTietHoaDon = {"Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Giá bán", "Đơn giá", "Giảm giá", "Thành tiền"};
 		modelChiTietHoaDon = new DefaultTableModel(colsChiTietHoaDon, 0);
 		tableChiTietHoaDon = new MyTable(modelChiTietHoaDon);
 		JScrollPane srcTbChiTietHoaDon = new JScrollPane(tableChiTietHoaDon);
@@ -871,13 +900,15 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
 					continue;
 				}
 			}
-			LuminanceSource source = new BufferedImageLuminanceSource(image);
-			BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
-			try {
-				result = new MultiFormatReader().decode(bitmap);
-			} catch (NotFoundException e) {
-				// TODO Auto-generated catch block
-				
+			if(image != null) {
+				LuminanceSource source = new BufferedImageLuminanceSource(image);
+				BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
+				try {
+					result = new MultiFormatReader().decode(bitmap);
+				} catch (NotFoundException e) {
+					// TODO Auto-generated catch block
+					
+				}
 			}
 			if(result != null && !result.getText().equals(resultScanQRBefore)) {
 				txtMaSanPham.setText(result.getText());
@@ -919,5 +950,51 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
 			}
 		}while(view.indexFrame.equals("Bán hàng"));
 		webcam.close();
+	}
+	
+	public void capNhatDSHoaDonCho() {
+		for (HoaDon hoaDon : dsHoaDonCho) {
+			modelHoaDonCho.addRow(new Object[] {
+					hoaDon.getMaHoaDon(), hoaDon.getNgayLap(), hoaDon.getNhanVien().getTenNhanVien(), hoaDon.getKhachHang().getTenKhachHang(), hoaDon.getKhachHang().getSdt()
+			});
+		}
+	}
+	
+	public void capNhatHoaDonHienTai() {
+		if(hoaDonHienTai != null) {
+			khachHang = hoaDonHienTai.getKhachHang();
+			ctkmCuaHoaDon = hoaDonHienTai.getCtkm();
+		}
+		this.capNhatThongTinKhachHangGiaoDien();
+		this.capNhatGioHang();
+		this.capNhatThongTinThanhToan();
+	}
+	
+	public void capNhatThongTinKhachHangGiaoDien() {
+		lblMaKhachHang.setText(khachHang.getMaKhachHang());
+		lblTenKhachHang.setText(khachHang.getTenKhachHang());
+		lblDiemTichLuy.setText(khachHang.getDiemTichLuy() + "");
+	}
+	
+	public void capNhatGioHang() {
+		modelGioHang.setRowCount(0);
+		for (ChiTietHoaDon cthd : hoaDonHienTai.getDsChiTietHoaDon()) {
+			float giamGia = BUSHoaDon.hamLayGiamGiaCuaChiTietHoaDon(ctkmCuaHoaDon, cthd.getSanPham());
+			float tongTien = cthd.getGiaBan() * cthd.getSoLuongMua() * (1 + cthd.getSanPham().getThue() / 100) * (1 - giamGia / 100);
+			modelGioHang.addRow(new Object[] {
+					cthd.getSanPham().getMaSanPham(), cthd.getSanPham().getTenSanPham(), Tools.dinhDangTien(cthd.getGiaBan()), cthd.getSanPham().getThue() + "%", cthd.getSoLuongMua(), giamGia + "%", Tools.dinhDangTien(tongTien) 
+			});
+		}
+	}
+	
+	public void capNhatThongTinThanhToan() {
+		lblMaHoaDon.setText(hoaDonHienTai.getMaHoaDon());
+		cbbDiemGiamGia.removeAllItems();
+		for(int i = 0; i <= khachHang.getDiemTichLuy() / 5; i++) {
+			cbbDiemGiamGia.addItem(5 * i);
+		}
+		lblTongTien.setText(Tools.dinhDangTien(hoaDonHienTai.tinhTongTien()));
+		lblTenChuongTrinhKhuyenMai.setText(hoaDonHienTai.getCtkm().getTenCTKM());
+		lblThanhToan.setText(Tools.dinhDangTien(hoaDonHienTai.getThanhTien()));
 	}
 }

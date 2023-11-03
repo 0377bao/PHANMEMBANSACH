@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.Image;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -14,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import customUI.CustumImage;
+import entity.HoaDon;
 
 public class GUITrangChu extends JPanel {
 	public GUITrangChu() {

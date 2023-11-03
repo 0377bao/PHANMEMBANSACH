@@ -19,7 +19,11 @@ import entity.ChiTietHoaDon;
 import entity.ChuongTrinhKhuyenMai;
 import entity.HoaDon;
 import entity.KhachHang;
+import entity.MucKhuyenMai;
 import entity.NhanVien;
+import entity.Sach;
+import entity.SanPham;
+import entity.VanPhongPham;
 
 public class BUSHoaDon {
 	DAOHoaDon daoHoaDon = new DAOHoaDon();
@@ -33,5 +37,15 @@ public class BUSHoaDon {
 	
 	public boolean themHoaDon(HoaDon hoaDon) {
 		return daoHoaDon.themHoaDon(hoaDon);
+	}
+	
+	public float hamLayGiamGiaCuaChiTietHoaDon(ChuongTrinhKhuyenMai ctkm, SanPham sp) {
+		String theLoai = "";
+		if(sp instanceof Sach) theLoai = sp.getTheLoai();
+		else theLoai = ((VanPhongPham) sp).getDanhMuc().getTenDanhMuc();
+		for (MucKhuyenMai mkm : ctkm.getDsMucKhuyenMai()) {
+			if(mkm.getTenMucKhuyenMai().equals(theLoai)) return mkm.getTiLeKhuyenMai();
+		}
+		return 0;
 	}
 }
