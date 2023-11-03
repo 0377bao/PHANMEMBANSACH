@@ -4,14 +4,17 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import bus.BUSHoaDon;
 import controller.XuLyDieuHuongPhamMem;
 import customUI.ButtonSidebar;
 import customUI.CustumImage;
+import entity.HoaDon;
 import entity.NhanVien;
 
 import javax.swing.BorderFactory;
@@ -48,6 +51,7 @@ public class TrangChu extends JFrame {
 	private Color colorBtnActive = new Color(10, 110, 227);
 	private JPanel pnlHienTai;
 	private NhanVien nvHienTai = null;
+	private ArrayList<HoaDon> dsHoaDonCho = new ArrayList<>();
 
 //	public static void main(String[] args) {
 //		EventQueue.invokeLater(new Runnable() {
@@ -68,6 +72,7 @@ public class TrangChu extends JFrame {
 	
 	
 	public TrangChu(NhanVien nv) {
+		dsHoaDonCho.add(new BUSHoaDon().timHoaDonTheoMa("HD1"));
 		this.nvHienTai = nv;
 		this.setTitle("PHẦN MỀM NHÀ SÁCH");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -244,7 +249,7 @@ public class TrangChu extends JFrame {
 			btnTrangChu.setForeground(Color.white);
 		}
 		if(src.equals("Bán hàng")) {
-			pnlHienTai = new GUIBanHang(this);
+			pnlHienTai = new GUIBanHang(this, dsHoaDonCho);
 			btnBanHang.setBackground(colorBtnActive);
 			btnBanHang.setForeground(Color.white);
 		}
