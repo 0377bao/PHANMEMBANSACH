@@ -45,6 +45,9 @@ public class BUSKhachHang {
     public boolean capNhatThongTinKhachHang(KhachHang kh) {
     	return daoKhachHang.capNhatThongTinKhachHang(kh);
     }
+    public KhachHang timKhachHangTheoSDT(String sdtkh) {
+    	return daoKhachHang.timKhachHangTheoSDT(sdtkh);
+    }
     
     public int kiemTraThongTinKhachHangHopLe(KhachHang kh) {
         Pattern tenKH = Pattern.compile("^[\\p{L} ]+$");

@@ -2,7 +2,7 @@ package ui;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionListener;
 
@@ -13,6 +13,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 
 import bus.BUSNhanVien;
@@ -20,12 +23,6 @@ import bus.BUSTaiKhoan;
 import controller.XuLyDangNhap;
 import customUI.CustumImage;
 import customUI.MyButton;
-
-import javax.swing.border.BevelBorder;
-import java.awt.Font;
-import javax.swing.SwingConstants;
-import javax.swing.JTextField;
-import javax.swing.JButton;
 
 public class GUIDangNhap extends JFrame {
 
@@ -36,7 +33,7 @@ public class GUIDangNhap extends JFrame {
 	private MyButton btnDangNhap;
 	private BUSTaiKhoan busTaiKhoan = new BUSTaiKhoan();
 	private BUSNhanVien busNhanVien = new BUSNhanVien();
-	
+
 	public GUIDangNhap() {
 		this.setTitle("ĐĂNG NHẬP PHẦN MỀM");
 		this.setResizable(false);
@@ -47,18 +44,19 @@ public class GUIDangNhap extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		this.setContentPane(contentPane);
-		//xét logo
+		// xét logo
 		ImageIcon logoFrame = new ImageIcon(new ImageIcon("src\\image\\logodangnhap\\logo.png").getImage()
 				.getScaledInstance(70, 70, Image.SCALE_SMOOTH));
 		this.setIconImage(logoFrame.getImage());
 		JLabel lblBgrDangNhap = new JLabel();
 		lblBgrDangNhap.setBounds(0, 0, 994, 684);
 		lblBgrDangNhap.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
-		//		lấy hình gốc
+		// lấy hình gốc
 		ImageIcon iconLblBgr = new ImageIcon("src\\image\\imagepanel\\hinhnendangnhap.jpg");
-		//		phóng to hình
-		Image scaledImage = ((ImageIcon) iconLblBgr).getImage().getScaledInstance(lblBgrDangNhap.getWidth(), lblBgrDangNhap.getHeight(), Image.SCALE_SMOOTH);
-		//		gán lại hình
+		// phóng to hình
+		Image scaledImage = ((ImageIcon) iconLblBgr).getImage().getScaledInstance(lblBgrDangNhap.getWidth(),
+				lblBgrDangNhap.getHeight(), Image.SCALE_SMOOTH);
+		// gán lại hình
 		iconLblBgr = new ImageIcon(scaledImage);
 		contentPane.setLayout(null);
 		lblBgrDangNhap.setIcon(iconLblBgr);
@@ -70,13 +68,14 @@ public class GUIDangNhap extends JFrame {
 		pnlContent.setBackground(new Color(240, 240, 240));
 		getContentPane().add(pnlContent);
 		pnlContent.setLayout(null);
-		//		gán hình logo vào
-		JLabel lblImageUser = new JLabel(new CustumImage().taoHinhTronAvt("src\\image\\imagepanel\\hinhnenuserdangnhap.png", 200));
+		// gán hình logo vào
+		JLabel lblImageUser = new JLabel(
+				new CustumImage().taoHinhTronAvt("src\\image\\imagepanel\\hinhnenuserdangnhap.png", 200));
 		lblImageUser.setAlignmentX(Component.CENTER_ALIGNMENT);
 		lblImageUser.setBounds(42, 94, 200, 200);
 		pnlContent.add(lblImageUser);
 
-		//		add độ ưu tiên cho phần tử
+		// add độ ưu tiên cho phần tử
 		this.setComponentZOrder(pnlContent, 0);
 
 		JLabel lblDangNhap = new JLabel("ĐĂNG NHẬP");
@@ -106,10 +105,11 @@ public class GUIDangNhap extends JFrame {
 
 		txtMatKhau = new JPasswordField();
 		txtMatKhau.setFont(new Font("Tahoma", Font.BOLD, 13));
+
 		txtMatKhau.setText("K123456");
 		txtMatKhau.setColumns(10);
 		txtMatKhau.setBounds(327, 222, 317, 30);
-		txtMatKhau.setText("K123456");
+
 		pnlContent.add(txtMatKhau);
 
 		btnQuenMatKhau = new MyButton("Quên mật khẩu?");
@@ -126,8 +126,7 @@ public class GUIDangNhap extends JFrame {
 		pnlContent.add(btnDangNhap);
 		this.setComponentZOrder(lblBgrDangNhap, 1);
 
-
-		//Thêm sự kiện 
+		// Thêm sự kiện
 		ActionListener ac = new XuLyDangNhap(this);
 		btnDangNhap.addActionListener(ac);
 	}
@@ -136,18 +135,18 @@ public class GUIDangNhap extends JFrame {
 		String taiKhoan = txtTenDangNhap.getText().trim();
 		String matKhau = txtMatKhau.getText().trim();
 
-		if(taiKhoan.equals("")) {
+		if (taiKhoan.equals("")) {
 			JOptionPane.showMessageDialog(this, "Tên tài khoản không được để trống");
-		}else if(matKhau.equals("")) {
+		} else if (matKhau.equals("")) {
 			JOptionPane.showMessageDialog(this, "Mật khẩu không được để trống");
-		}else {
+		} else {
 			boolean kiemTra = busTaiKhoan.kiemTraMatKhau(taiKhoan, matKhau);
-			if(kiemTra) {
+			if (kiemTra) {
 				JOptionPane.showMessageDialog(this, "Đăng nhập thành công");
 				new TrangChu(busNhanVien.layNhanVienTheoMa(taiKhoan)).setVisible(true);
 				this.setVisible(false);
-				
-			}else {
+
+			} else {
 				JOptionPane.showMessageDialog(this, "Tài khoản hoặc mật khẩu không chính xác");
 			}
 		}

@@ -3,15 +3,12 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import java.sql.SQLException;
-
 import connect.ConnectDB;
 import entity.NhanVien;
-import entity.Sach;
 import entity.TaiKhoan;
 
 public class DAONhanVien {
@@ -47,19 +44,13 @@ public class DAONhanVien {
 		return dsNhanVien;
 	}
 
-	// hàm thêm nhân viên
+	// thêm nhân viên
 	public boolean themNhanVien(NhanVien nv) {
 		ConnectDB.getInstance();
 		Connection con = ConnectDB.getConnection();
 		String sql_nv = "insert into NhanVien values(?,?,?,?,?,?,?,?,?)";
-		String sql_tk = "insert into TaiKhoan values(?,?)";
-		int m = 0;
 		int n = 0;
 		try {
-			PreparedStatement stmtTK = con.prepareStatement(sql_tk);
-			stmtTK.setString(0, nv.getTaiKhoan().getTenTaiKhoan());
-			stmtTK.setString(1, nv.getTaiKhoan().getMatKhau());
-
 			PreparedStatement stmtNV = con.prepareStatement(sql_nv);
 			stmtNV.setString(1, nv.getMaNhanVien());
 			stmtNV.setString(2, nv.getTenNhanVien());
@@ -70,12 +61,10 @@ public class DAONhanVien {
 			stmtNV.setString(7, nv.getcCCD());
 			stmtNV.setString(8, nv.getHinhAnh());
 			stmtNV.setString(9, nv.getEmail());
-			n = stmtTK.executeUpdate();
-			m = stmtNV.executeUpdate();
+			n = stmtNV.executeUpdate();
 		} catch (Exception e) {
-			e.printStackTrace();
 		}
-		return m > 0 && n > 0 ? true : false;
+		return n > 0;
 	}
 
 	// sửa nhân viên
@@ -83,12 +72,20 @@ public class DAONhanVien {
 		ConnectDB.getInstance();
 		Connection con = ConnectDB.getConnection();
 		PreparedStatement ps = null;
-		String sql = "update NhanVien set tenNhanVien = ?, sdt = ?, gioiTinh = ?, diaChi = ?, chucVu = ?, "
-				+ "cccd = ?, hinhAnh = ?, email = ?";
+		String sql_nv = "update NhanVien set tenNhanVien = ?, sdt = ?, gioiTinh = ?, diaChi = ?, chucVu = ?, "
+				+ "cccd = ?, hinhAnh = ?, email = ? where maNhanVien = ?";
 		int n = 0;
 		try {
-			ps = con.prepareStatement(sql);
-
+			ps = con.prepareStatement(sql_nv);
+			ps.setString(1, nv.getTenNhanVien());
+			ps.setString(2, nv.getSdt());
+			ps.setBoolean(3, nv.isGioiTinh());
+			ps.setString(4, nv.getDiaChi());
+			ps.setString(5, nv.getChucVu());
+			ps.setString(6, nv.getcCCD());
+			ps.setString(7, nv.getHinhAnh());
+			ps.setString(8, nv.getEmail());
+			ps.setString(9, nv.getMaNhanVien());
 			n = ps.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -128,7 +125,6 @@ public class DAONhanVien {
 			e.printStackTrace();
 		}
 		return nv;
-
 	}
 
 }

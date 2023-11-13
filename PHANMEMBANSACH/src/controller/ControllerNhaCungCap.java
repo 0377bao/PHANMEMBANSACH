@@ -11,43 +11,37 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JTextField;
 
-import ui.GUINhanVien;
+import ui.GUINhaCungCap;
 
-public class ControllerNhanVien implements ActionListener, MouseListener, FocusListener, KeyListener {
-	private GUINhanVien guiNV;
+public class ControllerNhaCungCap implements ActionListener, MouseListener, FocusListener, KeyListener {
+	private GUINhaCungCap guiNCC;
 
-	public ControllerNhanVien(GUINhanVien guiNV) {
+	public ControllerNhaCungCap(GUINhaCungCap guiNCC) {
 		super();
-		this.guiNV = guiNV;
+		this.guiNCC = guiNCC;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String btn = e.getActionCommand();
-		if (btn.equals("btnHinhAnh")) {
-			guiNV.chonAnh();
+		if (btn.equals("btnTaoMa")) {
+			guiNCC.taoMa();
 		} else if (btn.equals("btnXoaTrang")) {
-			guiNV.xoaTrang();
-		} else if (btn.equals("btnTaoMa")) {
-			guiNV.taoMa();
-		} else if (btn.equals("btnThemNV")) {
-			guiNV.themNhanVien();
-		} else if (btn.equals("btnCapNhatNV")) {
-			guiNV.capNhatNV();
-		} else if (btn.equals("btnLocGioiTinh")) {
-			guiNV.locNVTheoGioiTinh();
-		} else if (btn.equals("btnLocChucVu")) {
-			guiNV.locNVTheoChucVu();
+			guiNCC.xoaTrang();
+		} else if (btn.equals("btnThemNCC")) {
+			guiNCC.themNCC();
+		} else if (btn.equals("btnCapNhat")) {
+			guiNCC.CapNhatNCC();
 		} else if (btn.equals("btnTaiLai")) {
-			guiNV.taiLai();
-		} else if (btn.equals("btnTimTheoMa")) {
-			guiNV.timNVTheoMa();
+			guiNCC.taiLai();
+		} else if (btn.equals("cboDiaChi")) {
+			guiNCC.timTheoDiaChi();
 		}
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		guiNV.chonThongTin();
+		guiNCC.chonThongTin();
 	}
 
 	@Override
@@ -76,12 +70,23 @@ public class ControllerNhanVien implements ActionListener, MouseListener, FocusL
 
 	@Override
 	public void focusGained(FocusEvent e) {
-		guiNV.focusGained();
+		JTextField txt = (JTextField) e.getSource();
+		if (txt.getName().equals("txtTimTheoMa_Sdt")) {
+			guiNCC.focusGainedSdt();
+		} else if (txt.getName().equals("txtTimTheoTen")) {
+			guiNCC.focusGainedTen();
+		}
+
 	}
 
 	@Override
 	public void focusLost(FocusEvent e) {
-		guiNV.focusLost();
+		JTextField txt = (JTextField) e.getSource();
+		if (txt.getName().equals("txtTimTheoMa_Sdt")) {
+			guiNCC.focusLostSdt();
+		} else if (txt.getName().equals("txtTimTheoTen")) {
+			guiNCC.focusLostTen();
+		}
 	}
 
 	@Override
@@ -99,9 +104,12 @@ public class ControllerNhanVien implements ActionListener, MouseListener, FocusL
 	@Override
 	public void keyReleased(KeyEvent e) {
 		JTextField txt = (JTextField) e.getSource();
-		if (txt.getName().equals("txtTimTheoSdt_Ten")) {
-			guiNV.timNVTheoSdt_Ten();
+		if (txt.getName().equals("txtTimTheoMa_Sdt")) {
+			guiNCC.timTheoMa_Sdt();
+		} else if (txt.getName().equals("txtTimTheoTen")) {
+			guiNCC.timTheoTen();
 		}
+
 	}
 
 }

@@ -105,6 +105,29 @@ public class DAOKhachHang {
     	return kh;
     }
     
+    public KhachHang timKhachHangTheoSDT(String sdtkh) {
+    	ConnectDB.getInstance();
+    	Connection con = ConnectDB.getConnection();
+    	String sql = "select * from KhachHang where sdt =?";
+    	KhachHang kh = null;
+    	try {
+    		PreparedStatement stmt = con.prepareStatement(sql);
+    		stmt.setString(1, sdtkh);
+    		ResultSet rs = stmt.executeQuery();
+    		while(rs.next()) {
+    			String maKhachHang = rs.getString("maKhachHang").trim();
+    			String tenKhachHang = rs.getString("tenKhachHang").trim();
+    			String sdt = rs.getString("sdt").trim();
+    			String email = rs.getString("email").trim();
+    			int diemTichLuy = rs.getInt("diemTichLuy");
+    			float tongTienMua = rs.getFloat("tongTienMua");
+    			kh = new KhachHang(maKhachHang, tenKhachHang, sdt, email, diemTichLuy, tongTienMua);
+    		}
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    	}
+    	return kh;
+    }
     
     public ArrayList<HoaDon> layLichSuGiaoDichKhachHang(String maKH) {
     	ConnectDB.getInstance();

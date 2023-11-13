@@ -4,8 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 
 import connect.ConnectDB;
 import entity.TaiKhoan;
@@ -27,5 +25,23 @@ public class DAOTaiKhoan {
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+	// hàm thêm nhân viên
+	public boolean themTaiKhoan(TaiKhoan tk) {
+		ConnectDB.getInstance();
+		Connection con = ConnectDB.getConnection();
+		String sql_tk = "insert into TaiKhoan values(?,?)";
+		int n = 0;
+		try {
+			PreparedStatement stmtTK = con.prepareStatement(sql_tk);
+			stmtTK.setString(1, tk.getTenTaiKhoan());
+			stmtTK.setString(2, tk.getMatKhau());
+
+			n = stmtTK.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return n > 0;
 	}
 }

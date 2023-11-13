@@ -17,7 +17,7 @@ public class DAOChiTietDonDoiTra {
 	public ArrayList<ChiTietDonDoiTra> layChiTietDonDoiTraCuaDonDoiTra(String maDDT){
 		ArrayList<ChiTietDonDoiTra> ds = new ArrayList<>();
 		Connection con = ConnectDB.getConnection();
-		String sql = "Select * from ChiTietHoaDon where maDonDoiTra = ?";
+		String sql = "Select * from ChiTietDonDoiTra where maDonDoiTra = ?";
 		PreparedStatement statement = null;
 		try {
 			statement = con.prepareStatement(sql);
@@ -25,7 +25,6 @@ public class DAOChiTietDonDoiTra {
 			ResultSet rs = statement.executeQuery();
 			while(rs.next()) {
 				String maSanPham = rs.getString("maSanPham").trim();
-				String maVPP = rs.getString("maVanPhongPham").trim();
 				String lyDo = rs.getString("lyDo").trim();
 				int soLuongTra = rs.getInt("soLuongTra");
 				float giaBan = rs.getFloat("giaBan");
@@ -41,7 +40,7 @@ public class DAOChiTietDonDoiTra {
 	public boolean themChiTietDonDoiTra(String maDDT,ChiTietDonDoiTra ctddt) {
 		int n = 0;
 		Connection con = ConnectDB.getConnection();
-		String sql = "insert into ChiTietDonDoiTra values(?,?,?,?,?,?)";
+		String sql = "insert into ChiTietDonDoiTra values(?,?,?,?,?)";
 		PreparedStatement statement = null;
 		try {
 			statement = con.prepareStatement(sql);
@@ -49,13 +48,7 @@ public class DAOChiTietDonDoiTra {
 			statement.setString(2, ctddt.getLyDo());
 			statement.setString(4, maDDT);
 			statement.setFloat(5, ctddt.getGiaBan());
-			if(ctddt.getSanPham().getMaSanPham().startsWith("SPS")) {
-				statement.setString(3, ctddt.getSanPham().getMaSanPham());
-				statement.setString(5, "Trống");
-			}else {
-				statement.setString(5, ctddt.getSanPham().getMaSanPham());
-				statement.setString(3, "Trống");
-			}
+			statement.setString(3, ctddt.getSanPham().getMaSanPham());
 			n = statement.executeUpdate();
 			
 			

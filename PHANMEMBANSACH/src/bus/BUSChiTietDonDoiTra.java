@@ -10,4 +10,7 @@ public class BUSChiTietDonDoiTra {
 	public ArrayList<ChiTietDonDoiTra> layChiTietDonDoiTraCuaDonDoiTra(String maDDT){
 		return daoChiTietDonDoiTra.layChiTietDonDoiTraCuaDonDoiTra(maDDT);
 	}
+	public boolean themChiTietDonDoiTra(String maDDT,ChiTietDonDoiTra ctddt) {
+		return daoChiTietDonDoiTra.themChiTietDonDoiTra(maDDT, ctddt);	
+	}
 }
