@@ -139,7 +139,7 @@ public class HoaDon {
 		for (ChiTietHoaDon cthd : dsChiTietHoaDon) {
 			result += cthd.tinhThanhTien();
 		}
-		return result;
+		return result - tinhGiamGia();
 	}
 	
 	public float tinhGiamGia() {
@@ -153,7 +153,7 @@ public class HoaDon {
 	}
 	
 	public float getThanhTien() {
-		return tinhTongTien() - tinhGiamGia() - (diemGiamGia * 10000);
+		return tinhTongTien() - (diemGiamGia * 10000);
 	}
 	
 	public float tinhTienThua(float tienKhachDua) {

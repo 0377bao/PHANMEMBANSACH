@@ -6,18 +6,8 @@
 /entity/
 /mapdata/
 /model/
+/tool/
 /ui/
 /view/
-<<<<<<< HEAD
-=======
-/testdl.class
-=======
->>>>>>> 3f3e1930aa2f91f496f8c5cc0afe4d88fc8a395c
->>>>>>> d725873b0ae1582662c6f05c27dba6358cb61b2d
->>>>>>> e2524562753204d3ccdfba96283b0a73c924d13d
-/tool/
-/test.class
-=======
-/tool/
->>>>>>> aae14e2d658c61c658b2fa7a6c3f75f1b02c3557
-/image/
+/font/
+/bill/

@@ -47,7 +47,7 @@ public class BUSKhachHang {
     }
     
     public int kiemTraThongTinKhachHangHopLe(KhachHang kh) {
-        Pattern tenKH = Pattern.compile("[^\\p{L}\\s]");
+        Pattern tenKH = Pattern.compile("^[\\p{L} ]+$");
         Matcher matchTenKh = tenKH.matcher(kh.getTenKhachHang());
         Pattern sdt = Pattern.compile("^(09|08|07|05|03)\\d{8}$");
         Matcher matchSdt = sdt.matcher(kh.getSdt());

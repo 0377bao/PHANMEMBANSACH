@@ -252,7 +252,7 @@ public class TrangChu extends JFrame {
 			btnBanHang.setForeground(Color.white);
 		}
 		if(src.equals("Giao hàng")) {
-			HoaDon hd = null;
+			HoaDon hd = new BUSHoaDon().timHoaDonTheoMa("HD8");
 			pnlHienTai = new GUIGiaoHang(hd);
 			btnGiaoHang.setBackground(colorBtnActive);
 			btnGiaoHang.setForeground(Color.white);

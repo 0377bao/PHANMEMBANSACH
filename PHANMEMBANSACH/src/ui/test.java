@@ -13,6 +13,10 @@ public class test {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(new BUSChuongTrinhKhuyenMai().timChuongTrinhKhuyenMaiDangApDung());
+		String temp = "35,400 VND";
+		String newT = (temp.replace(',', ' '));
+		String result = newT.substring(0, newT.length() - 3).replaceAll(" ", "");
+		System.out.println(newT);
+		System.out.println(result);
 	}
 }

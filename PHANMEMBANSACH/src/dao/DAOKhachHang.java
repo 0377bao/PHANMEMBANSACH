@@ -130,7 +130,7 @@ public class DAOKhachHang {
     	int ma = 0;
     	ConnectDB.getConnection();
     	Connection con = ConnectDB.getConnection();
-    	String sql = "SELECT top 1 CAST(SUBSTRING(maKhachHang 3, LEN(maKhachHang) - 2) as int) AS maKhachHang "
+    	String sql = "SELECT top 1 CAST(SUBSTRING(maKhachHang, 3, LEN(maKhachHang) - 2) as int) AS maKhachHang "
 				+ "FROM KhachHang order by maKhachHang desc";
     	try {
     	    PreparedStatement stmt = con.prepareStatement(sql);
