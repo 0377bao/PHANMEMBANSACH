@@ -11,12 +11,23 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
+import bus.BUSHoaDon;
+import bus.BUSKhachHang;
+import controller.ControllerKhachHang;
 import customUI.MyButton;
 import customUI.MyTable;
+import entity.HoaDon;
+import entity.KhachHang;
+import tool.Tools;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
+import java.util.ArrayList;
+
 import javax.swing.JTextField;
+import javax.swing.JCheckBox;
 
 public class GUIKhachHang extends JPanel {
 	private JTextField txtMaKhachHang;
@@ -24,10 +35,21 @@ public class GUIKhachHang extends JPanel {
 	private JTextField txtDiemTichLuy;
 	private JTextField txtSDT;
 	private JTextField txtEmail;
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField txtTimTenKhachHang;
+	private JTextField txtTimSDTKhachHang;
 	private DefaultTableModel modelKhachHang, modelLichSuGD;
 	private JTable tableKhachHang, tableLichSuGD;
+	private ArrayList<KhachHang> dsKhachHang = new ArrayList<>();
+	
+	private BUSKhachHang busKhachHang = new BUSKhachHang();
+	private BUSHoaDon busHoaDon = new BUSHoaDon();
+	private ControllerKhachHang ctrlKhachHang = new ControllerKhachHang(this);
+	private JTextField txtTongTien;
+	private MyButton btnTaoMa;
+	private MyButton btnThemKhachHang;
+	private MyButton btnCapNhat;
+	private MyButton btnXoaTrang;
+	private JCheckBox chkSapXep;
 	public GUIKhachHang() {
 		setBackground(new Color(240, 240, 240));
 		this.setBounds(250, 0, 1250, 800);
@@ -100,10 +122,23 @@ public class GUIKhachHang extends JPanel {
 		txtEmail.setBounds(621, 76, 230, 25);
 		pnlThongTinKhachHang.add(txtEmail);
 		
-		JButton btnXoaTrang = new MyButton("Xóa trắng");
+		btnXoaTrang = new MyButton("Xóa trắng");
+		btnXoaTrang.setActionCommand("btnXoaTrang");
 		btnXoaTrang.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnXoaTrang.setBounds(425, 146, 99, 30);
 		pnlThongTinKhachHang.add(btnXoaTrang);
+		
+		JLabel lblTmKimHa_3_1_1 = new JLabel("Tổng tiền:");
+		lblTmKimHa_3_1_1.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblTmKimHa_3_1_1.setBounds(508, 110, 111, 25);
+		pnlThongTinKhachHang.add(lblTmKimHa_3_1_1);
+		
+		txtTongTien = new JTextField();
+		txtTongTien.setEnabled(false);
+		txtTongTien.setDisabledTextColor(Color.BLACK);
+		txtTongTien.setColumns(10);
+		txtTongTien.setBounds(621, 111, 230, 25);
+		pnlThongTinKhachHang.add(txtTongTien);
 		
 		JPanel pnlChucNang = new JPanel();
 		pnlChucNang.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -112,17 +147,23 @@ public class GUIKhachHang extends JPanel {
 		add(pnlChucNang);
 		pnlChucNang.setLayout(null);
 		
-		JButton btnTaoMa = new MyButton("Tạo mã khách hàng");
+		btnTaoMa = new MyButton("Tạo mã khách hàng");
+		btnTaoMa.setActionCommand("btnTaoMa");
+		btnTaoMa.setBackground(new Color(255, 255, 128));
 		btnTaoMa.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnTaoMa.setBounds(62, 33, 179, 35);
 		pnlChucNang.add(btnTaoMa);
 		
-		JButton btnThemKhachHang = new MyButton("Thêm khách hàng");
+		btnThemKhachHang = new MyButton("Thêm khách hàng");
+		btnThemKhachHang.setActionCommand("btnThemKhachHang");
+		btnThemKhachHang.setBackground(new Color(128, 255, 128));
 		btnThemKhachHang.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnThemKhachHang.setBounds(62, 78, 179, 35);
 		pnlChucNang.add(btnThemKhachHang);
 		
-		JButton btnCapNhat = new MyButton("Cập nhật");
+		btnCapNhat = new MyButton("Cập nhật");
+		btnCapNhat.setActionCommand("btnCapNhat");
+		btnCapNhat.setBackground(new Color(255, 128, 0));
 		btnCapNhat.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnCapNhat.setBounds(62, 123, 179, 35);
 		pnlChucNang.add(btnCapNhat);
@@ -145,26 +186,26 @@ public class GUIKhachHang extends JPanel {
 		lblMKhchHng_1.setBounds(10, 40, 106, 25);
 		panel.add(lblMKhchHng_1);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(131, 40, 345, 25);
-		panel.add(textField);
+		txtTimTenKhachHang = new JTextField();
+		txtTimTenKhachHang.setColumns(10);
+		txtTimTenKhachHang.setBounds(131, 40, 345, 25);
+		panel.add(txtTimTenKhachHang);
 		
 		JLabel lblMKhchHng_1_1 = new JLabel("Số điện thoại:");
 		lblMKhchHng_1_1.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblMKhchHng_1_1.setBounds(538, 40, 106, 25);
 		panel.add(lblMKhchHng_1_1);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(640, 41, 345, 25);
-		panel.add(textField_1);
+		txtTimSDTKhachHang = new JTextField();
+		txtTimSDTKhachHang.setColumns(10);
+		txtTimSDTKhachHang.setBounds(640, 41, 345, 25);
+		panel.add(txtTimSDTKhachHang);
 		
-		MyButton mbtnSpXpTheo = new MyButton("Xóa trắng");
-		mbtnSpXpTheo.setText("Sắp xếp theo tổng tiền");
-		mbtnSpXpTheo.setFont(new Font("Tahoma", Font.BOLD, 13));
-		mbtnSpXpTheo.setBounds(1061, 37, 167, 30);
-		panel.add(mbtnSpXpTheo);
+		chkSapXep = new JCheckBox("Sắp xếp theo tổng tiền");
+		chkSapXep.setFont(new Font("Tahoma", Font.BOLD, 13));
+		chkSapXep.setBackground(new Color(255, 255, 255));
+		chkSapXep.setBounds(1032, 43, 184, 21);
+		panel.add(chkSapXep);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -191,7 +232,6 @@ public class GUIKhachHang extends JPanel {
 		tableKhachHang.getColumnModel().getColumn(3).setPreferredWidth(200);
 		tableKhachHang.getColumnModel().getColumn(4).setPreferredWidth(100);
 		tableKhachHang.getColumnModel().getColumn(5).setPreferredWidth(150);
-		modelKhachHang.addRow(new Object[] {"KH1", "Nguyễn Văn A", "0353426938", "hbao27121@gmail.com", "10", "1.000.000"});
 		panel_1.add(srcTbKhachHang);
 		
 		JPanel panel_1_1 = new JPanel();
@@ -213,5 +253,127 @@ public class GUIKhachHang extends JPanel {
 		JScrollPane srcTbLichSuGD = new JScrollPane(tableLichSuGD);
 		srcTbLichSuGD.setBounds(10, 40, 515, 431);
 		panel_1_1.add(srcTbLichSuGD);
+		// xử lý
+		dsKhachHang = busKhachHang.layDSKhachHang();
+		capNhatBangKhachHang(dsKhachHang);
+		
+		//thêm sự kiện
+		tableKhachHang.addMouseListener(ctrlKhachHang);
+		btnXoaTrang.addActionListener(ctrlKhachHang);
+		btnTaoMa.addActionListener(ctrlKhachHang);
+		btnThemKhachHang.addActionListener(ctrlKhachHang);
+		btnCapNhat.addActionListener(ctrlKhachHang);
+		txtTimSDTKhachHang.addKeyListener(ctrlKhachHang);
+		txtTimTenKhachHang.addKeyListener(ctrlKhachHang);
+		chkSapXep.addItemListener(ctrlKhachHang);
+	}
+	
+	public void capNhatBangKhachHang(ArrayList<KhachHang> ds) {
+		modelKhachHang.setRowCount(0);
+		for (KhachHang khachHang : ds) {
+			modelKhachHang.addRow(new Object[] {
+					khachHang.getMaKhachHang(),
+					khachHang.getTenKhachHang(),
+					khachHang.getSdt(),
+					khachHang.getEmail(),
+					khachHang.getDiemTichLuy(),
+					Tools.dinhDangTien(khachHang.getTongTienMua())
+			});
+		}
+	}
+	
+	public void capNhatBangLichSuGD(ArrayList<HoaDon> ds) {
+		modelLichSuGD.setRowCount(0);
+		for (HoaDon hoaDon : ds) {
+			modelLichSuGD.addRow(new Object[] {
+					hoaDon.getMaHoaDon(),
+					hoaDon.getNhanVien().getMaNhanVien(),
+					hoaDon.getNhanVien().getTenNhanVien(),
+					hoaDon.getNgayLap(),
+					Tools.dinhDangTien(hoaDon.getThanhTien())
+			});
+		}
+	}
+	
+	public void xuLyKhiChonBangKhachHang() {
+		int row = tableKhachHang.getSelectedRow();
+		String maKhachHang = tableKhachHang.getValueAt(row, 0) + "";
+		if(maKhachHang.equals("KH0")) btnCapNhat.setEnabled(false); 
+		else btnCapNhat.setEnabled(true);
+		KhachHang kh = dsKhachHang.get(row);
+		txtMaKhachHang.setText(kh.getMaKhachHang());
+		txtTenKhachHang.setText(kh.getTenKhachHang());
+		txtDiemTichLuy.setText(kh.getDiemTichLuy() + "");
+		txtEmail.setText(kh.getEmail());
+		txtSDT.setText(kh.getSdt());
+		txtTongTien.setText(Tools.dinhDangTien(kh.getTongTienMua()));
+		capNhatBangLichSuGD(busHoaDon.layLichSuGiaoDichKhachHang(maKhachHang));
+	}
+	
+	public void xuLyXoaTrang() {
+		txtMaKhachHang.setText("");
+		txtTenKhachHang.setText("");
+		txtDiemTichLuy.setText("");
+		txtEmail.setText("");
+		txtSDT.setText("");
+		txtTongTien.setText("");
+		tableKhachHang.clearSelection();
+		capNhatBangLichSuGD(new ArrayList<HoaDon>());
+		btnCapNhat.setEnabled(true);
+	}
+	
+	public void xuLyTaoMaKhachHang() {
+		xuLyXoaTrang();
+		txtMaKhachHang.setText(busKhachHang.taoMaKhachHang());
+		txtDiemTichLuy.setText("0");
+		txtTongTien.setText("0");
+	}
+	
+	public void xuLyThemKhachHang() {
+		String maKH = txtMaKhachHang.getText();
+		String tenKH = txtTenKhachHang.getText();
+		String sdt = txtSDT.getText();
+		String email = txtEmail.getText();
+		String thongDiep = busKhachHang.themKhachHang(new KhachHang(maKH, tenKH, sdt, email, 0, 0));
+		dsKhachHang = busKhachHang.layDSKhachHang();
+		capNhatBangKhachHang(dsKhachHang);
+		JOptionPane.showMessageDialog(this, thongDiep);
+	}
+	
+	public void xuLyCapNhatKhachHang() {
+		int row = tableKhachHang.getSelectedRow();
+		if(row == -1) {
+			JOptionPane.showMessageDialog(this, "Vui lòng chọn khách hàng cần cập nhật");
+		} else {
+			String maKH = tableKhachHang.getValueAt(row, 0) + "";
+			String tenKH = txtTenKhachHang.getText();
+			String sdt = txtSDT.getText();
+			String email = txtEmail.getText();
+			int diemTichLuy = Integer.parseInt(txtDiemTichLuy.getText());
+			float tongTien = Float.parseFloat(txtTongTien.getText().replaceAll("[,VND]", ""));
+			String thongDiep = busKhachHang.capNhatThongTinKhachHang(new KhachHang(maKH, tenKH, sdt, email, diemTichLuy, tongTien));
+			dsKhachHang = busKhachHang.layDSKhachHang();
+			capNhatBangKhachHang(dsKhachHang);
+			tableKhachHang.setRowSelectionInterval(row, row);
+			JOptionPane.showMessageDialog(this, thongDiep);
+		}
+	}
+	
+	public void xuLyTimKhachHang() {
+		String timTen = txtTimTenKhachHang.getText();
+		String timSDT = txtTimSDTKhachHang.getText();
+		dsKhachHang = busKhachHang.locKhachHang(timTen, timSDT);
+		if(chkSapXep.isSelected()) {
+			busKhachHang.sapXepTheoTongTien(dsKhachHang);
+		}
+		capNhatBangKhachHang(dsKhachHang);
+	}
+	
+	public void xuLySapXepTheoTongTien() {
+		if(chkSapXep.isSelected()) {
+			capNhatBangKhachHang(busKhachHang.sapXepTheoTongTien(dsKhachHang));
+		} else {
+			xuLyTimKhachHang();
+		}
 	}
 }

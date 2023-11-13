@@ -111,7 +111,7 @@ public class SanPham {
 	}
 
 	public float getGiaBan() {
-		return this.giaNhap * (1 + this.phanTramLoiNhuan);
+		return this.giaNhap * (1 + this.phanTramLoiNhuan / 100);
 	}
 
 	public String getTrangThai() {

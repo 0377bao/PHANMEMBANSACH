@@ -9,6 +9,10 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
+
+import com.google.zxing.Result;
+
+import bus.BUSHoaDon;
 import bus.BUSNhanVien;
 import connect.ConnectDB;
 import entity.ChiTietHoaDon;
@@ -21,7 +25,7 @@ public class DAOHoaDon {
 	public ArrayList<HoaDon> layHetDSHoaDon() {
 		ArrayList<HoaDon> ds = new ArrayList<>();
 		Connection con = ConnectDB.getConnection();
-		String sql = "select * from HoaDon";
+		String sql = "select * from HoaDon order by ngayLap desc";
 		Statement statement = null;
 		try {
 			statement = con.createStatement();
@@ -40,10 +44,10 @@ public class DAOHoaDon {
 				KhachHang kh = new DAOKhachHang().timKhachHangTheoMa(rs.getString("maKhachHang"));
 				ChuongTrinhKhuyenMai ctkm = new DAOChuongTrinhKhuyenMai().timChuongTrinhKhuyenMaiTheoMa(rs.getString("maCTKM"));
 				ArrayList<ChiTietHoaDon> cthd = new DAOChiTietHoaDon().layDSChiTietHoaDonCuaHoaDon(maHoaDon);
-				ds.add(new HoaDon(maHoaDon, ngayLap, phuongThucThanhToan, ghiChu, diemGiamGia, giamGia, nv, kh, ctkm, cthd));
+				float tienKhachDua = rs.getFloat("tienKhachDua");
+				ds.add(new HoaDon(maHoaDon, ngayLap, phuongThucThanhToan, ghiChu, diemGiamGia, giamGia, nv, kh, ctkm, cthd, tienKhachDua));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return ds;
@@ -71,9 +75,9 @@ public class DAOHoaDon {
 				KhachHang kh = new DAOKhachHang().timKhachHangTheoMa(rs.getString("maKhachHang"));
 				ChuongTrinhKhuyenMai ctkm = new DAOChuongTrinhKhuyenMai().timChuongTrinhKhuyenMaiTheoMa(rs.getString("maCTKM"));
 				ArrayList<ChiTietHoaDon> cthd = new DAOChiTietHoaDon().layDSChiTietHoaDonCuaHoaDon(maHoaDon);
-				hd = new HoaDon(maHoaDon, ngayLap, phuongThucThanhToan, ghiChu, diemGiamGia, giamGia, nv, kh, ctkm, cthd);
+				float tienKhachDua = rs.getFloat("tienKhachDua");
+				hd = new HoaDon(maHoaDon, ngayLap, phuongThucThanhToan, ghiChu, diemGiamGia, giamGia, nv, kh, ctkm, cthd, tienKhachDua);
 			}
-
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -83,7 +87,7 @@ public class DAOHoaDon {
 	
 	public boolean themHoaDon(HoaDon hoaDon) {
 		Connection con = ConnectDB.getConnection();
-		String sqlHD = "insert into HoaDon values(?,?,?,?,?,?,?,?,?,?)";
+		String sqlHD = "insert into HoaDon values(?,?,?,?,?,?,?,?,?,?,?)";
 		int n = 0;
 		boolean m = true;
 		PreparedStatement statementHD = null;
@@ -98,8 +102,9 @@ public class DAOHoaDon {
 			statementHD.setString(6, hoaDon.getCtkm().getMaCTKM());
 			statementHD.setString(7, hoaDon.getNhanVien().getMaNhanVien());
 			statementHD.setString(8, hoaDon.getKhachHang().getMaKhachHang());
-			statementHD.setDouble(9, hoaDon.getDiemGiamGia());
-			statementHD.setDouble(10, hoaDon.getGiamGia());
+			statementHD.setInt(9, hoaDon.getDiemGiamGia());
+			statementHD.setFloat(10, hoaDon.getGiamGia());
+			statementHD.setFloat(11, hoaDon.getTienKhachDua());
 			n = statementHD.executeUpdate();
 			for (ChiTietHoaDon ct : hoaDon.getDsChiTietHoaDon()) {
 				m = new DAOChiTietHoaDon().themChiTietHoaDon(hoaDon.getMaHoaDon(), ct);
@@ -110,4 +115,43 @@ public class DAOHoaDon {
 		}
 		return (n>0 && m);
 	}
+	
+	public int layMaSoHoaDonMax() {
+		int ma = 0;
+		ConnectDB.getInstance();
+		Connection con = ConnectDB.getConnection();
+		try {
+			Statement statement = con.createStatement();
+			String sql = "SELECT top 1 CAST(SUBSTRING(maHoaDon, 3, LEN(maHoaDon) - 2) as int) AS maHoaDon "
+					+ "FROM HoaDon order by maHoaDon desc";
+			ResultSet rs = statement.executeQuery(sql);
+			while(rs.next()) {
+				ma = rs.getInt("maHoaDon");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return ma;
+	}
+	
+	public ArrayList<HoaDon> layLichSuGiaoDichKhachHang(String maKH) {
+    	ConnectDB.getInstance();
+    	Connection con = ConnectDB.getConnection();
+    	ArrayList<HoaDon> dsGiaoDich = new ArrayList<>();
+    	String sql = "select * from HoaDon where maKhachHang = ? order by ngayLap desc";
+    	try {
+    		PreparedStatement stmt = con.prepareStatement(sql);
+    		stmt.setString(1, maKH);
+    		ResultSet rs = stmt.executeQuery();
+    		while(rs.next()) {
+    			String maHoaDon = rs.getString("maHoaDon").trim();
+    			HoaDon hd = new BUSHoaDon().timHoaDonTheoMa(maHoaDon);
+    			dsGiaoDich.add(hd);
+    		}
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    	}
+    	return dsGiaoDich;
+    }
 }

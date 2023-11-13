@@ -3,6 +3,8 @@ package bus;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import connect.ConnectDB;
 import dao.DAODonGiaoHang;
@@ -34,14 +36,32 @@ public class BUSGiaoHang {
 	   return null;
    }
    
-   public DonGiaoHang timDonHangTheoTenNhanVienGiaoHang(String tenNhanVien) {
-	   ArrayList<DonGiaoHang> ds = daoDonGiaoHang.layDSDonHang();
-	   for(DonGiaoHang dgh : ds) {
-		   if(dgh.getNhanVienGiaoHang().getTenNhanVien().equals(tenNhanVien)) {
-			   return dgh;
-		   }
-	   }
-	   return null;
+   public boolean themDonHangMoi(DonGiaoHang dgh) {
+	   return daoDonGiaoHang.themDonGiaoHang(dgh);
+   }
+   
+   public String taoMaDonHang() {
+	   int max = layDSDonGiaoHang().size() + 1;
+	   return "DGH" + max;
+   }
+   
+   public boolean capNhatThongTinDonHang(DonGiaoHang dgh) {
+	   return daoDonGiaoHang.capNhatThongTinDonHang(dgh);
+   }
+   
+
+   public ArrayList<DonGiaoHang> sapXepTheoTongTienVanChuyen() {
+   	ArrayList<DonGiaoHang> ds = daoDonGiaoHang.layDSDonHang();
+       Collections.sort(ds,new Comparator<DonGiaoHang>() {
+
+			@Override
+			public int compare(DonGiaoHang o1, DonGiaoHang o2) {
+				Float kh1 = (Float)o1.getTienVanChuyen();
+				Float kh2 = (Float)o2.getTienVanChuyen();
+				return kh2.compareTo(kh1);
+			}
+		});
+      return ds;
    }
 
 }

@@ -9,7 +9,7 @@ public class BUSSanPham {
 	DAOSanPham daoSP = new DAOSanPham();
 	public SanPham timKiemSanPham(String maSP) {
 		SanPham sp = null;
-		if(maSP.startsWith("SPS")) sp = daoSP.timSachTheoMa(maSP);
+		if(maSP.toUpperCase().startsWith("SPS")) sp = daoSP.timSachTheoMa(maSP);
 		else sp = daoSP.timVanPhongPhamTheoMa(maSP);
 		return sp;
 	}
@@ -22,5 +22,9 @@ public class BUSSanPham {
 	public boolean capNhatSanPham(SanPham sp) {
 		if(sp.getMaSanPham().startsWith("SPS")) return daoSP.capNhatSach((Sach) sp);
 		else return daoSP.capNhatVanPhongPham((VanPhongPham) sp);
+	}
+	
+	public boolean capNhatSoLuongTonSanPham(SanPham sp) {
+		return daoSP.capNhatSoLuongTonSanPham(sp);
 	}
 }
