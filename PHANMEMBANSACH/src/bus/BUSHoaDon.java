@@ -53,19 +53,11 @@ public class BUSHoaDon {
 		return 0;
 	}
 	
-	public int layMaSoHoaDonMax() {
-		return daoHoaDon.layMaSoHoaDonMax();
-	}
-	
 	public String taoMaHoaDon() {
         long timestamp = Instant.now().toEpochMilli();
         String maHoaDon = String.valueOf(timestamp % 1000000);
         return "HD" + maHoaDon;
 	}
-	
-	public ArrayList<HoaDon> layLichSuGiaoDichKhachHang(String maKH) {
-    	return daoHoaDon.layLichSuGiaoDichKhachHang(maKH);
-    }
 	
 	public ArrayList<HoaDon> locHoaDonQLHD(String maHD, String maNV, String sdt, String httt, java.util.Date tuNgay, java.util.Date denNgay, String tongTien) {
 		ArrayList<HoaDon> ds = new ArrayList<>();
@@ -110,5 +102,16 @@ public class BUSHoaDon {
 			if(hd.tinhTongTien() <= 10000000) return false;
 		}
 		return true;
+	}
+
+	
+	public int layTongSoHoaDonTrongHeThong() {
+		return daoHoaDon.layTongSoHoaDonTrongHeThong();
+	}
+	public ArrayList<HoaDon> layLichSuGiaoDichKhachHang(String maKH) {
+		return daoHoaDon.layLichSuGiaoDichKhachHang(maKH);
+	}
+	public ArrayList<HoaDon> layDSHoaDonTuNgayXDenNgayY(LocalDate x, LocalDate y){
+		return daoHoaDon.layDSHoaDonTuNgayXDenNgayY(x, y);
 	}
 }

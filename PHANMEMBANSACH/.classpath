@@ -40,6 +40,8 @@
 	<classpathentry kind="lib" path="src/lib/slf4j-api-1.7.4.jar"/>
 	<classpathentry kind="lib" path="src/lib/slf4j-log4j12-1.7.30.jar"/>
 	<classpathentry kind="lib" path="src/lib/webcam-capture-0.3.12.jar"/>
+	<classpathentry kind="lib" path="src/lib/javax.mail.jar"/>
+	<classpathentry kind="lib" path="src/lib/javax.activation-1.2.0.jar"/>
 	<classpathentry kind="lib" path="src/lib/itextpdf-5.5.9.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

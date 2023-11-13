@@ -2,13 +2,14 @@ package ui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.EventQueue;
-import java.awt.Toolkit;
+
 import java.util.ArrayList;
 
+
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
+
 
 import bus.BUSHoaDon;
 import controller.XuLyDieuHuongPhamMem;
@@ -19,18 +20,15 @@ import entity.NhanVien;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
+
 import java.awt.Color;
 import java.awt.Component;
 
-import javax.swing.UIManager;
-import javax.swing.border.BevelBorder;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
+
 
 import java.awt.Font;
 import java.awt.Image;
-import javax.swing.SwingConstants;
+
 
 public class TrangChu extends JFrame {
 
@@ -259,7 +257,7 @@ public class TrangChu extends JFrame {
 			btnGiaoHang.setForeground(Color.white);
 		}
 		if(src.equals("Đổi trả hàng")) {
-			pnlHienTai = new GUIDoiTraHang();
+			pnlHienTai = new GUIDoiTraHang(nvHienTai);
 			btnDoiTraHang.setBackground(colorBtnActive);
 			btnDoiTraHang.setForeground(Color.white);
 		}
@@ -289,7 +287,7 @@ public class TrangChu extends JFrame {
 			btnNhanVien.setForeground(Color.white);
 		} 
 		if(src.equals("QL Thống kê")) {
-			pnlHienTai = new GUIThongKe();
+			pnlHienTai = new GUIThongKe(nvHienTai);
 			btnThongKe.setBackground(colorBtnActive);
 			btnThongKe.setForeground(Color.white);
 		} 

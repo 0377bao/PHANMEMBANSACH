@@ -116,23 +116,21 @@ public class DAOHoaDon {
 		return (n>0 && m);
 	}
 	
-	public int layMaSoHoaDonMax() {
-		int ma = 0;
-		ConnectDB.getInstance();
+	public int layTongSoHoaDonTrongHeThong() {
 		Connection con = ConnectDB.getConnection();
+		String sql = "select COUNT(*) as soHoaDon from HoaDon";
+		Statement statement = null;
 		try {
-			Statement statement = con.createStatement();
-			String sql = "SELECT top 1 CAST(SUBSTRING(maHoaDon, 3, LEN(maHoaDon) - 2) as int) AS maHoaDon "
-					+ "FROM HoaDon order by maHoaDon desc";
+			statement = con.createStatement();
 			ResultSet rs = statement.executeQuery(sql);
 			while(rs.next()) {
-				ma = rs.getInt("maHoaDon");
+				return rs.getInt("soHoaDon");
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return ma;
+		return -1;
 	}
 	
 	public ArrayList<HoaDon> layLichSuGiaoDichKhachHang(String maKH) {
@@ -154,4 +152,40 @@ public class DAOHoaDon {
     	}
     	return dsGiaoDich;
     }
+	
+	public ArrayList<HoaDon> layDSHoaDonTuNgayXDenNgayY(LocalDate x, LocalDate y) {
+		ArrayList<HoaDon> ds = new ArrayList<>();
+		Connection con = ConnectDB.getConnection();
+		String sql = "select * from HoaDon where ngayLap BETWEEN ? AND ?";
+		try {
+			PreparedStatement statement = con.prepareStatement(sql);
+			Date ngayx = Date.valueOf(x);
+			Date ngayy = Date.valueOf(y);
+			statement.setDate(1, ngayx);
+			statement.setDate(2, ngayy);
+			ResultSet rs = statement.executeQuery();
+			while(rs.next()) {
+				String maHoaDon = rs.getString("maHoaDon").trim(); 
+				Date ngay = rs.getDate("ngayLap");
+				Calendar c = Calendar.getInstance();
+				c.setTime(ngay);
+				LocalDate ngayLap = LocalDate.of(c.get(Calendar.YEAR), c.get(Calendar.MONTH) + 1, c.get(Calendar.DAY_OF_MONTH));
+				String phuongThucThanhToan = rs.getString("phuongThucThanhToan").trim();
+				String ghiChu = rs.getString("ghiChu").trim();
+				int diemGiamGia = rs.getInt("diemGiamGia");
+				float giamGia = rs.getFloat("giamGia");
+				NhanVien nv = new BUSNhanVien().layNhanVienTheoMa(rs.getString("maNhanVien"));
+				KhachHang kh = new DAOKhachHang().timKhachHangTheoMa(rs.getString("maKhachHang"));
+				ChuongTrinhKhuyenMai ctkm = new DAOChuongTrinhKhuyenMai().timChuongTrinhKhuyenMaiTheoMa(rs.getString("maCTKM"));
+				ArrayList<ChiTietHoaDon> cthd = new DAOChiTietHoaDon().layDSChiTietHoaDonCuaHoaDon(maHoaDon);
+				float tienKhachDua = rs.getFloat("tienKhachDua");
+				ds.add(new HoaDon(maHoaDon, ngayLap, phuongThucThanhToan, ghiChu, diemGiamGia, giamGia, nv, kh, ctkm, cthd, tienKhachDua));
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return ds;
+	}
 }

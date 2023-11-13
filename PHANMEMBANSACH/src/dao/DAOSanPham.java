@@ -17,6 +17,8 @@ import entity.SanPham;
 import entity.VanPhongPham;
 
 public class DAOSanPham {
+
+	// lấy danh sách sản phẩm
 	public ArrayList<SanPham> layDSSanPham() {
 		ArrayList<SanPham> ds = new ArrayList<>();
 		Connection con = ConnectDB.getConnection();
@@ -26,27 +28,29 @@ public class DAOSanPham {
 			statement = con.createStatement();
 			ResultSet rs = statement.executeQuery(sql);
 			while (rs.next()) {
-				String maS = rs.getString("maSanPham");
-				String tenS = rs.getString("tenSanPham");
+				String maSP = rs.getString("maSanPham").trim();
+				String tenS = rs.getString("tenSanPham").trim();
 				int soLuongTon = rs.getInt("soLuongTon");
 				float giaNhap = rs.getFloat("giaNhap");
-				String theLoai = rs.getString("theLoai");
-				String ke = rs.getString("ke");
-				NhaCungCap ncc = new BUSNhaCungCap().timNhaCungCapTheoMa(rs.getString("maNhaCungCap"));
-				String hinhAnh = rs.getString("hinhAnh");
+				String theLoai = rs.getString("theLoai").trim();
+				String ke = rs.getString("ke").trim();
+				NhaCungCap ncc = new BUSNhaCungCap().timNCCTheoMa(rs.getString("maNhaCungCap").trim());
+				String hinhAnh = rs.getString("hinhAnh").trim();
 				float thue = rs.getFloat("thue");
 				float loiNhuan = rs.getFloat("phanTramLoiNhuan");
-				String trangThai = rs.getBoolean("trangThai") ? "Đang bán" : "Ngưng bán";
-				if(maS.startsWith("SPS")) {
-					String tg = rs.getString("tacGia");
-					String nhaXB = rs.getString("nhaXuatBan");
+				String trangThai = rs.getBoolean("trangThai") ? "Đang bán" : "Không còn bán";
+				if (maSP.startsWith("SPS")) {
+					String tg = rs.getString("tacGia").trim();
+					String nhaXB = rs.getString("nhaXuatBan").trim();
 					int namXB = rs.getInt("namXuatBan");
-					ds.add(new Sach(maS, tenS, soLuongTon, giaNhap, theLoai, ke, hinhAnh, thue, loiNhuan, trangThai, ncc, tg, nhaXB, namXB));
+					ds.add(new Sach(maSP, tenS, soLuongTon, giaNhap, theLoai, ke, hinhAnh, thue, loiNhuan, trangThai,
+							ncc, tg, nhaXB, namXB));
 				} else {
-					DanhMuc danhMuc = new BUSDanhMuc().timDanhMucTheoMa(rs.getString("maDanhMuc"));
-					String chatLieu = rs.getString("chatLieu");
-					ds.add(new VanPhongPham(maS, tenS, soLuongTon, giaNhap, theLoai, ke, hinhAnh, thue, loiNhuan, trangThai, ncc, chatLieu, danhMuc));	
-				} 
+					DanhMuc danhMuc = new BUSDanhMuc().timDanhMucTheoMa(rs.getString("maDanhMuc").trim());
+					String chatLieu = rs.getString("chatLieu").trim();
+					ds.add(new VanPhongPham(maSP, tenS, soLuongTon, giaNhap, theLoai, ke, hinhAnh, thue, loiNhuan,
+							trangThai, ncc, chatLieu, danhMuc));
+				}
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -55,6 +59,7 @@ public class DAOSanPham {
 		return ds;
 	}
 
+	// tìm sách theo mã
 	public Sach timSachTheoMa(String maS) {
 		Sach sach = null;
 		Connection con = ConnectDB.getConnection();
@@ -71,11 +76,11 @@ public class DAOSanPham {
 				float giaNhap = rs.getFloat("giaNhap");
 				String theLoai = rs.getString("theLoai");
 				String ke = rs.getString("ke");
-				NhaCungCap ncc = new BUSNhaCungCap().timNhaCungCapTheoMa(rs.getString("maNhaCungCap"));
+				NhaCungCap ncc = new BUSNhaCungCap().timNCCTheoMa(rs.getString("maNhaCungCap"));
 				String hinhAnh = rs.getString("hinhAnh");
 				float thue = rs.getFloat("thue");
 				float loiNhuan = rs.getFloat("phanTramLoiNhuan");
-				String trangThai = rs.getBoolean("trangThai") ? "Đang bán" : "Ngưng bán";
+				String trangThai = rs.getBoolean("trangThai") ? "Đang bán" : "Không còn bán";
 				String tg = rs.getString("tacGia");
 				String nhaXB = rs.getString("nhaXuatBan");
 				int namXB = rs.getInt("namXuatBan");
@@ -88,6 +93,7 @@ public class DAOSanPham {
 		return sach;
 	}
 
+	// tìm văn phòng phẩm theo mã
 	public VanPhongPham timVanPhongPhamTheoMa(String maV) {
 		VanPhongPham vpp = null;
 		Connection con = ConnectDB.getConnection();
@@ -104,14 +110,15 @@ public class DAOSanPham {
 				float giaNhap = rs.getFloat("giaNhap");
 				String theLoai = rs.getString("theLoai");
 				String ke = rs.getString("ke");
-				NhaCungCap ncc = new BUSNhaCungCap().timNhaCungCapTheoMa(rs.getString("maNhaCungCap"));
+				NhaCungCap ncc = new BUSNhaCungCap().timNCCTheoMa(rs.getString("maNhaCungCap"));
 				String hinhAnh = rs.getString("hinhAnh");
 				float thue = rs.getFloat("thue");
 				float loiNhuan = rs.getFloat("phanTramLoiNhuan");
-				String trangThai = rs.getBoolean("trangThai") ? "Đang bán" : "Ngưng bán";
+				String trangThai = rs.getBoolean("trangThai") ? "Đang bán" : "Không còn bán";
 				DanhMuc danhMuc = new BUSDanhMuc().timDanhMucTheoMa(rs.getString("maDanhMuc"));
 				String chatLieu = rs.getString("chatLieu");
-				vpp = new VanPhongPham(maS, tenS, soLuongTon, giaNhap, theLoai, ke, hinhAnh, thue, loiNhuan, trangThai, ncc, chatLieu, danhMuc);
+				vpp = new VanPhongPham(maS, tenS, soLuongTon, giaNhap, theLoai, ke, hinhAnh, thue, loiNhuan, trangThai,
+						ncc, chatLieu, danhMuc);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -119,14 +126,15 @@ public class DAOSanPham {
 		}
 		return vpp;
 	}
-	
+
+	// thêm sách
 	public boolean themSach(Sach s) {
 		int n = 0;
 		ConnectDB.getInstance();
 		Connection con = ConnectDB.getConnection();
 		PreparedStatement ps = null;
 		try {
-			String sql = "insert into SanPham values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, null)";
+			String sql = "insert into SanPham values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, null, null)";
 			ps = con.prepareStatement(sql);
 			ps.setString(1, s.getMaSanPham());
 			ps.setString(2, s.getTenSanPham());
@@ -143,15 +151,14 @@ public class DAOSanPham {
 			ps.setInt(13, s.getNamXuatBan());
 			ps.setFloat(14, s.getGiaBan());
 			ps.setBoolean(15, s.getTrangThai().equals("Đang bán") ? true : false);
-			ps.setString(16, "DM8");
+//			ps.setString(16, "DM8");
 			n = ps.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
 		}
 		return n > 0;
 	}
-	
 
+	// thêm văn phòng phẩm
 	public boolean themVanPhongPham(VanPhongPham vpp) {
 		int n = 0;
 		ConnectDB.getInstance();
@@ -176,19 +183,19 @@ public class DAOSanPham {
 			ps.setString(14, vpp.getChatLieu());
 			n = ps.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
 		}
 		return n > 0;
 	}
-	
+
+	// cập nhật sách
 	public boolean capNhatSach(Sach sachSua) {
-		int n = 0;
 		ConnectDB.getInstance();
 		Connection con = ConnectDB.getConnection();
 		PreparedStatement ps = null;
 		String sql = "update SanPham set tenSanPham = ?, soLuongTon = ?, giaNhap = ?, theLoai = ?, ke = ?, "
 				+ "maNhaCungCap = ?, hinhAnh = ?, thue = ?, phanTramLoiNhuan = ?, tacGia = ?, nhaXuatBan = ?, "
 				+ "namXuatBan = ?, giaBan = ?, trangThai = ? where maSanPham = ?";
+		int n = 0;
 		try {
 			ps = con.prepareStatement(sql);
 			ps.setString(1, sachSua.getTenSanPham());
@@ -212,7 +219,8 @@ public class DAOSanPham {
 		}
 		return n > 0;
 	}
-	
+
+	// cập nhật văn phòng phẩm
 	public boolean capNhatVanPhongPham(VanPhongPham vppSua) {
 		int n = 0;
 		ConnectDB.getInstance();

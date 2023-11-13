@@ -14,7 +14,7 @@ public class DonGiaoHang {
 	private float tienVanChuyen;
 	private String phuongThucThanhToan;
 	private HoaDon hoaDon;
-
+	
 	public DonGiaoHang(String ma, HoaDon hd) {
 		this.maDonGiaoHang = ma;
 		this.hoaDon = hd;
@@ -107,9 +107,8 @@ public class DonGiaoHang {
 	public float getTienVanChuyen() {
 		return tienVanChuyen;
 	}
-
-
-
+	
+	
 	public String getPhuongThucThanhToan() {
 		return phuongThucThanhToan;
 	}
@@ -138,9 +137,9 @@ public class DonGiaoHang {
 			if (soKg <= 50) {
 				result = soKm * 3000;
 			} else if (soKg <= 100) {
-				result = 50 * 3000 + (soKg - 50) * 5000;
+				result = soKm * 5000;
 			} else if (soKg <= 150) {
-				result = 50 * 3000 + 100 * 5000 + (soKg - 100) * 7000;
+				result = soKm * 7000;
 			}
 		}
 		this.tienVanChuyen = result;
@@ -170,4 +169,5 @@ public class DonGiaoHang {
 				+ ", diaChi=" + diaChi + ", soKg=" + soKg + ", trangThai=" + trangThai + ", soKm=" + soKm + ", ghiChu="
 				+ ghiChu + ", tienVanChuyen=" + tienVanChuyen + ", hoaDon=" + hoaDon + "]";
 	}
+
 }

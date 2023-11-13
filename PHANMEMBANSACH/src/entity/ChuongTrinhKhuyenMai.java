@@ -7,12 +7,14 @@ public class ChuongTrinhKhuyenMai {
 	private String maCTKM;
 	private String tenCTKM;
 	private ArrayList<MucKhuyenMai> dsMucKhuyenMai = new ArrayList<>();
+	private boolean trangThai;
 
-	public ChuongTrinhKhuyenMai(String maCTKM, String tenCTKM, ArrayList<MucKhuyenMai> dsMucKhuyenMai) {
+	public ChuongTrinhKhuyenMai(String maCTKM, String tenCTKM, ArrayList<MucKhuyenMai> dsMucKhuyenMai, boolean trangThai) {
 		super();
 		this.maCTKM = maCTKM;
 		this.tenCTKM = tenCTKM;
 		this.dsMucKhuyenMai = dsMucKhuyenMai;
+		this.trangThai = trangThai;
 	}
 
 	public String getMaCTKM() {
@@ -40,6 +42,13 @@ public class ChuongTrinhKhuyenMai {
 	}
 	
 	
+	public boolean isTrangThai() {
+		return trangThai;
+	}
+
+	public void setTrangThai(boolean trangThai) {
+		this.trangThai = trangThai;
+	}
 
 	@Override
 	public int hashCode() {
@@ -61,8 +70,10 @@ public class ChuongTrinhKhuyenMai {
 	@Override
 	public String toString() {
 		return "ChuongTrinhKhuyenMai [maCTKM=" + maCTKM + ", tenCTKM=" + tenCTKM + ", dsMucKhuyenMai=" + dsMucKhuyenMai
-				+ "]";
+				+ ", trangThai=" + trangThai + "]";
 	}
+
+	
 
 	
 }

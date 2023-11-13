@@ -11,8 +11,10 @@ import java.util.Calendar;
 
 import javax.swing.table.DefaultTableModel;
 
+import bus.BUSHoaDon;
 import connect.ConnectDB;
 import customUI.MyTable;
+import entity.HoaDon;
 import entity.KhachHang;
 
 public class DAOKhachHang {
@@ -144,10 +146,10 @@ public class DAOKhachHang {
     	return kh;
     }
     
-    public void layLichSuGiaoDichKhachHang(String maKH, DefaultTableModel model, MyTable tb) {
+    public ArrayList<HoaDon> layLichSuGiaoDichKhachHang(String maKH) {
     	ConnectDB.getInstance();
     	Connection con = ConnectDB.getConnection();
-    	model.setRowCount(0);
+    	ArrayList<HoaDon> dsGiaoDich = new ArrayList<>();
     	String sql = "select * from HoaDon hd join NhanVien nv on hd.maNhanVien = nv.maNhanVien where hd.maKhachHang = ?";
     	try {
     		PreparedStatement stmt = con.prepareStatement(sql);
@@ -155,18 +157,13 @@ public class DAOKhachHang {
     		ResultSet rs = stmt.executeQuery();
     		while(rs.next()) {
     			String maHoaDon = rs.getString("maHoaDon").trim();
-    			String tenNhanVien = rs.getString("tenNhanVien").trim();
-    			Date ngay = rs.getDate("ngayLap");
-    			Calendar c = Calendar.getInstance();
-    			c.setTime(ngay);
-    			LocalDate ngayLapHD = LocalDate.of(c.get(Calendar.YEAR), c.get(Calendar.MONTH) + 1, c.get(Calendar.DAY_OF_MONTH));
-    			float thanhTien = rs.getFloat("thanhTien");
-    			model.addRow(new Object[] {maHoaDon, tenNhanVien, ngayLapHD, thanhTien});
-    			tb.setModel(model);
+    			HoaDon hd = new BUSHoaDon().timHoaDonTheoMa(maHoaDon);
+    			dsGiaoDich.add(hd);
     		}
     	}catch(Exception e) {
     		e.printStackTrace();
     	}
+    	return dsGiaoDich;
     }
     
     public int getMaKhachHangMax() {

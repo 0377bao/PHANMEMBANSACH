@@ -21,11 +21,11 @@ public class DAONhaCungCap {
 			String sql = "select * from NhaCungCap";
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
-				String maNCC = rs.getString("maNhaCungCap");
-				String tenNCC = rs.getString("tenNhaCungCap");
-				String diaChi = rs.getString("diaChi");
-				String sdt = rs.getString("sdt");
-				String email = rs.getString("email");
+				String maNCC = rs.getString("maNhaCungCap").trim();
+				String tenNCC = rs.getString("tenNhaCungCap").trim();
+				String diaChi = rs.getString("diaChi").trim();
+				String sdt = rs.getString("sdt").trim();
+				String email = rs.getString("email").trim();
 				NhaCungCap ncc = new NhaCungCap(maNCC, tenNCC, diaChi, sdt, email);
 				dsNCC.add(ncc);
 			}
@@ -36,7 +36,7 @@ public class DAONhaCungCap {
 	}
 
 	// thêm nhà cung cấp
-	public boolean taoNCC(NhaCungCap ncc) {
+	public boolean themNCC(NhaCungCap ncc) {
 		ConnectDB.getInstance();
 		Connection con = ConnectDB.getConnection();
 		PreparedStatement ps = null;
@@ -47,17 +47,10 @@ public class DAONhaCungCap {
 			ps.setString(1, ncc.getMaNhaCungCap());
 			ps.setString(2, ncc.getTenNhaCungCap());
 			ps.setString(3, ncc.getDiaChi());
-			ps.setString(4, ncc.getEmail());
-			ps.setString(5, ncc.getSdt());
+			ps.setString(4, ncc.getSdt());
+			ps.setString(5, ncc.getEmail());
 			n = ps.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				ps.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
 		}
 		return n > 0;
 	}
@@ -67,24 +60,18 @@ public class DAONhaCungCap {
 		ConnectDB.getInstance();
 		Connection con = ConnectDB.getConnection();
 		PreparedStatement ps = null;
-		String sql = "update NhaCungCap set tenNhaCungCap = ?, diaChi = ?, sdt = ?, email = ?";
+		String sql = "update NhaCungCap set tenNhaCungCap = ?, diaChi = ?, sdt = ?, email = ? where maNhaCungCap = ?";
 		int n = 0;
 		try {
 			ps = con.prepareStatement(sql);
 			ps.setString(1, ncc.getTenNhaCungCap());
 			ps.setString(2, ncc.getDiaChi());
-			ps.setString(3, ncc.getEmail());
-			ps.setString(4, ncc.getSdt());
+			ps.setString(3, ncc.getSdt());
+			ps.setString(4, ncc.getEmail());
 			ps.setString(5, ncc.getMaNhaCungCap());
 			n = ps.executeUpdate();
 		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				ps.close();
-			} catch (Exception e2) {
-				e2.printStackTrace();
-			}
+
 		}
 		return n > 0;
 	}
@@ -101,11 +88,11 @@ public class DAONhaCungCap {
 			ps.setString(1, maNhaCungCap);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				String maNCC = rs.getString("maNhaCungCap");
-				String tenNCC = rs.getString("tenNhaCungCap");
-				String diaChi = rs.getString("diaChi");
-				String sdt = rs.getString("sdt");
-				String email = rs.getString("email");
+				String maNCC = rs.getString("maNhaCungCap").trim();
+				String tenNCC = rs.getString("tenNhaCungCap").trim();
+				String diaChi = rs.getString("diaChi").trim();
+				String sdt = rs.getString("sdt").trim();
+				String email = rs.getString("email").trim();
 				ncc = new NhaCungCap(maNCC, tenNCC, diaChi, sdt, email);
 			}
 		} catch (Exception e) {

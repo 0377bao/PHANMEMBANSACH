@@ -15,6 +15,7 @@ import javax.swing.table.DefaultTableModel;
 import connect.ConnectDB;
 import customUI.MyTable;
 import dao.DAOKhachHang;
+import entity.HoaDon;
 import entity.KhachHang;
 
 import java.util.ArrayList;
@@ -60,6 +61,9 @@ public class BUSKhachHang {
     	}
     	return message;
     }
+    public KhachHang timKhachHangTheoSDT(String sdtkh) {
+    	return daoKhachHang.timKhachHangTheoSDT(sdtkh);
+    }
     
     public ArrayList<KhachHang> locKhachHang(String tenTim, String sdtTim) {
     	ArrayList<KhachHang> ds = new ArrayList<>();
@@ -86,7 +90,7 @@ public class BUSKhachHang {
     }
     
     public String kiemTraThongTinKhachHangHopLe(KhachHang kh) {
-        Pattern tenKH = Pattern.compile("^[\\p{L}\\s]+$");
+        Pattern tenKH = Pattern.compile("^[\\p{L} ]+$");
         Matcher matchTenKh = tenKH.matcher(kh.getTenKhachHang());
         Pattern sdt = Pattern.compile("^(09|08|07|05|03)\\d{8}$");
         Matcher matchSdt = sdt.matcher(kh.getSdt());
@@ -109,8 +113,8 @@ public class BUSKhachHang {
         return "success";
     }
     
-    public void layLichSuGiaoDichKhachHang(String maKH, DefaultTableModel model, MyTable tb) {
-    	daoKhachHang.layLichSuGiaoDichKhachHang(maKH, model, tb);
+    public ArrayList<HoaDon> layLichSuGiaoDichKhachHang(String maKH) {
+    	return daoKhachHang.layLichSuGiaoDichKhachHang(maKH);
     }
     
     public String taoMaKhachHang() {
@@ -137,10 +141,6 @@ public class BUSKhachHang {
     
     public KhachHang timKhachHangTheoMa(String maKH) {
     	return daoKhachHang.timKhachHangTheoMa(maKH);
-    }
-    
-    public KhachHang timKhachHangTheoSDT(String sdt) {
-    	return daoKhachHang.timKhachHangTheoSDT(sdt);
     }
     
     public ArrayList<KhachHang> sapXepTheoTongTien(ArrayList<KhachHang> ds) {

@@ -77,6 +77,10 @@ public class ControllerBanHang implements ActionListener, KeyListener, MouseList
 			this.view.xuLyInHoaDon();
 			break;
 		}
+		case "btnTaoDonGiao": {
+			this.view.xuLyTaoDonGiaoHang();
+			break;
+		}
 		default:
 			break;
 		}

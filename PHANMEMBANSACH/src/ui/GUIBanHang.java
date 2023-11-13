@@ -127,7 +127,7 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
 	private ArrayList<HoaDon> dsHoaDon = busHoaDon.layHetDSHoaDon();
 	private NhanVien nhanVienBanHang = null;
 	private HoaDon hoaDonHienTai = null;
-	private KhachHang khachHang = busKhachHang.timKhachHangTheoMa("KH0");
+	private KhachHang khachHang = busKhachHang.timKhachHangTheoMa("KH1");
 	private ChuongTrinhKhuyenMai ctkmCuaHoaDon = busCTKM.timChuongTrinhKhuyenMaiDangApDung();
 	private SanPham sanPhamTim = null;
 	private JLabel lblMaHoaDon;
@@ -150,7 +150,7 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
 	private MyButton btnXoa;
 	private MyButton btnCapNhat;
 	private MyButton btnLocHoaDon;
-	private MyButton btnSapXepTheoTongTien;
+	private MyButton btnTaoDonGiao;
 	private MyButton btnTaiLai;
 	private MyButton btnInHoaDon;
 	private JDateChooser dateQLHDTuNgay;
@@ -792,10 +792,11 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
 		btnTaiLai.setBounds(70, 102, 163, 36);
 		pnlQLHDChucNang.add(btnTaiLai);
 
-		btnSapXepTheoTongTien = new MyButton("Sắp xếp theo tổng tiền");
-		btnSapXepTheoTongTien.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnSapXepTheoTongTien.setBounds(70, 149, 163, 36);
-		pnlQLHDChucNang.add(btnSapXepTheoTongTien);
+		btnTaoDonGiao = new MyButton("Tạo đơn giao hàng");
+		btnTaoDonGiao.setActionCommand("btnTaoDonGiao");
+		btnTaoDonGiao.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnTaoDonGiao.setBounds(70, 149, 163, 36);
+		pnlQLHDChucNang.add(btnTaoDonGiao);
 
 		btnLocHoaDon = new MyButton("Lọc hóa đơn");
 		btnLocHoaDon.setActionCommand("btnLocHoaDon");
@@ -898,6 +899,7 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
 		btnLocHoaDon.addActionListener(acBanHang);
 		btnTaiLai.addActionListener(acBanHang);
 		btnInHoaDon.addActionListener(acBanHang);
+		btnTaoDonGiao.addActionListener(acBanHang);
 	}
 	//Hàm tạo QR code
 	private void initWebCam() {
@@ -1381,5 +1383,14 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
 		dsHoaDon = busHoaDon.layHetDSHoaDon();
 		capNhatBangDSHoaDon();
 		modelChiTietHoaDon.setRowCount(0);
+	}
+	
+	public void xuLyTaoDonGiaoHang() {
+		int row = tableHoaDon.getSelectedRow();
+		if(row == -1) {
+			JOptionPane.showMessageDialog(this, "Vui lòng chọn một hóa đơn cần chuyên thành đơn giao hàng");
+		} else {
+			view.chuyenHoaDonQuaGiaoHang(dsHoaDon.get(row));
+		}
 	}
 }
