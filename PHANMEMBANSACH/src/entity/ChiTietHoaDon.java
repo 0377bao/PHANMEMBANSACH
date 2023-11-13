@@ -37,7 +37,7 @@ public class ChiTietHoaDon {
 	}
 	
 	public float tinhThanhTien() {
-		return giaBan * soLuongMua * (1 + sanPham.getThue());
+		return giaBan * soLuongMua * (1 + sanPham.getThue() / 100);
 	}
 
 	@Override

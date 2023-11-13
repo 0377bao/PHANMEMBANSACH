@@ -48,6 +48,7 @@ public class BUSHoaDon {
 		}
 		return 0;
 	}
+
 	
 	public int layTongSoHoaDonTrongHeThong() {
 		return daoHoaDon.layTongSoHoaDonTrongHeThong();
@@ -58,4 +59,5 @@ public class BUSHoaDon {
 	public ArrayList<HoaDon> layDSHoaDonTuNgayXDenNgayY(LocalDate x, LocalDate y){
 		return daoHoaDon.layDSHoaDonTuNgayXDenNgayY(x, y);
 	}
+
 }

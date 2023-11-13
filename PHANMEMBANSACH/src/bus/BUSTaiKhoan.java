@@ -1,6 +1,7 @@
 package bus;
 
 import dao.DAOTaiKhoan;
+import entity.TaiKhoan;
 
 public class BUSTaiKhoan {
 	DAOTaiKhoan daoTaiKhoan = new DAOTaiKhoan();
@@ -8,4 +9,7 @@ public class BUSTaiKhoan {
 		return daoTaiKhoan.kiemTraMatKhau(taiKhoan, matKhau);
 	}
 	
+	public boolean themTaiKhoan(TaiKhoan tk) {
+		return daoTaiKhoan.themTaiKhoan(tk);
+	}
 }
