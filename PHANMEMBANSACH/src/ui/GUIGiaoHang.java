@@ -600,30 +600,41 @@ public class GUIGiaoHang extends JPanel implements MouseListener{
 	    		if(maDonHang.equals("")) {
 	    			JOptionPane.showMessageDialog(this, "Vui lòng tạo mã đơn hàng trước");
 	    			flag = 0;
+	    			return;
 	    		}
 	    		
 	    		if(tenKhachHang.equals("")) {
 	    			JOptionPane.showMessageDialog(this, "Vui lòng nhập tên khách hàng");
 	    			flag = 0;
+	    			return;
 	    		}
 	    		
 	    		if(sdt.equals("")) {
 	    			JOptionPane.showMessageDialog(this, "Vui lòng nhập số điện thoại để liên lạc nhận hàng");
 	    			flag = 0;
+	    			return;
 	    		}
 	    		
 	    		if(txtSoKG.getText().equals("")) {
 	    			JOptionPane.showMessageDialog(this, "Vui lòng nhập số kg");
 	    			flag = 0;
+	    			return;
 	    		}else {
-	    			sokg = Integer.parseInt(txtSoKG.getText());
+	    			try {
+	    				sokg = Integer.parseInt(txtSoKG.getText());
+	    			}catch(Exception e) {
+	    				JOptionPane.showMessageDialog(this, "Số kg không được là chữ");
+	    				return;
+	    			}
+	    			
 	    		}
 	    		
 	    		if(txtSoKM.getText().equals("")) {
 	    			JOptionPane.showMessageDialog(this, "Vui lòng tính khoảng cách để thông báo phí vận chuyển");
 	    			flag = 0;
+	    			return;
 	    		}else {
-	    			soKm = Float.parseFloat(txtSoKM.getText());
+	    			soKm = Float.parseFloat(txtSoKM.getText());	
 	    		}
 
 	    		String temp = txtThanhTien.getText().replace(',', ' ');

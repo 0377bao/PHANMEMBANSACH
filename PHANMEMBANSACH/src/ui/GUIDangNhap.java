@@ -23,6 +23,7 @@ import bus.BUSTaiKhoan;
 import controller.XuLyDangNhap;
 import customUI.CustumImage;
 import customUI.MyButton;
+import entity.NhanVien;
 
 public class GUIDangNhap extends JFrame {
 
@@ -141,9 +142,17 @@ public class GUIDangNhap extends JFrame {
 			JOptionPane.showMessageDialog(this, "Mật khẩu không được để trống");
 		} else {
 			boolean kiemTra = busTaiKhoan.kiemTraMatKhau(taiKhoan, matKhau);
+			NhanVien nv = busNhanVien.layNhanVienTheoMa(taiKhoan);
 			if (kiemTra) {
-				JOptionPane.showMessageDialog(this, "Đăng nhập thành công");
-				new TrangChu(busNhanVien.layNhanVienTheoMa(taiKhoan)).setVisible(true);
+				if(!nv.getChucVu().equals("quản lý")) {
+					JOptionPane.showMessageDialog(this, "Đăng nhập thành công");
+					TrangChu trangChu = new TrangChu(busNhanVien.layNhanVienTheoMa(taiKhoan));
+					trangChu.xuLyTinhNangTheoChucVuCuaNhanVien();
+					trangChu.setVisible(true);
+				}else {
+					TrangChu trangChu = new TrangChu(busNhanVien.layNhanVienTheoMa(taiKhoan));
+					trangChu.setVisible(true);
+				}
 				this.setVisible(false);
 
 			} else {

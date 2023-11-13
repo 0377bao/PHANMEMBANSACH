@@ -27,12 +27,14 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
 import bus.BUSChuongTrinhKhuyenMai;
+import bus.BUSKhachHang;
 import controller.ControllerChuongTrinhKhuyenMai;
 import customUI.MyButton;
 import customUI.MyCombobox;
 import customUI.MyTable;
 import dao.DAOMucKhuyenMai;
 import entity.ChuongTrinhKhuyenMai;
+import entity.KhachHang;
 import entity.MucKhuyenMai;
 
 import javax.swing.border.BevelBorder;
@@ -551,6 +553,22 @@ public class GUIKhuyenMai extends JPanel{
                 	capNhatTrangThaiBangDSKhuyenMai();
                 	modelKMDT.setRowCount(0);
                 	xoaTrangTextField();
+                	
+                	// gửi chương trình khuyến mãi cho tất cả khách hàng
+                	if(JOptionPane.showConfirmDialog(this, "Bạn có muốn gửi chương trình khuyến mãi này cho khách hàng không?","Có", JOptionPane.YES_NO_OPTION)== JOptionPane.YES_OPTION) {
+                		ArrayList<KhachHang> dsKh = new BUSKhachHang().layDSKhachHang();
+                		String gmail = "";
+                		String userMail = "thuykieu.13032003@gmail.com";
+                		String password = "tirfdrdpsbjxqemq";
+                		String subject = "Chương trình khuyến mãi hàng tháng của cửa hàng";
+                		String message = "Chúc ngày mới vui vẻ";
+                		for(KhachHang kh : dsKh) {
+                			gmail += kh.getEmail() + ",";
+                		}
+                		
+                		GUISendEmail send = new GUISendEmail();
+                		send.sendEmail(userMail, password, gmail.substring(0, gmail.length() - 1), subject, message);
+                	}
                 }else {
                 	JOptionPane.showMessageDialog(this, "Thêm chương trình khuyến mãi thất bại");
                 }

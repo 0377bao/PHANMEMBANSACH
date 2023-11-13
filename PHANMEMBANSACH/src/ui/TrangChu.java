@@ -301,5 +301,12 @@ public class TrangChu extends JFrame {
 		this.revalidate();
 		this.repaint();
 	}
+	
+	// phần xử lý đóng các chức năng theo chức vụ
+	public void xuLyTinhNangTheoChucVuCuaNhanVien() {
+		btnThongKe.setEnabled(false);
+		btnNhanVien.setEnabled(false);
+		btnDoiTraHang.setEnabled(false);
+	}
 }
 
