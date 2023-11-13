@@ -11,10 +11,6 @@ import connect.ConnectDB;
 import entity.DanhMuc;
 
 public class DAODanhMuc {
-	public DAODanhMuc() {
-
-	}
-
 	// lấy ds danh mục
 	public ArrayList<DanhMuc> layDSDanhMuc() {
 		ArrayList<DanhMuc> dsDanhMuc = new ArrayList<DanhMuc>();
@@ -34,6 +30,27 @@ public class DAODanhMuc {
 			e.printStackTrace();
 		}
 		return dsDanhMuc;
+	}
+	
+	//tạo danh mục
+	public DanhMuc timDanhMucTheoMa(String maDanhmuc) {
+		DanhMuc dm = null;
+		ConnectDB.getInstance();
+		Connection con = ConnectDB.getConnection();
+		String sql = "select * from DanhMuc where maDanhMuc = ?";
+		try {
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setString(1, maDanhmuc);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				String maDanhMuc = rs.getString("maDanhMuc");
+				String tenDanhMuc = rs.getString("tenDanhMuc");
+				dm = new DanhMuc(maDanhMuc, tenDanhMuc);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return dm;
 	}
 
 	// thêm danh mục

@@ -16,10 +16,6 @@ import entity.TaiKhoan;
 
 public class DAONhanVien {
 
-	public DAONhanVien() {
-
-	}
-
 	// hàm lấy danh sách nhân viên
 	public ArrayList<NhanVien> layDSNhanVien() {
 		ArrayList<NhanVien> dsNhanVien = new ArrayList<NhanVien>();

@@ -1,5 +1,21 @@
 package bus;
 
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Calendar;
+
+import javax.swing.table.DefaultTableModel;
+
+import connect.ConnectDB;
+import customUI.MyTable;
+import dao.DAOKhachHang;
+import entity.KhachHang;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -27,6 +43,9 @@ public class BUSKhachHang {
     
     public boolean capNhatThongTinKhachHang(KhachHang kh) {
     	return daoKhachHang.capNhatThongTinKhachHang(kh);
+    }
+    public KhachHang timKhachHangTheoSDT(String sdtkh) {
+    	return daoKhachHang.timKhachHangTheoSDT(sdtkh);
     }
     
     public int kiemTraThongTinKhachHangHopLe(KhachHang kh) {
@@ -81,5 +100,4 @@ public class BUSKhachHang {
         }
         tb.setModel(model);
     }
-    
 }

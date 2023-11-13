@@ -16,6 +16,7 @@ public class NhaCungCap {
 		this.diaChi = diaChi;
 		this.sdt = sdt;
 		this.email = email;
+		this.diaChi = diaChi;
 	}
 
 	public NhaCungCap() {

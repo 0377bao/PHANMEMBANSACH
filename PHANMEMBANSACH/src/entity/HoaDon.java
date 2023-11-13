@@ -15,6 +15,7 @@ public class HoaDon {
 	private KhachHang khachHang;
 	private ChuongTrinhKhuyenMai ctkm;
 	private ArrayList<ChiTietHoaDon> dsChiTietHoaDon = new ArrayList<>();
+	private float thanhTien;
 
 	public HoaDon(String maHoaDon, LocalDate ngayLap, String hinhThucThanhToan, String ghiChu, int diemGiamGia,
 			float giamGia, NhanVien nhanVien, KhachHang khachHang, ChuongTrinhKhuyenMai ctkm,
@@ -30,6 +31,7 @@ public class HoaDon {
 		this.khachHang = khachHang;
 		this.ctkm = ctkm;
 		this.dsChiTietHoaDon = dsChiTietHoaDon;
+		this.thanhTien = this.getThanhTien();
 	}
 
 	public String getMaHoaDon() {
@@ -111,7 +113,6 @@ public class HoaDon {
 	public void setDsChiTietHoaDon(ArrayList<ChiTietHoaDon> dsChiTietHoaDon) {
 		this.dsChiTietHoaDon = dsChiTietHoaDon;
 	}
-	
 	
 
 	@Override

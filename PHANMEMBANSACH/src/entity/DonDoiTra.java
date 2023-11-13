@@ -11,8 +11,7 @@ public class DonDoiTra {
 	private HoaDon hoaDon;
 	private NhanVien nhanVien;
 	private String phuongThucDoiTra;
-
-	
+	private int diemHoanTra;
 
 	public String getPhuongThucDoiTra() {
 		return phuongThucDoiTra;
@@ -25,7 +24,7 @@ public class DonDoiTra {
 
 
 	public DonDoiTra(String maDonDoiTra, LocalDate ngayDoiTra, ArrayList<ChiTietDonDoiTra> dsChiTietDonDoiTra,
-			HoaDon hoaDon, NhanVien nhanVien, String phuongThucDoiTra) {
+			HoaDon hoaDon, NhanVien nhanVien, String phuongThucDoiTra, int diemHoanTra) {
 		super();
 		this.maDonDoiTra = maDonDoiTra;
 		this.ngayDoiTra = ngayDoiTra;
@@ -33,7 +32,7 @@ public class DonDoiTra {
 		this.hoaDon = hoaDon;
 		this.nhanVien = nhanVien;
 		this.phuongThucDoiTra = phuongThucDoiTra;
-
+		this.diemHoanTra = diemHoanTra;
 	}
 
 	public String getMaDonDoiTra() {
@@ -82,17 +81,20 @@ public class DonDoiTra {
 	}
 	
 	public float tinhTienCanTra() {
+		if(phuongThucDoiTra.equals("Đổi Hàng")) {
+			return 0;
+		}
 		float tongTien = 0;
 		for (ChiTietDonDoiTra ctddt : dsChiTietDonDoiTra) {
 			tongTien +=ctddt.getGiaBan()*ctddt.getSoLuongTra();
 		}
-		return tongTien;
+		return tongTien-diemHoanTra*10000;
 	}
 	
 	public int tinhSoLuongDoiHang() {
 		int tongSoLuong = 0;
-		for(ChiTietHoaDon cthd : this.getHoaDon().getDsChiTietHoaDon()) {
-			tongSoLuong += cthd.getSoLuongMua();
+		for(ChiTietDonDoiTra ctddt: dsChiTietDonDoiTra) {
+			tongSoLuong += ctddt.getSoLuongTra();
 		}
 		return tongSoLuong;
 	}
@@ -109,11 +111,22 @@ public class DonDoiTra {
 		return Objects.equals(maDonDoiTra, other.maDonDoiTra);
 	}
 
+
+	
+
 	@Override
 	public String toString() {
 		return "DonDoiTra [maDonDoiTra=" + maDonDoiTra + ", ngayDoiTra=" + ngayDoiTra + ", dsChiTietDonDoiTra="
 				+ dsChiTietDonDoiTra + ", hoaDon=" + hoaDon + ", nhanVien=" + nhanVien + ", phuongThucDoiTra="
-				+ phuongThucDoiTra + ", ngayLap=" + "]";
+				+ phuongThucDoiTra + ", diemHoanTra=" + diemHoanTra + "]";
+	}
+
+	public int getDiemHoanTra() {
+		return diemHoanTra;
+	}
+
+	public void setDiemHoanTra(int diemHoanTra) {
+		this.diemHoanTra = diemHoanTra;
 	}
 
 	

@@ -14,9 +14,9 @@ public class SanPham {
 	private float phanTramLoiNhuan;
 	private String trangThai;
 	private NhaCungCap nhaCungCap;
-
 	public SanPham(String maSanPham, String tenSanPham, int soLuongTon, float giaNhap, String theLoai, String ke,
-			String hinhAnh, float thue, float phanTramLoiNhuan, String trangThai, NhaCungCap nhaCungCap) {
+			String hinhAnh, float thue, float phanTramLoiNhuan, String trangThai,
+			NhaCungCap nhaCungCap) {
 		super();
 		this.maSanPham = maSanPham;
 		this.tenSanPham = tenSanPham;
@@ -31,7 +31,7 @@ public class SanPham {
 		this.nhaCungCap = nhaCungCap;
 	}
 
-	
+
 	public SanPham(String maSanPham) {
 		super();
 		this.maSanPham = maSanPham;
@@ -111,7 +111,7 @@ public class SanPham {
 	}
 
 	public float getGiaBan() {
-		return phanTramLoiNhuan*giaNhap;
+		return this.giaNhap * (1 + this.phanTramLoiNhuan);
 	}
 
 	public String getTrangThai() {
@@ -130,6 +130,7 @@ public class SanPham {
 		this.nhaCungCap = nhaCungCap;
 	}
 
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(maSanPham);
@@ -147,13 +148,12 @@ public class SanPham {
 		return Objects.equals(maSanPham, other.maSanPham);
 	}
 
+
 	@Override
 	public String toString() {
 		return "SanPham [maSanPham=" + maSanPham + ", tenSanPham=" + tenSanPham + ", soLuongTon=" + soLuongTon
 				+ ", giaNhap=" + giaNhap + ", theLoai=" + theLoai + ", ke=" + ke + ", hinhAnh=" + hinhAnh + ", thue="
-				+ thue + ", phanTramLoiNhuan=" + phanTramLoiNhuan + ", trangThai=" + trangThai + ", nhaCungCap="
-				+ nhaCungCap + "]";
+				+ thue + ", phanTramLoiNhuan=" + phanTramLoiNhuan + ", trangThai=" + trangThai
+				+ ", nhaCungCap=" + nhaCungCap + ", giaBan=" + this.getGiaBan() + "]";
 	}
-
-	
 }

@@ -90,7 +90,7 @@ public class KhachHang {
 	@Override
 	public String toString() {
 		return "KhachHang [maKhachHang=" + maKhachHang + ", tenKhachHang=" + tenKhachHang + ", sdt=" + sdt + ", email="
-				+ email + ", diemTichLuy=" + diemTichLuy + ", tongTienMua" + tongTienMua + "]";
+				+ email + ", diemTichLuy=" + diemTichLuy +  ", tongTienMua= " + tongTienMua+ "]";
 	}
 
 	

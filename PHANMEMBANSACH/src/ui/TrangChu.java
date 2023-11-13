@@ -254,7 +254,7 @@ public class TrangChu extends JFrame {
 			btnGiaoHang.setForeground(Color.white);
 		}
 		if(src.equals("Đổi trả hàng")) {
-			pnlHienTai = new GUIDoiTraHang();
+			pnlHienTai = new GUIDoiTraHang(nvHienTai);
 			btnDoiTraHang.setBackground(colorBtnActive);
 			btnDoiTraHang.setForeground(Color.white);
 		}
@@ -284,7 +284,7 @@ public class TrangChu extends JFrame {
 			btnNhanVien.setForeground(Color.white);
 		} 
 		if(src.equals("QL Thống kê")) {
-			pnlHienTai = new GUIThongKe();
+			pnlHienTai = new GUIThongKe(nvHienTai);
 			btnThongKe.setBackground(colorBtnActive);
 			btnThongKe.setForeground(Color.white);
 		} 

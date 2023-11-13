@@ -11,11 +11,6 @@ import connect.ConnectDB;
 import entity.NhaCungCap;
 
 public class DAONhaCungCap {
-
-	public DAONhaCungCap() {
-
-	}
-
 	// lấy ds nhà cung cấp
 	public ArrayList<NhaCungCap> layDSNhaCungCap() {
 		ArrayList<NhaCungCap> dsNCC = new ArrayList<NhaCungCap>();
@@ -95,7 +90,7 @@ public class DAONhaCungCap {
 	}
 
 	// lấy nhà cung cấp theo mã
-	public NhaCungCap layNCCTheoMa(String maNhaCungCap) {
+	public NhaCungCap timNhaCungCapTheoMa(String maNhaCungCap) {
 		NhaCungCap ncc = null;
 		ConnectDB.getInstance();
 		Connection con = ConnectDB.getConnection();

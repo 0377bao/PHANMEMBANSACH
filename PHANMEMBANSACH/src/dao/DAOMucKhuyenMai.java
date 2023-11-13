@@ -3,6 +3,7 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import connect.ConnectDB;
@@ -28,5 +29,22 @@ public class DAOMucKhuyenMai {
 			e.printStackTrace();
 		}
 		return dsMucKhuyenMai;
+	}
+	
+	public boolean themMucKhuyenMai(String maCTKM, MucKhuyenMai mkm) {
+		int n = 0;
+		Connection con = ConnectDB.getConnection();
+		String sql = "insert into MucKhuyenMai values (?, ?, ?)";
+		try {
+			PreparedStatement statement = con.prepareStatement(sql);
+			statement.setString(1, mkm.getTenMucKhuyenMai());
+			statement.setFloat(2, mkm.getTiLeKhuyenMai());
+			statement.setString(3, maCTKM);
+			n = statement.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return n > 0;
 	}
 }

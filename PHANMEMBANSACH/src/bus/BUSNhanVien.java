@@ -8,18 +8,18 @@ import entity.NhanVien;
 public class BUSNhanVien {
 	private DAONhanVien daoNhanVien = new DAONhanVien();
 
-	ArrayList<NhanVien> dsNV = daoNhanVien.layDSNhanVien();
-	
-	public ArrayList<NhanVien> layDSNhanVien(){
-		return dsNV;
+	public NhanVien layNhanVienTheoMa(String maNV) {
+		return daoNhanVien.layNhanVienTheoMa(maNV);
+
 	}
 	
 	public boolean suaNhanVien(NhanVien nv) {
 		return daoNhanVien.capNhatNV(nv);
 	}
 	
-	public NhanVien layNhanVien(String maNV) {
-		return daoNhanVien.layNhanVienTheoMa(maNV);
+
+	public ArrayList<NhanVien> layDSNhanVien() {
+		return daoNhanVien.layDSNhanVien();
 
 	}
 }
