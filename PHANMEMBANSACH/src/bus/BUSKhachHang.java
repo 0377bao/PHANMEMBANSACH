@@ -15,6 +15,7 @@ import javax.swing.table.DefaultTableModel;
 import connect.ConnectDB;
 import customUI.MyTable;
 import dao.DAOKhachHang;
+import entity.HoaDon;
 import entity.KhachHang;
 
 import java.util.ArrayList;
@@ -72,8 +73,8 @@ public class BUSKhachHang {
         return 0;
     }
     
-    public void layLichSuGiaoDichKhachHang(String maKH, DefaultTableModel model, MyTable tb) {
-    	daoKhachHang.layLichSuGiaoDichKhachHang(maKH, model, tb);
+    public ArrayList<HoaDon> layLichSuGiaoDichKhachHang(String maKH) {
+    	return daoKhachHang.layLichSuGiaoDichKhachHang(maKH);
     }
     
     public String taoMaKhachHang() {
@@ -96,5 +97,9 @@ public class BUSKhachHang {
         	model.addRow(new Object[] {kh.getMaKhachHang(), kh.getTenKhachHang(), kh.getSdt(), kh.getEmail(), kh.getDiemTichLuy(), kh.getTongTienMua()});
         }
         tb.setModel(model);
+    }
+    
+    public KhachHang timKhachHangTheoMa(String maKH) {
+    	return daoKhachHang.timKhachHangTheoMa(maKH);
     }
 }

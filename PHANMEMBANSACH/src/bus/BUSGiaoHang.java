@@ -34,14 +34,13 @@ public class BUSGiaoHang {
 	   return null;
    }
    
-   public DonGiaoHang timDonHangTheoTenNhanVienGiaoHang(String tenNhanVien) {
-	   ArrayList<DonGiaoHang> ds = daoDonGiaoHang.layDSDonHang();
-	   for(DonGiaoHang dgh : ds) {
-		   if(dgh.getNhanVienGiaoHang().getTenNhanVien().equals(tenNhanVien)) {
-			   return dgh;
-		   }
-	   }
-	   return null;
+   
+   public boolean themDonHangMoi(DonGiaoHang dgh) {
+	   return daoDonGiaoHang.themDonGiaoHang(dgh);
    }
-
+   
+   public String taoMaDonHang() {
+	   int max = layDSDonGiaoHang().size();
+	   return "DGH" + max;
+   }
 }

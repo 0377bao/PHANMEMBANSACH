@@ -12,12 +12,11 @@ public class DonGiaoHang {
 	private float soKm;
 	private String ghiChu;
 	private float tienVanChuyen;
-	private NhanVien nhanVienGiaoHang;
-	private NhanVien nhanVienLapHoaDon;
+	private String phuongThucThanhToan;
 	private HoaDon hoaDon;
 
 	public DonGiaoHang(String maDonGiaoHang, String tenKhachHang, String sdt, String diaChi, int soKg,
-			boolean trangThai, String ghiChu, float tienVanChuyen, NhanVien nhanVienGiaoHang, NhanVien nhanVienLapHoaDon, HoaDon hoaDon) {
+			boolean trangThai, String ghiChu, float tienVanChuyen,String phuongThucThanhToan, HoaDon hoaDon) {
 		super();
 		this.maDonGiaoHang = maDonGiaoHang;
 		this.tenKhachHang = tenKhachHang;
@@ -27,8 +26,7 @@ public class DonGiaoHang {
 		this.trangThai = trangThai;
 		this.ghiChu = ghiChu;
 		this.tienVanChuyen = tienVanChuyen;
-		this.nhanVienGiaoHang = nhanVienGiaoHang;
-		this.nhanVienLapHoaDon = nhanVienLapHoaDon;
+		this.phuongThucThanhToan = phuongThucThanhToan;
 		this.hoaDon = hoaDon;
 	}
 
@@ -84,14 +82,6 @@ public class DonGiaoHang {
 		return soKm;
 	}
 
-	public NhanVien getNhanVien() {
-		return nhanVienGiaoHang;
-	}
-
-	public void setNhanVien(NhanVien nhanVien) {
-		this.nhanVienGiaoHang = nhanVien;
-	}
-
 	public HoaDon getHoaDon() {
 		return hoaDon;
 	}
@@ -100,21 +90,6 @@ public class DonGiaoHang {
 		this.hoaDon = hoaDon;
 	}
 
-	public NhanVien getNhanVienGiaoHang() {
-		return nhanVienGiaoHang;
-	}
-
-	public void setNhanVienGiaoHang(NhanVien nhanVienGiaoHang) {
-		this.nhanVienGiaoHang = nhanVienGiaoHang;
-	}
-
-	public NhanVien getNhanVienLapHoaDon() {
-		return nhanVienLapHoaDon;
-	}
-
-	public void setNhanVienLapHoaDon(NhanVien nhanVienLapHoaDon) {
-		this.nhanVienLapHoaDon = nhanVienLapHoaDon;
-	}
 
 	public String getGhiChu() {
 		return ghiChu;
@@ -127,11 +102,21 @@ public class DonGiaoHang {
 	public float getTienVanChuyen() {
 		return tienVanChuyen;
 	}
+	
+	
+
+	public String getPhuongThucThanhToan() {
+		return phuongThucThanhToan;
+	}
+
+	public void setPhuongThucThanhToan(String phuongThucThanhToan) {
+		this.phuongThucThanhToan = phuongThucThanhToan;
+	}
 
 	public float tinhSoKm() {
 
 		// tính số km gọi bằng google map
-		this.soKm = 1;
+		this.soKm = 0;
 		return this.soKm;
 	}
 
@@ -178,9 +163,10 @@ public class DonGiaoHang {
 	public String toString() {
 		return "DonGiaoHang [maDonGiaoHang=" + maDonGiaoHang + ", tenKhachHang=" + tenKhachHang + ", sdt=" + sdt
 				+ ", diaChi=" + diaChi + ", soKg=" + soKg + ", trangThai=" + trangThai + ", soKm=" + soKm + ", ghiChu="
-				+ ghiChu + ", tienVanChuyen=" + tienVanChuyen + ", nhanVienGiaoHang=" + nhanVienGiaoHang
-				+ ", nhanVienLapHoaDon=" + nhanVienLapHoaDon + ", hoaDon=" + hoaDon + "]";
+				+ ghiChu + ", tienVanChuyen=" + tienVanChuyen + ", hoaDon=" + hoaDon + "]";
 	}
+
+	
 
 	
 
