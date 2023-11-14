@@ -78,23 +78,14 @@ public class GUIMap extends JFrame {
 	private JTextField txtHi;
 	private JTextField textField_1;
 	private ArrayList resultRoutig = new ArrayList<>();
- 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					GUIMap frame = new GUIMap();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private GUIGiaoHang guiGH;
+    private GUIMap frame;
 
-	public GUIMap() {
+	public GUIMap(GUIGiaoHang gh) {
+		frame = this;
+		guiGH = gh;
 		this.setTitle("MAP TOOLS");
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setBounds(100, 100, 1075, 698);
 		this.setLocationRelativeTo(null);
 		even = this.getEven();
@@ -233,6 +224,10 @@ public class GUIMap extends JFrame {
 		JButton btnHoanTat = new MyButton("Hoàn tất");
 		btnHoanTat.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				guiGH.hoanThanhKM(textField_1.getText());
+				guiGH.layDiaChi(textField.getText());
+                guiGH.kiemTraDeDongMap(e.getActionCommand(), frame);
+                guiGH.tinhThanhTienDH(getName());
 			}
 		});
 		btnHoanTat.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -428,4 +423,7 @@ public class GUIMap extends JFrame {
 		}
 		return toaDo;
 	}
+	
+
+	
 }

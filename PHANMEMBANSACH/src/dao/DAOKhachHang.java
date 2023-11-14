@@ -57,15 +57,14 @@ public class DAOKhachHang {
         	stmt.setFloat(6, kh.getTongTienMua());
             n = stmt.executeUpdate();
         }catch(Exception e) {
-        	e.printStackTrace();
         }
-        return n > 0 ? true : false;
+        return n > 0;
     }
     
     public boolean capNhatThongTinKhachHang(KhachHang kh) {
     	ConnectDB.getInstance();
     	Connection con = ConnectDB.getConnection();
-    	String sql = "update KhachHang set sdt=?, email=?, diemTichLuy=?, tongTienMua=? where maKhachHang =?";
+    	String sql = "update KhachHang set sdt=?, email=?, diemTichLuy=?, tongTienMua=?, tenKhachHang=? where maKhachHang =?";
     	int n = 0;
     	try {
     		PreparedStatement stmt = con.prepareStatement(sql);
@@ -73,12 +72,30 @@ public class DAOKhachHang {
     		stmt.setString(2, kh.getEmail());
     		stmt.setInt(3,kh.getDiemTichLuy());
     		stmt.setFloat(4, kh.getTongTienMua());
-    		stmt.setString(5, kh.getMaKhachHang());
+    		stmt.setString(5, kh.getTenKhachHang());
+    		stmt.setString(6, kh.getMaKhachHang());
     		n = stmt.executeUpdate();
     	}catch(Exception e) {
     		e.printStackTrace();
     	}
-    	return n > 0 ? true : false;
+    	return n > 0;
+    }
+    
+    public boolean capNhatDiemTichLuyKhachHang(KhachHang kh) {
+    	ConnectDB.getInstance();
+    	Connection con = ConnectDB.getConnection();
+    	String sql = "update KhachHang set diemTichLuy=?, tongTienMua=? where maKhachHang =?";
+    	int n = 0;
+    	try {
+    		PreparedStatement stmt = con.prepareStatement(sql);
+    		stmt.setInt(1, kh.getDiemTichLuy());
+    		stmt.setFloat(2, kh.getTongTienMua());
+    		stmt.setString(3,kh.getMaKhachHang());
+    		n = stmt.executeUpdate();
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    	}
+    	return n > 0;
     }
     
     public KhachHang timKhachHangTheoMa(String maKH) {
@@ -105,14 +122,14 @@ public class DAOKhachHang {
     	return kh;
     }
     
-    public KhachHang timKhachHangTheoSDT(String sdtkh) {
+    public KhachHang timKhachHangTheoSDT(String sdtTim) {
     	ConnectDB.getInstance();
     	Connection con = ConnectDB.getConnection();
-    	String sql = "select * from KhachHang where sdt =?";
+    	String sql = "select * from KhachHang where sdt = ?";
     	KhachHang kh = null;
     	try {
     		PreparedStatement stmt = con.prepareStatement(sql);
-    		stmt.setString(1, sdtkh);
+    		stmt.setString(1, sdtTim);
     		ResultSet rs = stmt.executeQuery();
     		while(rs.next()) {
     			String maKhachHang = rs.getString("maKhachHang").trim();
@@ -153,7 +170,7 @@ public class DAOKhachHang {
     	int ma = 0;
     	ConnectDB.getConnection();
     	Connection con = ConnectDB.getConnection();
-    	String sql = "SELECT top 1 CAST(SUBSTRING(maKhachHang 3, LEN(maKhachHang) - 2) as int) AS maKhachHang "
+    	String sql = "SELECT top 1 CAST(SUBSTRING(maKhachHang, 3, LEN(maKhachHang) - 2) as int) AS maKhachHang "
 				+ "FROM KhachHang order by maKhachHang desc";
     	try {
     	    PreparedStatement stmt = con.prepareStatement(sql);

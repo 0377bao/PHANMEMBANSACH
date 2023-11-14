@@ -104,6 +104,8 @@ public class GUIDoiTraHang extends JPanel {
 	private String maDDTHienTai ="";
 	private String maHDHienTai ="";
 	private NhanVien nvHienTai;
+	private JLabel lblDiemDaSuDungv;
+	private JLabel lblTongTienv;
 
 	public GUIDoiTraHang(NhanVien nv) {
 		this.setBackground(new Color(255, 255, 255));
@@ -126,7 +128,7 @@ public class GUIDoiTraHang extends JPanel {
 		pnlThongTinHoaDon.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		pnlThongTinHoaDon.setLayout(null);
 		pnlThongTinHoaDon.setBackground(Color.WHITE);
-		pnlThongTinHoaDon.setBounds(27, 28, 542, 133);
+		pnlThongTinHoaDon.setBounds(27, 28, 542, 161);
 		pnlDonDoiTra.add(pnlThongTinHoaDon);
 
 		JLabel lblTenKhachHang = new JLabel("Tên khách hàng:");
@@ -141,22 +143,22 @@ public class GUIDoiTraHang extends JPanel {
 
 		JLabel lblMaHoaDon = new JLabel("Mã hóa đơn:");
 		lblMaHoaDon.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblMaHoaDon.setBounds(27, 80, 104, 20);
+		lblMaHoaDon.setBounds(27, 74, 104, 20);
 		pnlThongTinHoaDon.add(lblMaHoaDon);
 
 		lblMaHoaDonv = new JLabel("");
 		lblMaHoaDonv.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblMaHoaDonv.setBounds(155, 80, 74, 20);
+		lblMaHoaDonv.setBounds(155, 74, 74, 20);
 		pnlThongTinHoaDon.add(lblMaHoaDonv);
 
 		JLabel lblNgayLapHoaDon = new JLabel("Ngày lập:");
 		lblNgayLapHoaDon.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNgayLapHoaDon.setBounds(319, 80, 85, 20);
+		lblNgayLapHoaDon.setBounds(319, 74, 85, 20);
 		pnlThongTinHoaDon.add(lblNgayLapHoaDon);
 
 		lblNgayLapHoaDonv = new JLabel("");
 		lblNgayLapHoaDonv.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNgayLapHoaDonv.setBounds(421, 80, 104, 20);
+		lblNgayLapHoaDonv.setBounds(421, 74, 104, 20);
 		pnlThongTinHoaDon.add(lblNgayLapHoaDonv);
 
 		JLabel lblSDT = new JLabel("Số điện thoại:");
@@ -168,11 +170,32 @@ public class GUIDoiTraHang extends JPanel {
 		lblSDTv.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblSDTv.setBounds(421, 34, 100, 20);
 		pnlThongTinHoaDon.add(lblSDTv);
+		
+		JLabel lblimS = new JLabel("Điểm đã sử dụng:");
+		lblimS.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblimS.setBounds(27, 118, 118, 20);
+		pnlThongTinHoaDon.add(lblimS);
+		
+		lblDiemDaSuDungv = new JLabel("");
+		lblDiemDaSuDungv.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblDiemDaSuDungv.setBounds(155, 118, 74, 20);
+		
+		pnlThongTinHoaDon.add(lblDiemDaSuDungv);
+		
+		JLabel lblTngSnPhm = new JLabel("Tổng tiền");
+		lblTngSnPhm.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblTngSnPhm.setBounds(319, 118, 85, 20);
+		pnlThongTinHoaDon.add(lblTngSnPhm);
+		
+		lblTongTienv = new JLabel("");
+		lblTongTienv.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblTongTienv.setBounds(421, 118, 93, 20);
+		pnlThongTinHoaDon.add(lblTongTienv);
 
 		JPanel pnlTimKiemHoaDon = new JPanel();
 		pnlTimKiemHoaDon.setBackground(new Color(255, 255, 255));
 		pnlTimKiemHoaDon.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		pnlTimKiemHoaDon.setBounds(27, 182, 542, 80);
+		pnlTimKiemHoaDon.setBounds(27, 212, 542, 80);
 		pnlDonDoiTra.add(pnlTimKiemHoaDon);
 		pnlTimKiemHoaDon.setLayout(null);
 
@@ -203,7 +226,7 @@ public class GUIDoiTraHang extends JPanel {
 		pnlDanhSachHoaDon.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		pnlDanhSachHoaDon.setBackground(new Color(255, 255, 255));
 
-		pnlDanhSachHoaDon.setBounds(27, 283, 542, 458);
+		pnlDanhSachHoaDon.setBounds(27, 314, 542, 427);
 
 		pnlDonDoiTra.add(pnlDanhSachHoaDon);
 		pnlDanhSachHoaDon.setLayout(null);
@@ -708,6 +731,8 @@ public class GUIDoiTraHang extends JPanel {
 		lblMaHoaDonv.setText(hd.getMaHoaDon());
 		lblNgayLapHoaDonv.setText(hd.getNgayLap().toString());
 		maHDHienTai = hd.getMaHoaDon();
+		lblDiemDaSuDungv.setText(hd.getDiemGiamGia()+"");
+		lblTongTienv.setText(Tools.dinhDangTien(hd.tinhTongTien())+"");
 	}
 
 	// Hiện danh sách sản phẩm của hóa đơn được chọn

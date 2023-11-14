@@ -9,18 +9,31 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
+import bus.BUSChuongTrinhKhuyenMai;
+import controller.ControllerChuongTrinhKhuyenMai;
 import customUI.MyButton;
 import customUI.MyCombobox;
 import customUI.MyTable;
+import dao.DAOMucKhuyenMai;
+import entity.ChuongTrinhKhuyenMai;
+import entity.MucKhuyenMai;
 
 import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
@@ -28,16 +41,20 @@ import javax.swing.border.TitledBorder;
 import java.awt.Component;
 import javax.swing.ScrollPaneConstants;
 
-public class GUIKhuyenMai extends JPanel {
+public class GUIKhuyenMai extends JPanel{
 	private DefaultTableModel modelKMDT, modelDSKhuyenMai, modelChiTietKM;
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField txtMaCTKM;
+	private JTextField txtPhanTram;
 	private MyTable tbMucKhuyenMai, tbDSKhuyenMai, tbChiTietKM;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField txtChapDng;
-	private MyButton btnApDungCT, btnXoaTrang, btnLuu, btnThem;
+	private JTextField txtMaCTKMTK;
+	private JTextField txtTenCTKMTK;
+	private JTextField txtTrangThai;
+	private MyButton btnApDungCT, btnLuu, btnThem, btnTaoMaCTKM;
 	private MyCombobox cboTrangThai, cboSanPham, cboMucKM, cboTheLoai;
+	private JTextArea txtAreaTenCTKM;
+	private int viTriDongDuocChon = -1;
+	private int soThuTuKhuyenMai = 0;
+	private ArrayList<MucKhuyenMai> dsMucKhuyenMaiDangTao = new ArrayList<>();
 	public GUIKhuyenMai() {
 		this.setBackground(new Color(255, 255, 255));
 		this.setBounds(250, 0, 1250, 800);
@@ -81,20 +98,20 @@ public class GUIKhuyenMai extends JPanel {
 		lblNewLabel_1.setBounds(42, 62, 78, 14);
 		panel.add(lblNewLabel_1);
 		
-		textField = new JTextField();
-		textField.setEditable(false);
-		textField.setBounds(153, 62, 315, 20);
-		panel.add(textField);
-		textField.setColumns(10);
+		txtMaCTKM = new JTextField();
+		txtMaCTKM.setEditable(false);
+		txtMaCTKM.setBounds(153, 62, 315, 20);
+		panel.add(txtMaCTKM);
+		txtMaCTKM.setColumns(10);
 		
 		JLabel lblNewLabel_2 = new JLabel("TenCTKM:");
 		lblNewLabel_2.setBounds(42, 98, 62, 14);
 		panel.add(lblNewLabel_2);
 		
-		JTextArea textArea = new JTextArea();
-		textArea.setBackground(new Color(192, 192, 192));
-		textArea.setBounds(153, 93, 315, 45);
-		panel.add(textArea);
+		txtAreaTenCTKM = new JTextArea();
+		txtAreaTenCTKM.setBackground(new Color(192, 192, 192));
+		txtAreaTenCTKM.setBounds(153, 93, 315, 45);
+		panel.add(txtAreaTenCTKM);
 		
 		btnLuu = new MyButton("Lưu");
 		btnLuu.setBackground(new Color(97, 166, 247));
@@ -115,19 +132,17 @@ public class GUIKhuyenMai extends JPanel {
 		cboSanPham = new MyCombobox();
 		cboSanPham.setBounds(169, 52, 235, 22);
 		cboSanPham.addItem("Sách");
-		cboSanPham.addItem("Bút");
-		cboSanPham.addItem("Thước");
-		cboSanPham.addItem("Vở");
+		cboSanPham.addItem("Văn phòng phẩm");
 		panel_3.add(cboSanPham);
 		
 		JLabel lblNewLabel_4 = new JLabel("Phần trăm:");
 		lblNewLabel_4.setBounds(34, 95, 63, 14);
 		panel_3.add(lblNewLabel_4);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(169, 92, 235, 20);
-		panel_3.add(textField_1);
-		textField_1.setColumns(10);
+		txtPhanTram = new JTextField();
+		txtPhanTram.setBounds(169, 92, 235, 20);
+		panel_3.add(txtPhanTram);
+		txtPhanTram.setColumns(10);
 		
 		JLabel lblNewLabel_5 = new JLabel("Thể loại:");
 		lblNewLabel_5.setBounds(34, 137, 63, 14);
@@ -135,19 +150,12 @@ public class GUIKhuyenMai extends JPanel {
 		
 		cboTheLoai = new MyCombobox();
 		cboTheLoai.setBounds(169, 133, 235, 22);
-		cboTheLoai.addItem("Sách giáo khoa");
-		cboTheLoai.addItem("Sách tham khảo");
+		
 		panel_3.add(cboTheLoai);
 		
-		btnXoaTrang = new MyButton("Xóa trắng");
-		btnXoaTrang.setBackground(new Color(97, 166, 247));
-		btnXoaTrang.setIcon(new ImageIcon("src\\image\\khuyenmai\\iconclean.png"));
-		btnXoaTrang.setBounds(107, 187, 120, 30);
-		panel_3.add(btnXoaTrang);
-		
-		btnThem = new MyButton("Thêm ");
+		btnThem = new MyButton("Thêm");
 		btnThem.setBackground(new Color(97, 166, 247));
-		btnThem.setBounds(290, 187, 120, 30);
+		btnThem.setBounds(186, 194, 120, 30);
 		btnThem.setIcon(new ImageIcon("src\\image\\khuyenmai\\iconplus.png"));
 		panel_3.add(btnThem);
 		
@@ -171,18 +179,18 @@ public class GUIKhuyenMai extends JPanel {
 		lblNewLabel_13.setBounds(42, 157, 78, 14);
 		panel.add(lblNewLabel_13);
 		
-		txtChapDng = new JTextField();
-		txtChapDng.setEditable(false);
-		txtChapDng.setText("chưa áp dụng");
-		txtChapDng.setBounds(153, 153, 315, 20);
-		panel.add(txtChapDng);
-		txtChapDng.setColumns(10);
+		txtTrangThai = new JTextField();
+		txtTrangThai.setEditable(false);
+		txtTrangThai.setText("chưa áp dụng");
+		txtTrangThai.setBounds(153, 153, 315, 20);
+		panel.add(txtTrangThai);
+		txtTrangThai.setColumns(10);
 		
-		MyButton mbtnToMCtkm = new MyButton("Lưu");
-		mbtnToMCtkm.setText("Tạo mã CTKM");
-		mbtnToMCtkm.setBackground(new Color(97, 166, 247));
-		mbtnToMCtkm.setBounds(203, 183, 120, 30);
-		panel.add(mbtnToMCtkm);
+		btnTaoMaCTKM = new MyButton("Lưu");
+		btnTaoMaCTKM.setText("Tạo mã CTKM");
+		btnTaoMaCTKM.setBackground(new Color(97, 166, 247));
+		btnTaoMaCTKM.setBounds(203, 183, 120, 30);
+		panel.add(btnTaoMaCTKM);
 		
 		JPanel panel_4 = new JPanel();
 		panel_4.setBackground(new Color(255, 255, 255));
@@ -213,19 +221,21 @@ public class GUIKhuyenMai extends JPanel {
 		lblNewLabel_9.setBounds(29, 24, 78, 14);
 		panel_7.add(lblNewLabel_9);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(90, 21, 188, 20);
-		panel_7.add(textField_2);
-		textField_2.setColumns(10);
+		txtMaCTKMTK = new JTextField();
+		txtMaCTKMTK.setBounds(90, 21, 188, 20);
+		txtMaCTKMTK.setName("maCT");
+		panel_7.add(txtMaCTKMTK);
+		txtMaCTKMTK.setColumns(10);
 		
 		JLabel lblNewLabel_9_1 = new JLabel("TenCTKM:");
 		lblNewLabel_9_1.setBounds(346, 24, 78, 14);
 		panel_7.add(lblNewLabel_9_1);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(410, 21, 188, 20);
-		panel_7.add(textField_3);
+		txtTenCTKMTK = new JTextField();
+		txtTenCTKMTK.setName("tenCT");
+		txtTenCTKMTK.setColumns(10);
+		txtTenCTKMTK.setBounds(410, 21, 188, 20);
+		panel_7.add(txtTenCTKMTK);
 		
 		JPanel panel_6 = new JPanel();
 		panel_6.setBackground(new Color(255, 255, 255));
@@ -258,12 +268,30 @@ public class GUIKhuyenMai extends JPanel {
 		lblNewLabel_11.setBounds(10, 26, 171, 14);
 		panel_8.add(lblNewLabel_11);
 		
-		MyCombobox cboMucKM = new MyCombobox();
+		cboMucKM = new MyCombobox();
 		cboMucKM.setBounds(175, 22, 156, 22);
-		cboMucKM.addItem("Sách giáo khoa");
-		cboMucKM.addItem("Sách tham khảo");
+		cboMucKM.addItem("Tất cả");
+		cboMucKM.addItem("Balo");
+		cboMucKM.addItem("Bàn");
 		cboMucKM.addItem("Bút");
 		cboMucKM.addItem("Thước");
+		cboMucKM.addItem("Chính trị");
+		cboMucKM.addItem("Đèn học");
+		cboMucKM.addItem("Ghế");
+		cboMucKM.addItem("Giả tưởng");
+		cboMucKM.addItem("Giáo khoa");
+		cboMucKM.addItem("Kinh dị");
+		cboMucKM.addItem("Kinh tế");
+		cboMucKM.addItem("Lịch sử");
+		cboMucKM.addItem("Máy tính cầm tay");
+		cboMucKM.addItem("Nấu ăn");
+		cboMucKM.addItem("Tâm lý");
+		cboMucKM.addItem("Tình cảm");
+		cboMucKM.addItem("Thiếu nhi");
+		cboMucKM.addItem("Truyện");
+		cboMucKM.addItem("Văn học nghệ thuật");
+		cboMucKM.addItem("Vở");
+		
 		panel_8.add(cboMucKM);
 		
 		JLabel lblNewLabel_12 = new JLabel("Lọc theo trạng thái");
@@ -272,9 +300,10 @@ public class GUIKhuyenMai extends JPanel {
 		
 		cboTrangThai = new MyCombobox();
 		cboTrangThai.setBounds(175, 64, 156, 22);
+		cboTrangThai.addItem("Tất cả");
 		cboTrangThai.addItem("Đang áp dụng");
 		cboTrangThai.addItem("Chưa áp dụng");
-		cboTrangThai.addItem("Tất cả");
+		
 		panel_8.add(cboTrangThai);
 		
 		 btnApDungCT = new MyButton("Áp dụng chương trình khuyến mãi");
@@ -292,8 +321,337 @@ public class GUIKhuyenMai extends JPanel {
 		lblNewLabel_6.setBounds(10, 395, 237, 13);
 		panel_6.add(lblNewLabel_6);
 		
+		loadDSKhuyenMai();
+		MouseListener mouse = new ControllerChuongTrinhKhuyenMai(this);
+		ActionListener ac = new ControllerChuongTrinhKhuyenMai(this);
+		tbDSKhuyenMai.addMouseListener(mouse);
+		cboTrangThai.addActionListener(ac);
+		cboMucKM.addActionListener(ac);
+		btnApDungCT.addActionListener(ac);
+		cboSanPham.addActionListener(ac);
+		btnTaoMaCTKM.addActionListener(ac);
+		btnThem.addActionListener(ac);
+		btnLuu.addActionListener(ac);
 		
-//		JButton btnNewButton = new JButton("Đây là khuyến mãi");
-//		this.add(btnNewButton, BorderLayout.CENTER);
+		// sự kiện cho textField khi tìm kiếm
+		KeyListener key = new ControllerChuongTrinhKhuyenMai(this);
+		txtMaCTKMTK.addKeyListener(key);
+		txtTenCTKMTK.addKeyListener(key);
 	}
+	
+    public void loadDSKhuyenMai() {
+    	int stt = 0;
+    	ArrayList<ChuongTrinhKhuyenMai> ds = new BUSChuongTrinhKhuyenMai().layDSChuongTrinhKhuyenMai();
+    	for(ChuongTrinhKhuyenMai ctkm : ds) {
+    		modelDSKhuyenMai.addRow(new Object[] {++stt,ctkm.getMaCTKM(), ctkm.getTenCTKM(), ctkm.isTrangThai() ? "Đang áp dụng" : "Không áp dụng"});
+    	}
+    }
+    
+    public void loadChiTietChuongTrinhKhuyenMai() {
+    	int stt = 0;
+    	modelChiTietKM.setRowCount(0);
+    	int index = tbDSKhuyenMai.getSelectedRow() != -1 ? tbDSKhuyenMai.getSelectedRow() : viTriDongDuocChon;
+    	viTriDongDuocChon = index;
+    	String ma = modelDSKhuyenMai.getValueAt(index, 1).toString();
+    	ArrayList<MucKhuyenMai> ds = new DAOMucKhuyenMai().layDSMucKhuyenMaiCuaCTKM(ma);
+    	for(MucKhuyenMai mkm : ds) {
+    		modelChiTietKM.addRow(new Object[] {++stt, mkm.getTenMucKhuyenMai(), mkm.getTiLeKhuyenMai()});
+    	}
+    }
+    
+    public void xuLySuKienCboTrangThai() {
+    	int index = cboTrangThai.getSelectedIndex();
+    	int stt= 0;
+    	ArrayList<ChuongTrinhKhuyenMai> ds = new BUSChuongTrinhKhuyenMai().layDSChuongTrinhKhuyenMai();
+    	modelDSKhuyenMai.setRowCount(0);
+    	modelChiTietKM.setRowCount(0);
+    	if(index == 0) {
+    		for(ChuongTrinhKhuyenMai ctkm : ds) {
+        		modelDSKhuyenMai.addRow(new Object[] {++stt,ctkm.getMaCTKM(), ctkm.getTenCTKM(), ctkm.isTrangThai() ? "Đang áp dụng" : "Không áp dụng"});
+        	}
+    	}
+    	if(index == 1) {
+    		for(ChuongTrinhKhuyenMai ctkm : ds) {
+    			if(ctkm.isTrangThai()) {
+    				modelDSKhuyenMai.addRow(new Object[] {++stt,ctkm.getMaCTKM(), ctkm.getTenCTKM(), "Đang áp dụng"});
+    			}
+        	}
+    	}
+    	if(index == 2) {
+    		for(ChuongTrinhKhuyenMai ctkm : ds) {
+    			if(!ctkm.isTrangThai()) {
+    				modelDSKhuyenMai.addRow(new Object[] {++stt,ctkm.getMaCTKM(), ctkm.getTenCTKM(), "Không áp dụng"});
+    			}
+        	}
+    	}
+    }
+    
+    public void locTheoTenMucKhuyenMai(String ten, ArrayList<MucKhuyenMai>ds, DefaultTableModel model) {
+    	int stt = 0;
+    	model.setRowCount(0);
+    	for(MucKhuyenMai mkm : ds) {
+    		if(mkm.getTenMucKhuyenMai().equals(ten)) {
+    			model.addRow(new Object[] {++stt,mkm.getTenMucKhuyenMai(), mkm.getTiLeKhuyenMai()});
+    		}
+    	}
+    }
+    
+    public void xuLySuKienCboMucKM(Object o) {
+    	
+    	if(viTriDongDuocChon == -1 && o.equals(cboMucKM)) {
+    		JOptionPane.showMessageDialog(this, "Chỉ lọc khi đã chọn chương trình khuyến mãi");
+    	}else if(viTriDongDuocChon != 1 && o.equals(cboMucKM)) {
+    		String ma = modelDSKhuyenMai.getValueAt(viTriDongDuocChon, 1).toString();
+    		ArrayList<MucKhuyenMai> ds = new DAOMucKhuyenMai().layDSMucKhuyenMaiCuaCTKM(ma);
+    		String index = cboMucKM.getSelectedItem().toString();
+    		switch(index) {
+    		case"Balo":{
+    			locTheoTenMucKhuyenMai(index, ds, modelChiTietKM);
+    			break;
+    		}
+    		case"Bàn":{
+    			locTheoTenMucKhuyenMai(index, ds, modelChiTietKM);
+    			break;
+    		}
+    		case"Bút":{
+    			locTheoTenMucKhuyenMai(index, ds, modelChiTietKM);
+    			break;
+    		}
+    		case"Thước":{
+    			locTheoTenMucKhuyenMai(index, ds, modelChiTietKM);
+    			break;
+    		}
+    		case"Chính trị":{
+    			locTheoTenMucKhuyenMai(index, ds, modelChiTietKM);
+    			break;
+    		}
+    		case"Đèn học":{
+    			locTheoTenMucKhuyenMai(index, ds, modelChiTietKM);
+    			break;
+    		}
+    		case"Ghế":{
+    			locTheoTenMucKhuyenMai(index, ds, modelChiTietKM);
+    			break;
+    		}
+    		case"Giả tưởng":{
+    			locTheoTenMucKhuyenMai(index, ds, modelChiTietKM);
+    			break;
+    		}
+    		case"Giáo khoa":{
+    			locTheoTenMucKhuyenMai(index, ds, modelChiTietKM);
+    			break;
+    		}case"Kinh dị":{
+    			locTheoTenMucKhuyenMai(index, ds, modelChiTietKM);
+    			break;
+    		}
+    		case"Kinh tế":{
+    			locTheoTenMucKhuyenMai(index, ds, modelChiTietKM);
+    			break;
+    		}
+    		case"Lịch sử":{
+    			locTheoTenMucKhuyenMai(index, ds, modelChiTietKM);
+    			break;
+    		}
+    		case"Máy tính cầm tay":{
+    			locTheoTenMucKhuyenMai(index, ds, modelChiTietKM);
+    			break;
+    		}
+    		case"Nấu ăn":{
+    			locTheoTenMucKhuyenMai(index, ds, modelChiTietKM);
+    			break;
+    		}
+    		case"Tâm lý":{
+    			locTheoTenMucKhuyenMai(index, ds, modelChiTietKM);
+    			break;
+    		}
+    		case"Tình cảm":{
+    			locTheoTenMucKhuyenMai(index, ds, modelChiTietKM);
+    			break;
+    		}
+    		case"Thiếu nhi":{
+    			locTheoTenMucKhuyenMai(index, ds, modelChiTietKM);
+    			break;
+    		}
+    		case"Truyện":{
+    			locTheoTenMucKhuyenMai(index, ds, modelChiTietKM);
+    			break;
+    		}
+    		case"Văn học nghệ thuật":{
+    			locTheoTenMucKhuyenMai(index, ds, modelChiTietKM);
+    			break;
+    		}
+    		case"Vở":{
+    			locTheoTenMucKhuyenMai(index, ds, modelChiTietKM);
+    			break;
+    		}
+    		case"Tất cả":{
+    			loadChiTietChuongTrinhKhuyenMai();
+    			break;
+    		}
+    		
+    		}
+    	}
+    	
+    }
+
+	
+    
+    public void xuLySuKienTrenCacBtn(String src) {
+    	
+    	if(src.equals("Áp dụng chương trình khuyến mãi")) {
+    		String ma = modelDSKhuyenMai.getValueAt(viTriDongDuocChon, 1).toString();
+    		// chuyển trạng thái cái sản phẩm về false hết
+    		ArrayList<ChuongTrinhKhuyenMai> ds = new BUSChuongTrinhKhuyenMai().layDSChuongTrinhKhuyenMai();
+    		for(ChuongTrinhKhuyenMai ctkm : ds) {
+    			
+    			new BUSChuongTrinhKhuyenMai().tatTrangThaiChuongTrinhKhuyenMai(ctkm);
+    		}
+    		
+    		// cập nhật chương trình khuyến mãi chuẩn bị áp dụng
+    		ChuongTrinhKhuyenMai temp = new BUSChuongTrinhKhuyenMai().timChuongTrinhKhuyenMaiTheoMa(ma);
+    		temp.setTrangThai(true);
+    		new BUSChuongTrinhKhuyenMai().capNhatTrangThaiChuongTrinhKhuyenMaiDuocChon(temp);;
+    		
+    		// load lại dữ liệu
+    		modelDSKhuyenMai.setRowCount(0);
+    		loadDSKhuyenMai();
+    	}
+    	if(src.equals("Tạo mã CTKM")) {
+    		txtMaCTKM.setText(new BUSChuongTrinhKhuyenMai().taoMaCTKM());
+    	}
+    	if(src.equals("Thêm")) {
+    		if(txtPhanTram.getText().equals("")) {
+    			JOptionPane.showMessageDialog(this, "Vui lòng nhập phần trăm giảm giá cho sản phẩm");
+    		}else {
+    			Float phanTram = Float.parseFloat(txtPhanTram.getText());
+        		String theLoai = cboTheLoai.getSelectedItem().toString();
+        		
+        		MucKhuyenMai m = new MucKhuyenMai(theLoai, phanTram);
+        		dsMucKhuyenMaiDangTao.add(m);
+        		
+        		modelKMDT.setRowCount(0);
+        		soThuTuKhuyenMai = 0;
+        		for(MucKhuyenMai mkm : dsMucKhuyenMaiDangTao) {
+        			modelKMDT.addRow(new Object[] {++soThuTuKhuyenMai, mkm.getTenMucKhuyenMai(), mkm.getTiLeKhuyenMai()});
+        		}
+    		}
+    		
+    		txtPhanTram.setText("");
+    	}
+    	if(src.equals("Lưu")) {
+    		BUSChuongTrinhKhuyenMai bus_ctkm = new BUSChuongTrinhKhuyenMai();
+    		String maCTKM = txtMaCTKM.getText();
+    		String tenCTKM = txtAreaTenCTKM.getText();
+            boolean trangThai = txtTrangThai.getText().trim().equals("chưa áp dụng") ? false : true;
+            ChuongTrinhKhuyenMai ctkm = new ChuongTrinhKhuyenMai(maCTKM, tenCTKM, dsMucKhuyenMaiDangTao, trangThai);
+            if(bus_ctkm.validateChuongTrinhKhuyenMai(ctkm)) {
+            	if(bus_ctkm.themChuongTrinhKhuyenMai(ctkm)) {
+                	JOptionPane.showMessageDialog(this, "Thêm thành công chương trình khuyến mãi");
+                	dsMucKhuyenMaiDangTao.clear();
+                	capNhatTrangThaiBangDSKhuyenMai();
+                	modelKMDT.setRowCount(0);
+                	xoaTrangTextField();
+                }else {
+                	JOptionPane.showMessageDialog(this, "Thêm chương trình khuyến mãi thất bại");
+                }
+            }else {
+            	JOptionPane.showMessageDialog(this, bus_ctkm.getMessage());
+            }
+            
+    	}
+    }
+    
+    public void xuLySuKienCboSanPham(Object o) {
+    	if(o.equals(cboSanPham)) {
+    	int sanPham = cboSanPham.getSelectedIndex();
+    	if(sanPham == 0) {
+    		cboTheLoai.removeAllItems();
+    		cboTheLoai.addItem("Chính trị");
+    		cboTheLoai.addItem("Giả tưởng");
+    		cboTheLoai.addItem("Giáo khoa");
+    		cboTheLoai.addItem("Kinh dị");
+    		cboTheLoai.addItem("Kinh tế");
+    		cboTheLoai.addItem("Lịch sử");
+    		cboTheLoai.addItem("Nấu ăn");
+    		cboTheLoai.addItem("Tâm lý");
+    		cboTheLoai.addItem("Tình cảm");
+    		cboTheLoai.addItem("Thiếu nhi");
+    		cboTheLoai.addItem("Truyện");
+    		cboTheLoai.addItem("Văn học nghệ thuật");
+    		
+    	}
+    	if(sanPham == 1) {
+    		cboTheLoai.removeAllItems();
+    		cboTheLoai.addItem("Balo");
+    		cboTheLoai.addItem("Bàn");
+    		cboTheLoai.addItem("Bút");
+    		cboTheLoai.addItem("Thước");
+    		cboTheLoai.addItem("Đèn học");
+    		cboTheLoai.addItem("Ghế");
+    		cboTheLoai.addItem("Máy tính cầm tay");
+    		cboTheLoai.addItem("Vở");
+    	}
+    }}
+    
+    public void capNhatTrangThaiBangDSKhuyenMai() {
+    	modelDSKhuyenMai.setRowCount(0);
+    	loadDSKhuyenMai();
+    }
+    
+    public void xoaTrangTextField() {
+    	txtMaCTKM.setText("");
+    	txtAreaTenCTKM.setText("");
+    	
+    }
+    
+    public void xuLyKhiTimKiem(KeyEvent e) {
+    	Object o = e.getSource();
+    	char key = e.getKeyChar();
+    	if((Character.isLetterOrDigit(key))|| key == e.VK_BACK_SPACE) {
+    		xuLyTimKiemTheoTextField(new BUSChuongTrinhKhuyenMai().layDSChuongTrinhKhuyenMai());
+    	}
+    }
+    
+    public void xuLyTimKiemTheoTextField(ArrayList<ChuongTrinhKhuyenMai> ds) {
+    	xuLyTimKiemTheoMaCTKM(ds);
+    	xuLyTimKiemTheoTenCTKM(ds);
+    	modelDSKhuyenMai.setRowCount(0);
+    	loadDSKhuyenMaiTheoTimKiem(ds);
+    	
+    }
+    
+    
+    
+    public void xuLyTimKiemTheoMaCTKM(ArrayList<ChuongTrinhKhuyenMai> ds) {
+    	String text = txtMaCTKMTK.getText().trim();
+    	ArrayList<ChuongTrinhKhuyenMai> temp = new ArrayList<>();
+    	Pattern maPattern = Pattern.compile(text);
+    	for(ChuongTrinhKhuyenMai ctkm : ds) {
+    		if(maPattern.matcher(ctkm.getMaCTKM()).find()) {
+    			temp.add(ctkm);
+    		}
+    	}
+    	ds.clear();
+    	ds.addAll(temp);
+    }
+    
+    public void xuLyTimKiemTheoTenCTKM(ArrayList<ChuongTrinhKhuyenMai> ds) {
+    	String text = txtTenCTKMTK.getText();
+    	ArrayList<ChuongTrinhKhuyenMai> temp = new ArrayList<>();
+    	Pattern maPattern = Pattern.compile(text);
+    	for(ChuongTrinhKhuyenMai ctkm : ds) {
+    		if(maPattern.matcher(ctkm.getTenCTKM()).find()) {
+    			temp.add(ctkm);
+    		}
+    	}
+    	ds.clear();
+    	ds.addAll(temp);
+    }
+    
+    public void loadDSKhuyenMaiTheoTimKiem(ArrayList<ChuongTrinhKhuyenMai> ds) {
+    	int stt = 0;
+    	for(ChuongTrinhKhuyenMai ctkm : ds) {
+    		modelDSKhuyenMai.addRow(new Object[] {++stt,ctkm.getMaCTKM(), ctkm.getTenCTKM(), ctkm.isTrangThai() ? "Đang áp dụng" : "Không áp dụng"});
+    	}
+    }
 }

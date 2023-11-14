@@ -16,12 +16,13 @@ public class HoaDon {
 	private NhanVien nhanVien;
 	private KhachHang khachHang;
 	private ChuongTrinhKhuyenMai ctkm;
+	private float tienKhachDua;
 	private ArrayList<ChiTietHoaDon> dsChiTietHoaDon = new ArrayList<>();
 	private float thanhTien;
 
 	public HoaDon(String maHoaDon, LocalDate ngayLap, String hinhThucThanhToan, String ghiChu, int diemGiamGia,
 			float giamGia, NhanVien nhanVien, KhachHang khachHang, ChuongTrinhKhuyenMai ctkm,
-			ArrayList<ChiTietHoaDon> dsChiTietHoaDon) {
+			ArrayList<ChiTietHoaDon> dsChiTietHoaDon, float tienKhachDua) {
 		super();
 		this.maHoaDon = maHoaDon;
 		this.ngayLap = ngayLap;
@@ -34,6 +35,7 @@ public class HoaDon {
 		this.ctkm = ctkm;
 		this.dsChiTietHoaDon = dsChiTietHoaDon;
 		this.thanhTien = this.getThanhTien();
+		this.tienKhachDua = tienKhachDua;
 	}
 
 	public String getMaHoaDon() {
@@ -82,6 +84,14 @@ public class HoaDon {
 
 	public void setGiamGia(float giamGia) {
 		this.giamGia = giamGia;
+	}
+	
+	public float getTienKhachDua() {
+		return this.tienKhachDua;
+	}
+	
+	public void setTienKhachDua(float tienKhachDua) {
+		this.tienKhachDua = tienKhachDua;
 	}
 
 	public NhanVien getNhanVien() {
@@ -139,13 +149,13 @@ public class HoaDon {
 		for (ChiTietHoaDon cthd : dsChiTietHoaDon) {
 			result += cthd.tinhThanhTien();
 		}
-		return result;
+		return result - tinhGiamGia();
 	}
 	
 	public float tinhGiamGia() {
 		float result = 0;
 		for(ChiTietHoaDon cthd : dsChiTietHoaDon) {
-			giamGia = new BUSHoaDon().hamLayGiamGiaCuaChiTietHoaDon(this.ctkm, cthd.getSanPham());
+			float giamGia = new BUSHoaDon().hamLayGiamGiaCuaChiTietHoaDon(this.ctkm, cthd.getSanPham());
 			result += cthd.tinhThanhTien() * giamGia / 100;
 
 		}
@@ -153,18 +163,18 @@ public class HoaDon {
 	}
 	
 	public float getThanhTien() {
-		return tinhTongTien() - tinhGiamGia() - (diemGiamGia * 10000);
+		return tinhTongTien() - (diemGiamGia * 10000);
 	}
 	
-	public float tinhTienThua(float tienKhachDua) {
-		return tienKhachDua - getThanhTien();
+	public float tinhTienThua() {
+		return this.tienKhachDua - getThanhTien();
 	}
 
 	@Override
 	public String toString() {
 		return "HoaDon [maHoaDon=" + maHoaDon + ", ngayLap=" + ngayLap + ", hinhThucThanhToan=" + hinhThucThanhToan
 				+ ", ghiChu=" + ghiChu + ", diemGiamGia=" + diemGiamGia + ", giamGia=" + giamGia + ", nhanVien="
-				+ nhanVien + ", khachHang=" + khachHang + ", ctkm=" + ctkm + ", dsChiTietHoaDon=" + dsChiTietHoaDon
+				+ nhanVien + ", khachHang=" + khachHang + ", ctkm=" + ctkm + "tienKhachDua=" + tienKhachDua + ", dsChiTietHoaDon=" + dsChiTietHoaDon
 				+ "]";
 	}
 

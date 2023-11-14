@@ -70,7 +70,7 @@ public class TrangChu extends JFrame {
 	
 	
 	public TrangChu(NhanVien nv) {
-		dsHoaDonCho.add(new BUSHoaDon().timHoaDonTheoMa("HD1"));
+//		dsHoaDonCho.add(new BUSHoaDon().timHoaDonTheoMa("HD1"));
 		this.nvHienTai = nv;
 		this.setTitle("PHẦN MỀM NHÀ SÁCH");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -247,13 +247,12 @@ public class TrangChu extends JFrame {
 			btnTrangChu.setForeground(Color.white);
 		}
 		if(src.equals("Bán hàng")) {
-			pnlHienTai = new GUIBanHang(this, dsHoaDonCho);
+			pnlHienTai = new GUIBanHang(this, dsHoaDonCho, nvHienTai);
 			btnBanHang.setBackground(colorBtnActive);
 			btnBanHang.setForeground(Color.white);
 		}
 		if(src.equals("Giao hàng")) {
-			HoaDon hd = null;
-			pnlHienTai = new GUIGiaoHang(hd);
+			pnlHienTai = new GUIGiaoHang(null);
 			btnGiaoHang.setBackground(colorBtnActive);
 			btnGiaoHang.setForeground(Color.white);
 		}
@@ -297,6 +296,18 @@ public class TrangChu extends JFrame {
 			btnHoTro.setBackground(colorBtnActive);
 			btnHoTro.setForeground(Color.white);
 		}
+		getContentPane().add(pnlHienTai);
+		this.revalidate();
+		this.repaint();
+	}
+	
+	public void chuyenHoaDonQuaGiaoHang(HoaDon hoaDon) {
+		datLaiMauNenChoButtonControll();
+		indexFrame = "Giao hàng";
+		this.remove(pnlHienTai);
+		pnlHienTai = new GUIGiaoHang(hoaDon);
+		btnGiaoHang.setBackground(colorBtnActive);
+		btnGiaoHang.setForeground(Color.white);
 		getContentPane().add(pnlHienTai);
 		this.revalidate();
 		this.repaint();

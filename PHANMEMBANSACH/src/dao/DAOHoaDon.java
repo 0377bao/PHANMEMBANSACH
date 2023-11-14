@@ -25,7 +25,7 @@ public class DAOHoaDon {
 	public ArrayList<HoaDon> layHetDSHoaDon() {
 		ArrayList<HoaDon> ds = new ArrayList<>();
 		Connection con = ConnectDB.getConnection();
-		String sql = "select * from HoaDon";
+		String sql = "select * from HoaDon order by ngayLap desc";
 		Statement statement = null;
 		try {
 			statement = con.createStatement();
@@ -44,10 +44,10 @@ public class DAOHoaDon {
 				KhachHang kh = new DAOKhachHang().timKhachHangTheoMa(rs.getString("maKhachHang"));
 				ChuongTrinhKhuyenMai ctkm = new DAOChuongTrinhKhuyenMai().timChuongTrinhKhuyenMaiTheoMa(rs.getString("maCTKM"));
 				ArrayList<ChiTietHoaDon> cthd = new DAOChiTietHoaDon().layDSChiTietHoaDonCuaHoaDon(maHoaDon);
-				ds.add(new HoaDon(maHoaDon, ngayLap, phuongThucThanhToan, ghiChu, diemGiamGia, giamGia, nv, kh, ctkm, cthd));
+				float tienKhachDua = rs.getFloat("tienKhachDua");
+				ds.add(new HoaDon(maHoaDon, ngayLap, phuongThucThanhToan, ghiChu, diemGiamGia, giamGia, nv, kh, ctkm, cthd, tienKhachDua));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return ds;
@@ -75,9 +75,9 @@ public class DAOHoaDon {
 				KhachHang kh = new DAOKhachHang().timKhachHangTheoMa(rs.getString("maKhachHang"));
 				ChuongTrinhKhuyenMai ctkm = new DAOChuongTrinhKhuyenMai().timChuongTrinhKhuyenMaiTheoMa(rs.getString("maCTKM"));
 				ArrayList<ChiTietHoaDon> cthd = new DAOChiTietHoaDon().layDSChiTietHoaDonCuaHoaDon(maHoaDon);
-				hd = new HoaDon(maHoaDon, ngayLap, phuongThucThanhToan, ghiChu, diemGiamGia, giamGia, nv, kh, ctkm, cthd);
+				float tienKhachDua = rs.getFloat("tienKhachDua");
+				hd = new HoaDon(maHoaDon, ngayLap, phuongThucThanhToan, ghiChu, diemGiamGia, giamGia, nv, kh, ctkm, cthd, tienKhachDua);
 			}
-
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -87,7 +87,7 @@ public class DAOHoaDon {
 	
 	public boolean themHoaDon(HoaDon hoaDon) {
 		Connection con = ConnectDB.getConnection();
-		String sqlHD = "insert into HoaDon values(?,?,?,?,?,?,?,?,?,?)";
+		String sqlHD = "insert into HoaDon values(?,?,?,?,?,?,?,?,?,?,?)";
 		int n = 0;
 		boolean m = true;
 		PreparedStatement statementHD = null;
@@ -102,8 +102,9 @@ public class DAOHoaDon {
 			statementHD.setString(6, hoaDon.getCtkm().getMaCTKM());
 			statementHD.setString(7, hoaDon.getNhanVien().getMaNhanVien());
 			statementHD.setString(8, hoaDon.getKhachHang().getMaKhachHang());
-			statementHD.setDouble(9, hoaDon.getDiemGiamGia());
-			statementHD.setDouble(10, hoaDon.getGiamGia());
+			statementHD.setInt(9, hoaDon.getDiemGiamGia());
+			statementHD.setFloat(10, hoaDon.getGiamGia());
+			statementHD.setFloat(11, hoaDon.getTienKhachDua());
 			n = statementHD.executeUpdate();
 			for (ChiTietHoaDon ct : hoaDon.getDsChiTietHoaDon()) {
 				m = new DAOChiTietHoaDon().themChiTietHoaDon(hoaDon.getMaHoaDon(), ct);
@@ -131,11 +132,12 @@ public class DAOHoaDon {
 		}
 		return -1;
 	}
+	
 	public ArrayList<HoaDon> layLichSuGiaoDichKhachHang(String maKH) {
     	ConnectDB.getInstance();
     	Connection con = ConnectDB.getConnection();
     	ArrayList<HoaDon> dsGiaoDich = new ArrayList<>();
-    	String sql = "select * from HoaDon hd join NhanVien nv on hd.maNhanVien = nv.maNhanVien where hd.maKhachHang = ?";
+    	String sql = "select * from HoaDon where maKhachHang = ? order by ngayLap desc";
     	try {
     		PreparedStatement stmt = con.prepareStatement(sql);
     		stmt.setString(1, maKH);
@@ -150,6 +152,7 @@ public class DAOHoaDon {
     	}
     	return dsGiaoDich;
     }
+	
 	public ArrayList<HoaDon> layDSHoaDonTuNgayXDenNgayY(LocalDate x, LocalDate y) {
 		ArrayList<HoaDon> ds = new ArrayList<>();
 		Connection con = ConnectDB.getConnection();
@@ -175,7 +178,8 @@ public class DAOHoaDon {
 				KhachHang kh = new DAOKhachHang().timKhachHangTheoMa(rs.getString("maKhachHang"));
 				ChuongTrinhKhuyenMai ctkm = new DAOChuongTrinhKhuyenMai().timChuongTrinhKhuyenMaiTheoMa(rs.getString("maCTKM"));
 				ArrayList<ChiTietHoaDon> cthd = new DAOChiTietHoaDon().layDSChiTietHoaDonCuaHoaDon(maHoaDon);
-				ds.add(new HoaDon(maHoaDon, ngayLap, phuongThucThanhToan, ghiChu, diemGiamGia, giamGia, nv, kh, ctkm, cthd));
+				float tienKhachDua = rs.getFloat("tienKhachDua");
+				ds.add(new HoaDon(maHoaDon, ngayLap, phuongThucThanhToan, ghiChu, diemGiamGia, giamGia, nv, kh, ctkm, cthd, tienKhachDua));
 			}
 
 		} catch (SQLException e) {

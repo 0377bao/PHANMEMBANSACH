@@ -16,7 +16,7 @@ public class DAODonGiaoHang {
 	   ConnectDB.getInstance();
 	   Connection con = ConnectDB.getConnection();
 	   ArrayList<DonGiaoHang> dsDonHang = new ArrayList<>();
-	   String sql = "select * from DonGiaoHang dgh join HoaDon hd on dgh.maHoaDon = hd.maHoaDon join NhanVien nv on dgh.maNhanVienGiaoHang = nv.maNhanVien";
+	   String sql = "select * from DonGiaoHang dgh join HoaDon hd on dgh.maHoaDon = hd.maHoaDon";
 	   try {
 		   PreparedStatement stmt = con.prepareStatement(sql);
 		   ResultSet rs = stmt.executeQuery();
@@ -34,6 +34,7 @@ public class DAODonGiaoHang {
 		       String phuongThucThanhToan = rs.getString("phuongThucThanhToan").trim();
 			   String ghiChu = rs.getString("ghiChu");
 			   DonGiaoHang dgh = new DonGiaoHang(maDonGiaoHang, tenKhachHang, sdt, diaChi, sokg, trangThai, ghiChu, tienVanChuyen, phuongThucThanhToan, hd);
+			   dgh.tinhSoKm(soKm);
 			   dsDonHang.add(dgh);
 		   }
 	   }catch(Exception e) {
@@ -58,8 +59,7 @@ public class DAODonGiaoHang {
 		   stmt.setFloat(7, dgh.getTienVanChuyen());
 		   stmt.setString(8, dgh.getHoaDon().getMaHoaDon());
 		   stmt.setString(9, dgh.getGhiChu());
-		   stmt.setBoolean(10, dgh.isTrangThai());
-		 
+		   stmt.setBoolean(10, dgh.isTrangThai()); 
 		   stmt.setString(11, dgh.getPhuongThucThanhToan());
 		   n = stmt.executeUpdate();
 	   }catch(Exception e) {
@@ -71,7 +71,7 @@ public class DAODonGiaoHang {
    public boolean capNhatThongTinDonHang(DonGiaoHang dgh) {
 	   ConnectDB.getInstance();
 	   Connection con = ConnectDB.getConnection();
-	   String sql = "update DonGiaoHang set tenKhachHang = ?, diaChi = ?, soKM = ?, ghiChu = ? , phuongThucThanhToan = ? where maDonHang = ?";
+	   String sql = "update DonGiaoHang set tenKhachHang = ?, diaChi = ?, soKM = ?, ghiChu = ? ,trangThai=?, phuongThucThanhToan = ? where maDonGiaoHang = ?";
 	   int n = 0;
 	   try {
 		   PreparedStatement stmt = con.prepareStatement(sql);
@@ -80,12 +80,13 @@ public class DAODonGiaoHang {
 		   stmt.setString(2, dgh.getDiaChi());
 		   stmt.setFloat(3, dgh.getSoKm());
 		   stmt.setString(4, dgh.getGhiChu());
-		   stmt.setString(5, dgh.getPhuongThucThanhToan());
-		   stmt.setString(6, dgh.getMaDonGiaoHang());
+		   stmt.setBoolean(5, dgh.isTrangThai());
+		   stmt.setString(6, dgh.getPhuongThucThanhToan());
+		   stmt.setString(7, dgh.getMaDonGiaoHang());
 		   
 		   n = stmt.executeUpdate();
 	   }catch(Exception e) {
-		   
+		   e.printStackTrace();
 	   }
 	   return n > 0 ? true : false;
    }

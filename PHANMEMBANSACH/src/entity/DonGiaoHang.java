@@ -14,6 +14,11 @@ public class DonGiaoHang {
 	private float tienVanChuyen;
 	private String phuongThucThanhToan;
 	private HoaDon hoaDon;
+	
+	public DonGiaoHang(String ma, HoaDon hd) {
+		this.maDonGiaoHang = ma;
+		this.hoaDon = hd;
+	}
 
 	public DonGiaoHang(String maDonGiaoHang, String tenKhachHang, String sdt, String diaChi, int soKg,
 			boolean trangThai, String ghiChu, float tienVanChuyen,String phuongThucThanhToan, HoaDon hoaDon) {
@@ -98,13 +103,12 @@ public class DonGiaoHang {
 	public void setGhiChu(String ghiChu) {
 		this.ghiChu = ghiChu;
 	}
-	
+
 	public float getTienVanChuyen() {
 		return tienVanChuyen;
 	}
 	
 	
-
 	public String getPhuongThucThanhToan() {
 		return phuongThucThanhToan;
 	}
@@ -113,10 +117,10 @@ public class DonGiaoHang {
 		this.phuongThucThanhToan = phuongThucThanhToan;
 	}
 
-	public float tinhSoKm() {
+	public float tinhSoKm(float km) {
 
 		// tính số km gọi bằng google map
-		this.soKm = 0;
+		this.soKm = km;
 		return this.soKm;
 	}
 
@@ -127,15 +131,15 @@ public class DonGiaoHang {
 			result = 0;
 		}
 		// trường hợp tính tiền vận chuyển
-		if (soKm < 40) {
+		if (soKm > 40) {
 			return -1; // trường hợp này không giao hàng
 		} else {
 			if (soKg <= 50) {
 				result = soKm * 3000;
 			} else if (soKg <= 100) {
-				result = 50 * 3000 + (soKg - 50) * 5000;
+				result = soKm * 5000;
 			} else if (soKg <= 150) {
-				result = 50 * 3000 + 100 * 5000 + (soKg - 100) * 7000;
+				result = soKm * 7000;
 			}
 		}
 		this.tienVanChuyen = result;
@@ -165,9 +169,5 @@ public class DonGiaoHang {
 				+ ", diaChi=" + diaChi + ", soKg=" + soKg + ", trangThai=" + trangThai + ", soKm=" + soKm + ", ghiChu="
 				+ ghiChu + ", tienVanChuyen=" + tienVanChuyen + ", hoaDon=" + hoaDon + "]";
 	}
-
-	
-
-	
 
 }

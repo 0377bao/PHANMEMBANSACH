@@ -193,10 +193,8 @@ public class BUSSanPham {
 	// tìm kiếm sản phẩm theo mã
 	public SanPham timKiemSanPham(String maSP) {
 		SanPham sp = null;
-		if (maSP.startsWith("SPS"))
-			sp = daoSP.timSachTheoMa(maSP);
-		else
-			sp = daoSP.timVanPhongPhamTheoMa(maSP);
+		if(maSP.toUpperCase().startsWith("SPS")) sp = daoSP.timSachTheoMa(maSP);
+		else sp = daoSP.timVanPhongPhamTheoMa(maSP);
 		return sp;
 	}
 
@@ -475,5 +473,9 @@ public class BUSSanPham {
 			}
 		}
 		return true;
+	}
+	
+	public boolean capNhatSoLuongTonSanPham(SanPham sp) {
+		return daoSP.capNhatSoLuongTonSanPham(sp);
 	}
 }

@@ -20,6 +20,8 @@ public class ControllerThongKe implements ActionListener{
 			guiThongKe.thayDoiDuLieuBangVaBieuDoTheoQuyCuaCH();
 		}else if(src.equals("cboThongKeThangCH")) {
 			guiThongKe.thayDoiDuLieuBangVaPanelTrongThangCuaCH();
+		}else if(src.equals("cbThongKeTrangThaiSanPham")||src.equals("cbThongKeSanPhamTrongQuy")) {
+			guiThongKe.thayDoiDuLieuBangThongKeSanPham();
 		}
 	}
 	
