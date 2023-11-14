@@ -80,18 +80,6 @@ public class GUIMap extends JFrame {
 	private ArrayList resultRoutig = new ArrayList<>();
 	private GUIGiaoHang guiGH;
     private GUIMap frame;
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					GUIMap frame = new GUIMap();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
 
 	public GUIMap(GUIGiaoHang gh) {
 		frame = this;

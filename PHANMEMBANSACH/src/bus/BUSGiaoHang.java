@@ -2,8 +2,6 @@ package bus;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-
-
 import dao.DAODonGiaoHang;
 import entity.DonGiaoHang;
 
@@ -37,10 +35,7 @@ public class BUSGiaoHang {
 		   }
 	   }
 	   return null;
-   }
-   
-   
-   public boolean themDonHangMoi(DonGiaoHang dgh) {
+   } public boolean themDonHangMoi(DonGiaoHang dgh) {
 	   return daoDonGiaoHang.themDonGiaoHang(dgh);
    }
    

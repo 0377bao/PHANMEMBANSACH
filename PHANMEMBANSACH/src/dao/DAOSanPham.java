@@ -84,8 +84,7 @@ public class DAOSanPham {
 				String tg = rs.getString("tacGia");
 				String nhaXB = rs.getString("nhaXuatBan");
 				int namXB = rs.getInt("namXuatBan");
-				sach = new Sach(maSach, tenS, soLuongTon, giaNhap, theLoai, ke, hinhAnh, thue, loiNhuan, trangThai, ncc,
-						tg, nhaXB, namXB);
+				sach = new Sach(maSach, tenS, soLuongTon, giaNhap, theLoai, ke, hinhAnh, thue, loiNhuan, trangThai, ncc, tg, nhaXB, namXB);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -245,6 +244,23 @@ public class DAOSanPham {
 			ps.setFloat(12, vppSua.getGiaBan());
 			ps.setBoolean(13, vppSua.getTrangThai().equals("Đang bán") ? true : false);
 			ps.setString(14, vppSua.getMaSanPham());
+			n = ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return n > 0;
+	}
+	
+	public boolean capNhatSoLuongTonSanPham(SanPham sp) {
+		int n = 0;
+		ConnectDB.getInstance();
+		Connection con = ConnectDB.getConnection();
+		PreparedStatement ps = null;
+		String sql = "update SanPham set soLuongTon = ? where maSanPham = ?";
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, sp.getSoLuongTon());
+			ps.setString(2, sp.getMaSanPham());
 			n = ps.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();

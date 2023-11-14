@@ -702,7 +702,6 @@ public class GUIDoiTraHang extends JPanel {
 
 	// Tìm kiếm hóa đơn của khách hàng trong 7 ngày gần nhất
 	public void timKiemHoaDonCuaKhachHangTrong7Ngay() {
-		txtTimKiemHoaDon.setText("0377688251");
 		busDDT.layDanhSachHoaDonKhachHangTrong7Ngay(modelDanhSachHoaDon, txtTimKiemHoaDon.getText());
 	}
 

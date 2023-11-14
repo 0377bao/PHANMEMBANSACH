@@ -103,13 +103,12 @@ public class DonGiaoHang {
 	public void setGhiChu(String ghiChu) {
 		this.ghiChu = ghiChu;
 	}
-	
+
 	public float getTienVanChuyen() {
 		return tienVanChuyen;
 	}
 	
 	
-
 	public String getPhuongThucThanhToan() {
 		return phuongThucThanhToan;
 	}
@@ -170,9 +169,5 @@ public class DonGiaoHang {
 				+ ", diaChi=" + diaChi + ", soKg=" + soKg + ", trangThai=" + trangThai + ", soKm=" + soKm + ", ghiChu="
 				+ ghiChu + ", tienVanChuyen=" + tienVanChuyen + ", hoaDon=" + hoaDon + "]";
 	}
-
-	
-
-	
 
 }

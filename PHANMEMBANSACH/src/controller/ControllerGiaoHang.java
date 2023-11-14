@@ -38,7 +38,4 @@ public class ControllerGiaoHang implements ActionListener, KeyListener{
 		// TODO Auto-generated method stub
 		view.xuLySuKienTimKiem(e);
 	}
-
-	
-   
 }
