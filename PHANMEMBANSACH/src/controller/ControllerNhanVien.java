@@ -42,6 +42,8 @@ public class ControllerNhanVien implements ActionListener, MouseListener, FocusL
 			guiNV.taiLai();
 		} else if (btn.equals("btnTimTheoMa")) {
 			guiNV.timNVTheoMa();
+		} else if (btn.equals("btnLocTrangThai")) {
+			guiNV.locNVTheoTrangThai();
 		}
 	}
 

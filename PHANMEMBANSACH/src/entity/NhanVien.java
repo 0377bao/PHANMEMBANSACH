@@ -12,10 +12,11 @@ public class NhanVien {
 	private String chucVu;
 	private String cCCD;
 	private String hinhAnh;
+	private String trangThai;
 	private TaiKhoan taiKhoan;
 
 	public NhanVien(String maNhanVien, String tenNhanVien, String sdt, String email, boolean gioiTinh, String diaChi,
-			String chucVu, String cCCD, String hinhAnh, TaiKhoan taiKhoan) {
+			String chucVu, String cCCD, String hinhAnh, String trangThai, TaiKhoan taiKhoan) {
 		super();
 		this.maNhanVien = maNhanVien;
 		this.tenNhanVien = tenNhanVien;
@@ -26,6 +27,7 @@ public class NhanVien {
 		this.chucVu = chucVu;
 		this.cCCD = cCCD;
 		this.hinhAnh = hinhAnh;
+		this.trangThai = trangThai;
 		this.taiKhoan = taiKhoan;
 	}
 
@@ -101,6 +103,14 @@ public class NhanVien {
 		this.hinhAnh = hinhAnh;
 	}
 
+	public String getTrangThai() {
+		return trangThai;
+	}
+
+	public void setTrangThai(String trangThai) {
+		this.trangThai = trangThai;
+	}
+
 	public TaiKhoan getTaiKhoan() {
 		return taiKhoan;
 	}
@@ -130,7 +140,7 @@ public class NhanVien {
 	public String toString() {
 		return "NhanVien [maNhanVien=" + maNhanVien + ", tenNhanVien=" + tenNhanVien + ", sdt=" + sdt + ", email="
 				+ email + ", gioiTinh=" + gioiTinh + ", diaChi=" + diaChi + ", chucVu=" + chucVu + ", cCCD=" + cCCD
-				+ ", hinhAnh=" + hinhAnh + ", taiKhoan=" + taiKhoan + "]";
+				+ ", hinhAnh=" + hinhAnh + ", trangThai=" + trangThai + ", taiKhoan=" + taiKhoan + "]";
 	}
 
 }

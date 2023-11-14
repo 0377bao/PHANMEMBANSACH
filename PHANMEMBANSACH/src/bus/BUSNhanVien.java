@@ -8,6 +8,7 @@ import javax.swing.table.DefaultTableModel;
 
 import dao.DAONhanVien;
 import entity.NhanVien;
+import entity.SanPham;
 
 public class BUSNhanVien {
 	private DAONhanVien daoNhanVien = new DAONhanVien();
@@ -19,12 +20,10 @@ public class BUSNhanVien {
 
 	}
 
-
 	// lấy danh sách nhân viên
 
 	public ArrayList<NhanVien> layDSNhanVien() {
 		return daoNhanVien.layDSNhanVien();
-
 	}
 
 	// ràng buộc để thêm nhân viên
@@ -39,7 +38,7 @@ public class BUSNhanVien {
 			mes = "Vui lòng nhập tên nhân viên";
 			return false;
 		} else {
-			if (!(tenNhanVien.matches("[\\p{L} ]+"))) {
+			if (!(tenNhanVien.matches("^[\\p{L}][\\p{L} ]+"))) {
 				mes = "Tên nhân viên không chứa ký tự đặc biệt và số";
 				return false;
 			}
@@ -48,13 +47,13 @@ public class BUSNhanVien {
 			mes = "Vui lòng nhập số điện thoại";
 			return false;
 		} else {
-			if (!sdt.matches("^0[23579]\\d{8,9}$")) {
-				mes = "Số điện thoại phải 10 hoặc 11 số và bắt đầu bằng 02 hoặc 03 hoặc 05 hoặc 07 hoặc 09";
+			if (!(sdt.matches("^02\\d{9}$") || sdt.matches("^0[3579]\\d{8}$"))) {
+				mes = "Số điện thoại bắt đầu là 02 gồm 11 số hoặc bắt đầu là 03 - 05 - 07 - 09 gồm 10 số";
 				return false;
 			}
 		}
 		if (cCCD.equals("")) {
-			mes = "Vui lòng nhập tên nhân viên";
+			mes = "Vui lòng nhập căn cước công dân";
 			return false;
 		} else {
 			if (!(cCCD.matches("^0\\d{11}"))) {
@@ -75,7 +74,7 @@ public class BUSNhanVien {
 			mes = "Vui lòng nhập địa chỉ";
 			return false;
 		} else {
-			if (!(diaChi.matches("[\\p{L}0-9/.,' -]+"))) {
+			if (!(diaChi.matches("^[\\p{L}0-9][\\p{L}0-9/.,' -]+"))) {
 				mes = "Địa chỉ không chứa ký tự đặc biệt";
 				return false;
 			}
@@ -168,4 +167,14 @@ public class BUSNhanVien {
 		}
 	}
 
+	// lọc nhân viên theo trạng thái
+	public ArrayList<NhanVien> locNVTheoTrangThai(String trangThai) {
+		ArrayList<NhanVien> dsNVTheoTrangThai = new ArrayList<>();
+		for (NhanVien nhanVien : daoNhanVien.layDSNhanVien()) {
+			if (nhanVien.getTrangThai().equals(trangThai)) {
+				dsNVTheoTrangThai.add(nhanVien);
+			}
+		}
+		return dsNVTheoTrangThai;
+	}
 }
