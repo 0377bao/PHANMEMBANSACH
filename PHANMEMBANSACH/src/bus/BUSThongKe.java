@@ -19,6 +19,7 @@ import entity.ChiTietHoaDon;
 import entity.DonDoiTra;
 import entity.HoaDon;
 import entity.NhanVien;
+import tool.Tools;
 
 public class BUSThongKe {
 	BUSNhanVien busNV = new BUSNhanVien();
@@ -124,16 +125,16 @@ public class BUSThongKe {
 		int ngayTrongTuan = tinhSoNgayTrongTuanNay();
 		
 		if((ngayHT-ngayTrongTuan)<=0) {
-			cbmodel.addElement(1+"-"+ngayHT);
+			cbmodel.addElement("ngày"+1+"-"+"ngày"+ngayHT);
 			return;
 		}else {
-			cbmodel.addElement(ngayHT-ngayTrongTuan+1+"-"+ngayHT);
+			cbmodel.addElement("ngày"+(ngayHT-ngayTrongTuan+1)+"-ngày"+ngayHT);
 			ngayHT -= ngayTrongTuan;
 			while(ngayHT>0) {
 				if(ngayHT>7) {
-					cbmodel.addElement(ngayHT-6+"-"+ngayHT);
+					cbmodel.addElement("ngày"+(ngayHT-6)+"-ngày"+ngayHT);
 				}else {
-					cbmodel.addElement(1+"-"+ngayHT);
+					cbmodel.addElement("ngày"+1+"-ngày"+ngayHT);
 				}
 				ngayHT = ngayHT -7;
 			}
@@ -144,7 +145,7 @@ public class BUSThongKe {
 	public void layDuLieuThongKeChiTietCuaNVTheoTuan(DefaultTableModel model, DefaultComboBoxModel<String> cbmodel,NhanVien nv) {
 		String thuTrongTuan[]= {"Thứ 2","Thứ 3","Thứ 4","Thứ 5","Thứ 6","Thứ 7","Chủ Nhật"};
 		int thu = 0;
-		String khoangCach[] = cbmodel.getSelectedItem().toString().split("-");
+		String khoangCach[] = cbmodel.getSelectedItem().toString().replace("ngày", "").split("-");
 		if(Integer.parseInt(khoangCach[1])<7) {
 			thu = 7-Integer.parseInt(khoangCach[1]);
 		}
@@ -154,7 +155,7 @@ public class BUSThongKe {
 			int soDonDoiTra = dsDDTTheoNV(nv, LocalDate.of(LocalDate.now().getYear(),LocalDate.now().getMonth(),i),LocalDate.of(LocalDate.now().getYear(),LocalDate.now().getMonth(),i)).size();
 			float tongDoanhThu = tongDoanhThu(nv, LocalDate.of(LocalDate.now().getYear(),LocalDate.now().getMonth(),i),LocalDate.of(LocalDate.now().getYear(),LocalDate.now().getMonth(),i));
 			int tongSP = tongSoSanPham(nv, LocalDate.of(LocalDate.now().getYear(),LocalDate.now().getMonth(),i),LocalDate.of(LocalDate.now().getYear(),LocalDate.now().getMonth(),i));
-			model.addRow(new Object[] {thuTrongTuan[thu],soHoaDon,tongDoanhThu,tongSP,soDonDoiTra});
+			model.addRow(new Object[] {thuTrongTuan[thu],soHoaDon,Tools.dinhDangTien(tongDoanhThu),tongSP,soDonDoiTra});
 			thu+=1;
 		}
 	}
@@ -162,7 +163,7 @@ public class BUSThongKe {
 	public void layDuLieuThongKeChiTietCuaNVTheoTuanVaoBieuDo(DefaultComboBoxModel<String> cbmodel,NhanVien nv,DefaultCategoryDataset dataSet) {
 		String thuTrongTuan[]= {"Thứ 2","Thứ 3","Thứ 4","Thứ 5","Thứ 6","Thứ 7","Chủ Nhật"};
 		int thu = 0;
-		String khoangCach[] = cbmodel.getSelectedItem().toString().split("-");
+		String khoangCach[] = cbmodel.getSelectedItem().toString().replace("ngày", "").split("-");
 		if(Integer.parseInt(khoangCach[1])<7) {
 			thu = 7-Integer.parseInt(khoangCach[1]);
 		}
@@ -223,10 +224,10 @@ public class BUSThongKe {
 			tongHoaDonQ4 += dsHDTheoNV(nv, ngayBDQ4, ngayKTQ4).size();
 			tongDDTQ4 += dsDDTTheoNV(nv, ngayBDQ4, ngayKTQ4).size();
 		}
-		model.addRow(new Object[] {"Quý 1",tongHoaDonQ1,tongSLQ1,tongDDTQ1,tongDoanhThuQ1});
-		model.addRow(new Object[] {"Quý 2",tongHoaDonQ2,tongSLQ2,tongDDTQ2,tongDoanhThuQ2});
-		model.addRow(new Object[] {"Quý 3",tongHoaDonQ3,tongSLQ3,tongDDTQ3,tongDoanhThuQ3});
-		model.addRow(new Object[] {"Quý 4",tongHoaDonQ4,tongSLQ4,tongDDTQ4,tongDoanhThuQ4});
+		model.addRow(new Object[] {"Quý 1",tongHoaDonQ1,tongSLQ1,tongDDTQ1,Tools.dinhDangTien(tongDoanhThuQ1)});
+		model.addRow(new Object[] {"Quý 2",tongHoaDonQ2,tongSLQ2,tongDDTQ2,Tools.dinhDangTien(tongDoanhThuQ2)});
+		model.addRow(new Object[] {"Quý 3",tongHoaDonQ3,tongSLQ3,tongDDTQ3,Tools.dinhDangTien(tongDoanhThuQ3)});
+		model.addRow(new Object[] {"Quý 4",tongHoaDonQ4,tongSLQ4,tongDDTQ4,Tools.dinhDangTien(tongDoanhThuQ4)});
 		dataSet.setValue("Quý 1", tongDoanhThuQ1);
 		dataSet.setValue("Quý 2", tongDoanhThuQ2);
 		dataSet.setValue("Quý 3", tongDoanhThuQ3);
@@ -255,12 +256,12 @@ public class BUSThongKe {
 			tongSL += tSL;
 			tongHoaDon += tHD;
 			tongDDT += tDDT;
-			model.addRow(new Object[] {"Ngày "+i,tHD,tSL,tDDT,tDT});
+			model.addRow(new Object[] {"Ngày "+i,tHD,tSL,tDDT,Tools.dinhDangTien(tDT)});
 		}
 		soHD.setText(tongHoaDon+"");
-		doanhThu.setText(tongDoanhThu +"");
+		doanhThu.setText(Tools.dinhDangTien(tongDoanhThu).replace("VND","") +"");
 		soLuongSP.setText(tongSL +"");
-		soDDT.setText(tongDDT +"");
+		soDDT.setText(tongDDT+"");
 	}
 	// Hàm thống kê nhân viên
 	public void thongKeNhanVien(JLabel tongNV, JLabel nvBH, JLabel nvNghi, JLabel nvQL) {

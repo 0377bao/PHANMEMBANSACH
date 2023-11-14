@@ -18,6 +18,7 @@ import bus.BUSSanPham;
 import customUI.MyButton;
 import customUI.MyTable;
 import entity.ChuongTrinhKhuyenMai;
+import tool.Tools;
 
 import java.awt.Color;
 import javax.swing.JTextField;
@@ -128,8 +129,8 @@ public class GUISanPhamDoiTra extends JFrame implements ActionListener {
 		if (phuongThucDoiTra.equals("Đổi Hàng")) {
 			tongSoSP.setText(Integer.parseInt(tongSoSP.getText()) + Integer.parseInt(textField_1.getText()) + "");
 		} else {
-			float tongTienDDT = Float.parseFloat(tongTien.getText()) + ((gia-gia*(new BUSHoaDon().hamLayGiamGiaCuaChiTietHoaDon(ctkm,new BUSSanPham().timKiemSanPham(ma)))) * Integer.parseInt(textField_1.getText())) + Integer.parseInt(diemHT.getText())*10000;
-			tongTien.setText((tongTienDDT-soDiemHoanTra(tongTienDDT)*10000)+ "");
+			float tongTienDDT = Float.parseFloat(tongTien.getText().replaceAll("[,VND]", "")) + ((gia-gia*(new BUSHoaDon().hamLayGiamGiaCuaChiTietHoaDon(ctkm,new BUSSanPham().timKiemSanPham(ma))/100)) * Integer.parseInt(textField_1.getText())) + Integer.parseInt(diemHT.getText())*10000;
+			tongTien.setText(Tools.dinhDangTien((tongTienDDT-soDiemHoanTra(tongTienDDT)*10000))+ "");
 			diemHT.setText(soDiemHoanTra(tongTienDDT)+"");
 		}
 	}

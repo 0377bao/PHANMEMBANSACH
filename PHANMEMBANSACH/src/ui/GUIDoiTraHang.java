@@ -35,6 +35,7 @@ import entity.HoaDon;
 import entity.KhachHang;
 import entity.NhanVien;
 import entity.SanPham;
+import tool.Tools;
 
 import javax.swing.JScrollPane;
 import javax.swing.JComboBox;
@@ -125,7 +126,7 @@ public class GUIDoiTraHang extends JPanel {
 		pnlThongTinHoaDon.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		pnlThongTinHoaDon.setLayout(null);
 		pnlThongTinHoaDon.setBackground(Color.WHITE);
-		pnlThongTinHoaDon.setBounds(27, 28, 542, 160);
+		pnlThongTinHoaDon.setBounds(27, 28, 542, 133);
 		pnlDonDoiTra.add(pnlThongTinHoaDon);
 
 		JLabel lblTenKhachHang = new JLabel("Tên khách hàng:");
@@ -158,13 +159,6 @@ public class GUIDoiTraHang extends JPanel {
 		lblNgayLapHoaDonv.setBounds(421, 80, 104, 20);
 		pnlThongTinHoaDon.add(lblNgayLapHoaDonv);
 
-		MyButton btnXemChiTietHoaDon = new MyButton("Xem chi tiết");
-		btnXemChiTietHoaDon.setForeground(new Color(255, 255, 255));
-
-		btnXemChiTietHoaDon.setFont(new Font("Times New Roman", Font.BOLD, 16));
-		btnXemChiTietHoaDon.setBounds(197, 120, 120, 23);
-		pnlThongTinHoaDon.add(btnXemChiTietHoaDon);
-
 		JLabel lblSDT = new JLabel("Số điện thoại:");
 		lblSDT.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblSDT.setBounds(319, 34, 100, 20);
@@ -178,7 +172,7 @@ public class GUIDoiTraHang extends JPanel {
 		JPanel pnlTimKiemHoaDon = new JPanel();
 		pnlTimKiemHoaDon.setBackground(new Color(255, 255, 255));
 		pnlTimKiemHoaDon.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		pnlTimKiemHoaDon.setBounds(27, 212, 542, 80);
+		pnlTimKiemHoaDon.setBounds(27, 182, 542, 80);
 		pnlDonDoiTra.add(pnlTimKiemHoaDon);
 		pnlTimKiemHoaDon.setLayout(null);
 
@@ -209,7 +203,7 @@ public class GUIDoiTraHang extends JPanel {
 		pnlDanhSachHoaDon.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		pnlDanhSachHoaDon.setBackground(new Color(255, 255, 255));
 
-		pnlDanhSachHoaDon.setBounds(27, 316, 542, 425);
+		pnlDanhSachHoaDon.setBounds(27, 283, 542, 458);
 
 		pnlDonDoiTra.add(pnlDanhSachHoaDon);
 		pnlDanhSachHoaDon.setLayout(null);
@@ -228,7 +222,7 @@ public class GUIDoiTraHang extends JPanel {
 		srcDanhSachHoaDon = new JScrollPane(tbDanhSachHoaDon, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
-		srcDanhSachHoaDon.setBounds(20, 40, 500, 367);
+		srcDanhSachHoaDon.setBounds(20, 40, 500, 394);
 
 		pnlDanhSachHoaDon.add(srcDanhSachHoaDon);
 
@@ -702,7 +696,6 @@ public class GUIDoiTraHang extends JPanel {
 
 	// Tìm kiếm hóa đơn của khách hàng trong 7 ngày gần nhất
 	public void timKiemHoaDonCuaKhachHangTrong7Ngay() {
-		txtTimKiemHoaDon.setText("0377688251");
 		busDDT.layDanhSachHoaDonKhachHangTrong7Ngay(modelDanhSachHoaDon, txtTimKiemHoaDon.getText());
 	}
 
@@ -749,7 +742,7 @@ public class GUIDoiTraHang extends JPanel {
 				.parseInt(maDDTHienTai.substring(3, 3 + (maHDHienTai.substring(2, maHDHienTai.length())).length()))) {
 			String maSP = modelDanhSachSanPham.getValueAt(row, 0).toString();
 			String tenSP = modelDanhSachSanPham.getValueAt(row, 1).toString();
-			float gia = (float) (modelDanhSachSanPham.getValueAt(row, 3));
+			float gia = Float.parseFloat(modelDanhSachSanPham.getValueAt(row, 3).toString().replaceAll("[,VND]", ""));
 			int soLuongSPTrongHD = (int) (modelDanhSachSanPham.getValueAt(row, 2));
 			String phuongThuc = (String) cbPhuongThucDoiTra.getSelectedItem();
 			int diemTrongHD = busHD.timHoaDonTheoMa(maHDHienTai).getDiemGiamGia();
@@ -784,7 +777,7 @@ public class GUIDoiTraHang extends JPanel {
 			int soLuong = Integer.parseInt(tbDonDoiTra.getValueAt(i, 2).toString());
 			String lyDo = tbDonDoiTra.getValueAt(i, 4).toString();
 			SanPham sp = new BUSSanPham().timKiemSanPham(tbDonDoiTra.getValueAt(i, 0).toString());
-			float giaBan = Float.parseFloat(tbDonDoiTra.getValueAt(i, 3).toString());
+			float giaBan = Float.parseFloat(tbDonDoiTra.getValueAt(i, 3).toString().replaceAll("[,VND]", ""));
 			ds.add(new ChiTietDonDoiTra(soLuong, lyDo, sp, giaBan));
 		}
 		return ds;
@@ -836,7 +829,7 @@ public class GUIDoiTraHang extends JPanel {
 		txtPhuongThucQL.setText(ddt.getPhuongThucDoiTra());
 		txtTenKhachHangQL.setText(ddt.getHoaDon().getKhachHang().getTenKhachHang());
 		txtTongSoLuongDoiQL.setText(ddt.tinhSoLuongDoiHang() + "");
-		txtTongTienTraQL.setText(ddt.tinhTienCanTra() + "");
+		txtTongTienTraQL.setText(Tools.dinhDangTien(ddt.tinhTienCanTra()) + "");
 		hienDanhSachChiTietDonDoiTra(ddt.getDsChiTietDonDoiTra());
 	}
 
@@ -845,7 +838,7 @@ public class GUIDoiTraHang extends JPanel {
 		modelSanPhamQL.setRowCount(0);
 		for (ChiTietDonDoiTra ctddt : ds) {
 			modelSanPhamQL.addRow(new Object[] { ctddt.getSanPham().getMaSanPham(), ctddt.getSanPham().getTenSanPham(),
-					ctddt.getSoLuongTra(), ctddt.getGiaBan(), ctddt.getLyDo() });
+					ctddt.getSoLuongTra(), Tools.dinhDangTien(ctddt.getGiaBan()), ctddt.getLyDo() });
 		}
 	}
 	// Xóa các thông tin đơn đổi trả có sản

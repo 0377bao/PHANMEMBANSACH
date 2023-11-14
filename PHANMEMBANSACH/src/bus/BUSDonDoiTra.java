@@ -16,6 +16,7 @@ import entity.ChuongTrinhKhuyenMai;
 import entity.DonDoiTra;
 import entity.HoaDon;
 import entity.KhachHang;
+import tool.Tools;
 
 public class BUSDonDoiTra {
 	private DAODonDoiTra daoDonDoiTra = new DAODonDoiTra();
@@ -71,7 +72,7 @@ public class BUSDonDoiTra {
 						soLuongSP += cthd.getSoLuongMua();
 					}
 					model.addRow(new Object[] { hd.getMaHoaDon(), hd.getNgayLap(), hd.getNhanVien().getTenNhanVien(),
-							soLuongSP, hd.getThanhTien() });
+							soLuongSP, Tools.dinhDangTien(hd.getThanhTien()) });
 				}
 			}
 		}
@@ -82,7 +83,7 @@ public class BUSDonDoiTra {
 		model.setRowCount(0);
 		for (ChiTietHoaDon cthd : new BUSHoaDon().timHoaDonTheoMa(mahd).getDsChiTietHoaDon()) {
 			model.addRow(new Object[] { cthd.getSanPham().getMaSanPham(), cthd.getSanPham().getTenSanPham(),
-					cthd.getSoLuongMua(), cthd.getGiaBan() });
+					cthd.getSoLuongMua(), Tools.dinhDangTien(cthd.getGiaBan()) });
 		}
 	}
 
@@ -108,12 +109,12 @@ public class BUSDonDoiTra {
 			float tong = 0;
 			for (int i = 0; i < tb.getRowCount(); i++) {
 				tong += Integer.parseInt(tb.getValueAt(i, 2).toString())
-						* (Float.parseFloat(tb.getValueAt(i, 3).toString())
+						* (Float.parseFloat(tb.getValueAt(i, 3).toString().replaceAll("[,VND]", ""))
 								- Float.parseFloat(tb.getValueAt(i, 3).toString())
-										* new BUSHoaDon().hamLayGiamGiaCuaChiTietHoaDon(ctkm,
-												new BUSSanPham().timKiemSanPham(tb.getValueAt(i, 0).toString())));
+										* (new BUSHoaDon().hamLayGiamGiaCuaChiTietHoaDon(ctkm,
+												new BUSSanPham().timKiemSanPham(tb.getValueAt(i, 0).toString()))/100));
 			}
-			tongTien.setText(tong - soDiemHoanTra(tong, diemTrongHD) * 10000 + "");
+			tongTien.setText(Tools.dinhDangTien(tong - soDiemHoanTra(tong, diemTrongHD) * 10000 )+ "");
 			diemHT.setText(soDiemHoanTra(tong, diemTrongHD) + "");
 		}
 	}

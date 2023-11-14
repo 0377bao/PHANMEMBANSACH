@@ -30,6 +30,7 @@ import bus.BUSThongKe;
 import controller.ControllerThongKe;
 import customUI.MyTable;
 import entity.NhanVien;
+import tool.Tools;
 
 import javax.swing.border.BevelBorder;
 import javax.swing.SwingConstants;
@@ -140,7 +141,7 @@ public class GUIThongKe extends JPanel {
 		lblTDoanhThu.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblTDoanhThu.setForeground(new Color(255, 255, 255));
 		lblTDoanhThu.setFont(new Font("Tahoma", Font.BOLD, 18));
-		lblTDoanhThu.setText(busTK.tongDoanhThu(nv, LocalDate.now(), LocalDate.now())+"");
+		lblTDoanhThu.setText(Tools.dinhDangTien(busTK.tongDoanhThu(nv, LocalDate.now(), LocalDate.now())).replace("VND", "")+"");
 		
 		JLabel lblDonViDoanhThu = new JLabel("VNĐ");
 		lblDonViDoanhThu.setBounds(168, 76, 55, 40);
@@ -339,8 +340,8 @@ public class GUIThongKe extends JPanel {
 		lblSoHoaDonCH = new JLabel();
 		lblSoHoaDonCH.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblSoHoaDonCH.setForeground(Color.WHITE);
-		lblSoHoaDonCH.setFont(new Font("Tahoma", Font.BOLD, 23));
-		lblSoHoaDonCH.setBounds(100, 60, 72, 40);
+		lblSoHoaDonCH.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblSoHoaDonCH.setBounds(68, 60, 104, 40);
 		pnlSoHoaDonCH.add(lblSoHoaDonCH);
 		
 		JLabel lblDonViSoHoaDonCH = new JLabel("Đơn");
@@ -366,8 +367,8 @@ public class GUIThongKe extends JPanel {
 		lblTDoanhThuCH = new JLabel();
 		lblTDoanhThuCH.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblTDoanhThuCH.setForeground(Color.WHITE);
-		lblTDoanhThuCH.setFont(new Font("Tahoma", Font.BOLD, 23));
-		lblTDoanhThuCH.setBounds(10, 60, 152, 40);
+		lblTDoanhThuCH.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblTDoanhThuCH.setBounds(10, 60, 159, 40);
 		pnlDoanhThuCH.add(lblTDoanhThuCH);
 		
 		JLabel lblDonViDoanhThuCH = new JLabel("VNĐ");
@@ -393,8 +394,8 @@ public class GUIThongKe extends JPanel {
 		lblSoLuongSPCH = new JLabel();
 		lblSoLuongSPCH.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblSoLuongSPCH.setForeground(Color.WHITE);
-		lblSoLuongSPCH.setFont(new Font("Tahoma", Font.BOLD, 23));
-		lblSoLuongSPCH.setBounds(46, 60, 72, 40);
+		lblSoLuongSPCH.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblSoLuongSPCH.setBounds(35, 60, 83, 40);
 		pnlSoLuongSPCH.add(lblSoLuongSPCH);
 		
 		JLabel lblDonViSoLuongSPCH = new JLabel("Sản phẩm");
@@ -420,8 +421,8 @@ public class GUIThongKe extends JPanel {
 		lblSoLuongDDTCH = new JLabel();
 		lblSoLuongDDTCH.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblSoLuongDDTCH.setForeground(Color.WHITE);
-		lblSoLuongDDTCH.setFont(new Font("Tahoma", Font.BOLD, 23));
-		lblSoLuongDDTCH.setBounds(101, 60, 72, 40);
+		lblSoLuongDDTCH.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblSoLuongDDTCH.setBounds(52, 60, 121, 40);
 		pnlSoLuongDoiTraCH.add(lblSoLuongDDTCH);
 		
 		JLabel lblDonViSoLuongDDTCH = new JLabel("Đơn");
