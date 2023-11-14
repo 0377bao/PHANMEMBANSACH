@@ -5,24 +5,24 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.border.EtchedBorder;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.border.BevelBorder;
-import javax.swing.JComboBox;
 
-import customUI.MyButton;
-import customUI.MyTable;
-import customUI.MyCombobox;
+import com.ctc.wstx.shaded.msv_core.reader.datatype.xsd.XSTypeOwner;
 
-import entity.NhaCungCap;
-import controller.ControllerNhaCungCap;
 import bus.BUSNhaCungCap;
+import controller.ControllerNhaCungCap;
+import customUI.MyButton;
+import customUI.MyCombobox;
+import customUI.MyTable;
+import entity.NhaCungCap;
 
 public class GUINhaCungCap extends JPanel {
 	private JTextField txtMaNCC;
@@ -124,7 +124,7 @@ public class GUINhaCungCap extends JPanel {
 
 		btnTaoMa = new MyButton("Tạo Mã");
 		btnTaoMa.setForeground(new Color(255, 255, 255));
-		btnTaoMa.setBounds(562, 35, 96, 21);
+		btnTaoMa.setBounds(562, 32, 96, 25);
 		btnTaoMa.setActionCommand("btnTaoMa");
 		pnlTongTinNCC.add(btnTaoMa);
 
@@ -224,10 +224,14 @@ public class GUINhaCungCap extends JPanel {
 				new Color(0, 0, 0)));
 		pnlTable.setBounds(20, 429, 1201, 341);
 		pnl1.add(pnlTable);
-		String[] cols = { "STT", "Mã nhà cung cấp", "Tên nhà cung cấp", "Số điện thoại", "Email", "Địa chỉ" };
+		String[] cols = { "Mã nhà cung cấp", "Tên nhà cung cấp", "Số điện thoại", "Email", "Địa chỉ" };
 		modelNCC = new DefaultTableModel(cols, 0);
 		pnlTable.setLayout(null);
 		table = new MyTable(modelNCC);
+
+		table.getColumnModel().getColumn(1).setPreferredWidth(300);
+		table.getColumnModel().getColumn(4).setPreferredWidth(300);
+
 		JScrollPane scr = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scr.setLocation(22, 30);
@@ -265,21 +269,21 @@ public class GUINhaCungCap extends JPanel {
 	public void timTheoDiaChi() {
 		String diaChi = cboDiaChi.getSelectedItem().toString();
 		xoaDuLieuBang();
-		hienThiDuLieu(busNCC.timNCCTheoDiaChi(diaChi));
+		hienThiDuLieu(busNCC.layNCCTheoDiaChi(diaChi));
 	}
 
 	// tìm ncc theo tên
 	public void timTheoTen() {
 		String ten = txtTimTheoTen.getText().trim();
 		xoaDuLieuBang();
-		hienThiDuLieu(busNCC.timNCCTheoTen(ten));
+		hienThiDuLieu(busNCC.layNCCTheoTen(ten));
 	}
 
 	// tìm ncc theo số điện thoại
 	public void timTheoMa_Sdt() {
 		String info = txtTimTheoMa_Sdt.getText().trim();
 		xoaDuLieuBang();
-		hienThiDuLieu(busNCC.timNCCTheoSdt(info));
+		hienThiDuLieu(busNCC.layNCCTheoSdt(info));
 	}
 
 	// tải lại
@@ -288,6 +292,12 @@ public class GUINhaCungCap extends JPanel {
 		xoaDuLieuBang();
 		hienThiDuLieu(dsNCC);
 		cboDiaChi.setSelectedIndex(0);
+		txtTimTheoMa_Sdt.setFont(new Font("Tahoma", Font.ITALIC, 13));
+		txtTimTheoMa_Sdt.setForeground(Color.GRAY);
+		txtTimTheoMa_Sdt.setText("Nhập số điện thoại");
+		txtTimTheoTen.setFont(new Font("Tahoma", Font.ITALIC, 13));
+		txtTimTheoTen.setForeground(Color.GRAY);
+		txtTimTheoTen.setText("Nhập tên nhà cung cấp cần tìm");
 	}
 
 	// cập nhật nhà cung cấp
@@ -302,16 +312,22 @@ public class GUINhaCungCap extends JPanel {
 			String sdt = txtSdt.getText().trim();
 			String email = txtEmail.getText().trim();
 			String diaChi = txtDiaChi.getText().trim();
-			NhaCungCap ncc = new NhaCungCap(ma, ten, diaChi, sdt, email);
-			if (busNCC.capNhatNCC(ncc)) {
-				modelNCC.setValueAt(ten, r, 2);
-				modelNCC.setValueAt(sdt, r, 3);
-				modelNCC.setValueAt(email, r, 4);
-				modelNCC.setValueAt(diaChi, r, 5);
-				JOptionPane.showMessageDialog(this, "Cập nhật thành công");
+			if (busNCC.validData(ma, ten, diaChi, sdt, email)) {
+				NhaCungCap ncc = new NhaCungCap(ma, ten, diaChi, sdt, email);
+				if (busNCC.capNhatNCC(ncc)) {
+					modelNCC.setValueAt(ten, r, 1);
+					modelNCC.setValueAt(sdt, r, 2);
+					modelNCC.setValueAt(email, r, 3);
+					modelNCC.setValueAt(diaChi, r, 4);
+					xoaTrang();
+					JOptionPane.showMessageDialog(this, "Cập nhật thành công");
+				} else {
+					JOptionPane.showMessageDialog(this, "Thất bại");
+				}
 			} else {
-				JOptionPane.showMessageDialog(this, "Thất bại");
+				JOptionPane.showMessageDialog(this, busNCC.mes);
 			}
+
 		}
 	}
 
@@ -329,7 +345,7 @@ public class GUINhaCungCap extends JPanel {
 				taiLai();
 				JOptionPane.showMessageDialog(this, "Thêm thành công");
 			} else {
-				JOptionPane.showMessageDialog(this, "Thêm thất bại - Trùng mã");
+				JOptionPane.showMessageDialog(this, "Thêm thất bại - Mã nhà cung cấp đã tồn tại");
 			}
 		} else {
 			JOptionPane.showMessageDialog(this, busNCC.mes);
@@ -356,26 +372,27 @@ public class GUINhaCungCap extends JPanel {
 		txtSdt.setText("");
 		txtEmail.setText("");
 		txtDiaChi.setText("");
+		btnTaoMa.setEnabled(true);
 	}
 
 	// chọn thông tin trong bảng hiện lên
 	public void chonThongTin() {
 		int r = table.getSelectedRow();
 		if (r != -1) {
-			txtMaNCC.setText(modelNCC.getValueAt(r, 1).toString());
-			txtTenNCC.setText(modelNCC.getValueAt(r, 2).toString());
-			txtSdt.setText(modelNCC.getValueAt(r, 3).toString());
-			txtEmail.setText(modelNCC.getValueAt(r, 4).toString());
-			txtDiaChi.setText(modelNCC.getValueAt(r, 5).toString());
+			txtMaNCC.setText(modelNCC.getValueAt(r, 0).toString());
+			txtTenNCC.setText(modelNCC.getValueAt(r, 1).toString());
+			txtSdt.setText(modelNCC.getValueAt(r, 2).toString());
+			txtEmail.setText(modelNCC.getValueAt(r, 3).toString());
+			txtDiaChi.setText(modelNCC.getValueAt(r, 4).toString());
+			btnTaoMa.setEnabled(false);
 		}
 	}
 
 	// hiển thị dữ liệu
 	public void hienThiDuLieu(ArrayList<NhaCungCap> dsNCC) {
-		int stt = 0;
 		for (NhaCungCap ncc : dsNCC) {
-			modelNCC.addRow(new Object[] { ++stt, ncc.getMaNhaCungCap(), ncc.getTenNhaCungCap(), ncc.getSdt(),
-					ncc.getEmail(), ncc.getDiaChi() });
+			modelNCC.addRow(new Object[] { ncc.getMaNhaCungCap(), ncc.getTenNhaCungCap(), ncc.getSdt(), ncc.getEmail(),
+					ncc.getDiaChi() });
 		}
 	}
 

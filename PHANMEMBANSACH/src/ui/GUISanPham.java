@@ -34,6 +34,7 @@ import entity.NhaCungCap;
 import entity.Sach;
 import entity.SanPham;
 import entity.VanPhongPham;
+import javax.swing.SwingConstants;
 
 public class GUISanPham extends JPanel {
 	private JTextField txtTheLoaiSach;
@@ -225,24 +226,28 @@ public class GUISanPham extends JPanel {
 		pnlThongTinS.add(lblNamXB);
 
 		txtSoLuongSach = new JTextField();
+		txtSoLuongSach.setHorizontalAlignment(SwingConstants.RIGHT);
 		txtSoLuongSach.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtSoLuongSach.setBounds(609, 30, 120, 25);
 		pnlThongTinS.add(txtSoLuongSach);
 		txtSoLuongSach.setColumns(10);
 
 		txtGiaNhapSach = new JTextField();
+		txtGiaNhapSach.setHorizontalAlignment(SwingConstants.RIGHT);
 		txtGiaNhapSach.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtGiaNhapSach.setBounds(609, 72, 120, 25);
 		pnlThongTinS.add(txtGiaNhapSach);
 		txtGiaNhapSach.setColumns(10);
 
 		txtThueSach = new JTextField();
+		txtThueSach.setHorizontalAlignment(SwingConstants.RIGHT);
 		txtThueSach.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtThueSach.setBounds(825, 30, 120, 25);
 		pnlThongTinS.add(txtThueSach);
 		txtThueSach.setColumns(10);
 
 		txtLoiNhuanSach = new JTextField();
+		txtLoiNhuanSach.setHorizontalAlignment(SwingConstants.RIGHT);
 		txtLoiNhuanSach.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtLoiNhuanSach.setBounds(825, 72, 120, 25);
 		pnlThongTinS.add(txtLoiNhuanSach);
@@ -574,24 +579,28 @@ public class GUISanPham extends JPanel {
 		pnlThongTin.add(lblChatLieu);
 
 		txtSoLuongVPP = new JTextField();
+		txtSoLuongVPP.setHorizontalAlignment(SwingConstants.RIGHT);
 		txtSoLuongVPP.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtSoLuongVPP.setBounds(609, 30, 120, 25);
 		pnlThongTin.add(txtSoLuongVPP);
 		txtSoLuongVPP.setColumns(10);
 
 		txtGiaNhapVPP = new JTextField();
+		txtGiaNhapVPP.setHorizontalAlignment(SwingConstants.RIGHT);
 		txtGiaNhapVPP.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtGiaNhapVPP.setBounds(609, 72, 120, 25);
 		pnlThongTin.add(txtGiaNhapVPP);
 		txtGiaNhapVPP.setColumns(10);
 
 		txtThueVPP = new JTextField();
+		txtThueVPP.setHorizontalAlignment(SwingConstants.RIGHT);
 		txtThueVPP.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtThueVPP.setBounds(825, 30, 120, 25);
 		pnlThongTin.add(txtThueVPP);
 		txtThueVPP.setColumns(10);
 
 		txtLoiNhuanVPP = new JTextField();
+		txtLoiNhuanVPP.setHorizontalAlignment(SwingConstants.RIGHT);
 		txtLoiNhuanVPP.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtLoiNhuanVPP.setBounds(825, 72, 120, 25);
 		pnlThongTin.add(txtLoiNhuanVPP);
@@ -824,7 +833,7 @@ public class GUISanPham extends JPanel {
 		cboLocNCC_VPP.addItem("Tất cả");
 		ArrayList<NhaCungCap> dsNCC = busNCC.layDSNhaCungCap();
 		for (NhaCungCap ncc : dsNCC) {
-			cboNhaCungCapSach.addItem(ncc.getMaNhaCungCap());
+			cboNhaCungCapSach.addItem(ncc.getTenNhaCungCap());
 			cboNhaCungCapVPP.addItem(ncc.getMaNhaCungCap());
 			cboLocNCC_Sach.addItem(ncc.getMaNhaCungCap());
 			cboLocNCC_VPP.addItem(ncc.getMaNhaCungCap());
@@ -935,6 +944,9 @@ public class GUISanPham extends JPanel {
 		txtLocTacGia.setText("");
 		txtLocTheLoaiS.setText("");
 		txtLocTenSach.setText("");
+		txtTimKiemSachTheoMa.setFont(new Font("Tahoma", Font.ITALIC, 13));
+		txtTimKiemSachTheoMa.setForeground(Color.GRAY);
+		txtTimKiemSachTheoMa.setText("Nhập mã sách cần tìm");
 	}
 
 	// lọc sách theo trạng thái
@@ -976,11 +988,7 @@ public class GUISanPham extends JPanel {
 			String tacGia = txtTacGia.getText().trim();
 			String nhaXB = txtNhaXB.getText().trim();
 			String hinhAnh = anh;
-			int namXB = Integer.parseInt(txtNamXB.getText().trim());
-			int soLuong = Integer.parseInt(txtSoLuongSach.getText().trim());
-			float thue = Float.parseFloat(txtThueSach.getText().trim());
-			float giaNhap = Float.parseFloat(txtGiaNhapSach.getText().trim());
-			float loiNhuan = Float.parseFloat(txtLoiNhuanSach.getText().trim());
+
 			String trangThai;
 			if (chkTrangThaiSach.isSelected()) {
 				trangThai = "Đang bán";
@@ -989,13 +997,24 @@ public class GUISanPham extends JPanel {
 			}
 			String maNCC = cboNhaCungCapSach.getSelectedItem().toString();
 			NhaCungCap ncc = new NhaCungCap(maNCC);
-			SanPham sach = new Sach(maSach, tenSach, soLuong, giaNhap, theLoai, ke, hinhAnh, thue, loiNhuan, trangThai,
-					ncc, tacGia, nhaXB, namXB);
-			if (busSP.capNhatSanPham(sach)) {
-				taiLaiSach();
-				JOptionPane.showMessageDialog(this, "Thành công");
+			if (busSP.validDataSach(maSach, tenSach, txtSoLuongSach.getText().trim(), txtGiaNhapSach.getText().trim(),
+					theLoai, ke, hinhAnh, txtThueSach.getText().trim(), txtLoiNhuanSach.getText().trim(), tacGia, nhaXB,
+					txtNamXB.getText().trim())) {
+				int namXB = Integer.parseInt(txtNamXB.getText().trim());
+				int soLuong = Integer.parseInt(txtSoLuongSach.getText().trim());
+				float thue = Float.parseFloat(txtThueSach.getText().trim());
+				float giaNhap = Float.parseFloat(txtGiaNhapSach.getText().trim());
+				float loiNhuan = Float.parseFloat(txtLoiNhuanSach.getText().trim());
+				SanPham sach = new Sach(maSach, tenSach, soLuong, giaNhap, theLoai, ke, hinhAnh, thue, loiNhuan,
+						trangThai, ncc, tacGia, nhaXB, namXB);
+				if (busSP.capNhatSanPham(sach)) {
+					taiLaiSach();
+					JOptionPane.showMessageDialog(this, "Cập nhật thành công");
+				} else {
+					JOptionPane.showMessageDialog(this, "Không thể cập nhật mã");
+				}
 			} else {
-				JOptionPane.showMessageDialog(this, "Thất bại");
+				JOptionPane.showMessageDialog(this, busSP.mes);
 			}
 		}
 	}
@@ -1015,8 +1034,10 @@ public class GUISanPham extends JPanel {
 		} else {
 			trangThai = "Không còn bán";
 		}
-		String maNCC = cboNhaCungCapSach.getSelectedItem().toString();
-		NhaCungCap ncc = new NhaCungCap(maNCC);
+//		String maNCC = cboNhaCungCapSach.getSelectedItem().toString();
+//		NhaCungCap ncc = new NhaCungCap(maNCC);
+		String tenNCC = cboNhaCungCapSach.getSelectedItem().toString();
+		NhaCungCap ncc = busNCC.timNCCTheoTen(tenNCC);
 
 		if (busSP.validDataSach(maSach, tenSach, txtSoLuongSach.getText().trim(), txtGiaNhapSach.getText().trim(),
 				theLoai, ke, hinhAnh, txtThueSach.getText().trim(), txtLoiNhuanSach.getText().trim(), tacGia, nhaXB,
@@ -1030,9 +1051,10 @@ public class GUISanPham extends JPanel {
 					ncc, tacGia, nhaXB, namXB);
 			if (busSP.themSanPham(sach)) {
 				taiLaiSach();
-				JOptionPane.showMessageDialog(this, "Thành công");
+				xoaTrangSach();
+				JOptionPane.showMessageDialog(this, "Thêm thành công");
 			} else {
-				JOptionPane.showMessageDialog(this, "Thất bại");
+				JOptionPane.showMessageDialog(this, "Mã sản phẩm đã tồn tại");
 			}
 		} else {
 			JOptionPane.showMessageDialog(this, busSP.mes);
@@ -1073,6 +1095,7 @@ public class GUISanPham extends JPanel {
 		txtNhaXB.setText("");
 		txtNamXB.setText("");
 		lblHinhAnhSach.setIcon(null);
+		anh = null;
 		cboNhaCungCapSach.setSelectedIndex(0);
 		chkTrangThaiSach.setSelected(true);
 	}
@@ -1103,6 +1126,7 @@ public class GUISanPham extends JPanel {
 					}
 				}
 			}
+			btnTaoMaSach.setEnabled(false);
 		}
 	}
 
@@ -1119,10 +1143,7 @@ public class GUISanPham extends JPanel {
 			String theLoai = txtTheLoai.getText().trim();
 			String chatLieu = txtChatLieu.getText().trim();
 			String hinhAnh = anh;
-			int soLuong = Integer.parseInt(txtSoLuongVPP.getText().trim());
-			float thue = Float.parseFloat(txtThueVPP.getText().trim());
-			float giaNhap = Float.parseFloat(txtGiaNhapVPP.getText().trim());
-			float loiNhuan = Float.parseFloat(txtLoiNhuanVPP.getText().trim());
+
 			String trangThai;
 			if (chkTrangThaiSach.isSelected()) {
 				trangThai = "Đang bán";
@@ -1133,14 +1154,24 @@ public class GUISanPham extends JPanel {
 			NhaCungCap ncc = new NhaCungCap(maNCC);
 			String maDanhMuc = cboDanhMuc.getSelectedItem().toString();
 			DanhMuc danhMuc = new DanhMuc(maDanhMuc);
-			SanPham vpp = new VanPhongPham(maVPP, tenVPP, soLuong, giaNhap, theLoai, ke, hinhAnh, thue, loiNhuan,
-					trangThai, ncc, chatLieu, danhMuc);
-			if (busSP.capNhatSanPham(vpp)) {
-				taiLaiVPP();
-				JOptionPane.showMessageDialog(this, "Thành công");
+			if (busSP.validDataVPP(maVPP, tenVPP, txtSoLuongVPP.getText().trim(), txtGiaNhapVPP.getText().trim(),
+					theLoai, ke, hinhAnh, txtThueVPP.getText().trim(), txtLoiNhuanVPP.getText().trim(), chatLieu)) {
+				int soLuong = Integer.parseInt(txtSoLuongVPP.getText().trim());
+				float thue = Float.parseFloat(txtThueVPP.getText().trim());
+				float giaNhap = Float.parseFloat(txtGiaNhapVPP.getText().trim());
+				float loiNhuan = Float.parseFloat(txtLoiNhuanVPP.getText().trim());
+				SanPham vpp = new VanPhongPham(maVPP, tenVPP, soLuong, giaNhap, theLoai, ke, hinhAnh, thue, loiNhuan,
+						trangThai, ncc, chatLieu, danhMuc);
+				if (busSP.capNhatSanPham(vpp)) {
+					taiLaiVPP();
+					JOptionPane.showMessageDialog(this, "Cập nhật thành công");
+				} else {
+					JOptionPane.showMessageDialog(this, "Không thể cập nhật mã");
+				}
 			} else {
-				JOptionPane.showMessageDialog(this, "Thất bại");
+				JOptionPane.showMessageDialog(this, busSP.mes);
 			}
+
 		}
 	}
 
@@ -1206,9 +1237,9 @@ public class GUISanPham extends JPanel {
 					trangThai, ncc, chatLieu, danhMuc);
 			if (busSP.themSanPham(vpp)) {
 				taiLaiVPP();
-				JOptionPane.showMessageDialog(this, "Thành công");
+				JOptionPane.showMessageDialog(this, "Thêm thành công");
 			} else {
-				JOptionPane.showMessageDialog(this, "Thất bại - Trùng mã - Bạn đang trong chế độ sửa");
+				JOptionPane.showMessageDialog(this, "Mã sản phẩm đã tồn tại");
 			}
 		} else {
 			JOptionPane.showMessageDialog(this, busSP.mes);
@@ -1225,6 +1256,9 @@ public class GUISanPham extends JPanel {
 		cboLocDanhMuc.setSelectedIndex(0);
 		txtLocTenVPP.setText("");
 		txtLocTheLoai.setText("");
+		txtTimKiemVPPTheoMa.setFont(new Font("Tahoma", Font.ITALIC, 13));
+		txtTimKiemVPPTheoMa.setForeground(Color.GRAY);
+		txtTimKiemVPPTheoMa.setText("Nhập mã sản phẩm cần tìm");
 	}
 
 	// hiển thị danh sách vpp
@@ -1277,9 +1311,11 @@ public class GUISanPham extends JPanel {
 		txtTheLoai.setText("");
 		txtChatLieu.setText("");
 		lblHinhAnhVPP.setIcon(null);
+		anh = null;
 		cboNhaCungCapVPP.setSelectedIndex(0);
 		cboDanhMuc.setSelectedIndex(0);
 		chkTrangThaiVPP.setSelected(true);
+		btnTaoMaVPP.setEnabled(true);
 	}
 
 	// chọn thông tin vpp trong bảng hiện lên
@@ -1306,6 +1342,7 @@ public class GUISanPham extends JPanel {
 					}
 				}
 			}
+			btnTaoMaVPP.setEnabled(false);
 		}
 	}
 

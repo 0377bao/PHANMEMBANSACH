@@ -1,15 +1,13 @@
 package bus;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import dao.DAOSanPham;
-import entity.DanhMuc;
-import entity.NhaCungCap;
 import entity.Sach;
 import entity.SanPham;
 import entity.VanPhongPham;
@@ -63,10 +61,6 @@ public class BUSSanPham {
 				mes = "Thể loại không chứa ký tự đặc biệt";
 				return false;
 			}
-		}
-		if (hinhAnh == null) {
-			mes = "Vui lòng chọn ảnh";
-			return false;
 		}
 		if (!soLuongTon.equals("")) {
 			try {
@@ -129,7 +123,7 @@ public class BUSSanPham {
 			return false;
 		} else {
 			if (!ke.matches("^[A-C]\\d+$")) {
-				mes = "Tên kệ không hợp lệ";
+				mes = "Tên kệ bắt đầu là A hoặc B hoặc C theo sau là số";
 				return false;
 			}
 		}
@@ -148,9 +142,11 @@ public class BUSSanPham {
 		}
 		if (!namXB.equals("")) {
 			try {
+				LocalDate localDate = LocalDate.now();
+				int year = localDate.getYear();
 				int nam = Integer.parseInt(namXB);
-				if (nam < 0) {
-					mes = "Năm xuất bản không được âm";
+				if (nam < 0 || nam > year) {
+					mes = "Năm xuất bản không được âm và nhỏ hơn năm hiện tại";
 					return false;
 				}
 			} catch (NumberFormatException e) {
@@ -159,6 +155,10 @@ public class BUSSanPham {
 			}
 		} else {
 			mes = "Vui lòng nhập năm xuất bản";
+		}
+		if (hinhAnh == null) {
+			mes = "Vui lòng chọn ảnh";
+			return false;
 		}
 		return true;
 	}
@@ -275,6 +275,19 @@ public class BUSSanPham {
 		return ds;
 	}
 
+	// kiểm tra số lượng sách gần hết
+	public ArrayList<SanPham> layDSSachGanHet() {
+		ArrayList<SanPham> dsSach = new ArrayList<>();
+		for (SanPham sanPham : daoSP.layDSSanPham()) {
+			if (sanPham instanceof Sach) {
+				if (sanPham.getSoLuongTon() < 10) {
+					dsSach.add(sanPham);
+				}
+			}
+		}
+		return dsSach;
+	}
+
 //// lấy dữ liệu văn phòng phẩm đưa lên bảng
 	public void doDuLieuVPPVaoBang(DefaultTableModel modelVPP) {
 		for (SanPham vpp : daoSP.layDSSanPham()) {
@@ -284,6 +297,19 @@ public class BUSSanPham {
 						vpp.getTheLoai(), ((VanPhongPham) vpp).getChatLieu(), vpp.getKe(), vpp.getSoLuongTon(),
 						vpp.getGiaNhap() });
 		}
+	}
+
+	// kiểm tra số lượng vpp gần hết
+	public ArrayList<SanPham> layDSVPPGanHet() {
+		ArrayList<SanPham> dsVPP = new ArrayList<>();
+		for (SanPham sanPham : daoSP.layDSSanPham()) {
+			if (sanPham instanceof VanPhongPham) {
+				if (sanPham.getSoLuongTon() < 10) {
+					dsVPP.add(sanPham);
+				}
+			}
+		}
+		return dsVPP;
 	}
 
 	// lọc vpp theo nhà cung cấp
@@ -392,7 +418,7 @@ public class BUSSanPham {
 			return false;
 		} else {
 			if (!ke.matches("^[D-F]\\d+$")) {
-				mes = "Tên kệ không hợp lệ";
+				mes = "Tên kệ bắt đầu là D hoặc E hoặc F theo sau là số";
 				return false;
 			}
 		}
