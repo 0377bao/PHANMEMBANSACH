@@ -86,6 +86,7 @@ public class DAODonDoiTra {
 		boolean m = true;
 		PreparedStatement statement = null;
 		try {
+			System.out.println(donDoiTra);
 			statement = con.prepareStatement(sql);
 			statement.setString(1, donDoiTra.getMaDonDoiTra());
 			Date date = Date.valueOf(donDoiTra.getNgayDoiTra());
