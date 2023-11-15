@@ -4,7 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 
 import java.util.ArrayList;
-
+import java.util.concurrent.ThreadFactory;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -30,8 +30,12 @@ import java.awt.Font;
 import java.awt.Image;
 
 
-public class TrangChu extends JFrame {
+public class TrangChu extends JFrame implements Runnable,ThreadFactory {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public String indexFrame = "Trang chủ";
 	private JLabel lblAvtNhanVien;
 	private JLabel lblTenNhanVien;
@@ -50,6 +54,7 @@ public class TrangChu extends JFrame {
 	private JPanel pnlHienTai;
 	private NhanVien nvHienTai = null;
 	private ArrayList<HoaDon> dsHoaDonCho = new ArrayList<>();
+	private GUIThongKe guiTK ;
 
 //	public static void main(String[] args) {
 //		EventQueue.invokeLater(new Runnable() {
@@ -71,7 +76,21 @@ public class TrangChu extends JFrame {
 	
 	public TrangChu(NhanVien nv) {
 //		dsHoaDonCho.add(new BUSHoaDon().timHoaDonTheoMa("HD1"));
+		
 		this.nvHienTai = nv;
+
+		Thread daemonThread = new Thread(() -> {
+            guiTK = new GUIThongKe(nvHienTai);
+            
+        });
+
+        // Đặt thread là daemon
+        daemonThread.setDaemon(true);
+
+        // Bắt đầu thực thi luồng
+        daemonThread.start();
+        // Bắt đầu thực thi luồng mới
+
 		this.setTitle("PHẦN MỀM NHÀ SÁCH");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(1500, 800);
@@ -287,7 +306,10 @@ public class TrangChu extends JFrame {
 			btnNhanVien.setForeground(Color.white);
 		} 
 		if(src.equals("QL Thống kê")) {
-			pnlHienTai = new GUIThongKe(nvHienTai);
+			if(guiTK == null) {
+				guiTK = new GUIThongKe(nvHienTai);
+			}
+			pnlHienTai = guiTK;
 			btnThongKe.setBackground(colorBtnActive);
 			btnThongKe.setForeground(Color.white);
 		} 
@@ -311,6 +333,23 @@ public class TrangChu extends JFrame {
 		getContentPane().add(pnlHienTai);
 		this.revalidate();
 		this.repaint();
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		System.out.println(1);
+		
+	}
+
+	@Override
+	public Thread newThread(Runnable r) {
+		// TODO Auto-generated method stub
+		Thread t = new Thread(r,"My Thread");
+		System.out.println(1);
+		t.setDaemon(true);
+		return t;
+
 	}
 }
 

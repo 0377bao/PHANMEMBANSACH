@@ -251,7 +251,9 @@ public class BUSThongKe {
 		dataSet.setValue("Quý 3", tongDoanhThuQ3);
 		dataSet.setValue("Quý 4", tongDoanhThuQ4);
 	}
-
+	// Hàm thống kê quý hiện tại
+	
+	
 	// Hàm thống kê cửa hàng theo tháng
 	public void thongKeCuaHangTrongThang(String thang, JLabel soHD, JLabel doanhThu, JLabel soLuongSP, JLabel soDDT,
 			DefaultTableModel model) {
@@ -298,40 +300,42 @@ public class BUSThongKe {
 
 	// Hàm tính 10 sản phẩm bán chạy nhất
 	public void lay10SPBanChayNhat(String trangThaiTK, DefaultTableModel modelS, DefaultTableModel modelVPP,
-			NhanVien nv, LocalDate x, LocalDate y) {
+			LocalDate x, LocalDate y) {
 		ArrayList<String> SP = new ArrayList<>();
 		ArrayList<Integer> SL = new ArrayList<>();
 		SP.add("");
 		SL.add(0);
 		int bienChay = 1;
 		int flag = 0;
-		if(dsHDTheoNV(nv, x, y).size()==0) {
-			return;
-		}
-		for (HoaDon hd : dsHDTheoNV(nv, x, y)) {
-			for (ChiTietHoaDon cthd : hd.getDsChiTietHoaDon()) {
-				for (int i = 0; i < SP.size(); ++i) {
-					if (i == 0 && SP.size() == 1) {
-						SP.set(i, cthd.getSanPham().getMaSanPham());
-						SL.set(i, cthd.getSoLuongMua());
-						SP.add("");
-						SL.add(0);
-						flag = 1;
-						break;
-					}
-					if (SP.get(i).equals(cthd.getSanPham().getMaSanPham())) {
-						SL.set(i, SL.get(i) + cthd.getSoLuongMua());
-						flag = 1;
-						break;
-					}
-				}
-				if (flag == 0) {
-					SP.add(cthd.getSanPham().getMaSanPham());
-					SL.add(cthd.getSoLuongMua());
-					bienChay++;
 
+		for (NhanVien nv : busNV.layDSNhanVien()) {
+
+			for (HoaDon hd : dsHDTheoNV(nv, x, y)) {
+
+				for (ChiTietHoaDon cthd : hd.getDsChiTietHoaDon()) {
+					for (int i = 0; i < SP.size(); ++i) {
+						if (i == 0 && SP.size() == 1) {
+							SP.set(i, cthd.getSanPham().getMaSanPham());
+							SL.set(i, cthd.getSoLuongMua());
+							SP.add("");
+							SL.add(0);
+							flag = 1;
+							break;
+						}
+						if (SP.get(i).equals(cthd.getSanPham().getMaSanPham())) {
+							SL.set(i, SL.get(i) + cthd.getSoLuongMua());
+							flag = 1;
+							break;
+						}
+					}
+					if (flag == 0) {
+						SP.add(cthd.getSanPham().getMaSanPham());
+						SL.add(cthd.getSoLuongMua());
+						bienChay++;
+
+					}
+					flag = 0;
 				}
-				flag = 0;
 			}
 		}
 
@@ -343,7 +347,7 @@ public class BUSThongKe {
 			int max = 0;
 			int node = 0;
 			int min = SL.get(0);
-	
+
 			if (trangThaiTK.equals("Bán chạy nhất")) {
 				for (int i = 0; i < SP.size(); i++) {
 					if (max < SL.get(i)) {
@@ -360,32 +364,42 @@ public class BUSThongKe {
 				}
 			}
 
-				SanPham sp = busSP.timKiemSanPham(SP.get(node));
-				if (sp.getMaSanPham().startsWith("SPS") && soSach < 10) {
+			SanPham sp = busSP.timKiemSanPham(SP.get(node));
+
+			if (sp.getMaSanPham().startsWith("SPS")) {
+
+				if (soSach < 10) {
 					modelS.addRow(new Object[] { SP.get(node), sp.getTenSanPham(), SL.get(node),
 							Tools.dinhDangTien(sp.getGiaBan()), sp.getPhanTramLoiNhuan() });
-					SP.remove(node);
-					SL.remove(node);
 					soSach += 1;
 				}
-				if (sp.getMaSanPham().startsWith("SPVPP") && soVPP < 10) {
+				SP.remove(node);
+				SL.remove(node);
+
+			}
+			if (sp.getMaSanPham().startsWith("SPVPP")) {
+				if (soVPP < 10) {
 					modelVPP.addRow(new Object[] { SP.get(node), sp.getTenSanPham(), SL.get(node),
 							Tools.dinhDangTien(sp.getGiaBan()), sp.getPhanTramLoiNhuan() });
 					soVPP += 1;
-					SP.remove(node);
-					SL.remove(node);
 				}
-			
+				SP.remove(node);
+				SL.remove(node);
+			}
+
 		}
 	}
 
-	public void lay10SPBiDoiTraNhieuNhat(DefaultTableModel modelDT, NhanVien nv, LocalDate x, LocalDate y) {
+	public void lay10SPBiDoiTraNhieuNhat(DefaultTableModel modelDT, LocalDate x, LocalDate y) {
 		ArrayList<String> SP = new ArrayList<>();
 		ArrayList<Integer> SL = new ArrayList<>();
 		SP.add("");
 		SL.add(0);
 
 		int flag = 0;
+		for (NhanVien nv : busNV.layDSNhanVien()) {
+			
+		
 		for (DonDoiTra ddt : dsDDTTheoNV(nv, x, y)) {
 			for (ChiTietDonDoiTra ctddt : ddt.getDsChiTietDonDoiTra()) {
 				for (int i = 0; i < SP.size(); ++i) {
@@ -411,7 +425,10 @@ public class BUSThongKe {
 				flag = 0;
 			}
 		}
-
+		}
+		if(SP.size()==1) {
+			return ;
+		}
 		SP.remove(1);
 		SL.remove(1);
 		while (SP.size() > 0) {
@@ -433,14 +450,14 @@ public class BUSThongKe {
 	}
 
 	// Hàm thống kê sản phẩm
-	public void ThongKeSanPham(NhanVien nv, String trangThaiTK, String Quy, DefaultTableModel modelSach,
+	public void ThongKeSanPham( String trangThaiTK, String Quy, DefaultTableModel modelSach,
 			DefaultTableModel modelVPP) {
 
 		LocalDate x = LocalDate.now();
 		LocalDate y = LocalDate.now();
 		if (Quy.equals("Quý 1")) {
 			x = LocalDate.of(LocalDate.now().getYear(), 1, 1);
-			x = LocalDate.of(LocalDate.now().getYear(), 3, 31);
+			y = LocalDate.of(LocalDate.now().getYear(), 3, 31);
 		} else if (Quy.equals("Quý 2")) {
 			x = LocalDate.of(LocalDate.now().getYear(), 4, 1);
 			y = LocalDate.of(LocalDate.now().getYear(), 6, 30);
@@ -453,11 +470,27 @@ public class BUSThongKe {
 		}
 		modelSach.setRowCount(0);
 		modelVPP.setRowCount(0);
-		lay10SPBanChayNhat(trangThaiTK, modelSach, modelVPP, nv, x, y);
+		lay10SPBanChayNhat(trangThaiTK, modelSach, modelVPP, x, y);
 	}
-	// Hàm hiển thị thông tin thống kê nhân viên 
+
+	// Hàm hiển thị thông tin thống kê nhân viên
 	public void hienThiThongTinThongKeNV(JLabel tongNV, JLabel nvDaNghi, JLabel nvBanHang, JLabel nvQuanLy) {
-		tongNV.setText(busNV.layDSNhanVien().size()+"");
-		
+		tongNV.setText(busNV.layDSNhanVien().size() + "");
+		int nvdaNghi = 0, nvBH = 0, nvQL = 0;
+
+		for (NhanVien nv : busNV.layDSNhanVien()) {
+			if (nv.getTrangThai().equals("Đã nghỉ")) {
+				nvdaNghi++;
+			} else {
+				if (nv.getChucVu().equals("Quản lý")) {
+					nvQL++;
+				} else {
+					nvBH++;
+				}
+			}
+		}
+		nvDaNghi.setText(nvdaNghi + "");
+		nvBanHang.setText(nvBH + "");
+		nvQuanLy.setText(nvQL + "");
 	}
 }

@@ -103,7 +103,7 @@ public class GUISanPhamDoiTra extends JFrame implements ActionListener {
 		if (validata()) {
 			this.setVisible(false);
 			if (timSanPhamTrongDonDoiTra() == -1) {
-				model.addRow(new Object[] { ma, ten, Integer.parseInt(textField_1.getText().trim()), gia,
+				model.addRow(new Object[] { ma, ten, Integer.parseInt(textField_1.getText().trim()), Tools.dinhDangTien(gia),
 						textField_1.getText().trim()+ "-"+ textField.getText().trim() });
 				thayDoiTienVaSoLuong();
 			} else {

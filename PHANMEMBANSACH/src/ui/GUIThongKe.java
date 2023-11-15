@@ -307,9 +307,9 @@ public class GUIThongKe extends JPanel {
 		tbThongKeDoanhThuCacQuy.setShowGrid(false);
 		tbThongKeDoanhThuCacQuy.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		tbThongKeDoanhThuCacQuy.setRowHeight(40);
-		
+		tbThongKeDoanhThuCacQuy.getColumnModel().getColumn(4).setPreferredWidth(150);
 		JScrollPane srcThongKeDoanhThuCacQuy = new JScrollPane(tbThongKeDoanhThuCacQuy,JScrollPane.VERTICAL_SCROLLBAR_NEVER, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		srcThongKeDoanhThuCacQuy.setBounds(20, 59, 512, 184);
+		srcThongKeDoanhThuCacQuy.setBounds(20, 59, 528, 184);
 		pnlThongKeDoanhThuQuy.add(srcThongKeDoanhThuCacQuy);
 		
 		JFreeChart chart = ChartFactory.createPieChart("Biểu đồ doanh thu theo quý", datasetThongKeTheoQuy, true,true,true);
@@ -489,7 +489,7 @@ public class GUIThongKe extends JPanel {
 		lblThongKeSoHoaDonCH_1.setBounds(25, 20, 155, 25);
 		pnlSoHoaDonCH_1.add(lblThongKeSoHoaDonCH_1);
 		
-		JLabel lblTongNV = new JLabel("30");
+		JLabel lblTongNV = new JLabel();
 		lblTongNV.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblTongNV.setForeground(Color.WHITE);
 		lblTongNV.setFont(new Font("Tahoma", Font.BOLD, 23));
@@ -516,7 +516,7 @@ public class GUIThongKe extends JPanel {
 		lblThongKeDoanhThuCH_1.setBounds(25, 20, 220, 25);
 		pnlDoanhThuCH_1.add(lblThongKeDoanhThuCH_1);
 		
-		JLabel lblNVBanHang = new JLabel("20");
+		JLabel lblNVBanHang = new JLabel();
 		lblNVBanHang.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNVBanHang.setForeground(Color.WHITE);
 		lblNVBanHang.setFont(new Font("Tahoma", Font.BOLD, 23));
@@ -543,7 +543,7 @@ public class GUIThongKe extends JPanel {
 		lblThongKeDoanhThuCH_1_1.setBounds(25, 20, 230, 25);
 		pnlSoLuongSPCH_1.add(lblThongKeDoanhThuCH_1_1);
 		
-		JLabel lblNVDaNghi = new JLabel("8");
+		JLabel lblNVDaNghi = new JLabel();
 		lblNVDaNghi.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNVDaNghi.setForeground(Color.WHITE);
 		lblNVDaNghi.setFont(new Font("Tahoma", Font.BOLD, 23));
@@ -570,7 +570,7 @@ public class GUIThongKe extends JPanel {
 		lblThongKeDoanhThuCH_1_2.setBounds(25, 20, 179, 25);
 		pnlSoLuongDoiTraCH_1.add(lblThongKeDoanhThuCH_1_2);
 		
-		JLabel lblNVQL = new JLabel("2");
+		JLabel lblNVQL = new JLabel();
 		lblNVQL.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNVQL.setForeground(Color.WHITE);
 		lblNVQL.setFont(new Font("Tahoma", Font.BOLD, 23));
@@ -592,6 +592,8 @@ public class GUIThongKe extends JPanel {
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(255, 255, 255));
 		panel.setBounds(24, 217, 665, 521);
+		// Hiển thị thông tin thống kê nhân viên
+		busTK.hienThiThongTinThongKeNV(lblTongNV, lblNVDaNghi, lblNVBanHang, lblNVQL);
 		
 		JFreeChart bCThongKeDoanhThuNhanVien = ChartFactory.createBarChart("Biểu đồ doanh thu theo tháng", "Mã nhân viên", "VNĐ", taoBieuDoDoanhThuNhanVien(),PlotOrientation.VERTICAL,false,true,true);
 		ChartPanel cpnlThongKeDoanhThuNhanVien= new ChartPanel(bCThongKeDoanhThuNhanVien);
@@ -878,10 +880,11 @@ public class GUIThongKe extends JPanel {
 	}
 	//Hàm thêm dữ liệu vào bảng thống kê sản phẩm
 	public void thayDoiDuLieuBangThongKeSanPham() {
-		busTK.ThongKeSanPham(nv	,cbThongKeTrangThaiSanPham.getSelectedItem().toString(), cbThongKeSanPhamTrongQuy.getSelectedItem().toString(), modelDanhSachTop10SachTrongQuy, modelDanhSachTop10VPPTrongQuy);
+		busTK.ThongKeSanPham(cbThongKeTrangThaiSanPham.getSelectedItem().toString(), cbThongKeSanPhamTrongQuy.getSelectedItem().toString(), modelDanhSachTop10SachTrongQuy, modelDanhSachTop10VPPTrongQuy);
 	}
 	//Hàm thống kê sản phẩm bị đổi trả
 	public void thongKeSanPhamBiDoiTra() {
-		busTK.lay10SPBiDoiTraNhieuNhat(modelDanhSachSanPhamDoiTra, nv, LocalDate.of(LocalDate.now().getYear(),1,1), LocalDate.of(LocalDate.now().getYear(),12,31));
+		busTK.lay10SPBiDoiTraNhieuNhat(modelDanhSachSanPhamDoiTra, LocalDate.of(LocalDate.now().getYear(),1,1), LocalDate.of(LocalDate.now().getYear(),12,31));
 	}
+	
 }
