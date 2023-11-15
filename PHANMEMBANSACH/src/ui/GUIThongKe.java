@@ -26,10 +26,12 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
 
+import bus.BUSSanPham;
 import bus.BUSThongKe;
 import controller.ControllerThongKe;
 import customUI.MyTable;
 import entity.NhanVien;
+import tool.Tools;
 
 import javax.swing.border.BevelBorder;
 import javax.swing.SwingConstants;
@@ -71,6 +73,8 @@ public class GUIThongKe extends JPanel {
 	private JLabel lblTDoanhThuCH;
 	private JLabel lblSoLuongSPCH;
 	private JLabel lblSoLuongDDTCH;
+	private JComboBox cbThongKeSanPhamTrongQuy;
+	private JComboBox cbThongKeTrangThaiSanPham;
 	
 	public GUIThongKe(NhanVien nv) {
 		this.setBackground(new Color(240, 240, 240));
@@ -140,7 +144,7 @@ public class GUIThongKe extends JPanel {
 		lblTDoanhThu.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblTDoanhThu.setForeground(new Color(255, 255, 255));
 		lblTDoanhThu.setFont(new Font("Tahoma", Font.BOLD, 18));
-		lblTDoanhThu.setText(busTK.tongDoanhThu(nv, LocalDate.now(), LocalDate.now())+"");
+		lblTDoanhThu.setText(Tools.dinhDangTien(busTK.tongDoanhThu(nv, LocalDate.now(), LocalDate.now())).replace("VND", "")+"");
 		
 		JLabel lblDonViDoanhThu = new JLabel("VNĐ");
 		lblDonViDoanhThu.setBounds(168, 76, 55, 40);
@@ -303,9 +307,9 @@ public class GUIThongKe extends JPanel {
 		tbThongKeDoanhThuCacQuy.setShowGrid(false);
 		tbThongKeDoanhThuCacQuy.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		tbThongKeDoanhThuCacQuy.setRowHeight(40);
-		
+		tbThongKeDoanhThuCacQuy.getColumnModel().getColumn(4).setPreferredWidth(150);
 		JScrollPane srcThongKeDoanhThuCacQuy = new JScrollPane(tbThongKeDoanhThuCacQuy,JScrollPane.VERTICAL_SCROLLBAR_NEVER, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		srcThongKeDoanhThuCacQuy.setBounds(20, 59, 512, 184);
+		srcThongKeDoanhThuCacQuy.setBounds(20, 59, 528, 184);
 		pnlThongKeDoanhThuQuy.add(srcThongKeDoanhThuCacQuy);
 		
 		JFreeChart chart = ChartFactory.createPieChart("Biểu đồ doanh thu theo quý", datasetThongKeTheoQuy, true,true,true);
@@ -339,8 +343,8 @@ public class GUIThongKe extends JPanel {
 		lblSoHoaDonCH = new JLabel();
 		lblSoHoaDonCH.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblSoHoaDonCH.setForeground(Color.WHITE);
-		lblSoHoaDonCH.setFont(new Font("Tahoma", Font.BOLD, 23));
-		lblSoHoaDonCH.setBounds(100, 60, 72, 40);
+		lblSoHoaDonCH.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblSoHoaDonCH.setBounds(68, 60, 104, 40);
 		pnlSoHoaDonCH.add(lblSoHoaDonCH);
 		
 		JLabel lblDonViSoHoaDonCH = new JLabel("Đơn");
@@ -366,8 +370,8 @@ public class GUIThongKe extends JPanel {
 		lblTDoanhThuCH = new JLabel();
 		lblTDoanhThuCH.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblTDoanhThuCH.setForeground(Color.WHITE);
-		lblTDoanhThuCH.setFont(new Font("Tahoma", Font.BOLD, 23));
-		lblTDoanhThuCH.setBounds(10, 60, 152, 40);
+		lblTDoanhThuCH.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblTDoanhThuCH.setBounds(10, 60, 159, 40);
 		pnlDoanhThuCH.add(lblTDoanhThuCH);
 		
 		JLabel lblDonViDoanhThuCH = new JLabel("VNĐ");
@@ -393,8 +397,8 @@ public class GUIThongKe extends JPanel {
 		lblSoLuongSPCH = new JLabel();
 		lblSoLuongSPCH.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblSoLuongSPCH.setForeground(Color.WHITE);
-		lblSoLuongSPCH.setFont(new Font("Tahoma", Font.BOLD, 23));
-		lblSoLuongSPCH.setBounds(46, 60, 72, 40);
+		lblSoLuongSPCH.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblSoLuongSPCH.setBounds(35, 60, 83, 40);
 		pnlSoLuongSPCH.add(lblSoLuongSPCH);
 		
 		JLabel lblDonViSoLuongSPCH = new JLabel("Sản phẩm");
@@ -420,8 +424,8 @@ public class GUIThongKe extends JPanel {
 		lblSoLuongDDTCH = new JLabel();
 		lblSoLuongDDTCH.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblSoLuongDDTCH.setForeground(Color.WHITE);
-		lblSoLuongDDTCH.setFont(new Font("Tahoma", Font.BOLD, 23));
-		lblSoLuongDDTCH.setBounds(101, 60, 72, 40);
+		lblSoLuongDDTCH.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblSoLuongDDTCH.setBounds(52, 60, 121, 40);
 		pnlSoLuongDoiTraCH.add(lblSoLuongDDTCH);
 		
 		JLabel lblDonViSoLuongDDTCH = new JLabel("Đơn");
@@ -485,7 +489,7 @@ public class GUIThongKe extends JPanel {
 		lblThongKeSoHoaDonCH_1.setBounds(25, 20, 155, 25);
 		pnlSoHoaDonCH_1.add(lblThongKeSoHoaDonCH_1);
 		
-		JLabel lblTongNV = new JLabel("30");
+		JLabel lblTongNV = new JLabel();
 		lblTongNV.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblTongNV.setForeground(Color.WHITE);
 		lblTongNV.setFont(new Font("Tahoma", Font.BOLD, 23));
@@ -512,7 +516,7 @@ public class GUIThongKe extends JPanel {
 		lblThongKeDoanhThuCH_1.setBounds(25, 20, 220, 25);
 		pnlDoanhThuCH_1.add(lblThongKeDoanhThuCH_1);
 		
-		JLabel lblNVBanHang = new JLabel("20");
+		JLabel lblNVBanHang = new JLabel();
 		lblNVBanHang.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNVBanHang.setForeground(Color.WHITE);
 		lblNVBanHang.setFont(new Font("Tahoma", Font.BOLD, 23));
@@ -539,7 +543,7 @@ public class GUIThongKe extends JPanel {
 		lblThongKeDoanhThuCH_1_1.setBounds(25, 20, 230, 25);
 		pnlSoLuongSPCH_1.add(lblThongKeDoanhThuCH_1_1);
 		
-		JLabel lblNVDaNghi = new JLabel("8");
+		JLabel lblNVDaNghi = new JLabel();
 		lblNVDaNghi.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNVDaNghi.setForeground(Color.WHITE);
 		lblNVDaNghi.setFont(new Font("Tahoma", Font.BOLD, 23));
@@ -566,7 +570,7 @@ public class GUIThongKe extends JPanel {
 		lblThongKeDoanhThuCH_1_2.setBounds(25, 20, 179, 25);
 		pnlSoLuongDoiTraCH_1.add(lblThongKeDoanhThuCH_1_2);
 		
-		JLabel lblNVQL = new JLabel("2");
+		JLabel lblNVQL = new JLabel();
 		lblNVQL.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNVQL.setForeground(Color.WHITE);
 		lblNVQL.setFont(new Font("Tahoma", Font.BOLD, 23));
@@ -588,6 +592,8 @@ public class GUIThongKe extends JPanel {
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(255, 255, 255));
 		panel.setBounds(24, 217, 665, 521);
+		// Hiển thị thông tin thống kê nhân viên
+		busTK.hienThiThongTinThongKeNV(lblTongNV, lblNVDaNghi, lblNVBanHang, lblNVQL);
 		
 		JFreeChart bCThongKeDoanhThuNhanVien = ChartFactory.createBarChart("Biểu đồ doanh thu theo tháng", "Mã nhân viên", "VNĐ", taoBieuDoDoanhThuNhanVien(),PlotOrientation.VERTICAL,false,true,true);
 		ChartPanel cpnlThongKeDoanhThuNhanVien= new ChartPanel(bCThongKeDoanhThuNhanVien);
@@ -684,11 +690,12 @@ public class GUIThongKe extends JPanel {
 		lblNewLabel_3_1.setBounds(10, 11, 228, 30);
 		panel_7.add(lblNewLabel_3_1);
 		
-		JLabel lblNewLabel_4_1 = new JLabel("65");
-		lblNewLabel_4_1.setForeground(Color.WHITE);
-		lblNewLabel_4_1.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblNewLabel_4_1.setBounds(80, 58, 44, 30);
-		panel_7.add(lblNewLabel_4_1);
+		JLabel lblSanPhamConBan = new JLabel("65");
+		lblSanPhamConBan.setForeground(Color.WHITE);
+		lblSanPhamConBan.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblSanPhamConBan.setBounds(80, 58, 44, 30);
+		lblSanPhamConBan.setText(new BUSSanPham().locSachTheoTrangThai("Đang bán").size()+new BUSSanPham().locVPPTheoTrangThai("Đang bán").size()+"");
+		panel_7.add(lblSanPhamConBan);
 		
 		JLabel lblNewLabel_4_1_1 = new JLabel("sản phẩm");
 		lblNewLabel_4_1_1.setForeground(Color.WHITE);
@@ -708,11 +715,12 @@ public class GUIThongKe extends JPanel {
 		lblNewLabel_3_1_1.setBounds(10, 11, 200, 30);
 		panel_8.add(lblNewLabel_3_1_1);
 		
-		JLabel lblNewLabel_4_1_2 = new JLabel("65");
-		lblNewLabel_4_1_2.setForeground(Color.WHITE);
-		lblNewLabel_4_1_2.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblNewLabel_4_1_2.setBounds(91, 58, 44, 30);
-		panel_8.add(lblNewLabel_4_1_2);
+		JLabel lblSanPhamKhongConBan = new JLabel("65");
+		lblSanPhamKhongConBan.setForeground(Color.WHITE);
+		lblSanPhamKhongConBan.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblSanPhamKhongConBan.setBounds(91, 58, 44, 30);
+		lblSanPhamKhongConBan.setText(new BUSSanPham().locSachTheoTrangThai("Không còn bán").size()+new BUSSanPham().locVPPTheoTrangThai("Không còn bán").size()+"");
+		panel_8.add(lblSanPhamKhongConBan);
 		
 		JLabel lblNewLabel_4_1_1_2 = new JLabel("sản phẩm");
 		lblNewLabel_4_1_1_2.setForeground(Color.WHITE);
@@ -720,11 +728,13 @@ public class GUIThongKe extends JPanel {
 		lblNewLabel_4_1_1_2.setBounds(127, 58, 121, 30);
 		panel_8.add(lblNewLabel_4_1_1_2);
 		
-		JLabel lblNewLabel_4 = new JLabel("80");
-		lblNewLabel_4.setForeground(new Color(255, 255, 255));
-		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblNewLabel_4.setBounds(216, 22, 60, 30);
-		panel_6.add(lblNewLabel_4);
+		JLabel lblTongSanPham = new JLabel();
+		lblTongSanPham.setForeground(new Color(255, 255, 255));
+		lblTongSanPham.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblTongSanPham.setBounds(216, 22, 60, 30);
+		lblTongSanPham.setText(new BUSSanPham().layDSSanPham().size()+"");
+		
+		panel_6.add(lblTongSanPham);
 		
 		JLabel lblNewLabel_4_1_1_1 = new JLabel("sản phẩm");
 		lblNewLabel_4_1_1_1.setForeground(Color.WHITE);
@@ -738,22 +748,24 @@ public class GUIThongKe extends JPanel {
 		pnlThongKeSanPham.add(panel_4);
 		panel_4.setLayout(null);
 		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"Quý 1", "Quý 2", "Quý 3", "Quý 4"}));
-		comboBox_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		comboBox_1.setBounds(281, 44, 145, 22);
-		panel_4.add(comboBox_1);
+		cbThongKeSanPhamTrongQuy = new JComboBox();
+		cbThongKeSanPhamTrongQuy.setModel(new DefaultComboBoxModel(new String[] {"Quý 1", "Quý 2", "Quý 3", "Quý 4"}));
+		cbThongKeSanPhamTrongQuy.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		cbThongKeSanPhamTrongQuy.setBounds(281, 44, 145, 22);
+		cbThongKeSanPhamTrongQuy.setActionCommand("cbThongKeSanPhamTrongQuy");
+		panel_4.add(cbThongKeSanPhamTrongQuy);
 		
 		JLabel lblNewLabel_5 = new JLabel("Thống kê top 10 sản phẩm ");
 		lblNewLabel_5.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblNewLabel_5.setBounds(10, 11, 200, 20);
 		panel_4.add(lblNewLabel_5);
 		
-		JComboBox comboBox_1_1 = new JComboBox();
-		comboBox_1_1.setModel(new DefaultComboBoxModel(new String[] {"Bán chạy nhất", "Bán ít nhất"}));
-		comboBox_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		comboBox_1_1.setBounds(61, 44, 145, 22);
-		panel_4.add(comboBox_1_1);
+		cbThongKeTrangThaiSanPham = new JComboBox();
+		cbThongKeTrangThaiSanPham.setModel(new DefaultComboBoxModel(new String[] {"Bán chạy nhất", "Bán ít nhất"}));
+		cbThongKeTrangThaiSanPham.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		cbThongKeTrangThaiSanPham.setBounds(61, 44, 145, 22);
+		cbThongKeTrangThaiSanPham.setActionCommand("cbThongKeTrangThaiSanPham");
+		panel_4.add(cbThongKeTrangThaiSanPham);
 		
 		JLabel lblNewLabel_6 = new JLabel("Trong");
 		lblNewLabel_6.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -763,19 +775,7 @@ public class GUIThongKe extends JPanel {
 		modelDanhSachTop10SachTrongQuy = new DefaultTableModel(
 				new Object[] {"Mã sản phẩm","Tên sản phẩm","số lượng bán","giá bán","% lợi nhuận"}, 0);
 		
-		modelDanhSachTop10SachTrongQuy.addRow(new Object[] {"SPS01","Sách giáo khoa","500","100000","10"});
-		modelDanhSachTop10SachTrongQuy.addRow(new Object[] {"SPS02","Sách giáo khoa","500","100000","10"});
-		modelDanhSachTop10SachTrongQuy.addRow(new Object[] {"SPS03","Sách giáo khoa","500","100000","10"});
-		modelDanhSachTop10SachTrongQuy.addRow(new Object[] {"SPS04","Sách giáo khoa","500","100000","10"});
-		modelDanhSachTop10SachTrongQuy.addRow(new Object[] {"SPS05","Sách giáo khoa","500","100000","10"});
-		modelDanhSachTop10SachTrongQuy.addRow(new Object[] {"SPS06","Sách giáo khoa","500","100000","10"});
-		modelDanhSachTop10SachTrongQuy.addRow(new Object[] {"SPS07","Sách giáo khoa","500","100000","10"});
-		modelDanhSachTop10SachTrongQuy.addRow(new Object[] {"SPS08","Sách giáo khoa","500","100000","10"});
-		modelDanhSachTop10SachTrongQuy.addRow(new Object[] {"SPS08","Sách giáo khoa","500","100000","10"});
-		modelDanhSachTop10SachTrongQuy.addRow(new Object[] {"SPS08","Sách giáo khoa","500","100000","10"});
-		modelDanhSachTop10SachTrongQuy.addRow(new Object[] {"SPS08","Sách giáo khoa","500","100000","10"});
-		modelDanhSachTop10SachTrongQuy.addRow(new Object[] {"SPS08","Sách giáo khoa","500","100000","10"});
-		modelDanhSachTop10SachTrongQuy.addRow(new Object[] {"SPS08","Sách giáo khoa","500","100000","10"});
+
 		tbDanhSachTop10SachTrongQuy = new MyTable(modelDanhSachTop10SachTrongQuy);
 		
 		JScrollPane scrollPane_1 = new JScrollPane(tbDanhSachTop10SachTrongQuy);
@@ -785,17 +785,7 @@ public class GUIThongKe extends JPanel {
 		modelDanhSachTop10VPPTrongQuy = new DefaultTableModel(
 				new Object[] {"Mã sản phẩm","Tên sản phẩm","số lượng bán","giá bán","% lợi nhuận"}, 0);
 		
-		modelDanhSachTop10VPPTrongQuy.addRow(new Object[] {"SPVPP01","Bàn học trẻ em","100","100000","20"});
-		modelDanhSachTop10VPPTrongQuy.addRow(new Object[] {"SPVPP01","Bàn học trẻ em","100","100000","20"});
-		modelDanhSachTop10VPPTrongQuy.addRow(new Object[] {"SPVPP01","Bàn học trẻ em","100","100000","20"});
-		modelDanhSachTop10VPPTrongQuy.addRow(new Object[] {"SPVPP01","Bàn học trẻ em","100","100000","20"});
-		modelDanhSachTop10VPPTrongQuy.addRow(new Object[] {"SPVPP01","Bàn học trẻ em","100","100000","20"});
-		modelDanhSachTop10VPPTrongQuy.addRow(new Object[] {"SPVPP01","Bàn học trẻ em","100","100000","20"});
-		modelDanhSachTop10VPPTrongQuy.addRow(new Object[] {"SPVPP01","Bàn học trẻ em","100","100000","20"});
-		modelDanhSachTop10VPPTrongQuy.addRow(new Object[] {"SPVPP01","Bàn học trẻ em","100","100000","20"});
-		modelDanhSachTop10VPPTrongQuy.addRow(new Object[] {"SPVPP01","Bàn học trẻ em","100","100000","20"});
-		modelDanhSachTop10VPPTrongQuy.addRow(new Object[] {"SPVPP01","Bàn học trẻ em","100","100000","20"});
-		modelDanhSachTop10VPPTrongQuy.addRow(new Object[] {"SPVPP01","Bàn học trẻ em","100","100000","20"});
+
 		tbDanhSachTop10VPPTrongQuy = new MyTable(modelDanhSachTop10VPPTrongQuy);
 		
 		JScrollPane scrollPane_2 = new JScrollPane(tbDanhSachTop10VPPTrongQuy);
@@ -821,31 +811,25 @@ public class GUIThongKe extends JPanel {
 		modelDanhSachSanPhamDoiTra = new DefaultTableModel(
 				new Object[] {"Mã sản phẩm","Tên sản phẩm","giá bán","số lượng đổi trả"}, 0);
 		
-		modelDanhSachSanPhamDoiTra.addRow(new Object[] {"SPS01","Sách giáo khoa","100000","20"});
-		modelDanhSachSanPhamDoiTra.addRow(new Object[] {"SPS02","Sách giáo khoa","100000","20"});
-		modelDanhSachSanPhamDoiTra.addRow(new Object[] {"SPS03","Sách giáo khoa","100000","20"});
-		modelDanhSachSanPhamDoiTra.addRow(new Object[] {"SPS04","Sách giáo khoa","100000","20"});
-		modelDanhSachSanPhamDoiTra.addRow(new Object[] {"SPS05","Sách giáo khoa","100000","20"});
-		modelDanhSachSanPhamDoiTra.addRow(new Object[] {"SPS06","Sách giáo khoa","100000","20"});
-		modelDanhSachSanPhamDoiTra.addRow(new Object[] {"SPS07","Sách giáo khoa","100000","20"});
-		modelDanhSachSanPhamDoiTra.addRow(new Object[] {"SPS08","Sách giáo khoa","100000","20"});
-		modelDanhSachSanPhamDoiTra.addRow(new Object[] {"SPS09","Sách giáo khoa","100000","20"});
 		tbDanhSachSanPhamDoiTra = new MyTable(modelDanhSachSanPhamDoiTra);
 		
 		JScrollPane srcDanhSachSanPhamBiDoiTra = new JScrollPane(tbDanhSachSanPhamDoiTra);
 		srcDanhSachSanPhamBiDoiTra.setBounds(23, 36, 547, 216);
 		panel_9.add(srcDanhSachSanPhamBiDoiTra);
 		
-		JLabel lblNewLabel_8 = new JLabel("Danh sách sản phẩm bị đổi trả");
+		JLabel lblNewLabel_8 = new JLabel("Danh sách sản phẩm bị đổi trả trong năm");
 		lblNewLabel_8.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_8.setBounds(10, 11, 200, 20);
+		lblNewLabel_8.setBounds(10, 11, 318, 20);
 		panel_9.add(lblNewLabel_8);
 		
+		thayDoiDuLieuBangThongKeSanPham();
+		thongKeSanPhamBiDoiTra();
 		//thêm sự kiện
 		cboThongKeTheoTuan.addActionListener(new ControllerThongKe(this));
 		cbThongKeCuaHangTheoQuy.addActionListener(new ControllerThongKe(this));
 		cboThongKeThangCH.addActionListener(new ControllerThongKe(this));
-	
+		cbThongKeSanPhamTrongQuy.addActionListener(new ControllerThongKe(this));
+		cbThongKeTrangThaiSanPham.addActionListener(new ControllerThongKe(this));
 	}
 	//Hàm tạo dữ liệu cho biểu đồ thống kê theo tuần
 	private CategoryDataset  taoBieuDoDoanhThuTuan() {
@@ -893,6 +877,14 @@ public class GUIThongKe extends JPanel {
 	public void thayDoiDuLieuBangVaPanelTrongThangCuaCH() {
 		modelThongKeThanhPhanTrongThang.setRowCount(0);
 		busTK.thongKeCuaHangTrongThang(cboThongKeThangCH.getSelectedItem().toString(), lblSoHoaDonCH , lblTDoanhThuCH, lblSoLuongSPCH, lblSoLuongDDTCH, modelThongKeThanhPhanTrongThang);
+	}
+	//Hàm thêm dữ liệu vào bảng thống kê sản phẩm
+	public void thayDoiDuLieuBangThongKeSanPham() {
+		busTK.ThongKeSanPham(cbThongKeTrangThaiSanPham.getSelectedItem().toString(), cbThongKeSanPhamTrongQuy.getSelectedItem().toString(), modelDanhSachTop10SachTrongQuy, modelDanhSachTop10VPPTrongQuy);
+	}
+	//Hàm thống kê sản phẩm bị đổi trả
+	public void thongKeSanPhamBiDoiTra() {
+		busTK.lay10SPBiDoiTraNhieuNhat(modelDanhSachSanPhamDoiTra, LocalDate.of(LocalDate.now().getYear(),1,1), LocalDate.of(LocalDate.now().getYear(),12,31));
 	}
 	
 }

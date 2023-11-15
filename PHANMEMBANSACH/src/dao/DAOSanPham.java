@@ -5,12 +5,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import bus.BUSDanhMuc;
 import bus.BUSNhaCungCap;
 import connect.ConnectDB;
 import entity.DanhMuc;
+import entity.HoaDon;
 import entity.NhaCungCap;
 import entity.Sach;
 import entity.SanPham;
@@ -84,7 +86,8 @@ public class DAOSanPham {
 				String tg = rs.getString("tacGia");
 				String nhaXB = rs.getString("nhaXuatBan");
 				int namXB = rs.getInt("namXuatBan");
-				sach = new Sach(maSach, tenS, soLuongTon, giaNhap, theLoai, ke, hinhAnh, thue, loiNhuan, trangThai, ncc, tg, nhaXB, namXB);
+				sach = new Sach(maSach, tenS, soLuongTon, giaNhap, theLoai, ke, hinhAnh, thue, loiNhuan, trangThai, ncc,
+						tg, nhaXB, namXB);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -250,7 +253,7 @@ public class DAOSanPham {
 		}
 		return n > 0;
 	}
-	
+
 	public boolean capNhatSoLuongTonSanPham(SanPham sp) {
 		int n = 0;
 		ConnectDB.getInstance();
@@ -267,4 +270,5 @@ public class DAOSanPham {
 		}
 		return n > 0;
 	}
+	
 }

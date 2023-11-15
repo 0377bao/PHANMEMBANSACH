@@ -10,8 +10,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.JTextField;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 
 import customUI.MyTable;
 import ui.GUISanPham;
@@ -45,6 +43,10 @@ public class ControllerSanPham implements ActionListener, MouseListener, KeyList
 			guiSP.xuLyTimKiemSach();
 		} else if (btn.equals("btnTimMaSach")) {
 			guiSP.timSachTheoMa();
+		} else if (btn.equals("btnKiemTraSoLuongSach")) {
+			guiSP.kiemTraSoLuongSach();
+		} else if (btn.equals("btnTimMaNCCSach")) {
+			guiSP.chonNCCSach();
 		} else if (btn.equals("btnXoaTrangVPP")) {
 			guiSP.xoaTrangVPP();
 		} else if (btn.equals("btnTaoMaVPP")) {
@@ -65,6 +67,12 @@ public class ControllerSanPham implements ActionListener, MouseListener, KeyList
 			guiSP.xuLyTimKiemVPP();
 		} else if (btn.equals("btnTimMaVPP")) {
 			guiSP.timVPPTheoMa();
+		} else if (btn.equals("btnKiemTraSoLuongVPP")) {
+			guiSP.kiemTraSoLuongVPP();
+		} else if (btn.equals("btnThemDanhMuc")) {
+			guiSP.themDanhMuc();
+		} else if (btn.equals("btnTimMaNCCVPP")) {
+			guiSP.chonNCCVPP();
 		}
 	}
 
@@ -133,6 +141,12 @@ public class ControllerSanPham implements ActionListener, MouseListener, KeyList
 			guiSP.focusGainedSach();
 		} else if (txt.getName().equals("txtTimKiemVPP")) {
 			guiSP.focusGainedVPP();
+		} else if (txt.getName().equals("txtMaNCCSach")) {
+			guiSP.focusGainedNCCSach();
+		} else if (txt.getName().equals("txtMaNCCVPP")) {
+			guiSP.focusGainedNCCVPP();
+		} else if (txt.getName().equals("txtTheLoaiSach")) {
+			guiSP.focusGainedThueSach();
 		}
 
 	}
@@ -144,6 +158,12 @@ public class ControllerSanPham implements ActionListener, MouseListener, KeyList
 			guiSP.focusLostSach();
 		} else if (txt.getName().equals("txtTimKiemVPP")) {
 			guiSP.focusLostVPP();
+		} else if (txt.getName().equals("txtMaNCCSach")) {
+			guiSP.focusLostNCCSach();
+		} else if (txt.getName().equals("txtMaNCCVPP")) {
+			guiSP.focusLostNCCVPP();
+		} else if (txt.getName().equals("txtTheLoaiSach")) {
+			guiSP.focusLostThueSach();
 		}
 	}
 

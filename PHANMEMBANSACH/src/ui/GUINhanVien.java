@@ -31,6 +31,7 @@ import customUI.MyCombobox;
 import customUI.MyTable;
 import entity.NhanVien;
 import entity.TaiKhoan;
+import javax.swing.JCheckBox;
 
 public class GUINhanVien extends JPanel {
 	private JTextField txtMaNV;
@@ -42,10 +43,12 @@ public class GUINhanVien extends JPanel {
 	private JRadioButton radNam;
 	private JRadioButton radNu;
 	private JComboBox<String> cboChucVu;
+
 	private JLabel lblHinhAnh;
 	private JButton btnHinhAnh;
 	private JButton btnTaoMa;
 	private JTextField txtTimNVTheoMa;
+	private JTextField txtTimTheoSdt_Ten;
 	private JButton btnTimTheoMa;
 	private JButton btnLocGioiTinh;
 	private JButton btnLocChucVu;
@@ -53,6 +56,7 @@ public class GUINhanVien extends JPanel {
 	private JButton btnCapNhatNV;
 	private JButton btnXoaTrang;
 	private JButton btnTaiLai;
+	private JButton btnLocTrangThai;
 	private DefaultTableModel modelNV;
 	private MyTable table;
 	private JScrollPane scr;
@@ -60,12 +64,11 @@ public class GUINhanVien extends JPanel {
 	private JPasswordField txtMatKhau;
 	private MyButton btnTaoTK;
 	private String anh;
+	private JCheckBox chkTrangThai;
 
 	private BUSNhanVien busNhanVien = new BUSNhanVien();
 	private BUSTaiKhoan busTaiKhoan = new BUSTaiKhoan();
-
 	private ArrayList<NhanVien> dsNV = busNhanVien.layDSNhanVien();
-	private JTextField txtTimTheoSdt_Ten;
 
 	public GUINhanVien() {
 		this.setBackground(new Color(255, 255, 255));
@@ -138,7 +141,7 @@ public class GUINhanVien extends JPanel {
 
 		JLabel lblDiaChi = new JLabel("Địa chỉ");
 		lblDiaChi.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblDiaChi.setBounds(30, 325, 45, 15);
+		lblDiaChi.setBounds(247, 325, 45, 15);
 		pnlThongTinNV.add(lblDiaChi);
 
 		txtMaNV = new JTextField();
@@ -175,7 +178,7 @@ public class GUINhanVien extends JPanel {
 
 		txtDiaChi = new JTextField();
 		txtDiaChi.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		txtDiaChi.setBounds(95, 320, 542, 25);
+		txtDiaChi.setBounds(337, 320, 300, 25);
 		pnlThongTinNV.add(txtDiaChi);
 		txtDiaChi.setColumns(10);
 
@@ -207,7 +210,7 @@ public class GUINhanVien extends JPanel {
 
 		btnTaoMa = new MyButton("Tạo mã");
 		btnTaoMa.setForeground(new Color(255, 255, 255));
-		btnTaoMa.setBounds(541, 33, 96, 21);
+		btnTaoMa.setBounds(541, 30, 96, 25);
 		btnTaoMa.setActionCommand("btnTaoMa");
 		pnlThongTinNV.add(btnTaoMa);
 
@@ -336,7 +339,7 @@ public class GUINhanVien extends JPanel {
 		btnLocGioiTinh.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnLocGioiTinh.setForeground(new Color(255, 255, 255));
 		btnLocGioiTinh.setText("Giới tính");
-		btnLocGioiTinh.setBounds(70, 25, 150, 30);
+		btnLocGioiTinh.setBounds(50, 25, 100, 30);
 		btnLocGioiTinh.setActionCommand("btnLocGioiTinh");
 		pnlLocNV.add(btnLocGioiTinh);
 
@@ -346,9 +349,17 @@ public class GUINhanVien extends JPanel {
 		btnLocChucVu.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnLocChucVu.setForeground(new Color(255, 255, 255));
 		btnLocChucVu.setText("Chức vụ");
-		btnLocChucVu.setBounds(290, 25, 150, 30);
+		btnLocChucVu.setBounds(216, 25, 100, 30);
 		btnLocChucVu.setActionCommand("btnLocChucVu");
 		pnlLocNV.add(btnLocChucVu);
+
+		btnLocTrangThai = new MyButton("Lọc theo trạng thái");
+		btnLocTrangThai.setText("Trạng thái");
+		btnLocTrangThai.setForeground(Color.WHITE);
+		btnLocTrangThai.setFont(new Font("Tahoma", Font.BOLD, 13));
+		btnLocTrangThai.setActionCommand("btnLocTrangThai");
+		btnLocTrangThai.setBounds(382, 25, 100, 30);
+		pnlLocNV.add(btnLocTrangThai);
 
 		// tạo bảng
 		JPanel pnlTable = new JPanel();
@@ -378,6 +389,19 @@ public class GUINhanVien extends JPanel {
 		txtSdt.setText("0785498147");
 		txtEmail.setText("abc@gmail.com");
 
+		JLabel lblTrangThai = new JLabel("Trạng thái");
+		lblTrangThai.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblTrangThai.setBounds(30, 325, 80, 15);
+		pnlThongTinNV.add(lblTrangThai);
+
+		chkTrangThai = new JCheckBox("Đang làm");
+		chkTrangThai.setSelected(true);
+		chkTrangThai.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		chkTrangThai.setForeground(new Color(0, 0, 0));
+		chkTrangThai.setBackground(new Color(255, 255, 255));
+		chkTrangThai.setBounds(108, 321, 93, 25);
+		pnlThongTinNV.add(chkTrangThai);
+
 		// sự kiện
 		ActionListener ac = new ControllerNhanVien(this);
 
@@ -389,12 +413,25 @@ public class GUINhanVien extends JPanel {
 		btnXoaTrang.addActionListener(ac);
 		btnLocGioiTinh.addActionListener(ac);
 		btnLocChucVu.addActionListener(ac);
+		btnLocTrangThai.addActionListener(ac);
 		btnTimTheoMa.addActionListener(ac);
 
 		txtTimNVTheoMa.addFocusListener(new ControllerNhanVien(this));
 		table.addMouseListener(new ControllerNhanVien(this));
 		txtTimTheoSdt_Ten.addKeyListener(new ControllerNhanVien(this));
 
+	}
+
+	// lọc nhân viên theo trạng thái
+	public void locNVTheoTrangThai() {
+		String trangThai = null;
+		if (chkTrangThai.isSelected()) {
+			trangThai = "Đang làm";
+		} else {
+			trangThai = "Đã nghỉ";
+		}
+		xoaDuLieuBang();
+		hienThiDS(busNhanVien.locNVTheoTrangThai(trangThai));
 	}
 
 	// tìm nhân viên theo sdt hoặc tên
@@ -430,8 +467,10 @@ public class GUINhanVien extends JPanel {
 		dsNV = busNhanVien.layDSNhanVien();
 		xoaDuLieuBang();
 		hienThiDS(dsNV);
-		txtTimNVTheoMa.setText("");
 		txtTimTheoSdt_Ten.setText("");
+		txtTimNVTheoMa.setFont(new Font("Tahoma", Font.ITALIC, 13));
+		txtTimNVTheoMa.setForeground(Color.GRAY);
+		txtTimNVTheoMa.setText("Nhập mã nhân viên cần tìm");
 	}
 
 	// lọc nhân viên theo chức vụ
@@ -483,14 +522,25 @@ public class GUINhanVien extends JPanel {
 			String chucVu = (String) cboChucVu.getSelectedItem();
 			String cccd = txtCCCD.getText();
 			String hinhAnh = anh;
-			String mk = txtMatKhau.getText();
-			TaiKhoan tk = new TaiKhoan(maNV, mk);
-			NhanVien nv = new NhanVien(maNV, tenNV, sdt, email, gt, diaChi, chucVu, cccd, hinhAnh, tk);
-			if (busNhanVien.suaNhanVien(nv)) {
-				taiLai();
-				JOptionPane.showMessageDialog(this, "Thành công");
+			String trangThai;
+			if (chkTrangThai.isSelected()) {
+				trangThai = "Đang làm";
 			} else {
-				JOptionPane.showMessageDialog(this, "Thất bại");
+				trangThai = "Đã nghỉ";
+			}
+			String mk = txtMatKhau.getText();
+			if (busNhanVien.validData(maNV, tenNV, sdt, email, hinhAnh, diaChi, cccd, mk)) {
+				TaiKhoan tk = new TaiKhoan(maNV, mk);
+				NhanVien nv = new NhanVien(maNV, tenNV, sdt, email, gt, diaChi, chucVu, cccd, hinhAnh, trangThai, tk);
+				if (busNhanVien.suaNhanVien(nv)) {
+					taiLai();
+					xoaTrang();
+					JOptionPane.showMessageDialog(this, "Cập nhật thành công");
+				} else {
+					JOptionPane.showMessageDialog(this, "Không thể cập nhật mã");
+				}
+			} else {
+				JOptionPane.showMessageDialog(this, busNhanVien.mes);
 			}
 		}
 	}
@@ -511,7 +561,13 @@ public class GUINhanVien extends JPanel {
 		String cccd = txtCCCD.getText();
 		String chucVu = (String) cboChucVu.getSelectedItem();
 		String hinhAnh = anh;
-		boolean gt = true;
+		String trangThai;
+		if (chkTrangThai.isSelected()) {
+			trangThai = "Đang làm";
+		} else {
+			trangThai = "Đã nghỉ";
+		}
+		boolean gt;
 		if (radNam.isSelected()) {
 			gt = true;
 		} else {
@@ -520,12 +576,13 @@ public class GUINhanVien extends JPanel {
 		String mk = txtMatKhau.getText();
 		TaiKhoan tk = new TaiKhoan(maNV, mk);
 		if (busNhanVien.validData(maNV, tenNV, sdt, email, hinhAnh, diaChi, cccd, mk)) {
-			NhanVien nv = new NhanVien(maNV, tenNV, sdt, email, gt, diaChi, chucVu, cccd, hinhAnh, tk);
+			NhanVien nv = new NhanVien(maNV, tenNV, sdt, email, gt, diaChi, chucVu, cccd, hinhAnh, trangThai, tk);
 			if (busNhanVien.themNhanVien(nv) && busTaiKhoan.themTaiKhoan(tk)) {
 				taiLai();
-				JOptionPane.showMessageDialog(this, "Thành công");
+				xoaTrang();
+				JOptionPane.showMessageDialog(this, "Thêm thành công");
 			} else {
-				JOptionPane.showMessageDialog(this, "Thất bại - Trùng mã");
+				JOptionPane.showMessageDialog(this, "Thêm thất bại - Mã nhân viên đã tồn tại");
 			}
 		} else {
 			JOptionPane.showMessageDialog(this, busNhanVien.mes);
@@ -581,8 +638,14 @@ public class GUINhanVien extends JPanel {
 			for (NhanVien nv : dsNV) {
 				if (nv.getMaNhanVien().equals(modelNV.getValueAt(r, 0).toString())) {
 					lblHinhAnh.setIcon(new ImageIcon(nv.getHinhAnh()));
+					if (nv.getTrangThai().equals("Đang làm")) {
+						chkTrangThai.setSelected(true);
+					} else {
+						chkTrangThai.setSelected(false);
+					}
 				}
 			}
+			btnTaoMa.setEnabled(false);
 		}
 	}
 
@@ -597,9 +660,13 @@ public class GUINhanVien extends JPanel {
 		txtTenTK.setText("");
 		txtMatKhau.setText("");
 		txtMatKhau.setEditable(true);
+		txtMatKhau.setEnabled(true);
 		radNam.setSelected(true);
 		cboChucVu.setSelectedIndex(0);
 		lblHinhAnh.setIcon(null);
+		anh = null;
+		btnTaoMa.setEnabled(true);
+		chkTrangThai.setSelected(true);
 	}
 
 	public void focusGained() {

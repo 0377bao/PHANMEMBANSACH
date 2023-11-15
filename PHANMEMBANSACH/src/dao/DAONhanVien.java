@@ -33,9 +33,10 @@ public class DAONhanVien {
 				String cCCD = rs.getString("cccd").trim();
 				String hinhAnh = rs.getString("hinhAnh").trim();
 				String matKhau = rs.getString("matKhau").trim();
+				String trangThai = rs.getBoolean("trangThai") ? "Đang làm" : "Đã nghỉ";
 				TaiKhoan tk = new TaiKhoan(maNhanVien, matKhau);
 				NhanVien nv = new NhanVien(maNhanVien, tenNhanVien, sdt, email, gioiTinh, diaChi, chucVu, cCCD, hinhAnh,
-						tk);
+						trangThai, tk);
 				dsNhanVien.add(nv);
 			}
 		} catch (Exception e) {
@@ -48,7 +49,7 @@ public class DAONhanVien {
 	public boolean themNhanVien(NhanVien nv) {
 		ConnectDB.getInstance();
 		Connection con = ConnectDB.getConnection();
-		String sql_nv = "insert into NhanVien values(?,?,?,?,?,?,?,?,?)";
+		String sql_nv = "insert into NhanVien values(?,?,?,?,?,?,?,?,?,?)";
 		int n = 0;
 		try {
 			PreparedStatement stmtNV = con.prepareStatement(sql_nv);
@@ -60,7 +61,8 @@ public class DAONhanVien {
 			stmtNV.setString(6, nv.getChucVu());
 			stmtNV.setString(7, nv.getcCCD());
 			stmtNV.setString(8, nv.getHinhAnh());
-			stmtNV.setString(9, nv.getEmail());
+			stmtNV.setString(9, nv.getTrangThai());
+			stmtNV.setString(10, nv.getEmail());
 			n = stmtNV.executeUpdate();
 		} catch (Exception e) {
 		}
@@ -73,7 +75,7 @@ public class DAONhanVien {
 		Connection con = ConnectDB.getConnection();
 		PreparedStatement ps = null;
 		String sql_nv = "update NhanVien set tenNhanVien = ?, sdt = ?, gioiTinh = ?, diaChi = ?, chucVu = ?, "
-				+ "cccd = ?, hinhAnh = ?, email = ? where maNhanVien = ?";
+				+ "cccd = ?, hinhAnh = ?, email = ?, trangThai = ? where maNhanVien = ?";
 		int n = 0;
 		try {
 			ps = con.prepareStatement(sql_nv);
@@ -85,7 +87,8 @@ public class DAONhanVien {
 			ps.setString(6, nv.getcCCD());
 			ps.setString(7, nv.getHinhAnh());
 			ps.setString(8, nv.getEmail());
-			ps.setString(9, nv.getMaNhanVien());
+			ps.setBoolean(9, nv.getTrangThai().equals("Đang làm") ? true : false);
+			ps.setString(10, nv.getMaNhanVien());
 			n = ps.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -119,7 +122,8 @@ public class DAONhanVien {
 				String hinhAnh = rs.getString("hinhAnh").trim();
 				String email = rs.getString("email").trim();
 				String cccd = rs.getString("cccd").trim();
-				nv = new NhanVien(maNV, tenNV, sdt, email, gioiTinh, diaChi, chucVu, cccd, hinhAnh, tk);
+				String trangThai = rs.getString("trangThai").trim();
+				nv = new NhanVien(maNV, tenNV, sdt, email, gioiTinh, diaChi, chucVu, cccd, hinhAnh, trangThai, tk);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
