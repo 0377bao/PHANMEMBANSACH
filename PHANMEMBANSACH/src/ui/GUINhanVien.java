@@ -43,10 +43,12 @@ public class GUINhanVien extends JPanel {
 	private JRadioButton radNam;
 	private JRadioButton radNu;
 	private JComboBox<String> cboChucVu;
+
 	private JLabel lblHinhAnh;
 	private JButton btnHinhAnh;
 	private JButton btnTaoMa;
 	private JTextField txtTimNVTheoMa;
+	private JTextField txtTimTheoSdt_Ten;
 	private JButton btnTimTheoMa;
 	private JButton btnLocGioiTinh;
 	private JButton btnLocChucVu;
@@ -54,6 +56,7 @@ public class GUINhanVien extends JPanel {
 	private JButton btnCapNhatNV;
 	private JButton btnXoaTrang;
 	private JButton btnTaiLai;
+	private JButton btnLocTrangThai;
 	private DefaultTableModel modelNV;
 	private MyTable table;
 	private JScrollPane scr;
@@ -61,14 +64,11 @@ public class GUINhanVien extends JPanel {
 	private JPasswordField txtMatKhau;
 	private MyButton btnTaoTK;
 	private String anh;
+	private JCheckBox chkTrangThai;
 
 	private BUSNhanVien busNhanVien = new BUSNhanVien();
 	private BUSTaiKhoan busTaiKhoan = new BUSTaiKhoan();
-
 	private ArrayList<NhanVien> dsNV = busNhanVien.layDSNhanVien();
-	private JTextField txtTimTheoSdt_Ten;
-	private JCheckBox chkTrangThai;
-	private MyButton btnLocTrangThai;
 
 	public GUINhanVien() {
 		this.setBackground(new Color(255, 255, 255));

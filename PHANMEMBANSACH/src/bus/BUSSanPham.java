@@ -11,6 +11,7 @@ import dao.DAOSanPham;
 import entity.Sach;
 import entity.SanPham;
 import entity.VanPhongPham;
+import tool.Tools;
 
 public class BUSSanPham {
 	private DAOSanPham daoSP = new DAOSanPham();
@@ -24,10 +25,10 @@ public class BUSSanPham {
 	public void doDuLieuSachVaoBang(DefaultTableModel modelSach) {
 		for (SanPham s : daoSP.layDSSanPham()) {
 			if (s instanceof Sach)
-				modelSach.addRow(
-						new Object[] { s.getMaSanPham(), s.getTenSanPham(), s.getNhaCungCap().getTenNhaCungCap(),
-								((Sach) s).getTacGia(), s.getTheLoai(), ((Sach) s).getNhaXuatBan(),
-								((Sach) s).getNamXuatBan(), s.getKe(), s.getSoLuongTon(), s.getGiaNhap() });
+				modelSach.addRow(new Object[] { s.getMaSanPham(), s.getTenSanPham(),
+						s.getNhaCungCap().getTenNhaCungCap(), ((Sach) s).getTacGia(), s.getTheLoai(),
+						((Sach) s).getNhaXuatBan(), ((Sach) s).getNamXuatBan(), s.getKe(), s.getSoLuongTon(),
+						Tools.dinhDangTien(s.getGiaNhap()) });
 		}
 	}
 
@@ -43,14 +44,19 @@ public class BUSSanPham {
 	}
 
 	// validData sách
-	public boolean validDataSach(String maSanPham, String tenSanPham, String soLuongTon, String giaNhap, String theLoai,
-			String ke, String hinhAnh, String thue, String loiNhuan, String tacGia, String nhaXB, String namXB) {
+	public boolean validDataSach(String maSanPham, String tenSanPham, String ncc, String soLuongTon, String giaNhap,
+			String theLoai, String ke, String hinhAnh, String thue, String loiNhuan, String tacGia, String nhaXB,
+			String namXB) {
 		if (maSanPham.equals("")) {
 			mes = "Vui lòng nhấn chọn Tạo mã";
 			return false;
 		}
 		if (tenSanPham.equals("")) {
 			mes = "Vui lòng nhập tên sản phẩm";
+			return false;
+		}
+		if (ncc.equals("")) {
+			mes = "Vui lòng nhập mã nhà cung cấp";
 			return false;
 		}
 		if (theLoai.equals("")) {
@@ -165,9 +171,9 @@ public class BUSSanPham {
 
 	// thêm sản phẩm
 	public boolean themSanPham(SanPham sp) {
-		if (sp.getMaSanPham().startsWith("SPS"))
+		if (sp.getMaSanPham().startsWith("SPS")) {
 			return daoSP.themSach((Sach) sp);
-		else
+		} else
 			return daoSP.themVanPhongPham((VanPhongPham) sp);
 	}
 
@@ -193,8 +199,10 @@ public class BUSSanPham {
 	// tìm kiếm sản phẩm theo mã
 	public SanPham timKiemSanPham(String maSP) {
 		SanPham sp = null;
-		if(maSP.toUpperCase().startsWith("SPS")) sp = daoSP.timSachTheoMa(maSP);
-		else sp = daoSP.timVanPhongPhamTheoMa(maSP);
+		if (maSP.toUpperCase().startsWith("SPS"))
+			sp = daoSP.timSachTheoMa(maSP);
+		else
+			sp = daoSP.timVanPhongPhamTheoMa(maSP);
 		return sp;
 	}
 
@@ -293,7 +301,7 @@ public class BUSSanPham {
 				modelVPP.addRow(new Object[] { vpp.getMaSanPham(), vpp.getTenSanPham(),
 						vpp.getNhaCungCap().getTenNhaCungCap(), ((VanPhongPham) vpp).getDanhMuc().getTenDanhMuc(),
 						vpp.getTheLoai(), ((VanPhongPham) vpp).getChatLieu(), vpp.getKe(), vpp.getSoLuongTon(),
-						vpp.getGiaNhap() });
+						Tools.dinhDangTien(vpp.getGiaNhap()) });
 		}
 	}
 
@@ -302,7 +310,7 @@ public class BUSSanPham {
 		ArrayList<SanPham> dsVPP = new ArrayList<>();
 		for (SanPham sanPham : daoSP.layDSSanPham()) {
 			if (sanPham instanceof VanPhongPham) {
-				if (sanPham.getSoLuongTon() < 10) {
+				if (sanPham.getSoLuongTon() < 10 && sanPham.getTrangThai().equals("Đang bán")) {
 					dsVPP.add(sanPham);
 				}
 			}
@@ -401,14 +409,18 @@ public class BUSSanPham {
 	}
 
 	// validData vpp
-	public boolean validDataVPP(String maSanPham, String tenSanPham, String soLuongTon, String giaNhap, String theLoai,
-			String ke, String hinhAnh, String thue, String loiNhuan, String chatLieu) {
+	public boolean validDataVPP(String maSanPham, String tenSanPham, String ncc, String soLuongTon, String giaNhap,
+			String theLoai, String ke, String hinhAnh, String thue, String loiNhuan, String chatLieu) {
 		if (maSanPham.equals("")) {
 			mes = "Vui lòng nhấn chọn Tạo mã";
 			return false;
 		}
 		if (tenSanPham.equals("")) {
 			mes = "Vui lòng nhập tên sản phẩm";
+			return false;
+		}
+		if (ncc.equals("")) {
+			mes = "Vui lòng nhập mã nhà cung cấp";
 			return false;
 		}
 		if (ke.equals("")) {
@@ -500,7 +512,7 @@ public class BUSSanPham {
 		}
 		return true;
 	}
-	
+
 	public boolean capNhatSoLuongTonSanPham(SanPham sp) {
 		return daoSP.capNhatSoLuongTonSanPham(sp);
 	}

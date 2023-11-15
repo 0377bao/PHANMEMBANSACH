@@ -1,29 +1,49 @@
 package bus;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
-import connect.ConnectDB;
 import dao.DAODanhMuc;
 import entity.DanhMuc;
 
 public class BUSDanhMuc {
 	DAODanhMuc daoDanhMuc = new DAODanhMuc();
-	// lấy ds danh mục
-		public ArrayList<DanhMuc> layDSDanhMuc() {
-			return daoDanhMuc.layDSDanhMuc();
-		}
-		
-		public DanhMuc timDanhMucTheoMa(String maDanhMuc) {
-			return daoDanhMuc.timDanhMucTheoMa(maDanhMuc);
-		}
+	public String mes;
 
-		// thêm danh mục
-		public boolean taoDanhMuc(DanhMuc dm) {
-			return daoDanhMuc.taoDanhMuc(dm);
+	// lấy ds danh mục
+	public ArrayList<DanhMuc> layDSDanhMuc() {
+		return daoDanhMuc.layDSDanhMuc();
+	}
+
+	public DanhMuc timDanhMucTheoMa(String maDanhMuc) {
+		return daoDanhMuc.timDanhMucTheoMa(maDanhMuc);
+	}
+
+	// thêm danh mục
+	public boolean themDanhMuc(DanhMuc dm) {
+		return daoDanhMuc.taoDanhMuc(dm);
+	}
+
+	// tạo mã
+	public String taoMa() {
+		int max = daoDanhMuc.layDSDanhMuc().size() + 1;
+		return "DM" + max;
+	}
+
+	// validData danh mục
+	public boolean validData(String ma, String ten) {
+		if (ma.equals("")) {
+			mes = "Vui lòng nhấn chọn Tạo mã";
+			return false;
 		}
+		if (ten.equals("")) {
+			mes = "Vui lòng nhập tên danh mục";
+			return false;
+		} else {
+			if (!(ten.matches("^[\\p{L}][\\p{L}/.,' -]+"))) {
+				mes = "Danh mục không chứa ký tự đặc biệt và số";
+				return false;
+			}
+		}
+		return true;
+	}
 }
