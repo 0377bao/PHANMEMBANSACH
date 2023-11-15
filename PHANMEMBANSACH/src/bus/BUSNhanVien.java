@@ -1,11 +1,16 @@
 package bus;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.swing.table.DefaultTableModel;
 
+import connect.ConnectDB;
 import dao.DAONhanVien;
 import entity.NhanVien;
 
@@ -167,5 +172,12 @@ public class BUSNhanVien {
 			ds.addAll(dsNV);
 		}
 	}
+	
+	public String layEmailNhanVienTheoMa(String maNV) {
+		return daoNhanVien.layEmailNhanVienTheoMa(maNV);
+	}
 
+	public boolean capNhatMatKhauNV(String nv, String matKhau) {
+		return daoNhanVien.capNhatMatKhauNV(nv, matKhau);
+	}
 }

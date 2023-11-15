@@ -5,11 +5,11 @@ import java.awt.event.ActionListener;
 
 import ui.TrangChu;
 
-public class XuLyDieuHuongPhamMem implements ActionListener {
+public class ControllerTrangChu implements ActionListener {
 
 	private TrangChu view;
 	
-	public XuLyDieuHuongPhamMem(TrangChu view) {
+	public ControllerTrangChu(TrangChu view) {
 		this.view = view;
 	}
 	

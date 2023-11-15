@@ -1073,6 +1073,7 @@ public class GUISanPham extends JPanel {
 		txtNhaXB.setText("");
 		txtNamXB.setText("");
 		lblHinhAnhSach.setIcon(null);
+		anh = null;
 		cboNhaCungCapSach.setSelectedIndex(0);
 		chkTrangThaiSach.setSelected(true);
 	}

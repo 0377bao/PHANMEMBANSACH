@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 
 
 import bus.BUSHoaDon;
-import controller.XuLyDieuHuongPhamMem;
+import controller.ControllerTrangChu;
 import customUI.ButtonSidebar;
 import customUI.CustumImage;
 import entity.HoaDon;
@@ -172,7 +172,7 @@ public class TrangChu extends JFrame {
 		pnlSideBar.add(btnHoTro);
 
 //		phần thêm sự kiện cho các nút điều hướng
-		XuLyDieuHuongPhamMem xuLyDieuHuong = new XuLyDieuHuongPhamMem(this);
+		ControllerTrangChu xuLyDieuHuong = new ControllerTrangChu(this);
 		btnTrangChu.addActionListener(xuLyDieuHuong);
 		btnBanHang.addActionListener(xuLyDieuHuong);
 		btnGiaoHang.addActionListener(xuLyDieuHuong);

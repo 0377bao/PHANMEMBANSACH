@@ -127,7 +127,7 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
 	private ArrayList<HoaDon> dsHoaDon = busHoaDon.layHetDSHoaDon();
 	private NhanVien nhanVienBanHang = null;
 	private HoaDon hoaDonHienTai = null;
-	private KhachHang khachHang = busKhachHang.timKhachHangTheoMa("KH1");
+	private KhachHang khachHang = busKhachHang.timKhachHangTheoMa("KH0");
 	private ChuongTrinhKhuyenMai ctkmCuaHoaDon = busCTKM.timChuongTrinhKhuyenMaiDangApDung();
 	private SanPham sanPhamTim = null;
 	private JLabel lblMaHoaDon;
@@ -817,7 +817,7 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
 		lblDanhSchHa.setBounds(10, 10, 137, 20);
 		pnlQLHDDSHoaDon.add(lblDanhSchHa);
 
-		String[] colsHoaDon = {"Mã hóa đơn", "Tổng tiền", "Thanh toán", "Tiền khách trả", "Tiền thừa", "Phương thức thanh toán", "Ngày lập hóa đơn", "Mã NV", "Tên NV", "Tên KH", "SDT KH", "Ghi chú"};
+		String[] colsHoaDon = {"Mã hóa đơn", "Tổng tiền", "Thanh toán", "Tiền khách trả", "Tiền thừa", "Phương thức thanh toán", "Ngày lập hóa đơn", "Tên CTKM", "Mã NV", "Tên NV", "Tên KH", "SDT KH", "Ghi chú"};
 		modelHoaDon = new DefaultTableModel(colsHoaDon, 0);
 		tableHoaDon = new MyTable(modelHoaDon);
 		tableHoaDon.setName("tableHoaDon");
@@ -1019,6 +1019,7 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
 		lblMaKhachHang.setText(khachHang.getMaKhachHang());
 		lblTenKhachHang.setText(khachHang.getTenKhachHang());
 		lblDiemTichLuy.setText(khachHang.getDiemTichLuy() + "");
+		
 	}
 
 	public void capNhatGioHang() {
@@ -1079,6 +1080,7 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
 			this.capNhatThongTinKhachHangGiaoDien();
 			int rowTableHDCSelected = tableHoaDonCho.getSelectedRow();
 			modelHoaDonCho.setValueAt(khachHang.getTenKhachHang(), rowTableHDCSelected, 3);
+			modelHoaDonCho.setValueAt(khachHang.getSdt(), rowTableHDCSelected, 4);
 			cbbDiemGiamGia.removeAllItems();
 			for(int i = 0; i <= khachHang.getDiemTichLuy() / 5; i++) {
 				cbbDiemGiamGia.addItem(5 * i);
@@ -1221,6 +1223,7 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
 								busSanPham.capNhatSoLuongTonSanPham(spCapNhat);
 							}
 						}
+						xuLyTaiLaiHoaDon();
 						int luaChon = JOptionPane.showConfirmDialog(this, "Thanh toán thành công và xuất hóa đơn. Bạn có muốn chuyển hóa đơn thành đơn giao hàng không?", ghiChu, JOptionPane.YES_NO_OPTION);
 						if(luaChon == 0) {
 							view.chuyenHoaDonQuaGiaoHang(hoaDonHienTai);
@@ -1309,6 +1312,7 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
 					Tools.dinhDangTien(hoaDon.tinhTienThua()),
 					hoaDon.getHinhThucThanhToan(),
 					hoaDon.getNgayLap(),
+					hoaDon.getCtkm().getTenCTKM(),
 					hoaDon.getNhanVien().getMaNhanVien(),
 					hoaDon.getNhanVien().getTenNhanVien(),
 					hoaDon.getKhachHang().getTenKhachHang(),

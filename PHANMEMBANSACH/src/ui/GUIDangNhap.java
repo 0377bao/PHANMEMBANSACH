@@ -20,7 +20,7 @@ import javax.swing.border.EmptyBorder;
 
 import bus.BUSNhanVien;
 import bus.BUSTaiKhoan;
-import controller.XuLyDangNhap;
+import controller.ControllerDangNhap;
 import customUI.CustumImage;
 import customUI.MyButton;
 
@@ -113,6 +113,7 @@ public class GUIDangNhap extends JFrame {
 		pnlContent.add(txtMatKhau);
 
 		btnQuenMatKhau = new MyButton("Quên mật khẩu?");
+		btnQuenMatKhau.setActionCommand("btnQuenMatKhau");
 		btnQuenMatKhau.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnQuenMatKhau.setBounds(508, 273, 136, 25);
 		pnlContent.add(btnQuenMatKhau);
@@ -127,8 +128,9 @@ public class GUIDangNhap extends JFrame {
 		this.setComponentZOrder(lblBgrDangNhap, 1);
 
 		// Thêm sự kiện
-		ActionListener ac = new XuLyDangNhap(this);
+		ActionListener ac = new ControllerDangNhap(this);
 		btnDangNhap.addActionListener(ac);
+		btnQuenMatKhau.addActionListener(ac);
 	}
 
 	public void xuLyDangNhap() {
@@ -148,6 +150,20 @@ public class GUIDangNhap extends JFrame {
 
 			} else {
 				JOptionPane.showMessageDialog(this, "Tài khoản hoặc mật khẩu không chính xác");
+			}
+		}
+	}
+	
+	public void xuLyQuenMatKhau() {
+		String taiKhoan = txtTenDangNhap.getText();
+		if(taiKhoan.trim().equals("")) {
+			JOptionPane.showMessageDialog(this, "Vui lòng nhập tên tài khoản quên mật khẩu");
+		} else {
+			String email = busNhanVien.layEmailNhanVienTheoMa(taiKhoan);
+			if(email == null) JOptionPane.showMessageDialog(this, "Mã nhân viên không tồn tại");
+			else {
+				new GUIQuenMatKhauNhapMa(taiKhoan, email).setVisible(true);;
+				this.setVisible(false);
 			}
 		}
 	}
