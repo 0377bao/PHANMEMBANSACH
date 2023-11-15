@@ -72,9 +72,10 @@ public class GUIGiaoHang extends JPanel implements MouseListener{
         private JTextField txtSDTQL;
         private JTextField txtTenKhachHangQL;
         private HoaDon hd;
-        private JTextArea txtArea;
         private JTabbedPane tabbedPane;
         private BUSGiaoHang busGiaoHang = new BUSGiaoHang();
+        private int soKgTemp = 0;
+        private float soKmTemp = 0;
 		public GUIGiaoHang(HoaDon HD) {
 			this.hd = HD;
 			this.setBackground(new Color(255, 255, 255));
@@ -135,24 +136,28 @@ public class GUIGiaoHang extends JPanel implements MouseListener{
 			panel_3.add(lblPTTT);
 			
 			txtMaDonHang = new JTextField();
+			txtMaDonHang.setBackground(new Color(255, 255, 255));
 			txtMaDonHang.setEditable(false);
 			txtMaDonHang.setBounds(173, 34, 200, 20);
 			panel_3.add(txtMaDonHang);
 			txtMaDonHang.setColumns(10);
 			
 			txtMaHoaDon = new JTextField();
+			txtMaHoaDon.setBackground(new Color(255, 255, 255));
 			txtMaHoaDon.setEditable(false);
 			txtMaHoaDon.setBounds(173, 64, 200, 20);
 			panel_3.add(txtMaHoaDon);
 			txtMaHoaDon.setColumns(10);
 			
 			txtNgayLap = new JTextField();
+			txtNgayLap.setBackground(new Color(255, 255, 255));
 			txtNgayLap.setEditable(false);
 			txtNgayLap.setBounds(173, 96, 200, 20);
 			panel_3.add(txtNgayLap);
 			txtNgayLap.setColumns(10);
 			
 			txtTenNVLapHD = new JTextField();
+			txtTenNVLapHD.setBackground(new Color(255, 255, 255));
 			txtTenNVLapHD.setEditable(false);
 			txtTenNVLapHD.setBounds(173, 128, 200, 20);
 			panel_3.add(txtTenNVLapHD);
@@ -172,45 +177,36 @@ public class GUIGiaoHang extends JPanel implements MouseListener{
 			panel_4.setLayout(null);
 			
 			JLabel lblTenKhachHang = new JLabel("Tên khách hàng");
-			lblTenKhachHang.setBounds(22, 36, 103, 17);
+			lblTenKhachHang.setBounds(22, 39, 103, 17);
 			panel_4.add(lblTenKhachHang);
 			
 			JLabel lblDiaChi = new JLabel("Địa chỉ");
-			lblDiaChi.setBounds(22, 100, 46, 17);
+			lblDiaChi.setBounds(22, 129, 46, 17);
 			panel_4.add(lblDiaChi);
 			
 			JLabel lblSDT = new JLabel("SĐT");
-			lblSDT.setBounds(22, 67, 46, 17);
+			lblSDT.setBounds(22, 84, 46, 17);
 			panel_4.add(lblSDT);
-			
-			JLabel lblGhiChu = new JLabel("Ghi chú");
-			lblGhiChu.setBounds(22, 136, 46, 17);
-			panel_4.add(lblGhiChu);
 			
 			JLabel lblNewLabel_4 = new JLabel("Thông tin khách hàng");
 			lblNewLabel_4.setForeground(new Color(255, 128, 0));
 			lblNewLabel_4.setBounds(150, 6, 160, 17);
 			panel_4.add(lblNewLabel_4);
 			
-			txtArea = new JTextArea();
-			txtArea.setEditable(false);
-			txtArea.setBackground(new Color(192, 192, 192));
-			txtArea.setBounds(133, 137, 240, 49);
-			panel_4.add(txtArea);
-			
 			txtDiaChi = new JTextField();
+			txtDiaChi.setBackground(new Color(255, 255, 255));
 			txtDiaChi.setEditable(false);
-			txtDiaChi.setBounds(133, 97, 240, 20);
+			txtDiaChi.setBounds(133, 128, 240, 20);
 			panel_4.add(txtDiaChi);
 			txtDiaChi.setColumns(10);
 			
 			txtSDT = new JTextField();
-			txtSDT.setBounds(133, 64, 240, 20);
+			txtSDT.setBounds(133, 83, 240, 20);
 			panel_4.add(txtSDT);
 			txtSDT.setColumns(10);
 			
 			txtTenKhachHang = new JTextField();
-			txtTenKhachHang.setBounds(133, 33, 240, 20);
+			txtTenKhachHang.setBounds(133, 38, 240, 20);
 			panel_4.add(txtTenKhachHang);
 			txtTenKhachHang.setColumns(10);
 			
@@ -255,12 +251,14 @@ public class GUIGiaoHang extends JPanel implements MouseListener{
 			txtSoKG.setColumns(10);
 			
 			txtSoKM = new JTextField();
+			txtSoKM.setBackground(new Color(255, 255, 255));
 			txtSoKM.setEditable(false);
 			txtSoKM.setBounds(117, 66, 97, 20);
 			panel_5.add(txtSoKM);
 			txtSoKM.setColumns(10);
 			
 			txtChaHonThnh = new JTextField();
+			txtChaHonThnh.setBackground(new Color(255, 255, 255));
 			txtChaHonThnh.setEditable(false);
 			txtChaHonThnh.setText("Chưa hoàn thành");
 			txtChaHonThnh.setBounds(117, 107, 256, 20);
@@ -367,11 +365,9 @@ public class GUIGiaoHang extends JPanel implements MouseListener{
 //			model.addRow(new Object[] {"DGH1", "Trần Quang", "18/10/2023", "Trần Hữu Danh", "Tây Thạnh Tân Phú Tp.Hồ Chí Minh", "0332966175", "5","25.000", "Chưa hoàn thành"});
 			loaddulieulentable(modelDonHang);
 			tbDonHang = new MyTable(modelDonHang);
-			tbDonHang.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-			
-			for (int i = 0 ; i < tbDonHang.getColumnCount() ; i++) {
-				tbDonHang.getColumnModel().getColumn(i).setPreferredWidth(250);
-			}
+			tbDonHang.setAutoResizeMode(JTable.AUTO_RESIZE_OFF); 
+			xetKichThuocChoTable(tbDonHang);
+		   
 			
 			JScrollPane scrollPane = new JScrollPane(tbDonHang, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 			scrollPane.setBounds(10, 429, 1220, 280);
@@ -447,9 +443,9 @@ public class GUIGiaoHang extends JPanel implements MouseListener{
 //			modelQLDonHangHT.addRow(new Object[] {"DGH1", "Trần Quang", "18/10/2023", "Trần Hữu Danh", "Tây Thạnh Tân Phú Tp.Hồ Chí Minh", "0332966175", "5","25.000", "Hoàn thành"});
 //			modelQLDonHangHT.addRow(new Object[] {"DGH1", "Trần Quang", "18/10/2023", "Trần Hữu Danh", "Tây Thạnh Tân Phú Tp.Hồ Chí Minh", "0332966175", "5","25.000", "Hoàn thành"});
 		    tbTabQLDonHang.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		    for(int i = 0 ; i < tbTabQLDonHang.getColumnCount() ; i++) {
-		    	tbTabQLDonHang.getColumnModel().getColumn(i).setPreferredWidth(250);
-		    }
+ 
+		    xetKichThuocChoTable(tbTabQLDonHang);
+		    
 			
 			scrollPaneQLGH = new JScrollPane(tbTabQLDonHang, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 			scrollPaneQLGH.setBounds(10, 204, 1220, 546);
@@ -543,6 +539,26 @@ public class GUIGiaoHang extends JPanel implements MouseListener{
 			txtMaDonHangQL.addKeyListener(key);
 			txtSDTQL.addKeyListener(key);
 			txtTenKhachHangQL.addKeyListener(key);
+			txtSoKG.addKeyListener(new KeyListener() {
+				
+				@Override
+				public void keyTyped(KeyEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void keyReleased(KeyEvent e) {
+					// TODO Auto-generated method stub
+					tinhThanhTienDH();
+				}
+				
+				@Override
+				public void keyPressed(KeyEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
 	}
 		
 		public void XuLyKhiCoDonHang() {
@@ -562,31 +578,33 @@ public class GUIGiaoHang extends JPanel implements MouseListener{
 			if(index == 0) {
 				modelQLDonHangHT.setRowCount(0);
 				loaddulieulentableTabQL(modelQLDonHangHT, new BUSGiaoHang().layDSDonGiaoHang());
-				
 				tbTabQLDonHang.setModel(modelQLDonHangHT);
-				tbTabQLDonHang.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-			    for(int i = 0 ; i < tbTabQLDonHang.getColumnCount() ; i++) {
-			    	
-			    	tbTabQLDonHang.getColumnModel().getColumn(i).setPreferredWidth(250);
-			    }  
+				xetKichThuocChoTable(tbTabQLDonHang);
+			   
 			}
 			if(index == 1) {
 				modelQLDonHangCHT.setRowCount(0);
 				loaddulieulentableTabQL(modelQLDonHangCHT, new BUSGiaoHang().layDSDonGiaoHang());
 				tbTabQLDonHang.setModel(modelQLDonHangCHT);
 				tbTabQLDonHang.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-			    for(int i = 0 ; i < tbTabQLDonHang.getColumnCount() ; i++) {
-			    	tbTabQLDonHang.getColumnModel().getColumn(i).setPreferredWidth(250);
+				tbTabQLDonHang.getColumnModel().getColumn(0).setPreferredWidth(100);
+				tbTabQLDonHang.getColumnModel().getColumn(1).setPreferredWidth(100);
+				tbTabQLDonHang.getColumnModel().getColumn(2).setPreferredWidth(200);
+				tbTabQLDonHang.getColumnModel().getColumn(3).setPreferredWidth(80);
+				tbTabQLDonHang.getColumnModel().getColumn(4).setPreferredWidth(250);
+				tbTabQLDonHang.getColumnModel().getColumn(5).setPreferredWidth(300);
+			    for(int i = 6 ; i < tbTabQLDonHang.getColumnCount() - 1 ; i++) {
+			    	tbTabQLDonHang.getColumnModel().getColumn(i).setPreferredWidth(120);
 			    }  
+			    tbTabQLDonHang.getColumnModel().getColumn(10).setPreferredWidth(300);
 			}
 		}
 		
-		
+		// xử lý các thao tác trên đơn giao hàng
 	    public void XuLyDonHang(String src) {
 	    	if(src.equals("Tạo đơn hàng")) {
-	    		int sokg = 0;
-	    		float soKm = 0;
-	    		int flag = 1;
+	    		int sokg = soKgTemp;
+	    		float soKm = soKmTemp;
 	    		String maDonHang = txtMaDonHang.getText();
 	    		String maHoaDon = txtMaHoaDon.getText();
                 hd = new BUSHoaDon().timHoaDonTheoMa(maHoaDon);
@@ -595,66 +613,30 @@ public class GUIGiaoHang extends JPanel implements MouseListener{
 	    		String sdt = txtSDT.getText();
 	    		String tenKhachHang = txtTenKhachHang.getText();
 	    		String diaChi = txtDiaChi.getText();
-	    		String ghiChu = txtArea.getText();
-	    		
-	    		if(maDonHang.equals("")) {
-	    			JOptionPane.showMessageDialog(this, "Vui lòng tạo mã đơn hàng trước");
-	    			flag = 0;
-	    			return;
-	    		}
-	    		
-	    		if(tenKhachHang.equals("")) {
-	    			JOptionPane.showMessageDialog(this, "Vui lòng nhập tên khách hàng");
-	    			flag = 0;
-	    			return;
-	    		}
-	    		
-	    		if(sdt.equals("")) {
-	    			JOptionPane.showMessageDialog(this, "Vui lòng nhập số điện thoại để liên lạc nhận hàng");
-	    			flag = 0;
-	    			return;
-	    		}
-	    		
-	    		if(txtSoKG.getText().equals("")) {
-	    			JOptionPane.showMessageDialog(this, "Vui lòng nhập số kg");
-	    			flag = 0;
-	    			return;
-	    		}else {
-	    			try {
-	    				sokg = Integer.parseInt(txtSoKG.getText());
-	    			}catch(Exception e) {
-	    				JOptionPane.showMessageDialog(this, "Số kg không được là chữ");
-	    				return;
-	    			}
-	    			
-	    		}
-	    		
-	    		if(txtSoKM.getText().equals("")) {
-	    			JOptionPane.showMessageDialog(this, "Vui lòng tính khoảng cách để thông báo phí vận chuyển");
-	    			flag = 0;
-	    			return;
-	    		}else {
-	    			soKm = Float.parseFloat(txtSoKM.getText());	
-	    		}
-
+                String ghiChu = "";
 	    		String temp = txtThanhTien.getText().replace(',', ' ');
 	    		float tienVanChuyen = Float.parseFloat(temp.substring(0, temp.length() - 3).replaceAll(" ", ""));
 	    	    boolean trangThai = txtChaHonThnh.getText().equals("Chưa hoàn thành") ? false : true;
 	    	    DonGiaoHang dgh = new DonGiaoHang(maDonHang, tenKhachHang, sdt, diaChi, sokg, trangThai, ghiChu, tienVanChuyen,phuongThucThanhToan, hd);
 	    	    dgh.tinhSoKm(soKm);
-	    	    if(flag == 1) {
-	    	    	if(busGiaoHang.validateDuLieu(dgh)) {
-		    	    	if(busGiaoHang.themDonHangMoi(dgh)) {
-			    			modelDonHang.setRowCount(0);
-			    			loaddulieulentable(modelDonHang);
-			    			JOptionPane.showMessageDialog(this, "Tạo đơn hàng thành công");
-			    			xoaTrangThongTinDonHang();
-			    		}else {
-			    			JOptionPane.showMessageDialog(this, "Tạo đơn hàng thất bại");
-			    		}
-		    	    }else {
-		    	    	JOptionPane.showMessageDialog(this, busGiaoHang.getMessgage());
-		    	    }
+	    	    if(busGiaoHang.validateDuLieu(maDonHang,tenKhachHang, sdt, txtSoKG, txtSoKM)) {
+	    	    	String text = kiemTraHoaDonDaGiaoChua();
+	    	    	if(!text.equals("")) {
+	    	    		JOptionPane.showMessageDialog(this, text);
+	    	    		btnTaoDonHang.setEnabled(false);
+	    	    		return;
+	    	    	}
+	    	    	if(busGiaoHang.themDonHangMoi(dgh)) {
+		    			modelDonHang.setRowCount(0);
+		    			loaddulieulentable(modelDonHang);
+		    			JOptionPane.showMessageDialog(this, "Tạo đơn hàng thành công");
+		    			xoaTrangThongTinDonHang();
+		    			btnTaoDonHang.setEnabled(false);;
+		    		}else {
+		    			JOptionPane.showMessageDialog(this, "Tạo đơn hàng thất bại");
+		    		}
+	    	    }else {
+	    	    	JOptionPane.showMessageDialog(this, busGiaoHang.getMessgage());
 	    	    }
 	    	    
 	    		
@@ -767,13 +749,17 @@ public class GUIGiaoHang extends JPanel implements MouseListener{
 	    	}
 	    }
 	    
-	    public void tinhThanhTienDH(String txtDH) {
+	    public void tinhThanhTienDH() {
+	    	
 	    	if(txtSoKG.getText().equals("") == false && txtSoKM.getText().equals("") == false) {
-    			DonGiaoHang dh = new DonGiaoHang(txtDH, hd);
-    			dh.tinhSoKm(Float.parseFloat(txtSoKM.getText()));
+    			DonGiaoHang dh = new DonGiaoHang(txtMaDonHang.getText(), hd);
+    			soKgTemp = Integer.parseInt(txtSoKG.getText());
+    			soKmTemp = Float.parseFloat(txtSoKM.getText());
+    			dh.tinhSoKm(soKmTemp);
+    			dh.setSoKg(soKgTemp);
     			float result = dh.tinhTienVanChuyen();
     			if(result == -1) {
-    				JOptionPane.showMessageDialog(this, "Số kg đơn hàng dưới mức quy định nên không giao hàng");
+    				JOptionPane.showMessageDialog(this, "Số kilomet trên mức quy định nên không giao hàng");
     			}else if(result == 0){
     				JOptionPane.showMessageDialog(this, "Đơn hàng được vận chuyển miễn phí");
     				txtThanhTien.setText(new Tools().dinhDangTien(result) + "");
@@ -999,6 +985,21 @@ public class GUIGiaoHang extends JPanel implements MouseListener{
 	        ds.clear();
 	        ds.addAll(temp);
 	    }
+	    
+	    public void xetKichThuocChoTable(MyTable tb) {
+	    	tb.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+	    	tb.getColumnModel().getColumn(0).setPreferredWidth(100);
+	    	tb.getColumnModel().getColumn(1).setPreferredWidth(100);
+	    	tb.getColumnModel().getColumn(2).setPreferredWidth(180);
+	    	tb.getColumnModel().getColumn(3).setPreferredWidth(80);
+	    	tb.getColumnModel().getColumn(4).setPreferredWidth(180);
+	    	tb.getColumnModel().getColumn(5).setPreferredWidth(300);
+	    	tb.getColumnModel().getColumn(6).setPreferredWidth(100);
+	    	tb.getColumnModel().getColumn(7).setPreferredWidth(80);
+	    	tb.getColumnModel().getColumn(8).setPreferredWidth(120);
+	    	tb.getColumnModel().getColumn(9).setPreferredWidth(150); 
+		   
+	    }
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
@@ -1016,6 +1017,30 @@ public class GUIGiaoHang extends JPanel implements MouseListener{
 			txtSoKG.setText(dgh.getSoKg() + "");
 			txtSoKM.setText(dgh.getSoKm() + "");
 			txtThanhTien.setText(new Tools().dinhDangTien(dgh.getTienVanChuyen()));
+		}
+		
+		public String kiemTraHoaDonDaGiaoChua() {
+			ArrayList<DonGiaoHang> ds = busGiaoHang.layDSDonHangDangGiao();
+			ArrayList<DonGiaoHang> ds1 = busGiaoHang.layDSDonHangBiHuy();
+			ArrayList<DonGiaoHang> ds2 = busGiaoHang.layDSDonHangGiaoThanhCong();
+			for(DonGiaoHang dgh : ds) {
+				if(dgh.getHoaDon().getMaHoaDon().equals(hd.getMaHoaDon())) {
+					return "Hóa đơn này đang được giao";
+				}
+			}
+			
+			for(DonGiaoHang dgh : ds1) {
+				if(dgh.getHoaDon().getMaHoaDon().equals(hd.getMaHoaDon())) {
+					return "Hóa đơn này đã thuộc đơn hàng bị hủy, không cho phép tạo lại đơn mới";
+				}
+			}
+			
+			for(DonGiaoHang dgh : ds2) {
+				if(dgh.getHoaDon().getMaHoaDon().equals(hd.getMaHoaDon())) {
+					return "Hóa đơn này đã giao thành công. Vui lòng chọn hóa đơn khác";
+				}
+			}
+			return "";
 		}
 
 		@Override

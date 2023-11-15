@@ -38,18 +38,58 @@ public class BUSKhachHang {
     	return daoKhachHang.layDSKhachHang();
     }
     
-    public boolean themKhachHang(KhachHang kh) {
-    	return daoKhachHang.themKhachHang(kh);
+    public String themKhachHang(KhachHang kh) {
+    	String message = kiemTraThongTinKhachHangHopLe(kh);
+    	if(message.equals("success")) {
+    		if(daoKhachHang.themKhachHang(kh)) {
+    			message = "Thêm khách hàng thành công";
+    		} else {
+    			message = "Thêm không thành công vì mã khách hàng đã tồn tại";
+    		}
+    	}
+    	return message;
     }
     
-    public boolean capNhatThongTinKhachHang(KhachHang kh) {
-    	return daoKhachHang.capNhatThongTinKhachHang(kh);
+    public String capNhatThongTinKhachHang(KhachHang kh) {
+    	String message = kiemTraThongTinKhachHangHopLe(kh);
+    	if(message.equals("success")) {
+    		if(daoKhachHang.capNhatThongTinKhachHang(kh)) {
+    			message = "Cập nhật khách hàng thành công";
+    		} else {
+    			message = "Cập nhật không thành công vì mã khách hàng không tồn tại";
+    		}
+    	}
+    	return message;
     }
     public KhachHang timKhachHangTheoSDT(String sdtkh) {
     	return daoKhachHang.timKhachHangTheoSDT(sdtkh);
     }
     
-    public int kiemTraThongTinKhachHangHopLe(KhachHang kh) {
+    public ArrayList<KhachHang> locKhachHang(String tenTim, String sdtTim) {
+    	ArrayList<KhachHang> ds = new ArrayList<>();
+    	for (KhachHang kh : this.layDSKhachHang()) {
+    		Pattern pTen = Pattern.compile(tenTim,Pattern.CASE_INSENSITIVE);
+			Matcher mTen = pTen.matcher(kh.getTenKhachHang());
+			if(mTen.find()) {
+				ds.add(kh);
+			}
+		}
+    	ArrayList<KhachHang> result = new ArrayList<>();
+    	for (KhachHang kh : ds) {
+    		Pattern pSDT = Pattern.compile(sdtTim);
+    		Matcher mSDT = pSDT.matcher(kh.getSdt());
+    		if(mSDT.find()) {
+    			result.add(kh);
+    		}
+    	}
+    	return result;
+    }
+    
+    public boolean capNhatDiemTichLuyKhachHang(KhachHang kh) {
+    	return daoKhachHang.capNhatDiemTichLuyKhachHang(kh);
+    }
+    
+    public String kiemTraThongTinKhachHangHopLe(KhachHang kh) {
         Pattern tenKH = Pattern.compile("^[\\p{L} ]+$");
         Matcher matchTenKh = tenKH.matcher(kh.getTenKhachHang());
         Pattern sdt = Pattern.compile("^(09|08|07|05|03)\\d{8}$");
@@ -57,23 +97,20 @@ public class BUSKhachHang {
         Pattern email = Pattern.compile("^(\\w)+\\@gmail.com$");
         Matcher matchEmail = email.matcher(kh.getEmail());
         // các trường hợp thông tin không hợp lệ, đưa ra message ngoài gui
+        if(kh.getTenKhachHang().trim().equals("")) return "Tên khách hàng không được để trống";
         if(!matchTenKh.find()) {
-        	return 1;
+        	return "Tên khách hàng chỉ chứa chữ và khoảng trắng";
         }
+        if(kh.getSdt().trim().equals("")) return "SDT khách hàng không được để trống";
         if(!matchSdt.find()) {
-        	return 2;
+        	return "Số điện thoại phải có 10 kí tự và bắt đầu bằng (09, 08, 07, 05, 03)";
         }
+        if(kh.getEmail().trim().equals("")) return "Email khách hàng không được để trống";
         if(!matchEmail.find()) {
-        	return 3;
-        }
-        if(kh.getDiemTichLuy() < 0) {
-        	return 4;
-        }
-        if(kh.getTongTienMua() < 0) {
-        	return 5;
+        	return "Email khách hàng không hợp lệ";
         }
         // thông tin hợp lệ
-        return 0;
+        return "success";
     }
     
     public ArrayList<HoaDon> layLichSuGiaoDichKhachHang(String maKH) {
@@ -81,7 +118,7 @@ public class BUSKhachHang {
     }
     
     public String taoMaKhachHang() {
-    	return "KH" + daoKhachHang.getMaKhachHangMax();
+    	return "KH" + (daoKhachHang.getMaKhachHangMax() + 1);
     }
     
     public void sapXepTheoTongTienMua(MyTable tb, DefaultTableModel model) {
@@ -104,5 +141,17 @@ public class BUSKhachHang {
     
     public KhachHang timKhachHangTheoMa(String maKH) {
     	return daoKhachHang.timKhachHangTheoMa(maKH);
+    }
+    
+    public ArrayList<KhachHang> sapXepTheoTongTien(ArrayList<KhachHang> ds) {
+    	Collections.sort(ds, new Comparator<KhachHang>() {
+            @Override
+            public int compare(KhachHang o1, KhachHang o2) {
+            	Float tongTien1 = o1.getTongTienMua();
+            	Float tongTien2 = o2.getTongTienMua();
+                return tongTien2.compareTo(tongTien1);
+            }
+        });
+    	return ds;
     }
 }

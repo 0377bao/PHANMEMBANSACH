@@ -80,18 +80,6 @@ public class GUIMap extends JFrame {
 	private ArrayList resultRoutig = new ArrayList<>();
 	private GUIGiaoHang guiGH;
     private GUIMap frame;
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					GUIMap frame = new GUIMap();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
 
 	public GUIMap(GUIGiaoHang gh) {
 		frame = this;
@@ -239,7 +227,7 @@ public class GUIMap extends JFrame {
 				guiGH.hoanThanhKM(textField_1.getText());
 				guiGH.layDiaChi(textField.getText());
                 guiGH.kiemTraDeDongMap(e.getActionCommand(), frame);
-                guiGH.tinhThanhTienDH(getName());
+                guiGH.tinhThanhTienDH();
 			}
 		});
 		btnHoanTat.setFont(new Font("Tahoma", Font.BOLD, 14));

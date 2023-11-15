@@ -93,9 +93,8 @@ public class GUIDangNhap extends JFrame {
 
 		txtTenDangNhap = new JTextField();
 		txtTenDangNhap.setFont(new Font("Tahoma", Font.BOLD, 13));
-		txtTenDangNhap.setText("NV1");
+		txtTenDangNhap.setText("NV10");
 		txtTenDangNhap.setBounds(327, 145, 317, 30);
-		txtTenDangNhap.setText("NV1");
 		pnlContent.add(txtTenDangNhap);
 		txtTenDangNhap.setColumns(10);
 
@@ -107,7 +106,7 @@ public class GUIDangNhap extends JFrame {
 		txtMatKhau = new JPasswordField();
 		txtMatKhau.setFont(new Font("Tahoma", Font.BOLD, 13));
 
-		txtMatKhau.setText("K123456");
+		txtMatKhau.setText("P446699");
 		txtMatKhau.setColumns(10);
 		txtMatKhau.setBounds(327, 222, 317, 30);
 

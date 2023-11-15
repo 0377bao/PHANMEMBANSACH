@@ -51,7 +51,7 @@ public class ControllerChuongTrinhKhuyenMai implements ActionListener, MouseList
 	public void actionPerformed(ActionEvent e) {
 		Object o = e.getSource();
 		// TODO Auto-generated method stub
-		view.xuLySuKienCboTrangThai();
+		view.xuLySuKienCboTrangThai(o);
 		view.xuLySuKienCboMucKM(o);
         view.xuLySuKienTrenCacBtn(e.getActionCommand());
 		view.xuLySuKienCboSanPham(o);	
