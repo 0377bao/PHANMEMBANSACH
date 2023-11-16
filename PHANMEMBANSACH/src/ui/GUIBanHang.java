@@ -1125,7 +1125,7 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
 			String soluongmua = JOptionPane.showInputDialog(mess);
 			if(soluongmua != null) {
 				i = Integer.parseInt(soluongmua);
-				if(i < 0) {
+				if(i < 1) {
 					JOptionPane.showMessageDialog(this, "Số lượng mua phải là số nguyên dương");
 					i = -1;
 				}

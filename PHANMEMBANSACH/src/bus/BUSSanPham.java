@@ -1,18 +1,17 @@
 package bus;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import dao.DAOSanPham;
-import entity.DanhMuc;
-import entity.NhaCungCap;
 import entity.Sach;
 import entity.SanPham;
 import entity.VanPhongPham;
+import tool.Tools;
 
 public class BUSSanPham {
 	private DAOSanPham daoSP = new DAOSanPham();
@@ -26,10 +25,10 @@ public class BUSSanPham {
 	public void doDuLieuSachVaoBang(DefaultTableModel modelSach) {
 		for (SanPham s : daoSP.layDSSanPham()) {
 			if (s instanceof Sach)
-				modelSach.addRow(
-						new Object[] { s.getMaSanPham(), s.getTenSanPham(), s.getNhaCungCap().getTenNhaCungCap(),
-								((Sach) s).getTacGia(), s.getTheLoai(), ((Sach) s).getNhaXuatBan(),
-								((Sach) s).getNamXuatBan(), s.getKe(), s.getSoLuongTon(), s.getGiaNhap() });
+				modelSach.addRow(new Object[] { s.getMaSanPham(), s.getTenSanPham(),
+						s.getNhaCungCap().getTenNhaCungCap(), ((Sach) s).getTacGia(), s.getTheLoai(),
+						((Sach) s).getNhaXuatBan(), ((Sach) s).getNamXuatBan(), s.getKe(), s.getSoLuongTon(),
+						Tools.dinhDangTien(s.getGiaNhap()) });
 		}
 	}
 
@@ -45,14 +44,19 @@ public class BUSSanPham {
 	}
 
 	// validData sách
-	public boolean validDataSach(String maSanPham, String tenSanPham, String soLuongTon, String giaNhap, String theLoai,
-			String ke, String hinhAnh, String thue, String loiNhuan, String tacGia, String nhaXB, String namXB) {
+	public boolean validDataSach(String maSanPham, String tenSanPham, String ncc, String soLuongTon, String giaNhap,
+			String theLoai, String ke, String hinhAnh, String thue, String loiNhuan, String tacGia, String nhaXB,
+			String namXB) {
 		if (maSanPham.equals("")) {
 			mes = "Vui lòng nhấn chọn Tạo mã";
 			return false;
 		}
 		if (tenSanPham.equals("")) {
 			mes = "Vui lòng nhập tên sản phẩm";
+			return false;
+		}
+		if (ncc.equals("")) {
+			mes = "Vui lòng nhập mã nhà cung cấp";
 			return false;
 		}
 		if (theLoai.equals("")) {
@@ -63,10 +67,6 @@ public class BUSSanPham {
 				mes = "Thể loại không chứa ký tự đặc biệt";
 				return false;
 			}
-		}
-		if (hinhAnh == null) {
-			mes = "Vui lòng chọn ảnh";
-			return false;
 		}
 		if (!soLuongTon.equals("")) {
 			try {
@@ -129,7 +129,7 @@ public class BUSSanPham {
 			return false;
 		} else {
 			if (!ke.matches("^[A-C]\\d+$")) {
-				mes = "Tên kệ không hợp lệ";
+				mes = "Tên kệ bắt đầu là A hoặc B hoặc C theo sau là số";
 				return false;
 			}
 		}
@@ -148,9 +148,11 @@ public class BUSSanPham {
 		}
 		if (!namXB.equals("")) {
 			try {
+				LocalDate localDate = LocalDate.now();
+				int year = localDate.getYear();
 				int nam = Integer.parseInt(namXB);
-				if (nam < 0) {
-					mes = "Năm xuất bản không được âm";
+				if (nam < 0 || nam > year) {
+					mes = "Năm xuất bản không được âm và nhỏ hơn năm hiện tại";
 					return false;
 				}
 			} catch (NumberFormatException e) {
@@ -160,14 +162,18 @@ public class BUSSanPham {
 		} else {
 			mes = "Vui lòng nhập năm xuất bản";
 		}
+		if (hinhAnh == null) {
+			mes = "Vui lòng chọn ảnh";
+			return false;
+		}
 		return true;
 	}
 
 	// thêm sản phẩm
 	public boolean themSanPham(SanPham sp) {
-		if (sp.getMaSanPham().startsWith("SPS"))
+		if (sp.getMaSanPham().startsWith("SPS")) {
 			return daoSP.themSach((Sach) sp);
-		else
+		} else
 			return daoSP.themVanPhongPham((VanPhongPham) sp);
 	}
 
@@ -193,8 +199,10 @@ public class BUSSanPham {
 	// tìm kiếm sản phẩm theo mã
 	public SanPham timKiemSanPham(String maSP) {
 		SanPham sp = null;
-		if(maSP.toUpperCase().startsWith("SPS")) sp = daoSP.timSachTheoMa(maSP);
-		else sp = daoSP.timVanPhongPhamTheoMa(maSP);
+		if (maSP.toUpperCase().startsWith("SPS"))
+			sp = daoSP.timSachTheoMa(maSP);
+		else
+			sp = daoSP.timVanPhongPhamTheoMa(maSP);
 		return sp;
 	}
 
@@ -273,6 +281,19 @@ public class BUSSanPham {
 		return ds;
 	}
 
+	// kiểm tra số lượng sách gần hết
+	public ArrayList<SanPham> layDSSachGanHet() {
+		ArrayList<SanPham> dsSach = new ArrayList<>();
+		for (SanPham sanPham : daoSP.layDSSanPham()) {
+			if (sanPham instanceof Sach) {
+				if (sanPham.getSoLuongTon() < 10) {
+					dsSach.add(sanPham);
+				}
+			}
+		}
+		return dsSach;
+	}
+
 //// lấy dữ liệu văn phòng phẩm đưa lên bảng
 	public void doDuLieuVPPVaoBang(DefaultTableModel modelVPP) {
 		for (SanPham vpp : daoSP.layDSSanPham()) {
@@ -280,8 +301,21 @@ public class BUSSanPham {
 				modelVPP.addRow(new Object[] { vpp.getMaSanPham(), vpp.getTenSanPham(),
 						vpp.getNhaCungCap().getTenNhaCungCap(), ((VanPhongPham) vpp).getDanhMuc().getTenDanhMuc(),
 						vpp.getTheLoai(), ((VanPhongPham) vpp).getChatLieu(), vpp.getKe(), vpp.getSoLuongTon(),
-						vpp.getGiaNhap() });
+						Tools.dinhDangTien(vpp.getGiaNhap()) });
 		}
+	}
+
+	// kiểm tra số lượng vpp gần hết
+	public ArrayList<SanPham> layDSVPPGanHet() {
+		ArrayList<SanPham> dsVPP = new ArrayList<>();
+		for (SanPham sanPham : daoSP.layDSSanPham()) {
+			if (sanPham instanceof VanPhongPham) {
+				if (sanPham.getSoLuongTon() < 10 && sanPham.getTrangThai().equals("Đang bán")) {
+					dsVPP.add(sanPham);
+				}
+			}
+		}
+		return dsVPP;
 	}
 
 	// lọc vpp theo nhà cung cấp
@@ -375,8 +409,8 @@ public class BUSSanPham {
 	}
 
 	// validData vpp
-	public boolean validDataVPP(String maSanPham, String tenSanPham, String soLuongTon, String giaNhap, String theLoai,
-			String ke, String hinhAnh, String thue, String loiNhuan, String chatLieu) {
+	public boolean validDataVPP(String maSanPham, String tenSanPham, String ncc, String soLuongTon, String giaNhap,
+			String theLoai, String ke, String hinhAnh, String thue, String loiNhuan, String chatLieu) {
 		if (maSanPham.equals("")) {
 			mes = "Vui lòng nhấn chọn Tạo mã";
 			return false;
@@ -385,12 +419,16 @@ public class BUSSanPham {
 			mes = "Vui lòng nhập tên sản phẩm";
 			return false;
 		}
+		if (ncc.equals("")) {
+			mes = "Vui lòng nhập mã nhà cung cấp";
+			return false;
+		}
 		if (ke.equals("")) {
 			mes = "Vui lòng nhập tên kệ";
 			return false;
 		} else {
 			if (!ke.matches("^[D-F]\\d+$")) {
-				mes = "Tên kệ không hợp lệ";
+				mes = "Tên kệ bắt đầu là D hoặc E hoặc F theo sau là số";
 				return false;
 			}
 		}
@@ -474,7 +512,7 @@ public class BUSSanPham {
 		}
 		return true;
 	}
-	
+
 	public boolean capNhatSoLuongTonSanPham(SanPham sp) {
 		return daoSP.capNhatSoLuongTonSanPham(sp);
 	}

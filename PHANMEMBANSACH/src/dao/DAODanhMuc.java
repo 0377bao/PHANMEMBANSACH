@@ -31,8 +31,8 @@ public class DAODanhMuc {
 		}
 		return dsDanhMuc;
 	}
-	
-	//tạo danh mục
+
+	// tạo danh mục
 	public DanhMuc timDanhMucTheoMa(String maDanhmuc) {
 		DanhMuc dm = null;
 		ConnectDB.getInstance();

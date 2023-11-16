@@ -333,8 +333,8 @@ public class Tools {
 	}
 
 	public static String sendEmail(String to, String subject, String message, String messageSuccess) {
-		String from = "thuykieu.13032003@gmail.com";  
-		String password = "tirfdrdpsbjxqemq";  
+      String from = "thuykieu.13032003@gmail.com";  
+      String password = "tirfdrdpsbjxqemq";  
 
 		String host = "smtp.gmail.com";
 
@@ -352,28 +352,29 @@ public class Tools {
 		});
 
 		if (to.isEmpty()) {
-			return "Vui lòng nhập email người nhận";
-		}
-
+	        return "Vui lòng nhập email người nhận";
+	    }
+		
 		try {
 			MimeMessage mimeMessage = new MimeMessage(session);
 			mimeMessage.setFrom(new InternetAddress(from));
 			mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-
+			
 			String[] emails = to.split(",");
-			InternetAddress[] toAddresses = new InternetAddress[emails.length];
-			for (int i = 0; i < emails.length; i++) {
-				toAddresses[i] = new InternetAddress(emails[i].trim());
-			}
-			mimeMessage.setRecipients(Message.RecipientType.TO, toAddresses);
-
+          InternetAddress[] toAddresses = new InternetAddress[emails.length];
+          for (int i = 0; i < emails.length; i++) {
+              toAddresses[i] = new InternetAddress(emails[i].trim());
+          }
+          mimeMessage.setRecipients(Message.RecipientType.TO, toAddresses);
+          
 			mimeMessage.setSubject(subject);
 			mimeMessage.setText(message);
 
 			Transport.send(mimeMessage);
-			return messageSuccess;
+//			return messageSuccess;
 		} catch (MessagingException mex) {
-			return "Error: " + mex.getMessage();
+
 		}
+		return messageSuccess;
 	}
 }

@@ -4,7 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 
 import java.util.ArrayList;
-
+import java.util.concurrent.ThreadFactory;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -30,8 +30,12 @@ import java.awt.Font;
 import java.awt.Image;
 
 
-public class TrangChu extends JFrame {
+public class TrangChu extends JFrame{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public String indexFrame = "Trang chủ";
 	private JLabel lblAvtNhanVien;
 	private JLabel lblTenNhanVien;
@@ -50,28 +54,23 @@ public class TrangChu extends JFrame {
 	private JPanel pnlHienTai;
 	private NhanVien nvHienTai = null;
 	private ArrayList<HoaDon> dsHoaDonCho = new ArrayList<>();
+	private GUIThongKe guiTK ;
 
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					TrangChu frame = new TrangChu();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-
-	/**
-	 * Create the frame.
-	 */
-	
-	
 	public TrangChu(NhanVien nv) {
-//		dsHoaDonCho.add(new BUSHoaDon().timHoaDonTheoMa("HD1"));
 		this.nvHienTai = nv;
+
+//		Thread daemonThread = new Thread(() -> {
+//            guiTK = new GUIThongKe(nvHienTai);
+//            
+   //     });
+
+        // Đặt thread là daemon
+       // daemonThread.setDaemon(true);
+
+        // Bắt đầu thực thi luồng
+       // daemonThread.start();
+        // Bắt đầu thực thi luồng mới
+
 		this.setTitle("PHẦN MỀM NHÀ SÁCH");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(1500, 800);
@@ -287,6 +286,7 @@ public class TrangChu extends JFrame {
 			btnNhanVien.setForeground(Color.white);
 		} 
 		if(src.equals("QL Thống kê")) {
+			
 			pnlHienTai = new GUIThongKe(nvHienTai);
 			btnThongKe.setBackground(colorBtnActive);
 			btnThongKe.setForeground(Color.white);
@@ -301,6 +301,14 @@ public class TrangChu extends JFrame {
 		this.repaint();
 	}
 	
+	// phần xử lý đóng các chức năng theo chức vụ
+	public void xuLyTinhNangTheoChucVuCuaNhanVien() {
+		btnNhanVien.setEnabled(false);
+		btnDoiTraHang.setEnabled(false);
+		btnKhuyenMai.setEnabled(false);
+		btnNhaCungCap.setEnabled(false);
+	}
+	
 	public void chuyenHoaDonQuaGiaoHang(HoaDon hoaDon) {
 		datLaiMauNenChoButtonControll();
 		indexFrame = "Giao hàng";
@@ -311,6 +319,7 @@ public class TrangChu extends JFrame {
 		getContentPane().add(pnlHienTai);
 		this.revalidate();
 		this.repaint();
+
 	}
 }
 

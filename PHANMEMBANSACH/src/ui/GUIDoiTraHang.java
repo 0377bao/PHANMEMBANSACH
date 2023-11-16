@@ -35,6 +35,7 @@ import entity.HoaDon;
 import entity.KhachHang;
 import entity.NhanVien;
 import entity.SanPham;
+import tool.Tools;
 
 import javax.swing.JScrollPane;
 import javax.swing.JComboBox;
@@ -103,6 +104,8 @@ public class GUIDoiTraHang extends JPanel {
 	private String maDDTHienTai ="";
 	private String maHDHienTai ="";
 	private NhanVien nvHienTai;
+	private JLabel lblDiemDaSuDungv;
+	private JLabel lblTongTienv;
 
 	public GUIDoiTraHang(NhanVien nv) {
 		this.setBackground(new Color(255, 255, 255));
@@ -125,7 +128,7 @@ public class GUIDoiTraHang extends JPanel {
 		pnlThongTinHoaDon.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		pnlThongTinHoaDon.setLayout(null);
 		pnlThongTinHoaDon.setBackground(Color.WHITE);
-		pnlThongTinHoaDon.setBounds(27, 28, 542, 160);
+		pnlThongTinHoaDon.setBounds(27, 28, 542, 161);
 		pnlDonDoiTra.add(pnlThongTinHoaDon);
 
 		JLabel lblTenKhachHang = new JLabel("Tên khách hàng:");
@@ -140,30 +143,23 @@ public class GUIDoiTraHang extends JPanel {
 
 		JLabel lblMaHoaDon = new JLabel("Mã hóa đơn:");
 		lblMaHoaDon.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblMaHoaDon.setBounds(27, 80, 104, 20);
+		lblMaHoaDon.setBounds(27, 74, 104, 20);
 		pnlThongTinHoaDon.add(lblMaHoaDon);
 
 		lblMaHoaDonv = new JLabel("");
 		lblMaHoaDonv.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblMaHoaDonv.setBounds(155, 80, 74, 20);
+		lblMaHoaDonv.setBounds(155, 74, 74, 20);
 		pnlThongTinHoaDon.add(lblMaHoaDonv);
 
 		JLabel lblNgayLapHoaDon = new JLabel("Ngày lập:");
 		lblNgayLapHoaDon.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNgayLapHoaDon.setBounds(319, 80, 85, 20);
+		lblNgayLapHoaDon.setBounds(319, 74, 85, 20);
 		pnlThongTinHoaDon.add(lblNgayLapHoaDon);
 
 		lblNgayLapHoaDonv = new JLabel("");
 		lblNgayLapHoaDonv.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNgayLapHoaDonv.setBounds(421, 80, 104, 20);
+		lblNgayLapHoaDonv.setBounds(421, 74, 104, 20);
 		pnlThongTinHoaDon.add(lblNgayLapHoaDonv);
-
-		MyButton btnXemChiTietHoaDon = new MyButton("Xem chi tiết");
-		btnXemChiTietHoaDon.setForeground(new Color(255, 255, 255));
-
-		btnXemChiTietHoaDon.setFont(new Font("Times New Roman", Font.BOLD, 16));
-		btnXemChiTietHoaDon.setBounds(197, 120, 120, 23);
-		pnlThongTinHoaDon.add(btnXemChiTietHoaDon);
 
 		JLabel lblSDT = new JLabel("Số điện thoại:");
 		lblSDT.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -174,6 +170,27 @@ public class GUIDoiTraHang extends JPanel {
 		lblSDTv.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblSDTv.setBounds(421, 34, 100, 20);
 		pnlThongTinHoaDon.add(lblSDTv);
+		
+		JLabel lblimS = new JLabel("Điểm đã sử dụng:");
+		lblimS.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblimS.setBounds(27, 118, 118, 20);
+		pnlThongTinHoaDon.add(lblimS);
+		
+		lblDiemDaSuDungv = new JLabel("");
+		lblDiemDaSuDungv.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblDiemDaSuDungv.setBounds(155, 118, 74, 20);
+		
+		pnlThongTinHoaDon.add(lblDiemDaSuDungv);
+		
+		JLabel lblTngSnPhm = new JLabel("Tổng tiền");
+		lblTngSnPhm.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblTngSnPhm.setBounds(319, 118, 85, 20);
+		pnlThongTinHoaDon.add(lblTngSnPhm);
+		
+		lblTongTienv = new JLabel("");
+		lblTongTienv.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblTongTienv.setBounds(421, 118, 93, 20);
+		pnlThongTinHoaDon.add(lblTongTienv);
 
 		JPanel pnlTimKiemHoaDon = new JPanel();
 		pnlTimKiemHoaDon.setBackground(new Color(255, 255, 255));
@@ -209,7 +226,7 @@ public class GUIDoiTraHang extends JPanel {
 		pnlDanhSachHoaDon.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		pnlDanhSachHoaDon.setBackground(new Color(255, 255, 255));
 
-		pnlDanhSachHoaDon.setBounds(27, 316, 542, 425);
+		pnlDanhSachHoaDon.setBounds(27, 314, 542, 427);
 
 		pnlDonDoiTra.add(pnlDanhSachHoaDon);
 		pnlDanhSachHoaDon.setLayout(null);
@@ -228,7 +245,7 @@ public class GUIDoiTraHang extends JPanel {
 		srcDanhSachHoaDon = new JScrollPane(tbDanhSachHoaDon, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
-		srcDanhSachHoaDon.setBounds(20, 40, 500, 367);
+		srcDanhSachHoaDon.setBounds(20, 40, 500, 394);
 
 		pnlDanhSachHoaDon.add(srcDanhSachHoaDon);
 
@@ -714,6 +731,8 @@ public class GUIDoiTraHang extends JPanel {
 		lblMaHoaDonv.setText(hd.getMaHoaDon());
 		lblNgayLapHoaDonv.setText(hd.getNgayLap().toString());
 		maHDHienTai = hd.getMaHoaDon();
+		lblDiemDaSuDungv.setText(hd.getDiemGiamGia()+"");
+		lblTongTienv.setText(Tools.dinhDangTien(hd.tinhTongTien())+"");
 	}
 
 	// Hiện danh sách sản phẩm của hóa đơn được chọn
@@ -748,7 +767,7 @@ public class GUIDoiTraHang extends JPanel {
 				.parseInt(maDDTHienTai.substring(3, 3 + (maHDHienTai.substring(2, maHDHienTai.length())).length()))) {
 			String maSP = modelDanhSachSanPham.getValueAt(row, 0).toString();
 			String tenSP = modelDanhSachSanPham.getValueAt(row, 1).toString();
-			float gia = (float) (modelDanhSachSanPham.getValueAt(row, 3));
+			float gia = Float.parseFloat(modelDanhSachSanPham.getValueAt(row, 3).toString().replaceAll("[,VND]", ""));
 			int soLuongSPTrongHD = (int) (modelDanhSachSanPham.getValueAt(row, 2));
 			String phuongThuc = (String) cbPhuongThucDoiTra.getSelectedItem();
 			int diemTrongHD = busHD.timHoaDonTheoMa(maHDHienTai).getDiemGiamGia();
@@ -783,7 +802,7 @@ public class GUIDoiTraHang extends JPanel {
 			int soLuong = Integer.parseInt(tbDonDoiTra.getValueAt(i, 2).toString());
 			String lyDo = tbDonDoiTra.getValueAt(i, 4).toString();
 			SanPham sp = new BUSSanPham().timKiemSanPham(tbDonDoiTra.getValueAt(i, 0).toString());
-			float giaBan = Float.parseFloat(tbDonDoiTra.getValueAt(i, 3).toString());
+			float giaBan = Float.parseFloat(tbDonDoiTra.getValueAt(i, 3).toString().replaceAll("[,VND]", ""));
 			ds.add(new ChiTietDonDoiTra(soLuong, lyDo, sp, giaBan));
 		}
 		return ds;
@@ -835,7 +854,7 @@ public class GUIDoiTraHang extends JPanel {
 		txtPhuongThucQL.setText(ddt.getPhuongThucDoiTra());
 		txtTenKhachHangQL.setText(ddt.getHoaDon().getKhachHang().getTenKhachHang());
 		txtTongSoLuongDoiQL.setText(ddt.tinhSoLuongDoiHang() + "");
-		txtTongTienTraQL.setText(ddt.tinhTienCanTra() + "");
+		txtTongTienTraQL.setText(Tools.dinhDangTien(ddt.tinhTienCanTra()) + "");
 		hienDanhSachChiTietDonDoiTra(ddt.getDsChiTietDonDoiTra());
 	}
 
@@ -844,7 +863,7 @@ public class GUIDoiTraHang extends JPanel {
 		modelSanPhamQL.setRowCount(0);
 		for (ChiTietDonDoiTra ctddt : ds) {
 			modelSanPhamQL.addRow(new Object[] { ctddt.getSanPham().getMaSanPham(), ctddt.getSanPham().getTenSanPham(),
-					ctddt.getSoLuongTra(), ctddt.getGiaBan(), ctddt.getLyDo() });
+					ctddt.getSoLuongTra(), Tools.dinhDangTien(ctddt.getGiaBan()), ctddt.getLyDo() });
 		}
 	}
 	// Xóa các thông tin đơn đổi trả có sản

@@ -32,7 +32,7 @@ public class BUSNhaCungCap {
 			mes = "Vui lòng nhập tên nhà cung cấp";
 			return false;
 		} else {
-			if (!(tenNhaCungCap.matches("[\\p{L}0-9/.,' -]+"))) {
+			if (!(tenNhaCungCap.matches("^[\\p{L}0-9][\\p{L}0-9/.,' -]+"))) {
 				mes = "Tên nhà cung cấp không chứa ký tự đặc biệt";
 				return false;
 			}
@@ -41,8 +41,8 @@ public class BUSNhaCungCap {
 			mes = "Vui lòng nhập số điện thoại";
 			return false;
 		} else {
-			if (!sdt.matches("^0[23579]\\d{8,9}$")) {
-				mes = "Số điện thoại phải 10 hoặc 11 số và bắt đầu bằng 02 hoặc 03 hoặc 05 hoặc 07 hoặc 09";
+			if (!(sdt.matches("^02\\d{9}$") || sdt.matches("^0[3579]\\d{8}$"))) {
+				mes = "Số điện thoại bắt đầu là 02 gồm 11 số hoặc bắt đầu là 03 - 05 - 07 - 09 gồm 10 số";
 				return false;
 			}
 		}
@@ -59,7 +59,7 @@ public class BUSNhaCungCap {
 			mes = "Vui lòng nhập địa chỉ nhà cung cấp";
 			return false;
 		} else {
-			if (!(diaChi.matches("[\\p{L}0-9/.,' -]+"))) {
+			if (!(diaChi.matches("^[\\p{L}0-9][\\p{L}0-9/.,' -]+"))) {
 				mes = "Địa chỉ nhà cung cấp không chứa ký tự đặc biệt";
 				return false;
 			}
@@ -82,8 +82,18 @@ public class BUSNhaCungCap {
 		return daoNCC.timNhaCungCapTheoMa(maNhaCungCap);
 	}
 
-	// tìm nhà cung cấp theo sdt
-	public ArrayList<NhaCungCap> timNCCTheoSdt(String sdt) {
+	// tìm ncc theo tên
+	public NhaCungCap timNCCTheoTen(String ten) {
+		for (NhaCungCap ncc : daoNCC.layDSNhaCungCap()) {
+			if (ncc.getTenNhaCungCap().equals(ten)) {
+				return ncc;
+			}
+		}
+		return null;
+	}
+
+	// lọc nhà cung cấp theo sdt
+	public ArrayList<NhaCungCap> layNCCTheoSdt(String sdt) {
 		ArrayList<NhaCungCap> dsNCC = new ArrayList<>();
 		Pattern p = Pattern.compile(sdt, Pattern.CASE_INSENSITIVE);
 		for (NhaCungCap ncc : daoNCC.layDSNhaCungCap()) {
@@ -95,8 +105,8 @@ public class BUSNhaCungCap {
 		return dsNCC;
 	}
 
-	// lấy nhà cung cấp theo tên
-	public ArrayList<NhaCungCap> timNCCTheoTen(String ten) {
+	// lọc nhà cung cấp theo tên
+	public ArrayList<NhaCungCap> layNCCTheoTen(String ten) {
 		ArrayList<NhaCungCap> dsNCC = new ArrayList<>();
 		Pattern p = Pattern.compile(ten, Pattern.CASE_INSENSITIVE);
 		for (NhaCungCap ncc : daoNCC.layDSNhaCungCap()) {
@@ -108,8 +118,8 @@ public class BUSNhaCungCap {
 		return dsNCC;
 	}
 
-	// lấy nhà cung cấp theo địa chỉ
-	public ArrayList<NhaCungCap> timNCCTheoDiaChi(String diaChi) {
+	// lọc nhà cung cấp theo địa chỉ
+	public ArrayList<NhaCungCap> layNCCTheoDiaChi(String diaChi) {
 		ArrayList<NhaCungCap> dsNCC = new ArrayList<>();
 		Pattern p = Pattern.compile(diaChi, Pattern.CASE_INSENSITIVE);
 		for (NhaCungCap ncc : daoNCC.layDSNhaCungCap()) {

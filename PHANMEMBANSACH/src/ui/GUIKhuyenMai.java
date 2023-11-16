@@ -19,21 +19,26 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
+import java.security.GuardedObject;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
+import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
 
 import bus.BUSChuongTrinhKhuyenMai;
+import bus.BUSKhachHang;
 import controller.ControllerChuongTrinhKhuyenMai;
 import customUI.MyButton;
 import customUI.MyCombobox;
 import customUI.MyTable;
 import dao.DAOMucKhuyenMai;
 import entity.ChuongTrinhKhuyenMai;
+import entity.KhachHang;
 import entity.MucKhuyenMai;
+import tool.phanLuong;
 
 import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
@@ -55,19 +60,19 @@ public class GUIKhuyenMai extends JPanel{
 	private int viTriDongDuocChon = -1;
 	private int soThuTuKhuyenMai = 0;
 	private ArrayList<MucKhuyenMai> dsMucKhuyenMaiDangTao = new ArrayList<>();
+	private JTextField txtMaDuocChon;
+	
+	private PopUp thongBao = new PopUp("Đang tiến hành gửi thống báo");
 	public GUIKhuyenMai() {
 		this.setBackground(new Color(255, 255, 255));
 		this.setBounds(250, 0, 1250, 800);
 		setLayout(null);
 		
-		modelKMDT = new DefaultTableModel(new Object[] {"STT", "Tên mục khuyến mãi", "Phần trăm"}, 0);
-		
-		// ghi chu
-//		modelKMDAP = new DefaultTableModel(new Object[] {"STT", "Danh mục", "Thể loại", "Phần trăm"}, 0);
+		modelKMDT = new DefaultTableModel(new Object[] {"Tên mục khuyến mãi", "Phần trăm"}, 0);
 		
 		modelDSKhuyenMai = new DefaultTableModel(new Object[] {"STT", "MaCTKM", "TenCTKM", "Trạng thái"}, 0);
 		
-		modelChiTietKM = new DefaultTableModel(new Object[] {"STT","Tên mục khuyến mãi", "Phần trăm"}, 0);
+		modelChiTietKM = new DefaultTableModel(new Object[] {"Tên mục khuyến mãi", "Phần trăm"}, 0);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBounds(20, 0, 1245, 789);
@@ -150,7 +155,18 @@ public class GUIKhuyenMai extends JPanel{
 		
 		cboTheLoai = new MyCombobox();
 		cboTheLoai.setBounds(169, 133, 235, 22);
-		
+		cboTheLoai.addItem("Chính trị");
+		cboTheLoai.addItem("Giả tưởng");
+		cboTheLoai.addItem("Giáo khoa");
+		cboTheLoai.addItem("Kinh dị");
+		cboTheLoai.addItem("Kinh tế");
+		cboTheLoai.addItem("Lịch sử");
+		cboTheLoai.addItem("Nấu ăn");
+		cboTheLoai.addItem("Tâm lý");
+		cboTheLoai.addItem("Tình cảm");
+		cboTheLoai.addItem("Thiếu nhi");
+		cboTheLoai.addItem("Truyện");
+		cboTheLoai.addItem("Văn học nghệ thuật");
 		panel_3.add(cboTheLoai);
 		
 		btnThem = new MyButton("Thêm");
@@ -302,14 +318,25 @@ public class GUIKhuyenMai extends JPanel{
 		cboTrangThai.setBounds(175, 64, 156, 22);
 		cboTrangThai.addItem("Tất cả");
 		cboTrangThai.addItem("Đang áp dụng");
-		cboTrangThai.addItem("Chưa áp dụng");
+		cboTrangThai.addItem("Không áp dụng");
 		
 		panel_8.add(cboTrangThai);
 		
 		 btnApDungCT = new MyButton("Áp dụng chương trình khuyến mãi");
 		 btnApDungCT.setBackground(new Color(0, 255, 0));
-		 btnApDungCT.setBounds(356, 39, 269, 30);
+		 btnApDungCT.setBounds(356, 18, 269, 30);
 		panel_8.add(btnApDungCT);
+		
+		JLabel lblNewLabel_14 = new JLabel("Mã CTKM được chọn");
+		lblNewLabel_14.setBounds(356, 69, 134, 13);
+		panel_8.add(lblNewLabel_14);
+		
+		txtMaDuocChon = new JTextField();
+		txtMaDuocChon.setFont(new Font("Tahoma", Font.BOLD, 10));
+		txtMaDuocChon.setEnabled(false);
+		txtMaDuocChon.setBounds(500, 66, 125, 20);
+		panel_8.add(txtMaDuocChon);
+		txtMaDuocChon.setColumns(10);
 		
 		JButton btnNewButton = new JButton("");
 		btnNewButton.setEnabled(false);
@@ -348,50 +375,61 @@ public class GUIKhuyenMai extends JPanel{
     }
     
     public void loadChiTietChuongTrinhKhuyenMai() {
-    	int stt = 0;
+    	
     	modelChiTietKM.setRowCount(0);
     	int index = tbDSKhuyenMai.getSelectedRow() != -1 ? tbDSKhuyenMai.getSelectedRow() : viTriDongDuocChon;
     	viTriDongDuocChon = index;
+    	
     	String ma = modelDSKhuyenMai.getValueAt(index, 1).toString();
+    	txtMaDuocChon.setText(ma);
     	ArrayList<MucKhuyenMai> ds = new DAOMucKhuyenMai().layDSMucKhuyenMaiCuaCTKM(ma);
     	for(MucKhuyenMai mkm : ds) {
-    		modelChiTietKM.addRow(new Object[] {++stt, mkm.getTenMucKhuyenMai(), mkm.getTiLeKhuyenMai()});
+    		modelChiTietKM.addRow(new Object[] {mkm.getTenMucKhuyenMai(), mkm.getTiLeKhuyenMai()});
     	}
+    	cboMucKM.setSelectedIndex(0);
     }
     
-    public void xuLySuKienCboTrangThai() {
-    	int index = cboTrangThai.getSelectedIndex();
-    	int stt= 0;
-    	ArrayList<ChuongTrinhKhuyenMai> ds = new BUSChuongTrinhKhuyenMai().layDSChuongTrinhKhuyenMai();
-    	modelDSKhuyenMai.setRowCount(0);
-    	modelChiTietKM.setRowCount(0);
-    	if(index == 0) {
-    		for(ChuongTrinhKhuyenMai ctkm : ds) {
-        		modelDSKhuyenMai.addRow(new Object[] {++stt,ctkm.getMaCTKM(), ctkm.getTenCTKM(), ctkm.isTrangThai() ? "Đang áp dụng" : "Không áp dụng"});
+    public void xuLySuKienCboTrangThai(Object o) {
+    	
+    	if(o.equals(cboTrangThai)) {
+    		txtMaDuocChon.setText("");
+    	 	viTriDongDuocChon = -1;
+        	int stt = 0;
+        	int index = cboTrangThai.getSelectedIndex();
+        	ArrayList<ChuongTrinhKhuyenMai> ds = new BUSChuongTrinhKhuyenMai().layDSChuongTrinhKhuyenMai();
+        	modelDSKhuyenMai.setRowCount(0);
+        	modelChiTietKM.setRowCount(0);
+        	if(index == 0) {
+        		
+        		for(ChuongTrinhKhuyenMai ctkm : ds) {
+            		modelDSKhuyenMai.addRow(new Object[] {++stt, ctkm.getMaCTKM(), ctkm.getTenCTKM(), ctkm.isTrangThai() ? "Đang áp dụng" : "Không áp dụng"});
+            	}
+        	}
+        	if(index == 1) {
+        		
+        		for(ChuongTrinhKhuyenMai ctkm : ds) {
+        			if(ctkm.isTrangThai()) {
+        				modelDSKhuyenMai.addRow(new Object[] {++stt, ctkm.getMaCTKM(), ctkm.getTenCTKM(), "Đang áp dụng"});
+        			}
+            	}
+        	}
+        	if(index == 2) {
+        		
+        		for(ChuongTrinhKhuyenMai ctkm : ds) {
+        			if(!ctkm.isTrangThai()) {
+        				modelDSKhuyenMai.addRow(new Object[] {++stt,ctkm.getMaCTKM(), ctkm.getTenCTKM(), "Không áp dụng"});
+        			}
+            	}
         	}
     	}
-    	if(index == 1) {
-    		for(ChuongTrinhKhuyenMai ctkm : ds) {
-    			if(ctkm.isTrangThai()) {
-    				modelDSKhuyenMai.addRow(new Object[] {++stt,ctkm.getMaCTKM(), ctkm.getTenCTKM(), "Đang áp dụng"});
-    			}
-        	}
-    	}
-    	if(index == 2) {
-    		for(ChuongTrinhKhuyenMai ctkm : ds) {
-    			if(!ctkm.isTrangThai()) {
-    				modelDSKhuyenMai.addRow(new Object[] {++stt,ctkm.getMaCTKM(), ctkm.getTenCTKM(), "Không áp dụng"});
-    			}
-        	}
-    	}
+    	
     }
     
     public void locTheoTenMucKhuyenMai(String ten, ArrayList<MucKhuyenMai>ds, DefaultTableModel model) {
-    	int stt = 0;
     	model.setRowCount(0);
     	for(MucKhuyenMai mkm : ds) {
     		if(mkm.getTenMucKhuyenMai().equals(ten)) {
-    			model.addRow(new Object[] {++stt,mkm.getTenMucKhuyenMai(), mkm.getTiLeKhuyenMai()});
+    			model.addRow(new Object[] {mkm.getTenMucKhuyenMai(), mkm.getTiLeKhuyenMai()});
     		}
     	}
     }
@@ -400,7 +438,8 @@ public class GUIKhuyenMai extends JPanel{
     	
     	if(viTriDongDuocChon == -1 && o.equals(cboMucKM)) {
     		JOptionPane.showMessageDialog(this, "Chỉ lọc khi đã chọn chương trình khuyến mãi");
-    	}else if(viTriDongDuocChon != 1 && o.equals(cboMucKM)) {
+    		cboMucKM.setSelectedIndex(0);
+    	}else if(viTriDongDuocChon != -1 && o.equals(cboMucKM)) {
     		String ma = modelDSKhuyenMai.getValueAt(viTriDongDuocChon, 1).toString();
     		ArrayList<MucKhuyenMai> ds = new DAOMucKhuyenMai().layDSMucKhuyenMaiCuaCTKM(ma);
     		String index = cboMucKM.getSelectedItem().toString();
@@ -503,7 +542,6 @@ public class GUIKhuyenMai extends JPanel{
     		// chuyển trạng thái cái sản phẩm về false hết
     		ArrayList<ChuongTrinhKhuyenMai> ds = new BUSChuongTrinhKhuyenMai().layDSChuongTrinhKhuyenMai();
     		for(ChuongTrinhKhuyenMai ctkm : ds) {
-    			
     			new BUSChuongTrinhKhuyenMai().tatTrangThaiChuongTrinhKhuyenMai(ctkm);
     		}
     		
@@ -523,16 +561,34 @@ public class GUIKhuyenMai extends JPanel{
     		if(txtPhanTram.getText().equals("")) {
     			JOptionPane.showMessageDialog(this, "Vui lòng nhập phần trăm giảm giá cho sản phẩm");
     		}else {
-    			Float phanTram = Float.parseFloat(txtPhanTram.getText());
+    			Float phanTram = (float)0;
+    			try {
+    				phanTram = Float.parseFloat(txtPhanTram.getText());
+    				if(phanTram < 0) {
+    					JOptionPane.showMessageDialog(this, "Phần trăm phải là 1 số dương");
+    					return;
+    				}
+    			}catch(Exception e) {
+    				JOptionPane.showMessageDialog(this, "Phần trăm phải là kí tự số");
+    				return;
+    			}
         		String theLoai = cboTheLoai.getSelectedItem().toString();
         		
         		MucKhuyenMai m = new MucKhuyenMai(theLoai, phanTram);
-        		dsMucKhuyenMaiDangTao.add(m);
+        		
+        		// kiểm tra mục khuyến mãi đã tồn tại hay chưa
+        		if(kiemTraMucKhuyenMai(m)) {
+        			dsMucKhuyenMaiDangTao.add(m);
+        		}else {
+        			JOptionPane.showMessageDialog(this, "Mục khuyến mãi đã tồn tại");
+        			return;
+        		}
+        		
         		
         		modelKMDT.setRowCount(0);
-        		soThuTuKhuyenMai = 0;
+        		
         		for(MucKhuyenMai mkm : dsMucKhuyenMaiDangTao) {
-        			modelKMDT.addRow(new Object[] {++soThuTuKhuyenMai, mkm.getTenMucKhuyenMai(), mkm.getTiLeKhuyenMai()});
+        			modelKMDT.addRow(new Object[] {mkm.getTenMucKhuyenMai(), mkm.getTiLeKhuyenMai()});
         		}
     		}
     		
@@ -551,14 +607,47 @@ public class GUIKhuyenMai extends JPanel{
                 	capNhatTrangThaiBangDSKhuyenMai();
                 	modelKMDT.setRowCount(0);
                 	xoaTrangTextField();
+                	
+                	// gửi chương trình khuyến mãi cho tất cả khách hàng
+                	if(JOptionPane.showConfirmDialog(this, "Bạn có muốn gửi chương trình khuyến mãi này cho khách hàng không?","Có", JOptionPane.YES_NO_OPTION)== JOptionPane.YES_OPTION) {
+                		ArrayList<KhachHang> dsKh = new BUSKhachHang().layDSKhachHang();
+                		String gmail = "";
+                		String userMail = "thuykieu.13032003@gmail.com";
+                		String password = "tirfdrdpsbjxqemq";
+                		String subject = "Chương trình khuyến mãi hàng tháng của cửa hàng";
+                		String message = "Chúc ngày mới vui vẻ";
+                		for(KhachHang kh : dsKh) {
+                			if(dsKh.indexOf(kh) == 0) {
+                				continue;
+                			}
+                			if(dsKh.indexOf(kh) == dsKh.size() - 1) {
+                				gmail += kh.getEmail();
+                			}else {
+                				gmail += kh.getEmail() + ",";
+                			}
+                		}
+                		System.out.println(gmail);
+                		phanLuong pl = new phanLuong(thongBao,gmail, subject, message, "Gửi chương trình khuyến mãi thành công");
+                		pl.execute();
+                	}
                 }else {
-                	JOptionPane.showMessageDialog(this, "Thêm chương trình khuyến mãi thất bại");
+                	JOptionPane.showMessageDialog(this, "Thêm chương trình khuyến mãi thất bại do trùng mã CTKM");
                 }
             }else {
             	JOptionPane.showMessageDialog(this, bus_ctkm.getMessage());
             }
             
     	}
+    }
+    
+    public boolean kiemTraMucKhuyenMai(MucKhuyenMai m) {
+    	// kiểm tra mục khuyến mãi đã tồn tại hay chưa
+		for(MucKhuyenMai mk : dsMucKhuyenMaiDangTao) {
+			if(mk.getTenMucKhuyenMai().trim().equals(m.getTenMucKhuyenMai().trim())) {
+				return false;
+			}
+		}
+		return true;
     }
     
     public void xuLySuKienCboSanPham(Object o) {
@@ -625,7 +714,7 @@ public class GUIKhuyenMai extends JPanel{
     public void xuLyTimKiemTheoMaCTKM(ArrayList<ChuongTrinhKhuyenMai> ds) {
     	String text = txtMaCTKMTK.getText().trim();
     	ArrayList<ChuongTrinhKhuyenMai> temp = new ArrayList<>();
-    	Pattern maPattern = Pattern.compile(text);
+    	Pattern maPattern = Pattern.compile(text, Pattern.CASE_INSENSITIVE);
     	for(ChuongTrinhKhuyenMai ctkm : ds) {
     		if(maPattern.matcher(ctkm.getMaCTKM()).find()) {
     			temp.add(ctkm);
@@ -638,7 +727,7 @@ public class GUIKhuyenMai extends JPanel{
     public void xuLyTimKiemTheoTenCTKM(ArrayList<ChuongTrinhKhuyenMai> ds) {
     	String text = txtTenCTKMTK.getText();
     	ArrayList<ChuongTrinhKhuyenMai> temp = new ArrayList<>();
-    	Pattern maPattern = Pattern.compile(text);
+    	Pattern maPattern = Pattern.compile(text, Pattern.CASE_INSENSITIVE);
     	for(ChuongTrinhKhuyenMai ctkm : ds) {
     		if(maPattern.matcher(ctkm.getTenCTKM()).find()) {
     			temp.add(ctkm);

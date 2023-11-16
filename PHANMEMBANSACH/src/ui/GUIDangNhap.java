@@ -23,6 +23,7 @@ import bus.BUSTaiKhoan;
 import controller.ControllerDangNhap;
 import customUI.CustumImage;
 import customUI.MyButton;
+import entity.NhanVien;
 
 public class GUIDangNhap extends JFrame {
 
@@ -92,9 +93,8 @@ public class GUIDangNhap extends JFrame {
 
 		txtTenDangNhap = new JTextField();
 		txtTenDangNhap.setFont(new Font("Tahoma", Font.BOLD, 13));
-		txtTenDangNhap.setText("NV1");
+		txtTenDangNhap.setText("NV10");
 		txtTenDangNhap.setBounds(327, 145, 317, 30);
-		txtTenDangNhap.setText("NV1");
 		pnlContent.add(txtTenDangNhap);
 		txtTenDangNhap.setColumns(10);
 
@@ -106,7 +106,7 @@ public class GUIDangNhap extends JFrame {
 		txtMatKhau = new JPasswordField();
 		txtMatKhau.setFont(new Font("Tahoma", Font.BOLD, 13));
 
-		txtMatKhau.setText("k123456");
+		txtMatKhau.setText("P446699");
 		txtMatKhau.setColumns(10);
 		txtMatKhau.setBounds(327, 222, 317, 30);
 
@@ -143,9 +143,17 @@ public class GUIDangNhap extends JFrame {
 			JOptionPane.showMessageDialog(this, "Mật khẩu không được để trống");
 		} else {
 			boolean kiemTra = busTaiKhoan.kiemTraMatKhau(taiKhoan, matKhau);
+			NhanVien nv = busNhanVien.layNhanVienTheoMa(taiKhoan);
 			if (kiemTra) {
-				JOptionPane.showMessageDialog(this, "Đăng nhập thành công");
-				new TrangChu(busNhanVien.layNhanVienTheoMa(taiKhoan)).setVisible(true);
+				if(!nv.getChucVu().equals("Quản lý")) {
+					JOptionPane.showMessageDialog(this, "Đăng nhập thành công");
+					TrangChu trangChu = new TrangChu(busNhanVien.layNhanVienTheoMa(taiKhoan));
+					trangChu.xuLyTinhNangTheoChucVuCuaNhanVien();
+					trangChu.setVisible(true);
+				}else {
+					TrangChu trangChu = new TrangChu(busNhanVien.layNhanVienTheoMa(taiKhoan));
+					trangChu.setVisible(true);
+				}
 				this.setVisible(false);
 
 			} else {
