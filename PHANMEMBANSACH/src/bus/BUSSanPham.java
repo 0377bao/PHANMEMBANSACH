@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 import javax.swing.table.DefaultTableModel;
 
 import dao.DAOSanPham;
+import entity.NhaCungCap;
 import entity.Sach;
 import entity.SanPham;
 import entity.VanPhongPham;

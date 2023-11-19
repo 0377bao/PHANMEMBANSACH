@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import dao.DAODanhMuc;
 import entity.DanhMuc;
+import entity.NhaCungCap;
 
 public class BUSDanhMuc {
 	DAODanhMuc daoDanhMuc = new DAODanhMuc();
@@ -45,5 +46,15 @@ public class BUSDanhMuc {
 			}
 		}
 		return true;
+	}
+
+	// tìm danh mục theo tên
+	public DanhMuc timDanhMucTheoTen(String ten) {
+		for (DanhMuc dm : daoDanhMuc.layDSDanhMuc()) {
+			if (dm.getTenDanhMuc().equals(ten)) {
+				return dm;
+			}
+		}
+		return null;
 	}
 }

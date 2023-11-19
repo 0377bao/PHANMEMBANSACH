@@ -925,7 +925,7 @@ public class GUISanPham extends JPanel {
 		cboLocDanhMuc.addItem("Tất cả");
 		ArrayList<DanhMuc> dsDM = busDanhMuc.layDSDanhMuc();
 		for (DanhMuc danhMuc : dsDM) {
-			cboDanhMuc.addItem(danhMuc.getMaDanhMuc());
+			cboDanhMuc.addItem(danhMuc.getTenDanhMuc());
 			cboLocDanhMuc.addItem(danhMuc.getMaDanhMuc());
 		}
 
@@ -1342,8 +1342,12 @@ public class GUISanPham extends JPanel {
 			String tenNCC = txtTenNCCVPP.getText().trim();
 			NhaCungCap ncc = busNCC.timNCCTheoTen(tenNCC);
 
-			String maDanhMuc = cboDanhMuc.getSelectedItem().toString();
-			DanhMuc danhMuc = new DanhMuc(maDanhMuc);
+			String tenDanhMuc = cboDanhMuc.getSelectedItem().toString();
+			DanhMuc danhMuc = busDanhMuc.timDanhMucTheoTen(tenDanhMuc);
+			
+//			String maDanhMuc = cboDanhMuc.getSelectedItem().toString();
+//			DanhMuc danhMuc = new DanhMuc(maDanhMuc);
+			
 			if (busSP.validDataVPP(maVPP, tenVPP, tenNCC, txtSoLuongVPP.getText().trim(),
 					txtGiaNhapVPP.getText().trim(), theLoai, ke, hinhAnh, txtThueVPP.getText().trim(),
 					txtLoiNhuanVPP.getText().trim(), chatLieu)) {
