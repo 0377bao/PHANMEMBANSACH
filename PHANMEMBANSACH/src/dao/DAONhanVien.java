@@ -130,5 +130,47 @@ public class DAONhanVien {
 		}
 		return nv;
 	}
+	
+	public boolean capNhatMatKhauNV(String nv, String matKhau) {
+		ConnectDB.getInstance();
+		Connection con = ConnectDB.getConnection();
+		PreparedStatement ps = null;
+		String sql_nv = "update TaiKhoan set matKhau = ? where tenTaiKhoan = ?";
+		int n = 0;
+		try {
+			ps = con.prepareStatement(sql_nv);
+			ps.setString(1, matKhau);
+			ps.setString(2, nv);
+			n = ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ps.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return n > 0;
+	}
+	
+	public String layMatKhauNhanVienTheoMa(String ma) {
+		String mk = "";
+		ConnectDB.getInstance();
+		Connection con = ConnectDB.getConnection();
+		String sql = "select * from NhanVien nv join TaiKhoan tk on nv.maNhanVien=tk.tenTaiKhoan where nv.maNhanVien = ?";
+		try {
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setString(1, ma);
+			ResultSet rs = stmt.executeQuery();
+			while(rs.next()) {
+				mk = rs.getString("matKhau");
+			}
+		}catch(Exception e) {
+			
+		}
+		return mk;
+		
+	}
 
 }

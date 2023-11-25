@@ -386,9 +386,11 @@ public class GUIKhuyenMai extends JPanel{
     	for(MucKhuyenMai mkm : ds) {
     		modelChiTietKM.addRow(new Object[] {mkm.getTenMucKhuyenMai(), mkm.getTiLeKhuyenMai()});
     	}
+    	cboMucKM.setSelectedIndex(0);
     }
     
     public void xuLySuKienCboTrangThai(Object o) {
+    	
     	if(o.equals(cboTrangThai)) {
     		txtMaDuocChon.setText("");
     	 	viTriDongDuocChon = -1;
@@ -398,11 +400,13 @@ public class GUIKhuyenMai extends JPanel{
         	modelDSKhuyenMai.setRowCount(0);
         	modelChiTietKM.setRowCount(0);
         	if(index == 0) {
+        		
         		for(ChuongTrinhKhuyenMai ctkm : ds) {
             		modelDSKhuyenMai.addRow(new Object[] {++stt, ctkm.getMaCTKM(), ctkm.getTenCTKM(), ctkm.isTrangThai() ? "Đang áp dụng" : "Không áp dụng"});
             	}
         	}
         	if(index == 1) {
+        		
         		for(ChuongTrinhKhuyenMai ctkm : ds) {
         			if(ctkm.isTrangThai()) {
         				modelDSKhuyenMai.addRow(new Object[] {++stt, ctkm.getMaCTKM(), ctkm.getTenCTKM(), "Đang áp dụng"});
@@ -410,6 +414,7 @@ public class GUIKhuyenMai extends JPanel{
             	}
         	}
         	if(index == 2) {
+        		
         		for(ChuongTrinhKhuyenMai ctkm : ds) {
         			if(!ctkm.isTrangThai()) {
         				modelDSKhuyenMai.addRow(new Object[] {++stt,ctkm.getMaCTKM(), ctkm.getTenCTKM(), "Không áp dụng"});
@@ -433,7 +438,8 @@ public class GUIKhuyenMai extends JPanel{
     	
     	if(viTriDongDuocChon == -1 && o.equals(cboMucKM)) {
     		JOptionPane.showMessageDialog(this, "Chỉ lọc khi đã chọn chương trình khuyến mãi");
-    	}else if(viTriDongDuocChon != 1 && o.equals(cboMucKM)) {
+    		cboMucKM.setSelectedIndex(0);
+    	}else if(viTriDongDuocChon != -1 && o.equals(cboMucKM)) {
     		String ma = modelDSKhuyenMai.getValueAt(viTriDongDuocChon, 1).toString();
     		ArrayList<MucKhuyenMai> ds = new DAOMucKhuyenMai().layDSMucKhuyenMaiCuaCTKM(ma);
     		String index = cboMucKM.getSelectedItem().toString();

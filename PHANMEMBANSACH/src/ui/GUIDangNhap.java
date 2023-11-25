@@ -143,7 +143,7 @@ public class GUIDangNhap extends JFrame {
 			boolean kiemTra = busTaiKhoan.kiemTraMatKhau(taiKhoan, matKhau);
 			NhanVien nv = busNhanVien.layNhanVienTheoMa(taiKhoan);
 			if (kiemTra) {
-				if(!nv.getChucVu().equals("quản lý")) {
+				if(!nv.getChucVu().equals("Quản lý")) {
 					JOptionPane.showMessageDialog(this, "Đăng nhập thành công");
 					TrangChu trangChu = new TrangChu(busNhanVien.layNhanVienTheoMa(taiKhoan));
 					trangChu.xuLyTinhNangTheoChucVuCuaNhanVien();

@@ -12,6 +12,7 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import com.itextpdf.text.Document;
@@ -283,7 +284,7 @@ public class Tools {
 	            document.add(table);
 	            
 //	            bảng tổng cộng
-	            PdfPTable tableTongCong = new PdfPTable(4);
+	            PdfPTable tableTongCong = new PdfPTable(6);
 	            tableTongCong.setWidthPercentage(100);
 	            tableTongCong.setSpacingBefore(10f);
 	            tableTongCong.setSpacingAfter(10f);
@@ -301,22 +302,32 @@ public class Tools {
 	            PdfPCell cell2 = new PdfPCell(paragraph2);
 	            cell2.setBorder(Rectangle.NO_BORDER);
 	            tableTongCong.addCell(cell2);
-
-	            Paragraph paragraph3 = new Paragraph("Thành tiền: ", font);
+	            
+	            Paragraph paragraph3 = new Paragraph("Điểm giảm giá: ", font);
 	            PdfPCell cell3 = new PdfPCell(paragraph3);
 	            cell3.setBorder(Rectangle.NO_BORDER);
-	            tableTongCong.addCell(cell3);
-	            
-	            Paragraph paragraph4 = new Paragraph(dinhDangTien(dgh.getHoaDon().getThanhTien()), fontBold);
+                tableTongCong.addCell(cell3);
+                
+                Paragraph paragraph4 = new Paragraph(dgh.getHoaDon().getDiemGiamGia()+"", fontBold);
 	            PdfPCell cell4 = new PdfPCell(paragraph4);
 	            cell4.setBorder(Rectangle.NO_BORDER);
-	            tableTongCong.addCell(cell4);
+                tableTongCong.addCell(cell4);
+	           
 
-	            document.add(tableTongCong);
+	            Paragraph paragraph5 = new Paragraph("Thành tiền: ", font);
+	            PdfPCell cell5 = new PdfPCell(paragraph5);
+	            cell5.setBorder(Rectangle.NO_BORDER);
+	            tableTongCong.addCell(cell5);
 	            
-	            Paragraph tienVanChuyen = new Paragraph("Tiền vận chuyển: " + dinhDangTien(dgh.getTienVanChuyen()), font);
-                document.add(tienVanChuyen);
-                
+	            Paragraph paragraph6 = new Paragraph(dinhDangTien(dgh.getHoaDon().getThanhTien()), fontBold);
+	            PdfPCell cell6 = new PdfPCell(paragraph6);
+	            cell6.setBorder(Rectangle.NO_BORDER);
+	            tableTongCong.addCell(cell6);
+	            
+	            document.add(tableTongCong);    
+	            Paragraph tienVanChuyen_title = new Paragraph("Tiền vận chuyển: " + dinhDangTien(dgh.getTienVanChuyen()), font);
+	            document.add(tienVanChuyen_title);
+	            
 	            // Chữ ký
 	            Paragraph signature = new Paragraph("\n===================================", font);
 	            signature.setAlignment(Element.ALIGN_CENTER);

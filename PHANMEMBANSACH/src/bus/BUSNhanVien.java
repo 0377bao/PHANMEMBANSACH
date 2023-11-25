@@ -177,4 +177,10 @@ public class BUSNhanVien {
 		}
 		return dsNVTheoTrangThai;
 	}
+	
+	// lấy mật khẩu nhân viên theo mã nhân viên
+	public String layMatKhauNhanVienTheoMa(String ma) {
+		return daoNhanVien.layMatKhauNhanVienTheoMa(ma);
+	}
+	
 }

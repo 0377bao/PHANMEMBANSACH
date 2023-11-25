@@ -8,18 +8,23 @@ import java.util.concurrent.ThreadFactory;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
+import javax.swing.event.AncestorEvent;
+import javax.swing.event.AncestorListener;
 
 import bus.BUSHoaDon;
+import controller.XuLyDangXuat;
 import controller.XuLyDieuHuongPhamMem;
 import customUI.ButtonSidebar;
 import customUI.CustumImage;
+import customUI.MyButton;
 import entity.HoaDon;
 import entity.NhanVien;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -28,6 +33,7 @@ import java.awt.Component;
 
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
 
 
 public class TrangChu extends JFrame implements Runnable,ThreadFactory {
@@ -50,6 +56,7 @@ public class TrangChu extends JFrame implements Runnable,ThreadFactory {
 	private ButtonSidebar btnNhanVien;
 	private ButtonSidebar btnThongKe;
 	private ButtonSidebar btnHoTro;
+	private MyButton btnThongTin;
 	private Color colorBtnActive = new Color(10, 110, 227);
 	private JPanel pnlHienTai;
 	private NhanVien nvHienTai = null;
@@ -112,8 +119,14 @@ public class TrangChu extends JFrame implements Runnable,ThreadFactory {
 		int widthLblAvtNhanVien = 130;
 		lblAvtNhanVien = new JLabel(new CustumImage().taoHinhTronAvt(nv.getHinhAnh(), widthLblAvtNhanVien));
 		lblAvtNhanVien.setAlignmentX(Component.CENTER_ALIGNMENT);
-		lblAvtNhanVien.setBounds(60, 20, widthLblAvtNhanVien, widthLblAvtNhanVien);
-		pnlSideBar.add(lblAvtNhanVien);
+		lblAvtNhanVien.setBounds(0, 0, widthLblAvtNhanVien, widthLblAvtNhanVien);
+		
+		btnThongTin = new MyButton("");
+		btnThongTin.setBackground(new Color(97, 166, 247));
+		btnThongTin.add(lblAvtNhanVien);
+		btnThongTin.setBorder(null);
+		btnThongTin.setBounds(60, 20, 130, 130);
+		pnlSideBar.add(btnThongTin);
 
 		lblTenNhanVien = new JLabel(nvHienTai.getTenNhanVien());
 		lblTenNhanVien.setBounds(10, 150, 230, 50);
@@ -206,7 +219,17 @@ public class TrangChu extends JFrame implements Runnable,ThreadFactory {
 		
 		pnlHienTai = new GUITrangChu();
 		getContentPane().add(pnlHienTai);
+		
+		XuLyDangXuat xuLyDangXuat = new XuLyDangXuat(this);
+		btnThongTin.addActionListener(xuLyDangXuat);
+		
 	}
+	
+//	public void xetMauButton() {
+//		btnThongTin.setBackground(Color.red);
+//	}
+	
+	
 
 	// Đặt lại màu nền trắng cho tất cả các button control
 	public void datLaiMauNenChoButtonControll() {
@@ -321,7 +344,18 @@ public class TrangChu extends JFrame implements Runnable,ThreadFactory {
 		getContentPane().add(pnlHienTai);
 		this.revalidate();
 		this.repaint();
+		
+		
 	}
+	// phần xủ lý đăng xuất
+	public void xuLyDangXuat(ActionEvent e) {
+		Object o = e.getSource();
+		if(o.equals(btnThongTin)) {
+			new GUIThongTinNhanVien(nvHienTai, this).setVisible(true);;
+		}
+	}
+	
+	
 	
 	// phần xử lý đóng các chức năng theo chức vụ
 	public void xuLyTinhNangTheoChucVuCuaNhanVien() {
