@@ -31,6 +31,4 @@ public class PopUp extends JFrame{
 				.getScaledInstance(70, 70, Image.SCALE_SMOOTH));
 		this.setIconImage(logoFrame1.getImage());
   }
-  
-
 }

@@ -7,10 +7,10 @@ import java.awt.event.MouseListener;
 
 import ui.TrangChu;
 
-public class XuLyDangXuat implements ActionListener{
+public class ControllerDangXuat implements ActionListener{
 	private TrangChu view;
 	
-	public XuLyDangXuat(TrangChu view) {
+	public ControllerDangXuat(TrangChu view) {
 		this.view = view;
 	}
 

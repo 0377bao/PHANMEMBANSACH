@@ -101,6 +101,29 @@ public class DAONhanVien {
 		}
 		return n > 0;
 	}
+	
+	public boolean capNhatMatKhauNV(String nv, String matKhau) {
+		ConnectDB.getInstance();
+		Connection con = ConnectDB.getConnection();
+		PreparedStatement ps = null;
+		String sql_nv = "update TaiKhoan set matKhau = ? where tenTaiKhoan = ?";
+		int n = 0;
+		try {
+			ps = con.prepareStatement(sql_nv);
+			ps.setString(1, matKhau);
+			ps.setString(2, nv);
+			n = ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ps.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return n > 0;
+	}
 
 	// tìm nhân viên theo mã
 	public NhanVien layNhanVienTheoMa(String maNV) {
@@ -131,29 +154,6 @@ public class DAONhanVien {
 		return nv;
 	}
 	
-	public boolean capNhatMatKhauNV(String nv, String matKhau) {
-		ConnectDB.getInstance();
-		Connection con = ConnectDB.getConnection();
-		PreparedStatement ps = null;
-		String sql_nv = "update TaiKhoan set matKhau = ? where tenTaiKhoan = ?";
-		int n = 0;
-		try {
-			ps = con.prepareStatement(sql_nv);
-			ps.setString(1, matKhau);
-			ps.setString(2, nv);
-			n = ps.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				ps.close();
-			} catch (Exception e2) {
-				e2.printStackTrace();
-			}
-		}
-		return n > 0;
-	}
-	
 	public String layMatKhauNhanVienTheoMa(String ma) {
 		String mk = "";
 		ConnectDB.getInstance();
@@ -173,4 +173,20 @@ public class DAONhanVien {
 		
 	}
 
+	public String layEmailNhanVienTheoMa(String maNV) {
+		ConnectDB.getInstance();
+		Connection con = ConnectDB.getConnection();
+		String sql = "select * from NhanVien where maNhanVien = ?";
+		try {
+			PreparedStatement statement = con.prepareStatement(sql);
+			statement.setString(1, maNV);
+			ResultSet rs = statement.executeQuery();
+			while (rs.next()) {
+				return rs.getString("email");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

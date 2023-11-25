@@ -46,4 +46,14 @@ public class BUSDanhMuc {
 		}
 		return true;
 	}
+
+	// tìm danh mục theo tên
+	public DanhMuc timDanhMucTheoTen(String ten) {
+		for (DanhMuc dm : daoDanhMuc.layDSDanhMuc()) {
+			if (dm.getTenDanhMuc().equals(ten)) {
+				return dm;
+			}
+		}
+		return null;
+	}
 }

@@ -7,8 +7,6 @@ import javax.swing.SwingWorker;
 
 import ui.PopUp;
 
-
-
 public class phanLuong extends SwingWorker<Void, Void>{
 	private PopUp frame;
 	private String mail1;

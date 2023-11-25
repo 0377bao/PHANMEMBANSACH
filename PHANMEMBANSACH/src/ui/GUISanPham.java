@@ -428,7 +428,7 @@ public class GUISanPham extends JPanel {
 		pnlChucNang.setLayout(null);
 
 		btnThemSach = new MyButton("THÊM SẢN PHẨM");
-		btnThemSach.setBackground(new Color(97, 166, 247));
+		btnThemSach.setBackground(new Color(0, 255, 0));
 		btnThemSach.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnThemSach.setForeground(new Color(255, 255, 255));
 		btnThemSach.setText("Thêm");
@@ -437,6 +437,7 @@ public class GUISanPham extends JPanel {
 		pnlChucNang.add(btnThemSach);
 
 		btnCapNhatSach = new MyButton("CẬP NHẬT ");
+		btnCapNhatSach.setBackground(new Color(255, 0, 255));
 		btnCapNhatSach.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnCapNhatSach.setText("Cập nhật");
 		btnCapNhatSach.setForeground(new Color(255, 255, 255));
@@ -445,7 +446,7 @@ public class GUISanPham extends JPanel {
 		pnlChucNang.add(btnCapNhatSach);
 
 		btnXoaTrangSach = new MyButton("XÓA TRẮNG");
-		btnXoaTrangSach.setBackground(new Color(97, 166, 247));
+		btnXoaTrangSach.setBackground(new Color(128, 128, 255));
 		btnXoaTrangSach.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnXoaTrangSach.setText("Xóa trắng");
 		btnXoaTrangSach.setForeground(new Color(255, 255, 255));
@@ -454,6 +455,7 @@ public class GUISanPham extends JPanel {
 		pnlChucNang.add(btnXoaTrangSach);
 
 		btnTaiLaiSach = new MyButton("TẢI LẠI");
+		btnTaiLaiSach.setBackground(new Color(153, 77, 0));
 		btnTaiLaiSach.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnTaiLaiSach.setText("Tải lại");
 		btnTaiLaiSach.setForeground(new Color(255, 255, 255));
@@ -797,7 +799,7 @@ public class GUISanPham extends JPanel {
 		pnlChucNang_1.setLayout(null);
 
 		btnThemVPP = new MyButton("Thêm");
-		btnThemVPP.setBackground(new Color(35, 202, 11));
+		btnThemVPP.setBackground(new Color(0, 255, 0));
 		btnThemVPP.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnThemVPP.setForeground(new Color(255, 255, 255));
 		btnThemVPP.setText("Thêm");
@@ -807,7 +809,7 @@ public class GUISanPham extends JPanel {
 
 		btnCapNhatVPP = new MyButton("Cập nhật");
 		btnCapNhatVPP.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnCapNhatVPP.setBackground(new Color(240, 0, 120));
+		btnCapNhatVPP.setBackground(new Color(255, 0, 255));
 		btnCapNhatVPP.setText("Cập nhật");
 		btnCapNhatVPP.setForeground(new Color(255, 255, 255));
 		btnCapNhatVPP.setBounds(175, 35, 100, 30);
@@ -925,7 +927,7 @@ public class GUISanPham extends JPanel {
 		cboLocDanhMuc.addItem("Tất cả");
 		ArrayList<DanhMuc> dsDM = busDanhMuc.layDSDanhMuc();
 		for (DanhMuc danhMuc : dsDM) {
-			cboDanhMuc.addItem(danhMuc.getMaDanhMuc());
+			cboDanhMuc.addItem(danhMuc.getTenDanhMuc());
 			cboLocDanhMuc.addItem(danhMuc.getMaDanhMuc());
 		}
 
@@ -1111,14 +1113,15 @@ public class GUISanPham extends JPanel {
 //			String maNCC = cboNhaCungCapSach.getSelectedItem().toString();
 			String tenNCC = txtTenNCCSach.getText().trim();
 			NhaCungCap ncc = busNCC.timNCCTheoTen(tenNCC);
+			String giaNhapChuyen = txtGiaNhapSach.getText().trim().replaceAll("[,VND]", "");
 
-			if (busSP.validDataSach(maSach, tenSach, tenNCC, txtSoLuongSach.getText().trim(),
-					txtGiaNhapSach.getText().trim(), theLoai, ke, hinhAnh, txtThueSach.getText().trim(),
-					txtLoiNhuanSach.getText().trim(), tacGia, nhaXB, txtNamXB.getText().trim())) {
+			if (busSP.validDataSach(maSach, tenSach, tenNCC, txtSoLuongSach.getText().trim(), giaNhapChuyen, theLoai,
+					ke, hinhAnh, txtThueSach.getText().trim(), txtLoiNhuanSach.getText().trim(), tacGia, nhaXB,
+					txtNamXB.getText().trim())) {
 				int namXB = Integer.parseInt(txtNamXB.getText().trim());
 				int soLuong = Integer.parseInt(txtSoLuongSach.getText().trim());
 				float thue = Float.parseFloat(txtThueSach.getText().trim());
-				float giaNhap = Float.parseFloat(txtGiaNhapSach.getText().trim());
+				float giaNhap = Float.parseFloat(giaNhapChuyen);
 				float loiNhuan = Float.parseFloat(txtLoiNhuanSach.getText().trim());
 				SanPham sach = new Sach(maSach, tenSach, soLuong, giaNhap, theLoai, ke, hinhAnh, thue, loiNhuan,
 						trangThai, ncc, tacGia, nhaXB, namXB);
@@ -1342,14 +1345,15 @@ public class GUISanPham extends JPanel {
 			String tenNCC = txtTenNCCVPP.getText().trim();
 			NhaCungCap ncc = busNCC.timNCCTheoTen(tenNCC);
 
-			String maDanhMuc = cboDanhMuc.getSelectedItem().toString();
-			DanhMuc danhMuc = new DanhMuc(maDanhMuc);
-			if (busSP.validDataVPP(maVPP, tenVPP, tenNCC, txtSoLuongVPP.getText().trim(),
-					txtGiaNhapVPP.getText().trim(), theLoai, ke, hinhAnh, txtThueVPP.getText().trim(),
-					txtLoiNhuanVPP.getText().trim(), chatLieu)) {
+			String tenDM = cboDanhMuc.getSelectedItem().toString();
+			DanhMuc danhMuc = busDanhMuc.timDanhMucTheoTen(tenDM);
+
+			String giaNhapChuyen = txtGiaNhapVPP.getText().trim().replaceAll("[,VND]", "");
+			if (busSP.validDataVPP(maVPP, tenVPP, tenNCC, txtSoLuongVPP.getText().trim(), giaNhapChuyen, theLoai, ke,
+					hinhAnh, txtThueVPP.getText().trim(), txtLoiNhuanVPP.getText().trim(), chatLieu)) {
 				int soLuong = Integer.parseInt(txtSoLuongVPP.getText().trim());
 				float thue = Float.parseFloat(txtThueVPP.getText().trim());
-				float giaNhap = Float.parseFloat(txtGiaNhapVPP.getText().trim());
+				float giaNhap = Float.parseFloat(giaNhapChuyen);
 				float loiNhuan = Float.parseFloat(txtLoiNhuanVPP.getText().trim());
 				SanPham vpp = new VanPhongPham(maVPP, tenVPP, soLuong, giaNhap, theLoai, ke, hinhAnh, thue, loiNhuan,
 						trangThai, ncc, chatLieu, danhMuc);
@@ -1424,8 +1428,8 @@ public class GUISanPham extends JPanel {
 		String tenNCC = txtTenNCCVPP.getText().trim();
 		NhaCungCap ncc = busNCC.timNCCTheoTen(tenNCC);
 
-		String maDanhMuc = cboDanhMuc.getSelectedItem().toString();
-		DanhMuc danhMuc = new DanhMuc(maDanhMuc);
+		String tenDM = cboDanhMuc.getSelectedItem().toString();
+		DanhMuc danhMuc = busDanhMuc.timDanhMucTheoTen(tenDM);
 		if (busSP.validDataVPP(maVPP, tenVPP, tenNCC, txtSoLuongVPP.getText().trim(), txtGiaNhapVPP.getText().trim(),
 				theLoai, ke, hinhAnh, txtThueVPP.getText().trim(), txtLoiNhuanVPP.getText().trim(), chatLieu)) {
 			int soLuong = Integer.parseInt(txtSoLuongVPP.getText().trim());
@@ -1541,7 +1545,7 @@ public class GUISanPham extends JPanel {
 					} else {
 						chkTrangThaiVPP.setSelected(false);
 					}
-					String danhMuc = ((VanPhongPham) sanPham).getDanhMuc().getMaDanhMuc();
+					String danhMuc = ((VanPhongPham) sanPham).getDanhMuc().getTenDanhMuc();
 					cboDanhMuc.setSelectedItem(danhMuc);
 				}
 			}

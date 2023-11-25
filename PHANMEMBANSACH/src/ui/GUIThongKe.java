@@ -277,8 +277,7 @@ public class GUIThongKe extends JPanel {
 		pnlThongKeDanhSachHoaDon.add(lblDanhSachHoaDonNhanVien);
 		
 		JPanel pnlCuaHang = new JPanel();
-		tabbedPane.addTab("Cửa hàng", null, pnlCuaHang, null);
-		pnlCuaHang.setLayout(null);
+		
 		
 		JPanel pnlThongKeDoanhThuQuy = new JPanel();
 		pnlThongKeDoanhThuQuy.setBackground(new Color(255, 255, 255));
@@ -295,6 +294,7 @@ public class GUIThongKe extends JPanel {
 		cbmodelThongKeCuaHangTheoQuy = new DefaultComboBoxModel();
 		busTK.taoDuLieuComBoBoxThongKeCHTheoQuy(cbmodelThongKeCuaHangTheoQuy);
 		cbThongKeCuaHangTheoQuy.setModel(cbmodelThongKeCuaHangTheoQuy);
+		cbThongKeCuaHangTheoQuy.setSelectedIndex(1);
 		cbThongKeCuaHangTheoQuy.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		cbThongKeCuaHangTheoQuy.setBounds(294, 8, 171, 24);
 		cbThongKeCuaHangTheoQuy.setActionCommand("cbThongKeCuaHangTheoQuy");
@@ -467,8 +467,7 @@ public class GUIThongKe extends JPanel {
 		
 		
 		JPanel pnlThongKeNhanVien = new JPanel();
-		tabbedPane.addTab("Nhân viên", null, pnlThongKeNhanVien, null);
-		pnlThongKeNhanVien.setLayout(null);
+		
 		
 		JPanel pnlThongKeCacThanhPhanThangCH_1 = new JPanel();
 		pnlThongKeCacThanhPhanThangCH_1.setLayout(null);
@@ -657,8 +656,7 @@ public class GUIThongKe extends JPanel {
 		panel_1.add(scrollPane);
 		
 		JPanel pnlThongKeSanPham = new JPanel();
-		tabbedPane.addTab("Sản phẩm", null, pnlThongKeSanPham, null);
-		pnlThongKeSanPham.setLayout(null);
+		
 		
 		JPanel panel_3 = new JPanel();
 		panel_3.setBackground(new Color(255, 255, 255));
@@ -830,6 +828,14 @@ public class GUIThongKe extends JPanel {
 		cboThongKeThangCH.addActionListener(new ControllerThongKe(this));
 		cbThongKeSanPhamTrongQuy.addActionListener(new ControllerThongKe(this));
 		cbThongKeTrangThaiSanPham.addActionListener(new ControllerThongKe(this));
+		if(nv.getChucVu().equals("Quản lý")) {
+			tabbedPane.addTab("Sản phẩm", null, pnlThongKeSanPham, null);
+			pnlThongKeSanPham.setLayout(null);
+			tabbedPane.addTab("Nhân viên", null, pnlThongKeNhanVien, null);
+			pnlThongKeNhanVien.setLayout(null);
+			tabbedPane.addTab("Cửa hàng", null, pnlCuaHang, null);
+			pnlCuaHang.setLayout(null);
+		}
 	}
 	//Hàm tạo dữ liệu cho biểu đồ thống kê theo tuần
 	private CategoryDataset  taoBieuDoDoanhThuTuan() {
