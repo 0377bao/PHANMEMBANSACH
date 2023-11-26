@@ -53,7 +53,7 @@ public class BUSGiaoHang {
    }
    
 
-   public ArrayList<DonGiaoHang> sapXepTheoTongTienVanChuyen() {
+   public ArrayList<DonGiaoHang> sapXepTheoTongTienVanChuyenGiamDan() {
    	ArrayList<DonGiaoHang> ds = daoDonGiaoHang.layDSDonHang();
        Collections.sort(ds,new Comparator<DonGiaoHang>() {
 
@@ -66,6 +66,23 @@ public class BUSGiaoHang {
 		});
       return ds;
    }
+   
+   public ArrayList<DonGiaoHang> sapXepTheoTongTienVanChuyenTangDan() {
+	   	ArrayList<DonGiaoHang> ds = daoDonGiaoHang.layDSDonHang();
+	       Collections.sort(ds,new Comparator<DonGiaoHang>() {
+
+				@Override
+				public int compare(DonGiaoHang o1, DonGiaoHang o2) {
+					Float kh1 = (Float)o1.getTienVanChuyen();
+					Float kh2 = (Float)o2.getTienVanChuyen();
+					return kh1.compareTo(kh2);
+				}
+			});
+	      return ds;
+	   }
+   
+   
+   
    
    public boolean validateDuLieu(String maDonHang, String tenKhachHang, String sdt, JTextField soKg, JTextField soKm) {
 	   if(maDonHang.equals("")) {

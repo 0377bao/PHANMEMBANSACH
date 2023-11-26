@@ -1,5 +1,6 @@
 package bus;
 
+import dao.DAONhanVien;
 import dao.DAOTaiKhoan;
 import entity.TaiKhoan;
 
@@ -11,5 +12,9 @@ public class BUSTaiKhoan {
 	
 	public boolean themTaiKhoan(TaiKhoan tk) {
 		return daoTaiKhoan.themTaiKhoan(tk);
+	}
+	
+	public boolean capNhatMatKhau(String tenTK, String mk) {
+		return new DAONhanVien().capNhatMatKhauNV(tenTK, mk);
 	}
 }
