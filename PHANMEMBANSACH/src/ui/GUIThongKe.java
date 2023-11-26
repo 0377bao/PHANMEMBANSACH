@@ -277,8 +277,7 @@ public class GUIThongKe extends JPanel {
 		pnlThongKeDanhSachHoaDon.add(lblDanhSachHoaDonNhanVien);
 		
 		JPanel pnlCuaHang = new JPanel();
-		tabbedPane.addTab("Cửa hàng", null, pnlCuaHang, null);
-		pnlCuaHang.setLayout(null);
+		
 		
 		JPanel pnlThongKeDoanhThuQuy = new JPanel();
 		pnlThongKeDoanhThuQuy.setBackground(new Color(255, 255, 255));
@@ -295,6 +294,7 @@ public class GUIThongKe extends JPanel {
 		cbmodelThongKeCuaHangTheoQuy = new DefaultComboBoxModel();
 		busTK.taoDuLieuComBoBoxThongKeCHTheoQuy(cbmodelThongKeCuaHangTheoQuy);
 		cbThongKeCuaHangTheoQuy.setModel(cbmodelThongKeCuaHangTheoQuy);
+		cbThongKeCuaHangTheoQuy.setSelectedIndex(1);
 		cbThongKeCuaHangTheoQuy.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		cbThongKeCuaHangTheoQuy.setBounds(294, 8, 171, 24);
 		cbThongKeCuaHangTheoQuy.setActionCommand("cbThongKeCuaHangTheoQuy");
@@ -467,8 +467,7 @@ public class GUIThongKe extends JPanel {
 		
 		
 		JPanel pnlThongKeNhanVien = new JPanel();
-		tabbedPane.addTab("Nhân viên", null, pnlThongKeNhanVien, null);
-		pnlThongKeNhanVien.setLayout(null);
+		
 		
 		JPanel pnlThongKeCacThanhPhanThangCH_1 = new JPanel();
 		pnlThongKeCacThanhPhanThangCH_1.setLayout(null);
@@ -657,8 +656,7 @@ public class GUIThongKe extends JPanel {
 		panel_1.add(scrollPane);
 		
 		JPanel pnlThongKeSanPham = new JPanel();
-		tabbedPane.addTab("Sản phẩm", null, pnlThongKeSanPham, null);
-		pnlThongKeSanPham.setLayout(null);
+		
 		
 		JPanel panel_3 = new JPanel();
 		panel_3.setBackground(new Color(255, 255, 255));
@@ -694,7 +692,7 @@ public class GUIThongKe extends JPanel {
 		lblSanPhamConBan.setForeground(Color.WHITE);
 		lblSanPhamConBan.setFont(new Font("Tahoma", Font.BOLD, 20));
 		lblSanPhamConBan.setBounds(80, 58, 44, 30);
-		lblSanPhamConBan.setText(new BUSSanPham().locSachTheoTrangThai("Đang bán").size()+new BUSSanPham().locVPPTheoTrangThai("Đang bán").size()+"");
+		lblSanPhamConBan.setText(new BUSSanPham().kiemTraTrangThaiSach("Đang bán").size()+new BUSSanPham().kiemTraTrangThaiVPP("Đang bán").size()+"");
 		panel_7.add(lblSanPhamConBan);
 		
 		JLabel lblNewLabel_4_1_1 = new JLabel("sản phẩm");
@@ -719,7 +717,7 @@ public class GUIThongKe extends JPanel {
 		lblSanPhamKhongConBan.setForeground(Color.WHITE);
 		lblSanPhamKhongConBan.setFont(new Font("Tahoma", Font.BOLD, 20));
 		lblSanPhamKhongConBan.setBounds(91, 58, 44, 30);
-		lblSanPhamKhongConBan.setText(new BUSSanPham().locSachTheoTrangThai("Không còn bán").size()+new BUSSanPham().locVPPTheoTrangThai("Không còn bán").size()+"");
+		lblSanPhamKhongConBan.setText(new BUSSanPham().kiemTraTrangThaiSach("Không còn bán").size()+new BUSSanPham().kiemTraTrangThaiVPP("Không còn bán").size()+"");
 		panel_8.add(lblSanPhamKhongConBan);
 		
 		JLabel lblNewLabel_4_1_1_2 = new JLabel("sản phẩm");
@@ -830,6 +828,14 @@ public class GUIThongKe extends JPanel {
 		cboThongKeThangCH.addActionListener(new ControllerThongKe(this));
 		cbThongKeSanPhamTrongQuy.addActionListener(new ControllerThongKe(this));
 		cbThongKeTrangThaiSanPham.addActionListener(new ControllerThongKe(this));
+		if(nv.getChucVu().equals("Quản lý")) {
+			tabbedPane.addTab("Sản phẩm", null, pnlThongKeSanPham, null);
+			pnlThongKeSanPham.setLayout(null);
+			tabbedPane.addTab("Nhân viên", null, pnlThongKeNhanVien, null);
+			pnlThongKeNhanVien.setLayout(null);
+			tabbedPane.addTab("Cửa hàng", null, pnlCuaHang, null);
+			pnlCuaHang.setLayout(null);
+		}
 	}
 	//Hàm tạo dữ liệu cho biểu đồ thống kê theo tuần
 	private CategoryDataset  taoBieuDoDoanhThuTuan() {

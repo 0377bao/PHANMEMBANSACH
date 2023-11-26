@@ -8,7 +8,6 @@ import javax.swing.table.DefaultTableModel;
 
 import dao.DAONhanVien;
 import entity.NhanVien;
-import entity.SanPham;
 
 public class BUSNhanVien {
 	private DAONhanVien daoNhanVien = new DAONhanVien();
@@ -17,7 +16,6 @@ public class BUSNhanVien {
 	// lấy nhân viên theo mã
 	public NhanVien layNhanVienTheoMa(String maNV) {
 		return daoNhanVien.layNhanVienTheoMa(maNV);
-
 	}
 
 	// lấy danh sách nhân viên
@@ -166,7 +164,15 @@ public class BUSNhanVien {
 			ds.addAll(dsNV);
 		}
 	}
+	
+	public String layEmailNhanVienTheoMa(String maNV) {
+		return daoNhanVien.layEmailNhanVienTheoMa(maNV);
+	}
 
+	public boolean capNhatMatKhauNV(String nv, String matKhau) {
+		return daoNhanVien.capNhatMatKhauNV(nv, matKhau);
+	}
+	
 	// lọc nhân viên theo trạng thái
 	public ArrayList<NhanVien> locNVTheoTrangThai(String trangThai) {
 		ArrayList<NhanVien> dsNVTheoTrangThai = new ArrayList<>();

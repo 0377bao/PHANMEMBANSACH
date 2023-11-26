@@ -5,10 +5,10 @@ import java.awt.event.ActionListener;
 
 import ui.GUIDangNhap;
 
-public class XuLyDangNhap implements ActionListener{
+public class ControllerDangNhap implements ActionListener{
 	private GUIDangNhap view;
 	
-	public XuLyDangNhap(GUIDangNhap view) {
+	public ControllerDangNhap(GUIDangNhap view) {
 		super();
 		this.view = view;
 		
@@ -22,6 +22,8 @@ public class XuLyDangNhap implements ActionListener{
 		if(src.equals("btnDangNhap")) {
 			this.view.xuLyDangNhap();
 		}
-		
+		if(src.equals("btnQuenMatKhau")) {
+			this.view.xuLyQuenMatKhau();
+		}
 	}
 }

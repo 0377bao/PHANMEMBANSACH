@@ -20,9 +20,10 @@ import javax.swing.border.EmptyBorder;
 
 import bus.BUSNhanVien;
 import bus.BUSTaiKhoan;
-import controller.XuLyDangNhap;
+import controller.ControllerDangNhap;
 import customUI.CustumImage;
 import customUI.MyButton;
+import entity.NhanVien;
 
 public class GUIDangNhap extends JFrame {
 
@@ -92,9 +93,8 @@ public class GUIDangNhap extends JFrame {
 
 		txtTenDangNhap = new JTextField();
 		txtTenDangNhap.setFont(new Font("Tahoma", Font.BOLD, 13));
-		txtTenDangNhap.setText("NV1");
+		txtTenDangNhap.setText("NV10");
 		txtTenDangNhap.setBounds(327, 145, 317, 30);
-		txtTenDangNhap.setText("NV1");
 		pnlContent.add(txtTenDangNhap);
 		txtTenDangNhap.setColumns(10);
 
@@ -106,13 +106,14 @@ public class GUIDangNhap extends JFrame {
 		txtMatKhau = new JPasswordField();
 		txtMatKhau.setFont(new Font("Tahoma", Font.BOLD, 13));
 
-		txtMatKhau.setText("k123456");
+		txtMatKhau.setText("P446699");
 		txtMatKhau.setColumns(10);
 		txtMatKhau.setBounds(327, 222, 317, 30);
 
 		pnlContent.add(txtMatKhau);
 
 		btnQuenMatKhau = new MyButton("Quên mật khẩu?");
+		btnQuenMatKhau.setActionCommand("btnQuenMatKhau");
 		btnQuenMatKhau.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnQuenMatKhau.setBounds(508, 273, 136, 25);
 		pnlContent.add(btnQuenMatKhau);
@@ -127,8 +128,9 @@ public class GUIDangNhap extends JFrame {
 		this.setComponentZOrder(lblBgrDangNhap, 1);
 
 		// Thêm sự kiện
-		ActionListener ac = new XuLyDangNhap(this);
+		ActionListener ac = new ControllerDangNhap(this);
 		btnDangNhap.addActionListener(ac);
+		btnQuenMatKhau.addActionListener(ac);
 	}
 
 	public void xuLyDangNhap() {
@@ -141,13 +143,35 @@ public class GUIDangNhap extends JFrame {
 			JOptionPane.showMessageDialog(this, "Mật khẩu không được để trống");
 		} else {
 			boolean kiemTra = busTaiKhoan.kiemTraMatKhau(taiKhoan, matKhau);
+			NhanVien nv = busNhanVien.layNhanVienTheoMa(taiKhoan);
 			if (kiemTra) {
-				JOptionPane.showMessageDialog(this, "Đăng nhập thành công");
-				new TrangChu(busNhanVien.layNhanVienTheoMa(taiKhoan)).setVisible(true);
+				if(!nv.getChucVu().equals("Quản lý")) {
+					JOptionPane.showMessageDialog(this, "Đăng nhập thành công");
+					TrangChu trangChu = new TrangChu(busNhanVien.layNhanVienTheoMa(taiKhoan));
+					trangChu.xuLyTinhNangTheoChucVuCuaNhanVien();
+					trangChu.setVisible(true);
+				}else {
+					TrangChu trangChu = new TrangChu(busNhanVien.layNhanVienTheoMa(taiKhoan));
+					trangChu.setVisible(true);
+				}
 				this.setVisible(false);
 
 			} else {
 				JOptionPane.showMessageDialog(this, "Tài khoản hoặc mật khẩu không chính xác");
+			}
+		}
+	}
+	
+	public void xuLyQuenMatKhau() {
+		String taiKhoan = txtTenDangNhap.getText();
+		if(taiKhoan.trim().equals("")) {
+			JOptionPane.showMessageDialog(this, "Vui lòng nhập tên tài khoản quên mật khẩu");
+		} else {
+			String email = busNhanVien.layEmailNhanVienTheoMa(taiKhoan);
+			if(email == null) JOptionPane.showMessageDialog(this, "Mã nhân viên không tồn tại");
+			else {
+				new GUIQuenMatKhauNhapMa(taiKhoan, email).setVisible(true);;
+				this.setVisible(false);
 			}
 		}
 	}

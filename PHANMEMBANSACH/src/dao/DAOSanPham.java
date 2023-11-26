@@ -5,14 +5,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 import bus.BUSDanhMuc;
 import bus.BUSNhaCungCap;
 import connect.ConnectDB;
 import entity.DanhMuc;
-import entity.HoaDon;
 import entity.NhaCungCap;
 import entity.Sach;
 import entity.SanPham;

@@ -227,7 +227,7 @@ public class GUIMap extends JFrame {
 				guiGH.hoanThanhKM(textField_1.getText());
 				guiGH.layDiaChi(textField.getText());
                 guiGH.kiemTraDeDongMap(e.getActionCommand(), frame);
-                guiGH.tinhThanhTienDH(getName());
+                guiGH.tinhThanhTienDH();
 			}
 		});
 		btnHoanTat.setFont(new Font("Tahoma", Font.BOLD, 14));

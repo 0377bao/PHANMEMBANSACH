@@ -56,8 +56,8 @@ public class GUISendEmail extends JFrame {
 		panel.add(txtPassword);
 		txtPassword.setColumns(10);
 
-		txtUsername.setText("nhasachhbdk@gmail.com");
-		txtPassword.setText("wetw lpql kime wmdi");
+		txtUsername.setText("thuykieu.13032003@gmail.com");
+		txtPassword.setText("tirfdrdpsbjxqemq");
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(
@@ -115,7 +115,7 @@ public class GUISendEmail extends JFrame {
 
 	}
 
-	private void sendEmail(String from, String password, String to, String subject, String message) {
+	public void sendEmail(String from, String password, String to, String subject, String message) {
 //        String from = "thuykieu.13032003@gmail.com";  
 //        String password = "tirfdrdpsbjxqemq";  
 

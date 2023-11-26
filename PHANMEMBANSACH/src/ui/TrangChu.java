@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 
 
 import bus.BUSHoaDon;
-import controller.XuLyDieuHuongPhamMem;
+import controller.ControllerTrangChu;
 import customUI.ButtonSidebar;
 import customUI.CustumImage;
 import entity.HoaDon;
@@ -30,7 +30,7 @@ import java.awt.Font;
 import java.awt.Image;
 
 
-public class TrangChu extends JFrame implements Runnable,ThreadFactory {
+public class TrangChu extends JFrame{
 
 	/**
 	 * 
@@ -56,39 +56,19 @@ public class TrangChu extends JFrame implements Runnable,ThreadFactory {
 	private ArrayList<HoaDon> dsHoaDonCho = new ArrayList<>();
 	private GUIThongKe guiTK ;
 
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					TrangChu frame = new TrangChu();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-
-	/**
-	 * Create the frame.
-	 */
-	
-	
 	public TrangChu(NhanVien nv) {
-//		dsHoaDonCho.add(new BUSHoaDon().timHoaDonTheoMa("HD1"));
-		
 		this.nvHienTai = nv;
 
-		Thread daemonThread = new Thread(() -> {
-            guiTK = new GUIThongKe(nvHienTai);
-            
-        });
+//		Thread daemonThread = new Thread(() -> {
+//            guiTK = new GUIThongKe(nvHienTai);
+//            
+   //     });
 
         // Đặt thread là daemon
-        daemonThread.setDaemon(true);
+       // daemonThread.setDaemon(true);
 
         // Bắt đầu thực thi luồng
-        daemonThread.start();
+       // daemonThread.start();
         // Bắt đầu thực thi luồng mới
 
 		this.setTitle("PHẦN MỀM NHÀ SÁCH");
@@ -191,7 +171,7 @@ public class TrangChu extends JFrame implements Runnable,ThreadFactory {
 		pnlSideBar.add(btnHoTro);
 
 //		phần thêm sự kiện cho các nút điều hướng
-		XuLyDieuHuongPhamMem xuLyDieuHuong = new XuLyDieuHuongPhamMem(this);
+		ControllerTrangChu xuLyDieuHuong = new ControllerTrangChu(this);
 		btnTrangChu.addActionListener(xuLyDieuHuong);
 		btnBanHang.addActionListener(xuLyDieuHuong);
 		btnGiaoHang.addActionListener(xuLyDieuHuong);
@@ -306,10 +286,8 @@ public class TrangChu extends JFrame implements Runnable,ThreadFactory {
 			btnNhanVien.setForeground(Color.white);
 		} 
 		if(src.equals("QL Thống kê")) {
-			if(guiTK == null) {
-				guiTK = new GUIThongKe(nvHienTai);
-			}
-			pnlHienTai = guiTK;
+			
+			pnlHienTai = new GUIThongKe(nvHienTai);
 			btnThongKe.setBackground(colorBtnActive);
 			btnThongKe.setForeground(Color.white);
 		} 
@@ -323,6 +301,14 @@ public class TrangChu extends JFrame implements Runnable,ThreadFactory {
 		this.repaint();
 	}
 	
+	// phần xử lý đóng các chức năng theo chức vụ
+	public void xuLyTinhNangTheoChucVuCuaNhanVien() {
+		btnNhanVien.setEnabled(false);
+		btnDoiTraHang.setEnabled(false);
+		btnKhuyenMai.setEnabled(false);
+		btnNhaCungCap.setEnabled(false);
+	}
+	
 	public void chuyenHoaDonQuaGiaoHang(HoaDon hoaDon) {
 		datLaiMauNenChoButtonControll();
 		indexFrame = "Giao hàng";
@@ -333,22 +319,6 @@ public class TrangChu extends JFrame implements Runnable,ThreadFactory {
 		getContentPane().add(pnlHienTai);
 		this.revalidate();
 		this.repaint();
-	}
-
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-		System.out.println(1);
-		
-	}
-
-	@Override
-	public Thread newThread(Runnable r) {
-		// TODO Auto-generated method stub
-		Thread t = new Thread(r,"My Thread");
-		System.out.println(1);
-		t.setDaemon(true);
-		return t;
 
 	}
 }

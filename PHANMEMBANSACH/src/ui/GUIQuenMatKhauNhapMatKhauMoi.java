@@ -9,10 +9,13 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 
+import bus.BUSNhanVien;
+import controller.ControllerQuenMatKhauNhapMatKhauMoi;
 import customUI.CustumImage;
 import customUI.MyButton;
 
@@ -26,28 +29,14 @@ public class GUIQuenMatKhauNhapMatKhauMoi extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtMatKhau;
+	private String maNhanVien;
 	private JTextField txtNhapLaiMatKhau;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					GUIQuenMatKhauNhapMatKhauMoi frame = new GUIQuenMatKhauNhapMatKhauMoi();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
-	public GUIQuenMatKhauNhapMatKhauMoi() {
+	private MyButton btnXacNhan;
+	private BUSNhanVien busNhanVien = new BUSNhanVien();
+	private ControllerQuenMatKhauNhapMatKhauMoi ctrNhapMatKhau = new ControllerQuenMatKhauNhapMatKhauMoi(this);
+	
+	public GUIQuenMatKhauNhapMatKhauMoi(String maNhanVien) {
+		this.maNhanVien = maNhanVien;
 		this.setTitle("ĐĂNG NHẬP PHẦN MỀM");
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -119,12 +108,35 @@ public class GUIQuenMatKhauNhapMatKhauMoi extends JFrame {
 		txtNhapLaiMatKhau.setBounds(327, 222, 317, 30);
 		pnlContent.add(txtNhapLaiMatKhau);
 		
-		JButton btnDangNhap = new MyButton("Xác nhận");
-		btnDangNhap.setIcon(new ImageIcon("src\\image\\iconcontrolbtntrangchu\\iconcheck.png"));
-		btnDangNhap.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnDangNhap.setBounds(417, 299, 136, 30);
-		pnlContent.add(btnDangNhap);
+		btnXacNhan = new MyButton("Xác nhận");
+		btnXacNhan.setActionCommand("btnXacNhan");
+		btnXacNhan.setIcon(new ImageIcon("src\\image\\iconcontrolbtntrangchu\\iconcheck.png"));
+		btnXacNhan.setFont(new Font("Tahoma", Font.BOLD, 13));
+		btnXacNhan.setBounds(417, 299, 136, 30);
+		pnlContent.add(btnXacNhan);
 		this.setComponentZOrder(lblBgrDangNhap, 1);
 		
+		btnXacNhan.addActionListener(ctrNhapMatKhau);
+	}
+	
+	public void xuLyXacNhan() {
+		String matKhau = txtMatKhau.getText();
+		String xacNhanMatKhau = txtNhapLaiMatKhau.getText();
+		
+		if(matKhau.trim().equals("")) {
+			JOptionPane.showMessageDialog(this, "Mật khẩu không được để trống");
+		} else {
+			if(matKhau.equals(xacNhanMatKhau)) {
+				if(busNhanVien.capNhatMatKhauNV(maNhanVien, matKhau)) {
+					JOptionPane.showMessageDialog(this, "Cập nhật mật khẩu thành công");
+					new GUIDangNhap().setVisible(true);;
+					this.setVisible(false);
+				} else {
+					JOptionPane.showMessageDialog(this, "Cập nhật mật khẩu không thành công");
+				}
+			} else {
+				JOptionPane.showMessageDialog(this, "Mật khẩu và xác nhận mật khẩu không khớp");
+			}
+		}
 	}
 }

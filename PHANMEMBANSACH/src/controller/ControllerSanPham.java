@@ -38,7 +38,7 @@ public class ControllerSanPham implements ActionListener, MouseListener, KeyList
 		} else if (btn.equals("btnTaiLaiSach")) {
 			guiSP.taiLaiSach();
 		} else if (btn.equals("cboLocTrangThaiSach")) {
-			guiSP.locSachTheoTrangThai();
+			guiSP.KiemTraTrangThaiSach();
 		} else if (btn.equals("cboLocNCC_Sach")) {
 			guiSP.xuLyTimKiemSach();
 		} else if (btn.equals("btnTimMaSach")) {

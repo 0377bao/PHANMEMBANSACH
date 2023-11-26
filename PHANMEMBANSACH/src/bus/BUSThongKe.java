@@ -129,16 +129,16 @@ public class BUSThongKe {
 		int ngayTrongTuan = tinhSoNgayTrongTuanNay();
 
 		if ((ngayHT - ngayTrongTuan) <= 0) {
-			cbmodel.addElement("ngày" + 1 + "-" + "ngày" + ngayHT);
+			cbmodel.addElement("ngày " + 1 + "-" + "ngày " + ngayHT);
 			return;
 		} else {
-			cbmodel.addElement("ngày" + (ngayHT - ngayTrongTuan + 1) + "-ngày" + ngayHT);
+			cbmodel.addElement("ngày " + (ngayHT - ngayTrongTuan + 1) + "-ngày " + ngayHT);
 			ngayHT -= ngayTrongTuan;
 			while (ngayHT > 0) {
 				if (ngayHT > 7) {
-					cbmodel.addElement("ngày" + (ngayHT - 6) + "-ngày" + ngayHT);
+					cbmodel.addElement("ngày " + (ngayHT - 6) + "-ngày " + ngayHT);
 				} else {
-					cbmodel.addElement("ngày" + 1 + "-ngày" + ngayHT);
+					cbmodel.addElement("ngày " + 1 + "-ngày " + ngayHT);
 				}
 				ngayHT = ngayHT - 7;
 			}
@@ -151,7 +151,7 @@ public class BUSThongKe {
 			NhanVien nv) {
 		String thuTrongTuan[] = { "Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7", "Chủ Nhật" };
 		int thu = 0;
-		String khoangCach[] = cbmodel.getSelectedItem().toString().replace("ngày", "").split("-");
+		String khoangCach[] = cbmodel.getSelectedItem().toString().replace("ngày ", "").split("-");
 		if (Integer.parseInt(khoangCach[1]) < 7) {
 			thu = 7 - Integer.parseInt(khoangCach[1]);
 		}
@@ -177,7 +177,7 @@ public class BUSThongKe {
 			DefaultCategoryDataset dataSet) {
 		String thuTrongTuan[] = { "Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7", "Chủ Nhật" };
 		int thu = 0;
-		String khoangCach[] = cbmodel.getSelectedItem().toString().replace("ngày", "").split("-");
+		String khoangCach[] = cbmodel.getSelectedItem().toString().replace("ngày ", "").split("-");
 		if (Integer.parseInt(khoangCach[1]) < 7) {
 			thu = 7 - Integer.parseInt(khoangCach[1]);
 		}

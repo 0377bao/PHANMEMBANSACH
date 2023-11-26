@@ -38,6 +38,10 @@ public class BUSChuongTrinhKhuyenMai {
 	}
 	
 	public boolean validateChuongTrinhKhuyenMai(ChuongTrinhKhuyenMai ctkm) {
+		if(ctkm.getMaCTKM().equals("")) {
+			mes = "Vui lòng tạo mã chương trình khuyến mãi trước";
+			return false;
+		}
 		if(ctkm.getTenCTKM().equals("")) {
 			mes = "Vui lòng nhập tên chương trình khuyến mãi";
 			return false;
@@ -52,6 +56,10 @@ public class BUSChuongTrinhKhuyenMai {
 					return false;
 				}
 			}
+		}
+		if(ctkm.getDsMucKhuyenMai().size() == 0) {
+			mes = "Vui lòng thêm mục khuyến mãi trước khi tạo chương trình khuyến mãi";
+			return false;
 		}
 		return true;
 	}
