@@ -12,6 +12,7 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import com.itextpdf.text.Document;
@@ -54,7 +55,8 @@ public class Tools {
 			Paragraph tenCuaHang = new Paragraph("NHÀ SÁCH HBDK", titleFont);
 			tenCuaHang.setAlignment(Element.ALIGN_CENTER);
 			document.add(tenCuaHang);
-			Paragraph diaChiCuaHang = new Paragraph("12 Nguyễn Văn Bảo, Phường 4, Gò Vấp, Thành phố Hồ Chí Minh, Việt Nam", titleFont);
+			Paragraph diaChiCuaHang = new Paragraph(
+					"12 Nguyễn Văn Bảo, Phường 4, Gò Vấp, Thành phố Hồ Chí Minh, Việt Nam", titleFont);
 			diaChiCuaHang.setAlignment(Element.ALIGN_CENTER);
 			document.add(diaChiCuaHang);
 			Paragraph sdtCuaHang = new Paragraph("SDT: 0353426938\n\n", titleFont);
@@ -65,19 +67,21 @@ public class Tools {
 			document.add(title);
 
 			// Logo công ty (đổi đường dẫn ảnh)
-			//            Image logo = Image.getInstance("src/logo.png");
-			//            logo.scaleAbsolute(100f, 100f);
-			//            logo.setAlignment(Element.ALIGN_CENTER);
-			//            document.add(logo);
+			// Image logo = Image.getInstance("src/logo.png");
+			// logo.scaleAbsolute(100f, 100f);
+			// logo.setAlignment(Element.ALIGN_CENTER);
+			// document.add(logo);
 
 			// Thông tin khách hàng
 			Paragraph tenCTKM = new Paragraph("Tên CTKM: " + hoaDonIn.getCtkm().getTenCTKM(), font);
 			document.add(tenCTKM);
 			Paragraph ngayMua = new Paragraph("Ngày mua: " + hoaDonIn.getNgayLap(), font);
 			document.add(ngayMua);
-			Paragraph nhanVienBanHang = new Paragraph("Nhân viên bán hàng: " + hoaDonIn.getNhanVien().getTenNhanVien(), font);
+			Paragraph nhanVienBanHang = new Paragraph("Nhân viên bán hàng: " + hoaDonIn.getNhanVien().getTenNhanVien(),
+					font);
 			document.add(nhanVienBanHang);
-			Paragraph tenKhachHang = new Paragraph("Tên khách hàng: " + hoaDonIn.getKhachHang().getTenKhachHang(), font);
+			Paragraph tenKhachHang = new Paragraph("Tên khách hàng: " + hoaDonIn.getKhachHang().getTenKhachHang(),
+					font);
 			document.add(tenKhachHang);
 			Paragraph diemGiamGia = new Paragraph("Điểm giảm giá: " + hoaDonIn.getDiemGiamGia() + "\n\n", font);
 			document.add(diemGiamGia);
@@ -128,7 +132,7 @@ public class Tools {
 			table.setWidths(new float[] { 2, 1, 1, 1, 1, 1 });
 			document.add(table);
 
-			//            bảng tổng cộng
+			// bảng tổng cộng
 			PdfPTable tableTongCong = new PdfPTable(4);
 			tableTongCong.setWidthPercentage(100);
 			tableTongCong.setSpacingBefore(10f);
@@ -193,7 +197,8 @@ public class Tools {
 			Paragraph tenCuaHang = new Paragraph("NHÀ SÁCH HBDK", titleFont);
 			tenCuaHang.setAlignment(Element.ALIGN_CENTER);
 			document.add(tenCuaHang);
-			Paragraph diaChiCuaHang = new Paragraph("12 Nguyễn Văn Bảo, Phường 4, Gò Vấp, Thành phố Hồ Chí Minh, Việt Nam", titleFont);
+			Paragraph diaChiCuaHang = new Paragraph(
+					"12 Nguyễn Văn Bảo, Phường 4, Gò Vấp, Thành phố Hồ Chí Minh, Việt Nam", titleFont);
 			diaChiCuaHang.setAlignment(Element.ALIGN_CENTER);
 			document.add(diaChiCuaHang);
 			Paragraph sdtCuaHang = new Paragraph("SDT: 0353426938\n\n", titleFont);
@@ -203,18 +208,18 @@ public class Tools {
 			title.setAlignment(Element.ALIGN_CENTER);
 			document.add(title);
 
-			Paragraph line = new Paragraph("------------------------------------------------------------------------------");
+			Paragraph line = new Paragraph(
+					"------------------------------------------------------------------------------");
 			line.setAlignment(Element.ALIGN_CENTER);
 			document.add(line);
-
-
 
 			// Thông tin đơn hàng
 			Paragraph maDonHang = new Paragraph("Mã đơn hàng: " + dgh.getMaDonGiaoHang(), font);
 			document.add(maDonHang);
 			Paragraph ngayMua = new Paragraph("Ngày mua: " + dgh.getHoaDon().getNgayLap(), font);
 			document.add(ngayMua);
-			Paragraph nhanVienBanHang = new Paragraph("Nhân viên bán hàng: " + dgh.getHoaDon().getNhanVien().getTenNhanVien(), font);
+			Paragraph nhanVienBanHang = new Paragraph(
+					"Nhân viên bán hàng: " + dgh.getHoaDon().getNhanVien().getTenNhanVien(), font);
 			document.add(nhanVienBanHang);
 			Paragraph tenKhachHang = new Paragraph("Tên khách hàng: " + dgh.getTenKhachHang(), font);
 			document.add(tenKhachHang);
@@ -222,21 +227,16 @@ public class Tools {
 			document.add(sdt);
 			Paragraph diaChi = new Paragraph("Địa chỉ: " + dgh.getDiaChi(), font);
 			document.add(diaChi);
-			Paragraph trongLuong = new Paragraph("Trọng lượng: " + dgh.getSoKg(), font);
+			Paragraph trongLuong = new Paragraph("Trọng lượng: " + dgh.getSoKg() + " kg", font);
 			document.add(trongLuong);
 			Paragraph title_ds = new Paragraph("Danh sách sản phẩm: ", font);
 			document.add(title_ds);
-
-
 
 			// Bảng chi tiết hóa đơn
 			PdfPTable table = new PdfPTable(7);
 			table.setWidthPercentage(100);
 			table.setSpacingBefore(10f);
 			table.setSpacingAfter(10f);
-
-
-
 			PdfPCell cell = new PdfPCell(new Phrase("STT", font));
 			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			table.addCell(cell);
@@ -266,7 +266,7 @@ public class Tools {
 			table.addCell(cell);
 
 			// Thêm các hàng dữ liệu vào bảng
-			// Ví dụ:
+
 			int stt = 0;
 			for (ChiTietHoaDon cthd : dgh.getHoaDon().getDsChiTietHoaDon()) {
 				table.addCell(new Phrase(++stt + "", font));
@@ -274,16 +274,17 @@ public class Tools {
 				table.addCell(new Phrase(cthd.getSoLuongMua() + "", font));
 				table.addCell(new Phrase(dinhDangTien(cthd.getSanPham().getGiaBan()) + "", font));
 				table.addCell(new Phrase(cthd.getSanPham().getThue() + "%", font));
-				float giamGia = new BUSHoaDon().hamLayGiamGiaCuaChiTietHoaDon(dgh.getHoaDon().getCtkm(), cthd.getSanPham());
+				float giamGia = new BUSHoaDon().hamLayGiamGiaCuaChiTietHoaDon(dgh.getHoaDon().getCtkm(),
+						cthd.getSanPham());
 				table.addCell(new Phrase(giamGia + "%", font));
 				table.addCell(new Phrase(dinhDangTien(cthd.tinhThanhTien() * (1 - giamGia / 100)), font));
 			}
 
-			table.setWidths(new float[] { 1, 2, 1, 1, 1, 1, 1});
+			table.setWidths(new float[] { 1, 2, 1, 1, 1, 1, 1 });
 			document.add(table);
 
-			//	            bảng tổng cộng
-			PdfPTable tableTongCong = new PdfPTable(4);
+//	            bảng tổng cộng
+			PdfPTable tableTongCong = new PdfPTable(6);
 			tableTongCong.setWidthPercentage(100);
 			tableTongCong.setSpacingBefore(10f);
 			tableTongCong.setSpacingAfter(10f);
@@ -302,20 +303,30 @@ public class Tools {
 			cell2.setBorder(Rectangle.NO_BORDER);
 			tableTongCong.addCell(cell2);
 
-			Paragraph paragraph3 = new Paragraph("Thành tiền: ", font);
+			Paragraph paragraph3 = new Paragraph("Điểm giảm giá: ", font);
 			PdfPCell cell3 = new PdfPCell(paragraph3);
 			cell3.setBorder(Rectangle.NO_BORDER);
 			tableTongCong.addCell(cell3);
 
-			Paragraph paragraph4 = new Paragraph(dinhDangTien(dgh.getHoaDon().getThanhTien()), fontBold);
+			Paragraph paragraph4 = new Paragraph(dgh.getHoaDon().getDiemGiamGia() + "", fontBold);
 			PdfPCell cell4 = new PdfPCell(paragraph4);
 			cell4.setBorder(Rectangle.NO_BORDER);
 			tableTongCong.addCell(cell4);
 
-			document.add(tableTongCong);
+			Paragraph paragraph5 = new Paragraph("Thành tiền: ", font);
+			PdfPCell cell5 = new PdfPCell(paragraph5);
+			cell5.setBorder(Rectangle.NO_BORDER);
+			tableTongCong.addCell(cell5);
 
-			Paragraph tienVanChuyen = new Paragraph("Tiền vận chuyển: " + dinhDangTien(dgh.getTienVanChuyen()), font);
-			document.add(tienVanChuyen);
+			Paragraph paragraph6 = new Paragraph(dinhDangTien(dgh.getHoaDon().getThanhTien()), fontBold);
+			PdfPCell cell6 = new PdfPCell(paragraph6);
+			cell6.setBorder(Rectangle.NO_BORDER);
+			tableTongCong.addCell(cell6);
+
+			document.add(tableTongCong);
+			Paragraph tienVanChuyen_title = new Paragraph("Tiền vận chuyển: " + dinhDangTien(dgh.getTienVanChuyen()),
+					font);
+			document.add(tienVanChuyen_title);
 
 			// Chữ ký
 			Paragraph signature = new Paragraph("\n===================================", font);
@@ -333,8 +344,8 @@ public class Tools {
 	}
 
 	public static String sendEmail(String to, String subject, String message, String messageSuccess) {
-      String from = "thuykieu.13032003@gmail.com";  
-      String password = "tirfdrdpsbjxqemq";  
+		String from = "thuykieu.13032003@gmail.com";
+		String password = "tirfdrdpsbjxqemq";
 
 		String host = "smtp.gmail.com";
 
@@ -352,21 +363,21 @@ public class Tools {
 		});
 
 		if (to.isEmpty()) {
-	        return "Vui lòng nhập email người nhận";
-	    }
-		
+			return "Vui lòng nhập email người nhận";
+		}
+
 		try {
 			MimeMessage mimeMessage = new MimeMessage(session);
 			mimeMessage.setFrom(new InternetAddress(from));
 			mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-			
+
 			String[] emails = to.split(",");
-          InternetAddress[] toAddresses = new InternetAddress[emails.length];
-          for (int i = 0; i < emails.length; i++) {
-              toAddresses[i] = new InternetAddress(emails[i].trim());
-          }
-          mimeMessage.setRecipients(Message.RecipientType.TO, toAddresses);
-          
+			InternetAddress[] toAddresses = new InternetAddress[emails.length];
+			for (int i = 0; i < emails.length; i++) {
+				toAddresses[i] = new InternetAddress(emails[i].trim());
+			}
+			mimeMessage.setRecipients(Message.RecipientType.TO, toAddresses);
+
 			mimeMessage.setSubject(subject);
 			mimeMessage.setText(message);
 

@@ -5,31 +5,31 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.swing.table.DefaultTableModel;
-
 import dao.DAOSanPham;
 import entity.Sach;
 import entity.SanPham;
 import entity.VanPhongPham;
-import tool.Tools;
 
 public class BUSSanPham {
 	private DAOSanPham daoSP = new DAOSanPham();
 	public String mes = "";
 
+	// lấy danh sách tất cả sản phẩm
 	public ArrayList<SanPham> layDSSanPham() {
 		return daoSP.layDSSanPham();
 	}
 
-	// lấy dữ liệu sách đưa lên bảng
-	public void doDuLieuSachVaoBang(DefaultTableModel modelSach) {
+	// lấy danh sách sách còn bán
+	public ArrayList<SanPham> layDSSachConBan() {
+		ArrayList<SanPham> dsSP = new ArrayList<>();
 		for (SanPham s : daoSP.layDSSanPham()) {
-			if (s instanceof Sach)
-				modelSach.addRow(new Object[] { s.getMaSanPham(), s.getTenSanPham(),
-						s.getNhaCungCap().getTenNhaCungCap(), ((Sach) s).getTacGia(), s.getTheLoai(),
-						((Sach) s).getNhaXuatBan(), ((Sach) s).getNamXuatBan(), s.getKe(), s.getSoLuongTon(),
-						Tools.dinhDangTien(s.getGiaNhap()) });
+			if (s instanceof Sach) {
+				if (s.getTrangThai().equals("Đang bán")) {
+					dsSP.add(s);
+				}
+			}
 		}
+		return dsSP;
 	}
 
 	// tạo mã sách
@@ -177,8 +177,8 @@ public class BUSSanPham {
 			return daoSP.themVanPhongPham((VanPhongPham) sp);
 	}
 
-	// lọc sách theo trạng thái
-	public ArrayList<SanPham> locSachTheoTrangThai(String trangThai) {
+	// kiểm tra trạng thái sách
+	public ArrayList<SanPham> kiemTraTrangThaiSach(String trangThai) {
 		ArrayList<SanPham> dsSachTheoTrangThai = new ArrayList<>();
 		for (SanPham sanPham : daoSP.layDSSanPham()) {
 			if (sanPham.getMaSanPham().startsWith("SPS") && sanPham.getTrangThai().equals(trangThai)) {
@@ -206,8 +206,8 @@ public class BUSSanPham {
 		return sp;
 	}
 
-	// tìm sách theo tên
-	public ArrayList<SanPham> timSachTheoTen(ArrayList<SanPham> ds, String ten) {
+	// lọc sách theo tên
+	public ArrayList<SanPham> locSachTheoTen(ArrayList<SanPham> ds, String ten) {
 		ArrayList<SanPham> temp = new ArrayList<>();
 		Pattern p = Pattern.compile(ten, Pattern.CASE_INSENSITIVE);
 		for (SanPham sanPham : ds) {
@@ -221,9 +221,9 @@ public class BUSSanPham {
 		return ds;
 	}
 
-	// tìm sách theo mã nhà cung cấp
+	// lọc sách theo mã nhà cung cấp
 	public ArrayList<SanPham> locSachTheoNCC(String maNCC) {
-		ArrayList<SanPham> dsSach = daoSP.layDSSanPham();
+		ArrayList<SanPham> dsSach = layDSSachConBan();
 		ArrayList<SanPham> temp = new ArrayList<>();
 		for (SanPham sanPham : dsSach) {
 			if (sanPham.getMaSanPham().startsWith("SPS") && sanPham.getNhaCungCap().getMaNhaCungCap().equals(maNCC)) {
@@ -237,6 +237,21 @@ public class BUSSanPham {
 		dsSach.addAll(temp);
 		return dsSach;
 	}
+//	public ArrayList<SanPham> locSachTheoNCC(String tenNCC) {
+//		ArrayList<SanPham> dsSach = layDSSachConBan();
+//		ArrayList<SanPham> temp = new ArrayList<>();
+//		for (SanPham sanPham : dsSach) {
+//			if (sanPham.getMaSanPham().startsWith("SPS") && sanPham.getNhaCungCap().getTenNhaCungCap().equals(tenNCC)) {
+//				temp.add(sanPham);
+//			}
+//			if (sanPham.getMaSanPham().startsWith("SPS") && tenNCC.equals("Tất cả")) {
+//				temp.add(sanPham);
+//			}
+//		}
+//		dsSach.clear();
+//		dsSach.addAll(temp);
+//		return dsSach;
+//	}
 
 	// lọc sách theo năm xuất bản
 	public ArrayList<SanPham> locSachTheoNamXB(ArrayList<SanPham> ds, int namXB) {
@@ -286,23 +301,25 @@ public class BUSSanPham {
 		ArrayList<SanPham> dsSach = new ArrayList<>();
 		for (SanPham sanPham : daoSP.layDSSanPham()) {
 			if (sanPham instanceof Sach) {
-				if (sanPham.getSoLuongTon() < 10) {
+				if (sanPham.getTrangThai().equals("Đang bán") && sanPham.getSoLuongTon() < 10) {
 					dsSach.add(sanPham);
 				}
 			}
 		}
 		return dsSach;
 	}
-
-//// lấy dữ liệu văn phòng phẩm đưa lên bảng
-	public void doDuLieuVPPVaoBang(DefaultTableModel modelVPP) {
+	
+//// lấy danh sách vpp còn bán
+	public ArrayList<SanPham> layDSVPPConBan() {
+		ArrayList<SanPham> dsSP = new ArrayList<>();
 		for (SanPham vpp : daoSP.layDSSanPham()) {
-			if (vpp instanceof VanPhongPham)
-				modelVPP.addRow(new Object[] { vpp.getMaSanPham(), vpp.getTenSanPham(),
-						vpp.getNhaCungCap().getTenNhaCungCap(), ((VanPhongPham) vpp).getDanhMuc().getTenDanhMuc(),
-						vpp.getTheLoai(), ((VanPhongPham) vpp).getChatLieu(), vpp.getKe(), vpp.getSoLuongTon(),
-						Tools.dinhDangTien(vpp.getGiaNhap()) });
+			if (vpp instanceof VanPhongPham) {
+				if (vpp.getTrangThai().equals("Đang bán")) {
+					dsSP.add(vpp);
+				}
+			}
 		}
+		return dsSP;
 	}
 
 	// kiểm tra số lượng vpp gần hết
@@ -320,7 +337,7 @@ public class BUSSanPham {
 
 	// lọc vpp theo nhà cung cấp
 	public ArrayList<SanPham> locVPPTheoNCC(String maNCC) {
-		ArrayList<SanPham> dsVPP = daoSP.layDSSanPham();
+		ArrayList<SanPham> dsVPP = layDSVPPConBan();
 		ArrayList<SanPham> temp = new ArrayList<>();
 		for (SanPham sanPham : dsVPP) {
 			if (sanPham.getMaSanPham().startsWith("SPVPP") && maNCC.equals("Tất cả")) {
@@ -339,7 +356,6 @@ public class BUSSanPham {
 
 	// lọc vpp theo danh mục
 	public ArrayList<SanPham> locVPPTheoDanhMuc(String danhMuc, ArrayList<SanPham> dsVPP) {
-//		ArrayList<SanPham> dsVPP = daoSP.layDSSanPham();
 		ArrayList<SanPham> temp = new ArrayList<>();
 		for (SanPham sanPham : dsVPP) {
 			if (sanPham.getMaSanPham().startsWith("SPVPP") && danhMuc.equals("Tất cả")) {
@@ -371,8 +387,8 @@ public class BUSSanPham {
 		return ds;
 	}
 
-	// lọc vpp theo trạng thái
-	public ArrayList<SanPham> locVPPTheoTrangThai(String trangThai) {
+	// kiểm tra trạng thái vpp
+	public ArrayList<SanPham> kiemTraTrangThaiVPP(String trangThai) {
 		ArrayList<SanPham> dsVPPTheoTrangThai = new ArrayList<>();
 		for (SanPham sanPham : daoSP.layDSSanPham()) {
 			if (sanPham.getMaSanPham().startsWith("SPVPP") && sanPham.getTrangThai().equals(trangThai)) {
@@ -382,8 +398,8 @@ public class BUSSanPham {
 		return dsVPPTheoTrangThai;
 	}
 
-	// tìm vpp theo tên
-	public ArrayList<SanPham> timVPPTheoTen(ArrayList<SanPham> ds, String ten) {
+	// lọc vpp theo tên
+	public ArrayList<SanPham> locVPPTheoTen(ArrayList<SanPham> ds, String ten) {
 		ArrayList<SanPham> temp = new ArrayList<>();
 		Pattern p = Pattern.compile(ten, Pattern.CASE_INSENSITIVE);
 		for (SanPham sanPham : ds) {

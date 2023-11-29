@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -91,7 +90,7 @@ public class GUIDanhMuc extends JFrame implements ActionListener {
 				ArrayList<DanhMuc> dsDanhMuc = busDanhMuc.layDSDanhMuc();
 				cboDanhMuc.removeAllItems();
 				for (DanhMuc danhMuc : dsDanhMuc) {
-					cboDanhMuc.addItem(danhMuc.getMaDanhMuc());
+					cboDanhMuc.addItem(danhMuc.getTenDanhMuc());
 				}
 				this.setVisible(false);
 			} else {

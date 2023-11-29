@@ -153,6 +153,25 @@ public class DAONhanVien {
 		}
 		return nv;
 	}
+	
+	public String layMatKhauNhanVienTheoMa(String ma) {
+		String mk = "";
+		ConnectDB.getInstance();
+		Connection con = ConnectDB.getConnection();
+		String sql = "select * from NhanVien nv join TaiKhoan tk on nv.maNhanVien=tk.tenTaiKhoan where nv.maNhanVien = ?";
+		try {
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setString(1, ma);
+			ResultSet rs = stmt.executeQuery();
+			while(rs.next()) {
+				mk = rs.getString("matKhau");
+			}
+		}catch(Exception e) {
+			
+		}
+		return mk;
+		
+	}
 
 	public String layEmailNhanVienTheoMa(String maNV) {
 		ConnectDB.getInstance();

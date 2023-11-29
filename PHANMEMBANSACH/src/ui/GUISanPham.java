@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
@@ -35,8 +36,11 @@ import entity.Sach;
 import entity.SanPham;
 import entity.VanPhongPham;
 import tool.Tools;
-
-import javax.swing.SwingConstants;
+import java.awt.GridLayout;
+import javax.swing.BoxLayout;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.RowSpec;
 
 public class GUISanPham extends JPanel {
 	private JTextField txtTheLoaiSach;
@@ -74,7 +78,7 @@ public class GUISanPham extends JPanel {
 	private JTextField txtLocTenVPP;
 	private JComboBox<String> cboLocNCC_VPP;
 	private JComboBox<String> cboLocNCC_Sach;
-	private JComboBox<String> cboNhaCungCapSach;
+//	private JComboBox<String> cboNhaCungCapSach;
 	private MyCombobox cboDanhMuc;
 	private JComboBox<String> cboLocDanhMuc;
 	private JButton btnThemSach;
@@ -96,11 +100,6 @@ public class GUISanPham extends JPanel {
 	private MyTable tableVPP;
 	private MyTable tableSach;
 	private String anh;
-
-	private BUSSanPham busSP = new BUSSanPham();
-	private BUSNhaCungCap busNCC = new BUSNhaCungCap();
-	private BUSDanhMuc busDanhMuc = new BUSDanhMuc();
-	private ArrayList<SanPham> dsSP = busSP.layDSSanPham();
 	private JTextField txtLocTenSach;
 	private JLabel lblLocTen;
 	private MyButton btnKiemTraSoLuongSach;
@@ -112,6 +111,11 @@ public class GUISanPham extends JPanel {
 	private JTextField txtTenNCCVPP;
 	private JTextField txtMaNCCVPP;
 	private MyButton btnTimMaNCCVPP;
+
+	private BUSSanPham busSP = new BUSSanPham();
+	private BUSNhaCungCap busNCC = new BUSNhaCungCap();
+	private BUSDanhMuc busDanhMuc = new BUSDanhMuc();
+	private ArrayList<SanPham> dsSP = busSP.layDSSanPham();
 
 	public GUISanPham() {
 		this.setBackground(new Color(255, 255, 255));
@@ -296,8 +300,8 @@ public class GUISanPham extends JPanel {
 
 		JPanel pnlHinhAnh = new JPanel();
 		pnlHinhAnh.setBackground(new Color(255, 255, 255));
-		pnlHinhAnh.setBounds(1020, 30, 180, 180);
-		pnlHinhAnh.setBorder(new LineBorder(new Color(0, 0, 0)));
+		pnlHinhAnh.setBounds(1020, 27, 180, 180);
+		pnlHinhAnh.setBorder(null);
 		pnlHinhAnh.setForeground(new Color(255, 255, 255));
 		pnlThongTinS.add(pnlHinhAnh);
 		pnlHinhAnh.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
@@ -675,9 +679,9 @@ public class GUISanPham extends JPanel {
 		pnlThongTin.add(cboDanhMuc);
 
 		JPanel pnlHinhAnh_1 = new JPanel();
-		pnlHinhAnh_1.setBorder(new LineBorder(new Color(0, 0, 0)));
+		pnlHinhAnh_1.setBorder(null);
 		pnlHinhAnh_1.setBackground(new Color(255, 255, 255));
-		pnlHinhAnh_1.setBounds(1034, 35, 180, 180);
+		pnlHinhAnh_1.setBounds(1034, 27, 180, 180);
 		pnlThongTin.add(pnlHinhAnh_1);
 		pnlHinhAnh_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
@@ -911,16 +915,15 @@ public class GUISanPham extends JPanel {
 		pnlThongTin.add(btnTimMaNCCVPP);
 
 		// load dữ liệu
-		busSP.doDuLieuSachVaoBang(modelSach);
-		busSP.doDuLieuVPPVaoBang(modelVPP);
+		hienThiDuLieuSach(busSP.layDSSachConBan());
+		hienThiDuLieuVPP(busSP.layDSVPPConBan());
 
 		cboLocNCC_Sach.addItem("Tất cả");
 		cboLocNCC_VPP.addItem("Tất cả");
 		ArrayList<NhaCungCap> dsNCC = busNCC.layDSNhaCungCap();
 		for (NhaCungCap ncc : dsNCC) {
-//			cboNhaCungCapSach.addItem(ncc.getTenNhaCungCap());
 			cboLocNCC_Sach.addItem(ncc.getMaNhaCungCap());
-//			cboNhaCungCapVPP.addItem(ncc.getMaNhaCungCap());
+//			cboLocNCC_Sach.addItem(ncc.getTenNhaCungCap());
 			cboLocNCC_VPP.addItem(ncc.getMaNhaCungCap());
 		}
 
@@ -978,7 +981,7 @@ public class GUISanPham extends JPanel {
 
 	// xử lý thuế sách
 	public void focusLostThueSach() {
-		if (txtTheLoaiSach.getText().equals("Sách giáo khoa")) {
+		if (txtTheLoaiSach.getText().equals("Giáo khoa")) {
 			txtThueSach.setText("0");
 		} else {
 			txtThueSach.setText("7");
@@ -1007,6 +1010,7 @@ public class GUISanPham extends JPanel {
 
 	// kiểm tra số lượng sách
 	public void kiemTraSoLuongSach() {
+		JOptionPane.showMessageDialog(this, "Danh sách sản phẩm có số lượng dưới 10");
 		xoaDuLieuBangSach();
 		hienThiDuLieuSach(busSP.layDSSachGanHet());
 	}
@@ -1018,7 +1022,7 @@ public class GUISanPham extends JPanel {
 		String tacGia = txtLocTacGia.getText().trim();
 
 		ArrayList<SanPham> dsSach = busSP.locSachTheoNCC(cboLocNCC_Sach.getSelectedItem().toString());
-		busSP.timSachTheoTen(dsSach, txtLocTenSach.getText().trim());
+		busSP.locSachTheoTen(dsSach, txtLocTenSach.getText().trim());
 		if (!namXB.isEmpty()) {
 			int namXB_So = Integer.parseInt(namXB);
 			busSP.locSachTheoNamXB(dsSach, namXB_So);
@@ -1050,9 +1054,8 @@ public class GUISanPham extends JPanel {
 
 	// tải lại danh sách Sách
 	public void taiLaiSach() {
-		dsSP = busSP.layDSSanPham();
 		xoaDuLieuBangSach();
-		hienThiDuLieuSach(dsSP);
+		hienThiDuLieuSach(busSP.layDSSachConBan());
 		cboLocTrangThaiSach.setSelectedIndex(0);
 		cboLocNCC_Sach.setSelectedIndex(0);
 		txtLocNamXB.setText("");
@@ -1065,10 +1068,10 @@ public class GUISanPham extends JPanel {
 	}
 
 	// lọc sách theo trạng thái
-	public void locSachTheoTrangThai() {
+	public void KiemTraTrangThaiSach() {
 		String trangThai = (String) cboLocTrangThaiSach.getSelectedItem();
 		xoaDuLieuBangSach();
-		hienThiDuLieuSach(busSP.locSachTheoTrangThai(trangThai));
+		hienThiDuLieuSach(busSP.kiemTraTrangThaiSach(trangThai));
 	}
 
 	// hiển thị danh sách Sách
@@ -1110,7 +1113,6 @@ public class GUISanPham extends JPanel {
 			} else {
 				trangThai = "Không còn bán";
 			}
-//			String maNCC = cboNhaCungCapSach.getSelectedItem().toString();
 			String tenNCC = txtTenNCCSach.getText().trim();
 			NhaCungCap ncc = busNCC.timNCCTheoTen(tenNCC);
 			String giaNhapChuyen = txtGiaNhapSach.getText().trim().replaceAll("[,VND]", "");
@@ -1127,6 +1129,7 @@ public class GUISanPham extends JPanel {
 						trangThai, ncc, tacGia, nhaXB, namXB);
 				if (busSP.capNhatSanPham(sach)) {
 					taiLaiSach();
+					xoaTrangSach();
 					JOptionPane.showMessageDialog(this, "Cập nhật thành công");
 				} else {
 					JOptionPane.showMessageDialog(this, "Không thể cập nhật mã");
@@ -1152,8 +1155,6 @@ public class GUISanPham extends JPanel {
 		} else {
 			trangThai = "Không còn bán";
 		}
-//		String maNCC = cboNhaCungCapSach.getSelectedItem().toString();
-//		NhaCungCap ncc = new NhaCungCap(maNCC);
 
 		String tenNCC = txtTenNCCSach.getText().trim();
 		NhaCungCap ncc = busNCC.timNCCTheoTen(tenNCC);
@@ -1216,7 +1217,6 @@ public class GUISanPham extends JPanel {
 		txtNamXB.setText("");
 		lblHinhAnhSach.setIcon(null);
 		anh = null;
-//		cboNhaCungCapSach.setSelectedIndex(0);
 		chkTrangThaiSach.setSelected(true);
 		txtTenNCCSach.setText("");
 	}
@@ -1254,6 +1254,7 @@ public class GUISanPham extends JPanel {
 
 	// kiểm tra số lượng sách
 	public void kiemTraSoLuongVPP() {
+		JOptionPane.showMessageDialog(this, "Danh sách sản phẩm có số lượng dưới 10");
 		xoaDuLieuBangVPP();
 		hienThiDuLieuVPP(busSP.layDSVPPGanHet());
 	}
@@ -1290,7 +1291,7 @@ public class GUISanPham extends JPanel {
 		}
 	}
 
-	// chọn ncc hiện tên ncc sách
+	// chọn ncc hiện tên ncc vpp
 	public void chonNCCVPP() {
 		NhaCungCap ncc = busNCC.timNCCTheoMa(txtMaNCCVPP.getText().trim());
 		if (ncc == null) {
@@ -1315,8 +1316,6 @@ public class GUISanPham extends JPanel {
 	// thêm danh mục
 	public void themDanhMuc() {
 		new GUIDanhMuc(cboDanhMuc).setVisible(true);
-//		cboDanhMuc.removeAllItems();
-//		doDuLieuDanhMucVaoCombobox();
 	}
 
 	// cập nhật vpp
@@ -1332,23 +1331,18 @@ public class GUISanPham extends JPanel {
 			String theLoai = txtTheLoai.getText().trim();
 			String chatLieu = txtChatLieu.getText().trim();
 			String hinhAnh = anh;
-
 			String trangThai;
-			if (chkTrangThaiSach.isSelected()) {
+			if (chkTrangThaiVPP.isSelected()) {
 				trangThai = "Đang bán";
 			} else {
 				trangThai = "Không còn bán";
 			}
-//			String maNCC = cboNhaCungCapVPP.getSelectedItem().toString();
-//			NhaCungCap ncc = new NhaCungCap(maNCC);
-
 			String tenNCC = txtTenNCCVPP.getText().trim();
 			NhaCungCap ncc = busNCC.timNCCTheoTen(tenNCC);
-
-			String tenDM = cboDanhMuc.getSelectedItem().toString();
-			DanhMuc danhMuc = busDanhMuc.timDanhMucTheoTen(tenDM);
-
+			String tenDanhMuc = cboDanhMuc.getSelectedItem().toString();
+			DanhMuc danhMuc = busDanhMuc.timDanhMucTheoTen(tenDanhMuc);
 			String giaNhapChuyen = txtGiaNhapVPP.getText().trim().replaceAll("[,VND]", "");
+
 			if (busSP.validDataVPP(maVPP, tenVPP, tenNCC, txtSoLuongVPP.getText().trim(), giaNhapChuyen, theLoai, ke,
 					hinhAnh, txtThueVPP.getText().trim(), txtLoiNhuanVPP.getText().trim(), chatLieu)) {
 				int soLuong = Integer.parseInt(txtSoLuongVPP.getText().trim());
@@ -1358,6 +1352,7 @@ public class GUISanPham extends JPanel {
 				SanPham vpp = new VanPhongPham(maVPP, tenVPP, soLuong, giaNhap, theLoai, ke, hinhAnh, thue, loiNhuan,
 						trangThai, ncc, chatLieu, danhMuc);
 				if (busSP.capNhatSanPham(vpp)) {
+					xoaTrangVPP();
 					taiLaiVPP();
 					JOptionPane.showMessageDialog(this, "Cập nhật thành công");
 				} else {
@@ -1378,7 +1373,7 @@ public class GUISanPham extends JPanel {
 
 		ArrayList<SanPham> dsVPP = busSP.locVPPTheoNCC(maNCC);
 		ArrayList<SanPham> dsVPP2 = busSP.locVPPTheoDanhMuc(danhMuc, dsVPP);
-		busSP.timVPPTheoTen(dsVPP, txtLocTenVPP.getText().trim());
+		busSP.locVPPTheoTen(dsVPP, txtLocTenVPP.getText().trim());
 		if (!theLoai.isEmpty()) {
 			busSP.locVPPTheoTheLoai(dsVPP, theLoai);
 		}
@@ -1405,7 +1400,7 @@ public class GUISanPham extends JPanel {
 	public void locVPPTheoTrangThai() {
 		String trangThai = (String) cboLocTrangThaiVPP.getSelectedItem();
 		xoaDuLieuBangVPP();
-		hienThiDuLieuVPP(busSP.locVPPTheoTrangThai(trangThai));
+		hienThiDuLieuVPP(busSP.kiemTraTrangThaiVPP(trangThai));
 	}
 
 	// thêm vpp
@@ -1422,14 +1417,11 @@ public class GUISanPham extends JPanel {
 		} else {
 			trangThai = "Không còn bán";
 		}
-//		String maNCC = cboNhaCungCapVPP.getSelectedItem().toString();
-//		NhaCungCap ncc = new NhaCungCap(maNCC);
-
 		String tenNCC = txtTenNCCVPP.getText().trim();
 		NhaCungCap ncc = busNCC.timNCCTheoTen(tenNCC);
-
 		String tenDM = cboDanhMuc.getSelectedItem().toString();
 		DanhMuc danhMuc = busDanhMuc.timDanhMucTheoTen(tenDM);
+
 		if (busSP.validDataVPP(maVPP, tenVPP, tenNCC, txtSoLuongVPP.getText().trim(), txtGiaNhapVPP.getText().trim(),
 				theLoai, ke, hinhAnh, txtThueVPP.getText().trim(), txtLoiNhuanVPP.getText().trim(), chatLieu)) {
 			int soLuong = Integer.parseInt(txtSoLuongVPP.getText().trim());
@@ -1439,6 +1431,7 @@ public class GUISanPham extends JPanel {
 			SanPham vpp = new VanPhongPham(maVPP, tenVPP, soLuong, giaNhap, theLoai, ke, hinhAnh, thue, loiNhuan,
 					trangThai, ncc, chatLieu, danhMuc);
 			if (busSP.themSanPham(vpp)) {
+				xoaTrangVPP();
 				taiLaiVPP();
 				JOptionPane.showMessageDialog(this, "Thêm thành công");
 			} else {
@@ -1451,9 +1444,8 @@ public class GUISanPham extends JPanel {
 
 	// tải lại danh sách VPP
 	public void taiLaiVPP() {
-		dsSP = busSP.layDSSanPham();
 		xoaDuLieuBangVPP();
-		hienThiDuLieuVPP(dsSP);
+		hienThiDuLieuVPP(busSP.layDSVPPConBan());
 		cboLocTrangThaiVPP.setSelectedIndex(0);
 		cboLocNCC_VPP.setSelectedIndex(0);
 		cboLocDanhMuc.setSelectedIndex(0);

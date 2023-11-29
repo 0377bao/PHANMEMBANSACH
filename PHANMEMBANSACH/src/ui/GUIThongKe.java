@@ -692,7 +692,7 @@ public class GUIThongKe extends JPanel {
 		lblSanPhamConBan.setForeground(Color.WHITE);
 		lblSanPhamConBan.setFont(new Font("Tahoma", Font.BOLD, 20));
 		lblSanPhamConBan.setBounds(80, 58, 44, 30);
-		lblSanPhamConBan.setText(new BUSSanPham().locSachTheoTrangThai("Đang bán").size()+new BUSSanPham().locVPPTheoTrangThai("Đang bán").size()+"");
+		lblSanPhamConBan.setText(new BUSSanPham().kiemTraTrangThaiSach("Đang bán").size()+new BUSSanPham().kiemTraTrangThaiVPP("Đang bán").size()+"");
 		panel_7.add(lblSanPhamConBan);
 		
 		JLabel lblNewLabel_4_1_1 = new JLabel("sản phẩm");
@@ -717,7 +717,7 @@ public class GUIThongKe extends JPanel {
 		lblSanPhamKhongConBan.setForeground(Color.WHITE);
 		lblSanPhamKhongConBan.setFont(new Font("Tahoma", Font.BOLD, 20));
 		lblSanPhamKhongConBan.setBounds(91, 58, 44, 30);
-		lblSanPhamKhongConBan.setText(new BUSSanPham().locSachTheoTrangThai("Không còn bán").size()+new BUSSanPham().locVPPTheoTrangThai("Không còn bán").size()+"");
+		lblSanPhamKhongConBan.setText(new BUSSanPham().kiemTraTrangThaiSach("Không còn bán").size()+new BUSSanPham().kiemTraTrangThaiVPP("Không còn bán").size()+"");
 		panel_8.add(lblSanPhamKhongConBan);
 		
 		JLabel lblNewLabel_4_1_1_2 = new JLabel("sản phẩm");

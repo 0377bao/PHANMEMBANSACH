@@ -1,19 +1,13 @@
 package bus;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.swing.table.DefaultTableModel;
 
-import connect.ConnectDB;
 import dao.DAONhanVien;
 import entity.NhanVien;
-import entity.SanPham;
 
 public class BUSNhanVien {
 	private DAONhanVien daoNhanVien = new DAONhanVien();
@@ -22,7 +16,6 @@ public class BUSNhanVien {
 	// lấy nhân viên theo mã
 	public NhanVien layNhanVienTheoMa(String maNV) {
 		return daoNhanVien.layNhanVienTheoMa(maNV);
-
 	}
 
 	// lấy danh sách nhân viên
@@ -190,4 +183,10 @@ public class BUSNhanVien {
 		}
 		return dsNVTheoTrangThai;
 	}
+	
+	// lấy mật khẩu nhân viên theo mã nhân viên
+	public String layMatKhauNhanVienTheoMa(String ma) {
+		return daoNhanVien.layMatKhauNhanVienTheoMa(ma);
+	}
+	
 }
