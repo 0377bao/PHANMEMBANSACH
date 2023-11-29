@@ -133,19 +133,6 @@ public class BUSSanPham {
 				return false;
 			}
 		}
-		if (tacGia.equals("")) {
-			mes = "Vui lòng nhập tác giả";
-			return false;
-		} else {
-			if (!tacGia.matches("[\\p{L}0-9 ]+")) {
-				mes = "Tác giả không chứa ký tự đặc biệt";
-				return false;
-			}
-		}
-		if (nhaXB.equals("")) {
-			mes = "Vui lòng nhập tên nhà xuất bản";
-			return false;
-		}
 		if (!namXB.equals("")) {
 			try {
 				LocalDate localDate = LocalDate.now();
@@ -161,6 +148,19 @@ public class BUSSanPham {
 			}
 		} else {
 			mes = "Vui lòng nhập năm xuất bản";
+		}
+		if (tacGia.equals("")) {
+			mes = "Vui lòng nhập tác giả";
+			return false;
+		} else {
+			if (!tacGia.matches("[\\p{L}0-9 ]+")) {
+				mes = "Tác giả không chứa ký tự đặc biệt";
+				return false;
+			}
+		}
+		if (nhaXB.equals("")) {
+			mes = "Vui lòng nhập tên nhà xuất bản";
+			return false;
 		}
 		if (hinhAnh == null) {
 			mes = "Vui lòng chọn ảnh";

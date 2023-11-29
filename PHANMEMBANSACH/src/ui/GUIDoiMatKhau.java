@@ -41,7 +41,7 @@ public class GUIDoiMatKhau extends JFrame implements ActionListener{
 		this.nvHienTai = nv;
 		this.guiTTNV = guiNV;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(550, 200, 450, 300);
+		setBounds(550, 200, 450, 320);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -49,19 +49,21 @@ public class GUIDoiMatKhau extends JFrame implements ActionListener{
 		contentPane.setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 436, 263);
+		panel.setBackground(new Color(255, 255, 255));
+		panel.setBounds(0, 0, 436, 283);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Đổi mật khẩu");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(150, 24, 131, 20);
+		lblNewLabel.setBounds(146, 24, 131, 20);
 		panel.add(lblNewLabel);
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBorder(new LineBorder(new Color(97, 166, 247)));
-		panel_1.setBounds(29, 54, 377, 167);
+		panel_1.setBackground(new Color(255, 255, 255));
+		panel_1.setBorder(null);
+		panel_1.setBounds(29, 54, 377, 176);
 		panel.add(panel_1);
 		panel_1.setLayout(null);
 		
@@ -106,12 +108,12 @@ public class GUIDoiMatKhau extends JFrame implements ActionListener{
 		
 		btnHuyDoiMatKhau = new MyButton("Hủy");
 		btnHuyDoiMatKhau.setBackground(new Color(255, 0, 0));
-		btnHuyDoiMatKhau.setBounds(210, 231, 85, 21);
+		btnHuyDoiMatKhau.setBounds(79, 241, 85, 21);
 		panel.add(btnHuyDoiMatKhau);
 		
 		btnDoiMatKhau = new MyButton("Ok");
 		btnDoiMatKhau.setBackground(new Color(128, 255, 0));
-		btnDoiMatKhau.setBounds(321, 231, 85, 21);
+		btnDoiMatKhau.setBounds(250, 241, 85, 21);
 		panel.add(btnDoiMatKhau);
 		
 		btnDoiMatKhau.addActionListener(this);
@@ -127,7 +129,7 @@ public class GUIDoiMatKhau extends JFrame implements ActionListener{
 			@SuppressWarnings("deprecation")
 			String mkCu = pwdMatKhauCu.getText();
 			if(mkCu.equals("")) {
-				JOptionPane.showMessageDialog(this, "Vui lòng nhập mật khẩu củ");
+				JOptionPane.showMessageDialog(this, "Vui lòng nhập mật khẩu cũ");
 				flag = 0;
 				return;
 			}

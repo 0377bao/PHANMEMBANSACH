@@ -118,13 +118,15 @@ public class GUIThongTinNhanVien extends JFrame implements ActionListener{
 		panel.add(lblNewLabel_5);
 		
 		btnDangXuat = new MyButton("Đăng xuất");
-		btnDangXuat.setBackground(new Color(97, 166, 247));
+		btnDangXuat.setForeground(new Color(0, 0, 0));
+		btnDangXuat.setBackground(new Color(255, 57, 57));
 		btnDangXuat.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnDangXuat.setBounds(82, 391, 137, 25);
 		panel.add(btnDangXuat);
 		
 		btnDoiMatKhau = new MyButton("Đổi mật khẩu");
-		btnDoiMatKhau.setBackground(new Color(97, 166, 247));
+		btnDoiMatKhau.setForeground(new Color(0, 0, 0));
+		btnDoiMatKhau.setBackground(new Color(236, 236, 0));
 		btnDoiMatKhau.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnDoiMatKhau.setBounds(294, 391, 137, 25);
 		panel.add(btnDoiMatKhau);

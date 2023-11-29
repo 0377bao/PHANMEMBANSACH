@@ -282,11 +282,6 @@ public class GUINhanVien extends JPanel {
 		pnlTaiKhoan.add(txtMatKhau);
 		txtMatKhau.setColumns(10);
 
-//		btnTaoTK = new MyButton("Tạo tài khoản");
-//		btnTaoTK.setForeground(new Color(255, 255, 255));
-//		btnTaoTK.setBounds(195, 116, 120, 25);
-//		pnlTaiKhoan.add(btnTaoTK);
-
 		// chức năng
 		JPanel pnlChucNang = new JPanel();
 		pnlChucNang.setBackground(new Color(255, 255, 255));
@@ -369,7 +364,7 @@ public class GUINhanVien extends JPanel {
 		pnlTable.setBounds(20, 490, 1208, 280);
 		pnl.add(pnlTable);
 		String[] cols = { "Mã nhân viên", "Tên nhân viên", "Số điện thoại", "Giới tính", "CCCD", "Email", "Chức vụ",
-				"Địa chỉ", "Mật khẩu" };
+				"Địa chỉ" };
 		modelNV = new DefaultTableModel(cols, 0);
 		pnlTable.setLayout(null);
 		table = new MyTable(modelNV);
@@ -496,8 +491,7 @@ public class GUINhanVien extends JPanel {
 	public void hienThiDS(ArrayList<NhanVien> dsNV) {
 		for (NhanVien nv : dsNV) {
 			modelNV.addRow(new Object[] { nv.getMaNhanVien(), nv.getTenNhanVien(), nv.getSdt(),
-					nv.isGioiTinh() ? "Nam" : "Nữ", nv.getcCCD(), nv.getEmail(), nv.getChucVu(), nv.getDiaChi(),
-					nv.getTaiKhoan().getMatKhau() });
+					nv.isGioiTinh() ? "Nam" : "Nữ", nv.getcCCD(), nv.getEmail(), nv.getChucVu(), nv.getDiaChi() });
 		}
 	}
 
@@ -621,7 +615,6 @@ public class GUINhanVien extends JPanel {
 			txtCCCD.setText(modelNV.getValueAt(r, 4).toString());
 			txtEmail.setText(modelNV.getValueAt(r, 5).toString());
 			txtDiaChi.setText(modelNV.getValueAt(r, 7).toString());
-			txtMatKhau.setText(modelNV.getValueAt(r, 8).toString());
 			txtMatKhau.setEditable(false);
 			txtMatKhau.setEnabled(false);
 			txtTenTK.setText(modelNV.getValueAt(r, 0).toString());
@@ -638,6 +631,7 @@ public class GUINhanVien extends JPanel {
 			for (NhanVien nv : dsNV) {
 				if (nv.getMaNhanVien().equals(modelNV.getValueAt(r, 0).toString())) {
 					lblHinhAnh.setIcon(new ImageIcon(nv.getHinhAnh()));
+					txtMatKhau.setText(nv.getTaiKhoan().getMatKhau());
 					if (nv.getTrangThai().equals("Đang làm")) {
 						chkTrangThai.setSelected(true);
 					} else {

@@ -32,7 +32,7 @@ public class BUSNhaCungCap {
 			mes = "Vui lòng nhập tên nhà cung cấp";
 			return false;
 		} else {
-			if (!(tenNhaCungCap.matches("^[\\p{L}0-9][\\p{L}0-9/.,' -]+"))) {
+			if (!(tenNhaCungCap.matches("^[\\p{L}0-9][\\p{L}0-9/.,'& -]+"))) {
 				mes = "Tên nhà cung cấp không chứa ký tự đặc biệt";
 				return false;
 			}

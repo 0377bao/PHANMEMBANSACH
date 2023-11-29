@@ -1,13 +1,12 @@
-/mapdata/
 /bus/
 /connect/
 /controller/
 /customUI/
 /dao/
 /entity/
+/lib/
+/mapdata/
 /model/
 /tool/
 /ui/
 /view/
-/bill/
-/image/

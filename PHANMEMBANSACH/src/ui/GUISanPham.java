@@ -228,17 +228,17 @@ public class GUISanPham extends JPanel {
 
 		JLabel lblTacGia = new JLabel("Tác giả");
 		lblTacGia.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblTacGia.setBounds(761, 119, 90, 15);
+		lblTacGia.setBounds(519, 161, 90, 15);
 		pnlThongTinS.add(lblTacGia);
 
 		JLabel lblNhaXB = new JLabel("Nhà xuất bản");
 		lblNhaXB.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblNhaXB.setBounds(519, 161, 90, 15);
+		lblNhaXB.setBounds(519, 203, 90, 15);
 		pnlThongTinS.add(lblNhaXB);
 
 		JLabel lblNamXB = new JLabel("Năm xuất bản");
 		lblNamXB.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblNamXB.setBounds(519, 203, 90, 15);
+		lblNamXB.setBounds(739, 119, 90, 15);
 		pnlThongTinS.add(lblNamXB);
 
 		txtSoLuongSach = new JTextField();
@@ -272,19 +272,19 @@ public class GUISanPham extends JPanel {
 
 		txtTacGia = new JTextField();
 		txtTacGia.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		txtTacGia.setBounds(825, 113, 120, 25);
+		txtTacGia.setBounds(610, 156, 335, 25);
 		pnlThongTinS.add(txtTacGia);
 		txtTacGia.setColumns(10);
 
 		txtNhaXB = new JTextField();
 		txtNhaXB.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		txtNhaXB.setBounds(609, 156, 337, 25);
+		txtNhaXB.setBounds(610, 198, 337, 25);
 		pnlThongTinS.add(txtNhaXB);
 		txtNhaXB.setColumns(10);
 
 		txtNamXB = new JTextField();
 		txtNamXB.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		txtNamXB.setBounds(609, 198, 337, 25);
+		txtNamXB.setBounds(825, 114, 119, 25);
 		pnlThongTinS.add(txtNamXB);
 		txtNamXB.setColumns(10);
 
