@@ -1,10 +1,10 @@
-/mapdata/
 /bus/
 /connect/
 /controller/
 /customUI/
 /dao/
 /entity/
+/mapdata/
 /model/
 /tool/
 /ui/

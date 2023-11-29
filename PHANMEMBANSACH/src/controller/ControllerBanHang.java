@@ -8,6 +8,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import ui.GUIBanHang;
+import ui.GUIHoaDon;
 
 public class ControllerBanHang implements ActionListener, KeyListener, MouseListener {
 
@@ -65,22 +66,6 @@ public class ControllerBanHang implements ActionListener, KeyListener, MouseList
 			this.view.xuLyHuyHoaDon();
 			break;
 		}
-		case "btnLocHoaDon": {
-			this.view.xuLyLocHoaDon();
-			break;
-		}
-		case "btnTaiLai": {
-			this.view.xuLyTaiLaiHoaDon();
-			break;
-		}
-		case "btnInHoaDon": {
-			this.view.xuLyInHoaDon();
-			break;
-		}
-		case "btnTaoDonGiao": {
-			this.view.xuLyTaoDonGiaoHang();
-			break;
-		}
 		default:
 			break;
 		}
@@ -113,6 +98,9 @@ public class ControllerBanHang implements ActionListener, KeyListener, MouseList
 			if(thaoTacTrenTextField.equals("txtTienKhachDua")) {
 				view.xuLySuKienNhapTien();
 			}
+			if(thaoTacTrenTextField.equals("keyTxtTimHoaDonCho")) {
+				view.xuLySuKienNhapTimHoaDonCho();
+			}
 		}
 	}
 
@@ -121,9 +109,6 @@ public class ControllerBanHang implements ActionListener, KeyListener, MouseList
 		String src = e.getComponent().getName();
 		if(src.equals("tableHoaDonCho")) {
 			this.view.xuLyClickHoaDonCho();
-		}
-		if(src.equals("tableHoaDon")) {
-			this.view.xuLyClickQuanLyHoaDon();
 		}
 	}
 
