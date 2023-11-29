@@ -149,7 +149,7 @@ public class HoaDon {
 		for (ChiTietHoaDon cthd : dsChiTietHoaDon) {
 			result += cthd.tinhThanhTien();
 		}
-		return result - tinhGiamGia();
+		return result;
 	}
 	
 	public float tinhGiamGia() {
@@ -162,11 +162,20 @@ public class HoaDon {
 	}
 	
 	public float getThanhTien() {
-		return tinhTongTien() - (diemGiamGia * 10000);
+		return tinhTongTien() - tinhGiamGia() - (diemGiamGia * 10000) + tinhThue();
 	}
 	
 	public float tinhTienThua() {
 		return this.tienKhachDua - getThanhTien();
+	}
+	
+	public float tinhThue() {
+		float result = 0;
+		for(ChiTietHoaDon cthd : dsChiTietHoaDon) {
+			result += cthd.getGiaBan() * cthd.getSanPham().getThue() / 100 * cthd.getSoLuongMua();
+
+		}
+		return result;
 	}
 
 	@Override

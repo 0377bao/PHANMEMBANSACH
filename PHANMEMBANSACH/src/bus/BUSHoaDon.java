@@ -35,6 +35,10 @@ public class BUSHoaDon {
 		return daoHoaDon.layHetDSHoaDon();
 	}
 	
+	public ArrayList<HoaDon> lay50HoaDon() {
+		return daoHoaDon.layHetDSHoaDon();
+	}
+	
 	public HoaDon timHoaDonTheoMa(String maTim) {
 		return daoHoaDon.timHoaDonTheoMa(maTim);
 	}
