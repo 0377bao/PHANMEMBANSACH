@@ -38,9 +38,7 @@ import entity.VanPhongPham;
 import tool.Tools;
 import java.awt.GridLayout;
 import javax.swing.BoxLayout;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
+
 
 public class GUISanPham extends JPanel {
 	private JTextField txtTheLoaiSach;
