@@ -164,7 +164,7 @@ public class BUSNhanVien {
 			ds.addAll(dsNV);
 		}
 	}
-	
+
 	public String layEmailNhanVienTheoMa(String maNV) {
 		return daoNhanVien.layEmailNhanVienTheoMa(maNV);
 	}
@@ -172,7 +172,7 @@ public class BUSNhanVien {
 	public boolean capNhatMatKhauNV(String nv, String matKhau) {
 		return daoNhanVien.capNhatMatKhauNV(nv, matKhau);
 	}
-	
+
 	// lọc nhân viên theo trạng thái
 	public ArrayList<NhanVien> locNVTheoTrangThai(String trangThai) {
 		ArrayList<NhanVien> dsNVTheoTrangThai = new ArrayList<>();
@@ -183,10 +183,10 @@ public class BUSNhanVien {
 		}
 		return dsNVTheoTrangThai;
 	}
-	
+
 	// lấy mật khẩu nhân viên theo mã nhân viên
 	public String layMatKhauNhanVienTheoMa(String ma) {
 		return daoNhanVien.layMatKhauNhanVienTheoMa(ma);
 	}
-	
+
 }

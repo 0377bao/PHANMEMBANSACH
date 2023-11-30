@@ -35,7 +35,7 @@ public class ControllerNhaCungCap implements ActionListener, MouseListener, Focu
 		} else if (btn.equals("btnTaiLai")) {
 			guiNCC.taiLai();
 		} else if (btn.equals("cboDiaChi")) {
-			guiNCC.timTheoDiaChi();
+			guiNCC.xuLyTimKiem();
 		}
 	}
 
@@ -103,13 +103,6 @@ public class ControllerNhaCungCap implements ActionListener, MouseListener, Focu
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		JTextField txt = (JTextField) e.getSource();
-		if (txt.getName().equals("txtTimTheoMa_Sdt")) {
-			guiNCC.timTheoMa_Sdt();
-		} else if (txt.getName().equals("txtTimTheoTen")) {
-			guiNCC.timTheoTen();
-		}
-
+		guiNCC.xuLyTimKiem();
 	}
-
 }

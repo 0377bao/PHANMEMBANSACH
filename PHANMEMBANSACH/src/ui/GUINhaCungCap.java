@@ -15,8 +15,6 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
-import com.ctc.wstx.shaded.msv_core.reader.datatype.xsd.XSTypeOwner;
-
 import bus.BUSNhaCungCap;
 import controller.ControllerNhaCungCap;
 import customUI.MyButton;
@@ -36,13 +34,14 @@ public class GUINhaCungCap extends JPanel {
 	private MyButton btnCapNhat;
 	private MyButton btnXoaTrang;
 	private MyTable table;
-	private MyButton btnTim;
 	private MyButton btnTaiLai;
 	private DefaultTableModel modelNCC;
 
 	private BUSNhaCungCap busNCC = new BUSNhaCungCap();
 	private JTextField txtTimTheoTen;
 	private JComboBox<String> cboDiaChi;
+
+	private ArrayList<NhaCungCap> dsNCC = busNCC.layDSNhaCungCap();
 
 	public GUINhaCungCap() {
 		this.setBackground(new Color(255, 255, 255));
@@ -146,12 +145,6 @@ public class GUINhaCungCap extends JPanel {
 		pnlTimKiemNCC.add(txtTimTheoMa_Sdt);
 		txtTimTheoMa_Sdt.setName("txtTimTheoMa_Sdt");
 		txtTimTheoMa_Sdt.setColumns(10);
-
-//		btnTim = new MyButton("Tìm");
-//		btnTim.setForeground(new Color(255, 255, 255));
-//		btnTim.setBounds(416, 43, 85, 21);
-//		btnTim.setActionCommand("btnTim");
-//		pnlTimKiemNCC.add(btnTim);
 
 		txtTimTheoTen = new JTextField();
 		txtTimTheoTen.setText("Nhập tên nhà cung cấp cần tìm");
@@ -265,33 +258,28 @@ public class GUINhaCungCap extends JPanel {
 		txtTimTheoTen.addKeyListener(new ControllerNhaCungCap(this));
 	}
 
-	// tìm ncc theo địa chỉ
-	public void timTheoDiaChi() {
-		String diaChi = cboDiaChi.getSelectedItem().toString();
-		xoaDuLieuBang();
-		hienThiDuLieu(busNCC.layNCCTheoDiaChi(diaChi));
-	}
-
-	// tìm ncc theo tên
-	public void timTheoTen() {
+	// xử lý tìm kiếm theo nhiều trường
+	public void xuLyTimKiem() {
+		String sdt = txtTimTheoMa_Sdt.getText().trim();
 		String ten = txtTimTheoTen.getText().trim();
+		busNCC.layNCCTheoDiaChi(dsNCC, cboDiaChi.getSelectedItem().toString());
+		if (!sdt.equals("Nhập số điện thoại")) {
+			busNCC.layNCCTheoSdt(dsNCC, sdt);
+		}
+		if (!ten.equals("Nhập tên nhà cung cấp cần tìm")) {
+			busNCC.layNCCTheoTen(dsNCC, ten);
+		}
 		xoaDuLieuBang();
-		hienThiDuLieu(busNCC.layNCCTheoTen(ten));
-	}
-
-	// tìm ncc theo số điện thoại
-	public void timTheoMa_Sdt() {
-		String info = txtTimTheoMa_Sdt.getText().trim();
-		xoaDuLieuBang();
-		hienThiDuLieu(busNCC.layNCCTheoSdt(info));
+		hienThiDuLieu(dsNCC);
+		dsNCC = busNCC.layDSNhaCungCap();
 	}
 
 	// tải lại
 	public void taiLai() {
 		ArrayList<NhaCungCap> dsNCC = busNCC.layDSNhaCungCap();
 		xoaDuLieuBang();
-		hienThiDuLieu(dsNCC);
 		cboDiaChi.setSelectedIndex(0);
+		hienThiDuLieu(dsNCC);
 		txtTimTheoMa_Sdt.setFont(new Font("Tahoma", Font.ITALIC, 13));
 		txtTimTheoMa_Sdt.setForeground(Color.GRAY);
 		txtTimTheoMa_Sdt.setText("Nhập số điện thoại");
@@ -373,6 +361,7 @@ public class GUINhaCungCap extends JPanel {
 		txtEmail.setText("");
 		txtDiaChi.setText("");
 		btnTaoMa.setEnabled(true);
+		table.clearSelection();
 	}
 
 	// chọn thông tin trong bảng hiện lên

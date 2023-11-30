@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
@@ -31,7 +32,6 @@ import customUI.MyCombobox;
 import customUI.MyTable;
 import entity.NhanVien;
 import entity.TaiKhoan;
-import javax.swing.JCheckBox;
 
 public class GUINhanVien extends JPanel {
 	private JTextField txtMaNV;
@@ -62,7 +62,6 @@ public class GUINhanVien extends JPanel {
 	private JScrollPane scr;
 	private JTextField txtTenTK;
 	private JPasswordField txtMatKhau;
-	private MyButton btnTaoTK;
 	private String anh;
 	private JCheckBox chkTrangThai;
 
@@ -568,8 +567,9 @@ public class GUINhanVien extends JPanel {
 			gt = false;
 		}
 		String mk = txtMatKhau.getText();
-		TaiKhoan tk = new TaiKhoan(maNV, mk);
+
 		if (busNhanVien.validData(maNV, tenNV, sdt, email, hinhAnh, diaChi, cccd, mk)) {
+			TaiKhoan tk = new TaiKhoan(maNV, mk);
 			NhanVien nv = new NhanVien(maNV, tenNV, sdt, email, gt, diaChi, chucVu, cccd, hinhAnh, trangThai, tk);
 			if (busNhanVien.themNhanVien(nv) && busTaiKhoan.themTaiKhoan(tk)) {
 				taiLai();
@@ -661,6 +661,7 @@ public class GUINhanVien extends JPanel {
 		anh = null;
 		btnTaoMa.setEnabled(true);
 		chkTrangThai.setSelected(true);
+		table.clearSelection();
 	}
 
 	public void focusGained() {

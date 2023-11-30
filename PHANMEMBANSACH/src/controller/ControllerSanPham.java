@@ -43,7 +43,7 @@ public class ControllerSanPham implements ActionListener, MouseListener, KeyList
 			guiSP.xuLyTimKiemSach();
 		} else if (btn.equals("btnTimMaSach")) {
 			guiSP.timSachTheoMa();
-		} else if (btn.equals("btnKiemTraSoLuongSach")) {
+		} else if (btn.equals("chkSoLuongSach")) {
 			guiSP.kiemTraSoLuongSach();
 		} else if (btn.equals("btnTimMaNCCSach")) {
 			guiSP.chonNCCSach();
@@ -67,7 +67,7 @@ public class ControllerSanPham implements ActionListener, MouseListener, KeyList
 			guiSP.xuLyTimKiemVPP();
 		} else if (btn.equals("btnTimMaVPP")) {
 			guiSP.timVPPTheoMa();
-		} else if (btn.equals("btnKiemTraSoLuongVPP")) {
+		} else if (btn.equals("chkSoLuongVPP")) {
 			guiSP.kiemTraSoLuongVPP();
 		} else if (btn.equals("btnThemDanhMuc")) {
 			guiSP.themDanhMuc();
