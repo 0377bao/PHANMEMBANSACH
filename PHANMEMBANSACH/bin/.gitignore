@@ -1,8 +1,10 @@
-/bill/
+/mapdata/
 /bus/
-/image/
-/lib/
-
+/connect/
+/controller/
+/customUI/
+/dao/
+/entity/
 /model/
 /tool/
 /ui/
