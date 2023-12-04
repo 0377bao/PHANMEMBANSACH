@@ -954,7 +954,13 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
 		if(hoaDonHienTai == null) {
 			JOptionPane.showMessageDialog(this, "Vui lòng tạo hóa đơn");
 		} else {
-			if(txtTimKhachHang.getText().equals("")) {
+			if(txtTimKhachHang.getText().trim().equals("") || txtTimKhachHang.getText().trim().equals("0")) {
+				for (HoaDon hoaDon : dsHoaDonCho) {
+					if(hoaDon.getKhachHang().getSdt().equals("0")) {
+						JOptionPane.showMessageDialog(this, "Danh sách đang tồn tài một hóa đơn chờ của khách hàng lẻ không thể tạo thêm cho khách hàng lẻ");
+						return;
+					}
+				}
 				khachHang = busKhachHang.timKhachHangTheoSDT("0");
 			}else {
 				KhachHang khachHangTim = busKhachHang.timKhachHangTheoSDT(txtTimKhachHang.getText());

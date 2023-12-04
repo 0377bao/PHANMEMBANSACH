@@ -146,7 +146,6 @@ public class GUIDangNhap extends JFrame {
 			NhanVien nv = busNhanVien.layNhanVienTheoMa(taiKhoan);
 			if (kiemTra) {
 				if(!nv.getChucVu().equals("Quản lý")) {
-					JOptionPane.showMessageDialog(this, "Đăng nhập thành công");
 					TrangChu trangChu = new TrangChu(busNhanVien.layNhanVienTheoMa(taiKhoan));
 					trangChu.xuLyTinhNangTheoChucVuCuaNhanVien();
 					trangChu.setVisible(true);
@@ -157,7 +156,11 @@ public class GUIDangNhap extends JFrame {
 				this.setVisible(false);
 
 			} else {
-				JOptionPane.showMessageDialog(this, "Tài khoản hoặc mật khẩu không chính xác");
+				if(nv == null) {
+					JOptionPane.showMessageDialog(this, "Tài khoản nhân viên không tồn tại");
+				} else {
+					JOptionPane.showMessageDialog(this, "Mật khẩu không chính xác");
+				}
 			}
 		}
 	}

@@ -1,6 +1,4 @@
-/tool/
-/ui/
-/view/
+/mapdata/
 /bus/
 /connect/
 /controller/
@@ -8,3 +6,7 @@
 /dao/
 /entity/
 /model/
+/tool/
+/ui/
+/view/
+/bill/

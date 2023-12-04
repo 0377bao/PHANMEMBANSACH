@@ -126,16 +126,20 @@ public class GUIQuenMatKhauNhapMatKhauMoi extends JFrame {
 		if(matKhau.trim().equals("")) {
 			JOptionPane.showMessageDialog(this, "Mật khẩu không được để trống");
 		} else {
-			if(matKhau.equals(xacNhanMatKhau)) {
-				if(busNhanVien.capNhatMatKhauNV(maNhanVien, matKhau)) {
-					JOptionPane.showMessageDialog(this, "Cập nhật mật khẩu thành công");
-					new GUIDangNhap().setVisible(true);;
-					this.setVisible(false);
-				} else {
-					JOptionPane.showMessageDialog(this, "Cập nhật mật khẩu không thành công");
-				}
+			if(!matKhau.matches("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[!@#$%^&*]).{8,}$")) {
+				JOptionPane.showMessageDialog(this, "Mật khẩu ít nhất 8 ký tự bao gồm chữ hoa, chữ thường, ký tự đặc biệt và số");
 			} else {
-				JOptionPane.showMessageDialog(this, "Mật khẩu và xác nhận mật khẩu không khớp");
+				if(matKhau.equals(xacNhanMatKhau)) {
+					if(busNhanVien.capNhatMatKhauNV(maNhanVien, matKhau)) {
+						JOptionPane.showMessageDialog(this, "Cập nhật mật khẩu thành công");
+						new GUIDangNhap().setVisible(true);;
+						this.setVisible(false);
+					} else {
+						JOptionPane.showMessageDialog(this, "Cập nhật mật khẩu không thành công");
+					}
+				} else {
+					JOptionPane.showMessageDialog(this, "Mật khẩu và xác nhận mật khẩu không khớp");
+				}
 			}
 		}
 	}

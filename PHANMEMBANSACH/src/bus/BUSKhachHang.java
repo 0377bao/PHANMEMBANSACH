@@ -41,10 +41,15 @@ public class BUSKhachHang {
     public String themKhachHang(KhachHang kh) {
     	String message = kiemTraThongTinKhachHangHopLe(kh);
     	if(message.equals("success")) {
-    		if(daoKhachHang.themKhachHang(kh)) {
-    			message = "Thêm khách hàng thành công";
+    		KhachHang khsdt = daoKhachHang.timKhachHangTheoSDT(kh.getSdt());
+    		if(khsdt != null) {
+    			message = "Số điện thoại khách hàng đã tồn tại";
     		} else {
-    			message = "Thêm không thành công vì mã khách hàng đã tồn tại";
+        		if(daoKhachHang.themKhachHang(kh)) {
+        			message = "Thêm khách hàng thành công";
+        		} else {
+        			message = "Thêm không thành công vì mã khách hàng đã tồn tại";
+        		}
     		}
     	}
     	return message;
@@ -97,6 +102,7 @@ public class BUSKhachHang {
         Pattern email = Pattern.compile("^(\\w)+\\@gmail.com$");
         Matcher matchEmail = email.matcher(kh.getEmail());
         // các trường hợp thông tin không hợp lệ, đưa ra message ngoài gui
+        if(kh.getMaKhachHang().trim().equals("")) return "Mã khác hàng không được để trống";
         if(kh.getTenKhachHang().trim().equals("")) return "Tên khách hàng không được để trống";
         if(!matchTenKh.find()) {
         	return "Tên khách hàng chỉ chứa chữ và khoảng trắng";
