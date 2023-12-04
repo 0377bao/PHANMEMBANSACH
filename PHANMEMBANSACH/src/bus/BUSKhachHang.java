@@ -43,7 +43,7 @@ public class BUSKhachHang {
     	if(message.equals("success")) {
     		KhachHang khsdt = daoKhachHang.timKhachHangTheoSDT(kh.getSdt());
     		if(khsdt != null) {
-    			message = "Số điện thoại khách hàng đã tồn tại";
+				message = "Số điện thoại khách hàng đã tồn tại";
     		} else {
         		if(daoKhachHang.themKhachHang(kh)) {
         			message = "Thêm khách hàng thành công";
@@ -57,13 +57,18 @@ public class BUSKhachHang {
     
     public String capNhatThongTinKhachHang(KhachHang kh) {
     	String message = kiemTraThongTinKhachHangHopLe(kh);
-    	if(message.equals("success")) {
-    		if(daoKhachHang.capNhatThongTinKhachHang(kh)) {
-    			message = "Cập nhật khách hàng thành công";
-    		} else {
-    			message = "Cập nhật không thành công vì mã khách hàng không tồn tại";
-    		}
-    	}
+		if(message.equals("success")) {
+			KhachHang khsdt = daoKhachHang.timKhachHangTheoSDT(kh.getSdt());
+			if(khsdt != null && !khsdt.getMaKhachHang().equals(kh.getMaKhachHang())) {
+				message = "Số điện thoại khách hàng đã tồn tại";
+			} else {
+				if(daoKhachHang.capNhatThongTinKhachHang(kh)) {
+	    			message = "Cập nhật khách hàng thành công";
+	    		} else {
+	    			message = "Cập nhật khách hàng không thành công";
+	    		}
+			}
+		}
     	return message;
     }
     public KhachHang timKhachHangTheoSDT(String sdtkh) {
