@@ -43,7 +43,6 @@ public class GUINhanVien extends JPanel {
 	private JRadioButton radNam;
 	private JRadioButton radNu;
 	private JComboBox<String> cboChucVu;
-
 	private JLabel lblHinhAnh;
 	private JButton btnHinhAnh;
 	private JButton btnTaoMa;
@@ -229,6 +228,7 @@ public class GUINhanVien extends JPanel {
 		txtTimNVTheoMa.setBounds(30, 25, 185, 28);
 		pnlTimKiemNV.add(txtTimNVTheoMa);
 		txtTimNVTheoMa.setColumns(10);
+		txtTimNVTheoMa.setName("txtTimNVTheoMa");
 
 		btnTimTheoMa = new MyButton("Tìm");
 		btnTimTheoMa.setBounds(223, 30, 85, 21);
@@ -371,10 +371,13 @@ public class GUINhanVien extends JPanel {
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scr.setLocation(20, 25);
 		scr.setSize(1166, 237);
+		table.getColumnModel().getColumn(1).setPreferredWidth(200);
+		table.getColumnModel().getColumn(5).setPreferredWidth(200);
+		table.getColumnModel().getColumn(7).setPreferredWidth(300);
 		pnlTable.add(scr);
 
 		// load dữ liệu lên bảng
-		hienThiDS(dsNV);
+		hienThiDS(busNhanVien.layDSNhanVienDangLam());
 
 		// dữ liệu test
 		txtTenNV.setText("Lê Thị Thúy Kiều");
@@ -413,7 +416,7 @@ public class GUINhanVien extends JPanel {
 		txtTimNVTheoMa.addFocusListener(new ControllerNhanVien(this));
 		table.addMouseListener(new ControllerNhanVien(this));
 		txtTimTheoSdt_Ten.addKeyListener(new ControllerNhanVien(this));
-
+		txtTimNVTheoMa.addKeyListener(new ControllerNhanVien(this));
 	}
 
 	// lọc nhân viên theo trạng thái
@@ -430,11 +433,11 @@ public class GUINhanVien extends JPanel {
 
 	// tìm nhân viên theo sdt hoặc tên
 	public void timNVTheoSdt_Ten() {
-		xuLyTim(busNhanVien.layDSNhanVien());
+		xuLyTimTheoSdt_Ten(busNhanVien.layDSNhanVien());
 	}
 
 	// xử lý tìm nhân viên theo sdt hoặc tên
-	public void xuLyTim(ArrayList<NhanVien> ds) {
+	public void xuLyTimTheoSdt_Ten(ArrayList<NhanVien> ds) {
 		String txt = txtTimTheoSdt_Ten.getText().trim();
 		busNhanVien.timNVTheoSdt(ds, txt);
 		busNhanVien.timNVTheoTen(ds, txt);
@@ -449,18 +452,24 @@ public class GUINhanVien extends JPanel {
 			JOptionPane.showMessageDialog(this, "Vui lòng nhập mã nhân viên cần tìm");
 		} else {
 			NhanVien nv = busNhanVien.layNhanVienTheoMa(maNV);
-			xoaDuLieuBang();
-			modelNV.addRow(new Object[] { nv.getMaNhanVien(), nv.getTenNhanVien(), nv.getSdt(),
-					nv.isGioiTinh() ? "Nam" : "Nữ", nv.getcCCD(), nv.getEmail(), nv.getChucVu(), nv.getDiaChi(),
-					nv.getTaiKhoan().getMatKhau() });
+			if (nv == null) {
+				xoaDuLieuBang();
+			} else {
+				xoaDuLieuBang();
+				modelNV.addRow(new Object[] { nv.getMaNhanVien(), nv.getTenNhanVien(), nv.getSdt(),
+						nv.isGioiTinh() ? "Nam" : "Nữ", nv.getcCCD(), nv.getEmail(), nv.getChucVu(), nv.getDiaChi(),
+						nv.getTaiKhoan().getMatKhau() });
+			}
 		}
 	}
 
 	// tải lại danh sách
 	public void taiLai() {
-		dsNV = busNhanVien.layDSNhanVien();
+		radNam.setSelected(true);
+		cboChucVu.setSelectedIndex(0);
+		chkTrangThai.setSelected(true);
 		xoaDuLieuBang();
-		hienThiDS(dsNV);
+		hienThiDS(busNhanVien.layDSNhanVienDangLam());
 		txtTimTheoSdt_Ten.setText("");
 		txtTimNVTheoMa.setFont(new Font("Tahoma", Font.ITALIC, 13));
 		txtTimNVTheoMa.setForeground(Color.GRAY);
@@ -568,18 +577,22 @@ public class GUINhanVien extends JPanel {
 		}
 		String mk = txtMatKhau.getText();
 
-		if (busNhanVien.validData(maNV, tenNV, sdt, email, hinhAnh, diaChi, cccd, mk)) {
-			TaiKhoan tk = new TaiKhoan(maNV, mk);
-			NhanVien nv = new NhanVien(maNV, tenNV, sdt, email, gt, diaChi, chucVu, cccd, hinhAnh, trangThai, tk);
-			if (busNhanVien.themNhanVien(nv) && busTaiKhoan.themTaiKhoan(tk)) {
-				taiLai();
-				xoaTrang();
-				JOptionPane.showMessageDialog(this, "Thêm thành công");
-			} else {
-				JOptionPane.showMessageDialog(this, "Thêm thất bại - Mã nhân viên đã tồn tại");
-			}
+		if (table.getSelectedRow() != -1) {
+			JOptionPane.showMessageDialog(this, "Đang trong chế độ sửa không được phép thêm");
 		} else {
-			JOptionPane.showMessageDialog(this, busNhanVien.mes);
+			if (busNhanVien.validData(maNV, tenNV, sdt, email, hinhAnh, diaChi, cccd, mk)) {
+				TaiKhoan tk = new TaiKhoan(maNV, mk);
+				NhanVien nv = new NhanVien(maNV, tenNV, sdt, email, gt, diaChi, chucVu, cccd, hinhAnh, trangThai, tk);
+				if (busNhanVien.themNhanVien(nv) && busTaiKhoan.themTaiKhoan(tk)) {
+					taiLai();
+					xoaTrang();
+					JOptionPane.showMessageDialog(this, "Thêm thành công");
+				} else {
+					JOptionPane.showMessageDialog(this, "Thêm thất bại");
+				}
+			} else {
+				JOptionPane.showMessageDialog(this, busNhanVien.mes);
+			}
 		}
 	}
 

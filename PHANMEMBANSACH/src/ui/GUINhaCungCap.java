@@ -36,11 +36,10 @@ public class GUINhaCungCap extends JPanel {
 	private MyTable table;
 	private MyButton btnTaiLai;
 	private DefaultTableModel modelNCC;
-
-	private BUSNhaCungCap busNCC = new BUSNhaCungCap();
 	private JTextField txtTimTheoTen;
 	private JComboBox<String> cboDiaChi;
 
+	private BUSNhaCungCap busNCC = new BUSNhaCungCap();
 	private ArrayList<NhaCungCap> dsNCC = busNCC.layDSNhaCungCap();
 
 	public GUINhaCungCap() {
@@ -236,7 +235,7 @@ public class GUINhaCungCap extends JPanel {
 
 		// dữ liệu test
 		txtTenNCC.setText("Công Ty TNHH Thương Mại Và Dịch Vụ Sách Gia Định");
-		txtSdt.setText("0287303680");
+		txtSdt.setText("02873036801");
 		txtEmail.setText("giadinhbook@gmail.com");
 		txtDiaChi.setText("6/20A Lê Đức Thọ, P. 16, Q. Gò Vấp, Tp. Hồ Chí Minh");
 
@@ -326,17 +325,22 @@ public class GUINhaCungCap extends JPanel {
 		String sdt = txtSdt.getText().trim();
 		String email = txtEmail.getText().trim();
 		String diaChi = txtDiaChi.getText().trim();
-		if (busNCC.validData(ma, ten, diaChi, sdt, email)) {
-			NhaCungCap ncc = new NhaCungCap(ma, ten, diaChi, sdt, email);
-			if (busNCC.themNCC(ncc)) {
-				xoaTrang();
-				taiLai();
-				JOptionPane.showMessageDialog(this, "Thêm thành công");
-			} else {
-				JOptionPane.showMessageDialog(this, "Thêm thất bại - Mã nhà cung cấp đã tồn tại");
-			}
+		if (table.getSelectedRow() != -1) {
+			JOptionPane.showMessageDialog(this, "Đang trong chế độ sửa không được phép thêm");
+			return;
 		} else {
-			JOptionPane.showMessageDialog(this, busNCC.mes);
+			if (busNCC.validData(ma, ten, diaChi, sdt, email)) {
+				NhaCungCap ncc = new NhaCungCap(ma, ten, diaChi, sdt, email);
+				if (busNCC.themNCC(ncc)) {
+					xoaTrang();
+					taiLai();
+					JOptionPane.showMessageDialog(this, "Thêm thành công");
+				} else {
+					JOptionPane.showMessageDialog(this, "Thêm thất bại - Mã nhà cung cấp đã tồn tại");
+				}
+			} else {
+				JOptionPane.showMessageDialog(this, busNCC.mes);
+			}
 		}
 
 	}

@@ -106,7 +106,7 @@ public class GUIDangNhap extends JFrame {
 		txtMatKhau = new JPasswordField();
 		txtMatKhau.setFont(new Font("Tahoma", Font.BOLD, 13));
 
-		txtMatKhau.setText("P446699");
+		txtMatKhau.setText("Pb446699@");
 		txtMatKhau.setColumns(10);
 		txtMatKhau.setBounds(327, 222, 317, 30);
 

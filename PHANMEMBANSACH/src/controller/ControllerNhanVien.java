@@ -94,8 +94,12 @@ public class ControllerNhanVien implements ActionListener, MouseListener, FocusL
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-
+		JTextField txt = (JTextField) e.getSource();
+		if (txt.getName().equals("txtTimNVTheoMa")) {
+			if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+				guiNV.timNVTheoMa();
+			}
+		}
 	}
 
 	@Override

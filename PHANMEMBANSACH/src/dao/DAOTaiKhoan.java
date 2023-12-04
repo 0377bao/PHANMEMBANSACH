@@ -27,7 +27,7 @@ public class DAOTaiKhoan {
 		return false;
 	}
 
-	// hàm thêm nhân viên
+	// hàm thêm tài khoản
 	public boolean themTaiKhoan(TaiKhoan tk) {
 		ConnectDB.getInstance();
 		Connection con = ConnectDB.getConnection();
@@ -44,6 +44,5 @@ public class DAOTaiKhoan {
 		}
 		return n > 0;
 	}
-	
-	
+
 }

@@ -61,8 +61,8 @@ public class DAONhanVien {
 			stmtNV.setString(6, nv.getChucVu());
 			stmtNV.setString(7, nv.getcCCD());
 			stmtNV.setString(8, nv.getHinhAnh());
-			stmtNV.setString(9, nv.getTrangThai());
-			stmtNV.setString(10, nv.getEmail());
+			stmtNV.setString(9, nv.getEmail());
+			stmtNV.setBoolean(10, nv.getTrangThai().equals("Đang làm") ? true : false);
 			n = stmtNV.executeUpdate();
 		} catch (Exception e) {
 		}
@@ -101,7 +101,7 @@ public class DAONhanVien {
 		}
 		return n > 0;
 	}
-	
+
 	public boolean capNhatMatKhauNV(String nv, String matKhau) {
 		ConnectDB.getInstance();
 		Connection con = ConnectDB.getConnection();
@@ -149,11 +149,10 @@ public class DAONhanVien {
 				nv = new NhanVien(maNV, tenNV, sdt, email, gioiTinh, diaChi, chucVu, cccd, hinhAnh, trangThai, tk);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
 		}
 		return nv;
 	}
-	
+
 	public String layMatKhauNhanVienTheoMa(String ma) {
 		String mk = "";
 		ConnectDB.getInstance();
@@ -163,14 +162,14 @@ public class DAONhanVien {
 			PreparedStatement stmt = con.prepareStatement(sql);
 			stmt.setString(1, ma);
 			ResultSet rs = stmt.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				mk = rs.getString("matKhau");
 			}
-		}catch(Exception e) {
-			
+		} catch (Exception e) {
+
 		}
 		return mk;
-		
+
 	}
 
 	public String layEmailNhanVienTheoMa(String maNV) {

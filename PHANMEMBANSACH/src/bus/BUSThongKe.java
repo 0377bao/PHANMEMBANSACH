@@ -1,9 +1,6 @@
 package bus;
 
-import java.sql.Date;
 import java.time.LocalDate;
-import java.time.Month;
-import java.time.MonthDay;
 import java.time.YearMonth;
 import java.util.ArrayList;
 
@@ -11,11 +8,8 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableModel;
 
-import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
-
-import com.itextpdf.text.api.Spaceable;
 
 import entity.ChiTietDonDoiTra;
 import entity.ChiTietHoaDon;

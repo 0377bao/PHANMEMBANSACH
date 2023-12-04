@@ -351,7 +351,7 @@ public class BUSSanPham {
 				temp.add(sanPham);
 			} else {
 				if (sanPham.getMaSanPham().startsWith("SPVPP")
-						&& ((VanPhongPham) sanPham).getDanhMuc().getMaDanhMuc().equals(danhMuc)) {
+						&& ((VanPhongPham) sanPham).getDanhMuc().getTenDanhMuc().equals(danhMuc)) {
 					temp.add(sanPham);
 				}
 			}
