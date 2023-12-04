@@ -335,8 +335,11 @@ public class GUIKhachHang extends JPanel {
 		String sdt = txtSDT.getText();
 		String email = txtEmail.getText();
 		String thongDiep = busKhachHang.themKhachHang(new KhachHang(maKH, tenKH, sdt, email, 0, 0));
-		dsKhachHang = busKhachHang.layDSKhachHang();
-		capNhatBangKhachHang(dsKhachHang);
+		if(thongDiep.equals("Thêm khách hàng thành công")) {
+			xuLyXoaTrang();
+			dsKhachHang = busKhachHang.layDSKhachHang();
+			capNhatBangKhachHang(dsKhachHang);
+		}
 		JOptionPane.showMessageDialog(this, thongDiep);
 	}
 	

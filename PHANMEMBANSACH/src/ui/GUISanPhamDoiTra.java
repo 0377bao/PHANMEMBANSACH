@@ -1,16 +1,17 @@
 package ui;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JTable;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.border.LineBorder;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.BevelBorder;
 import javax.swing.table.DefaultTableModel;
 
 import bus.BUSHoaDon;
@@ -20,11 +21,6 @@ import customUI.MyTable;
 import entity.ChuongTrinhKhuyenMai;
 import tool.Tools;
 
-import java.awt.Color;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import javax.swing.border.BevelBorder;
-
 public class GUISanPhamDoiTra extends JFrame implements ActionListener {
 	private JTextField textField;
 	private JTextField textField_1;
@@ -33,11 +29,12 @@ public class GUISanPhamDoiTra extends JFrame implements ActionListener {
 	private int soLuongTrongHD, diemTrongHD;
 	private DefaultTableModel model;
 	private MyTable tb;
-	private JTextField tongSoSP, tongTien, diemHT;
+	private JTextField tongSoSP, tongTien, diemHT, txtTongGiamGia;
 	private ChuongTrinhKhuyenMai ctkm;
 
 	public GUISanPhamDoiTra(DefaultTableModel model, MyTable tb, String ma, String ten, float gia, int soLuongTrongHD,
-			String phuongThucDoiTra, JTextField tongSoSP, JTextField tongTien,JTextField diemHT, int diemTrongHD,ChuongTrinhKhuyenMai ctkm) {
+			String phuongThucDoiTra, JTextField tongSoSP, JTextField tongTien, JTextField diemHT, int diemTrongHD,
+			ChuongTrinhKhuyenMai ctkm, JTextField txtTongTienGiam) {
 		getContentPane().setBackground(new Color(255, 255, 255));
 		setBackground(new Color(255, 255, 255));
 		this.setSize(600, 200);
@@ -53,9 +50,10 @@ public class GUISanPhamDoiTra extends JFrame implements ActionListener {
 		this.tongSoSP = tongSoSP;
 		this.tongTien = tongTien;
 		this.tb = tb;
-		this.diemHT=diemHT;
+		this.diemHT = diemHT;
 		this.diemTrongHD = diemTrongHD;
 		this.ctkm = ctkm;
+		this.txtTongGiamGia = txtTongTienGiam;
 		JPanel panel = new JPanel();
 		panel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		panel.setBounds(59, 26, 460, 40);
@@ -103,20 +101,25 @@ public class GUISanPhamDoiTra extends JFrame implements ActionListener {
 		if (validata()) {
 			this.setVisible(false);
 			if (timSanPhamTrongDonDoiTra() == -1) {
-				model.addRow(new Object[] { ma, ten, Integer.parseInt(textField_1.getText().trim()), Tools.dinhDangTien(gia),
-						textField_1.getText().trim()+ "-"+ textField.getText().trim() });
+				model.addRow(new Object[] { ma, ten, Integer.parseInt(textField_1.getText().trim()),
+						Tools.dinhDangTien(gia), textField_1.getText().trim() + "-" + textField.getText().trim() });
 				thayDoiTienVaSoLuong();
 			} else {
+
 				if ((Integer.parseInt(tb.getValueAt(timSanPhamTrongDonDoiTra(), 2).toString())
 						+ Integer.parseInt(textField_1.getText().trim())) > soLuongTrongHD) {
 					JOptionPane.showMessageDialog(this, "Số lượng đổi trả phải thấp hơn hoặc bằng số lượng đã mua");
+				} else if ((Integer.parseInt(tb.getValueAt(timSanPhamTrongDonDoiTra(), 2).toString())
+						+ Integer.parseInt(textField_1.getText().trim())) > new BUSSanPham().timKiemSanPham(ma)
+								.getSoLuongTon()) {
+					JOptionPane.showMessageDialog(this, "Số lượng tồn không đủ để thực hiện đổi trả");
 				} else {
 					thayDoiTienVaSoLuong();
 					tb.setValueAt((Integer.parseInt(tb.getValueAt(timSanPhamTrongDonDoiTra(), 2).toString())
 							+ Integer.parseInt(textField_1.getText().trim())), timSanPhamTrongDonDoiTra(), 2);
 					if (!(tb.getValueAt(timSanPhamTrongDonDoiTra(), 4).toString().trim().toUpperCase()
 							.equals(textField.getText().trim().toUpperCase()))) {
-						tb.setValueAt(tb.getValueAt(timSanPhamTrongDonDoiTra(), 4) + ", " + textField_1.getText()+"-"
+						tb.setValueAt(tb.getValueAt(timSanPhamTrongDonDoiTra(), 4) + ", " + textField_1.getText() + "-"
 								+ textField.getText(), timSanPhamTrongDonDoiTra(), 4);
 					}
 				}
@@ -129,9 +132,22 @@ public class GUISanPhamDoiTra extends JFrame implements ActionListener {
 		if (phuongThucDoiTra.equals("Đổi Hàng")) {
 			tongSoSP.setText(Integer.parseInt(tongSoSP.getText()) + Integer.parseInt(textField_1.getText()) + "");
 		} else {
-			float tongTienDDT = Float.parseFloat(tongTien.getText().replaceAll("[,VND]", "")) + ((gia-gia*(new BUSHoaDon().hamLayGiamGiaCuaChiTietHoaDon(ctkm,new BUSSanPham().timKiemSanPham(ma))/100)) * Integer.parseInt(textField_1.getText())) + Integer.parseInt(diemHT.getText())*10000;
-			tongTien.setText(Tools.dinhDangTien((tongTienDDT-soDiemHoanTra(tongTienDDT)*10000))+ "");
-			diemHT.setText(soDiemHoanTra(tongTienDDT)+"");
+			int soLuongSP = Integer.parseInt(textField_1.getText());
+			float tongTienDDT = Float.parseFloat(tongTien.getText().replaceAll("[,VND]", "")) + ((gia - gia
+					* (new BUSHoaDon().hamLayGiamGiaCuaChiTietHoaDon(ctkm, new BUSSanPham().timKiemSanPham(ma)) / 100))
+					* soLuongSP) + Integer.parseInt(diemHT.getText()) * 10000
+					- (gia * (new BUSSanPham().timKiemSanPham(ma).getThue() / 100) * soLuongSP);
+			float tongTienGiam = Float.parseFloat(txtTongGiamGia.getText().replaceAll("[,VND]", ""))
+					+ (gia * (new BUSHoaDon().hamLayGiamGiaCuaChiTietHoaDon(ctkm, new BUSSanPham().timKiemSanPham(ma))
+							/ 100) * soLuongSP)
+					+ (soDiemHoanTra(tongTienDDT) * 10000 - Integer.parseInt(diemHT.getText()) * 10000)
+					+ (gia * (new BUSSanPham().timKiemSanPham(ma).getThue() / 100) * soLuongSP);
+			tongTien.setText(Tools.dinhDangTien((tongTienDDT - soDiemHoanTra(tongTienDDT) * 10000)) + "");
+
+			diemHT.setText(soDiemHoanTra(tongTienDDT) + "");
+
+			txtTongGiamGia.setText(Tools.dinhDangTien(tongTienGiam));
+
 		}
 	}
 
@@ -142,12 +158,15 @@ public class GUISanPhamDoiTra extends JFrame implements ActionListener {
 				JOptionPane.showMessageDialog(this,
 						"Số lượng phải lớn hơn 0 và nhỏ hơn hoặc bằng số lượng trong hóa đơn");
 				return false;
+			} else if (soLuong > new BUSSanPham().timKiemSanPham(ma).getSoLuongTon()) {
+				JOptionPane.showMessageDialog(this, "Số lượng tồn không đủ để thực hiện đổi trả");
+				return false;
 			}
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this, "Hãy nhập đúng thông tin số lượng");
 			return false;
 		}
-		if (textField.getText().equals("")) {
+		if (textField.getText().trim().equals("")) {
 			JOptionPane.showMessageDialog(this, "Vui lòng điền đầy đủ thông tin");
 			return false;
 		}
@@ -162,14 +181,15 @@ public class GUISanPhamDoiTra extends JFrame implements ActionListener {
 		}
 		return -1;
 	}
+
 	// hàm tính điểm trả lại trong đơn đổi trả
 	// Nếu số điểm nhiều hơn 50% số tiền thì lấy số điểm ứng với 50% số tiền trả
 	// Nếu số điểm nhỏ hơn 50% số tiền thì hoàn lại tất cả điểm
 	public int soDiemHoanTra(float tongTien) {
-		int nuaTien = (int)tongTien/2;
-		if(nuaTien/10000>diemTrongHD) {
+		int nuaTien = (int) tongTien / 2;
+		if (nuaTien / 10000 > diemTrongHD) {
 			return diemTrongHD;
 		}
-		return nuaTien/10000;
+		return nuaTien / 10000;
 	}
 }

@@ -32,12 +32,13 @@ import javax.swing.JButton;
 
 import java.awt.Color;
 import java.awt.Component;
-
-
-
+import java.awt.Desktop;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 
 public class TrangChu extends JFrame{
@@ -264,71 +265,82 @@ public class TrangChu extends JFrame{
 	}
 	// phần sử lý điều hướng ứng dụng
 	public void xuLyDieuHuong(String src) {
-		datLaiMauNenChoButtonControll();
-		indexFrame = src;
-		this.remove(pnlHienTai);
-		if(src.equals("Trang chủ")) {
-			pnlHienTai = new GUITrangChu();
-			btnTrangChu.setBackground(colorBtnActive);
-			btnTrangChu.setForeground(Color.white);
-		}
-		if(src.equals("Bán hàng")) {
-			pnlHienTai = new GUIBanHang(this, dsHoaDonCho, nvHienTai);
-			btnBanHang.setBackground(colorBtnActive);
-			btnBanHang.setForeground(Color.white);
-		}
-		if(src.equals("Giao hàng")) {
-			pnlHienTai = new GUIGiaoHang(null);
-			btnGiaoHang.setBackground(colorBtnActive);
-			btnGiaoHang.setForeground(Color.white);
-		}
-		if(src.equals("Đổi trả hàng")) {
-			pnlHienTai = new GUIDoiTraHang(nvHienTai);
-			btnDoiTraHang.setBackground(colorBtnActive);
-			btnDoiTraHang.setForeground(Color.white);
-		}
-		if(src.equals("QL Nhà cung cấp")) {
-			pnlHienTai = new GUINhaCungCap();
-			btnNhaCungCap.setBackground(colorBtnActive);
-			btnNhaCungCap.setForeground(Color.white);
-		}
-		if(src.equals("QL Khuyến mãi")) {
-			pnlHienTai = new GUIKhuyenMai();
-			btnKhuyenMai.setBackground(colorBtnActive);
-			btnKhuyenMai.setForeground(Color.white);
-		}
-		if(src.equals("QL Sản phẩm")) {
-			pnlHienTai = new GUISanPham();
-			btnSanPham.setBackground(colorBtnActive);
-			btnSanPham.setForeground(Color.white);
-		}
-		if(src.equals("QL Khách hàng")) {
-			pnlHienTai = new GUIKhachHang();
-			btnKhachHang.setBackground(colorBtnActive);
-			btnKhachHang.setForeground(Color.white);
-		} 
-		if(src.equals("QL Nhân viên")) {
-			pnlHienTai = new GUINhanVien();
-			btnNhanVien.setBackground(colorBtnActive);
-			btnNhanVien.setForeground(Color.white);
-		} 
-		if(src.equals("QL Thống kê")) {
-			
-			pnlHienTai = new GUIThongKe(nvHienTai);
-			btnThongKe.setBackground(colorBtnActive);
-			btnThongKe.setForeground(Color.white);
-		} 
 		if(src.equals("Hỗ trợ")) {
-			pnlHienTai = new GUIHoTro();
-			btnHoTro.setBackground(colorBtnActive);
-			btnHoTro.setForeground(Color.white);
+			openWebLink("https://0377bao.github.io/huongdanwebbansach/");
+		} else {
+			datLaiMauNenChoButtonControll();
+			indexFrame = src;
+			this.remove(pnlHienTai);
+			if(src.equals("Trang chủ")) {
+				pnlHienTai = new GUITrangChu();
+				btnTrangChu.setBackground(colorBtnActive);
+				btnTrangChu.setForeground(Color.white);
+			}
+			if(src.equals("Bán hàng")) {
+				pnlHienTai = new GUIBanHang(this, dsHoaDonCho, nvHienTai);
+				btnBanHang.setBackground(colorBtnActive);
+				btnBanHang.setForeground(Color.white);
+			}
+			if(src.equals("Giao hàng")) {
+				pnlHienTai = new GUIGiaoHang(null);
+				btnGiaoHang.setBackground(colorBtnActive);
+				btnGiaoHang.setForeground(Color.white);
+			}
+			if(src.equals("Đổi trả hàng")) {
+				pnlHienTai = new GUIDoiTraHang(nvHienTai);
+				btnDoiTraHang.setBackground(colorBtnActive);
+				btnDoiTraHang.setForeground(Color.white);
+			}
+			if(src.equals("QL Nhà cung cấp")) {
+				pnlHienTai = new GUINhaCungCap();
+				btnNhaCungCap.setBackground(colorBtnActive);
+				btnNhaCungCap.setForeground(Color.white);
+			}
+			if(src.equals("QL Khuyến mãi")) {
+				pnlHienTai = new GUIKhuyenMai();
+				btnKhuyenMai.setBackground(colorBtnActive);
+				btnKhuyenMai.setForeground(Color.white);
+			}
+			if(src.equals("QL Sản phẩm")) {
+				pnlHienTai = new GUISanPham();
+				btnSanPham.setBackground(colorBtnActive);
+				btnSanPham.setForeground(Color.white);
+			}
+			if(src.equals("QL Khách hàng")) {
+				pnlHienTai = new GUIKhachHang();
+				btnKhachHang.setBackground(colorBtnActive);
+				btnKhachHang.setForeground(Color.white);
+			} 
+			if(src.equals("QL Nhân viên")) {
+				pnlHienTai = new GUINhanVien();
+				btnNhanVien.setBackground(colorBtnActive);
+				btnNhanVien.setForeground(Color.white);
+			} 
+			if(src.equals("QL Thống kê")) {
+				pnlHienTai = new GUIThongKe(nvHienTai);
+				btnThongKe.setBackground(colorBtnActive);
+				btnThongKe.setForeground(Color.white);
+			} 
+			
+			getContentPane().add(pnlHienTai);
+			this.revalidate();
+			this.repaint();
 		}
-		getContentPane().add(pnlHienTai);
-		this.revalidate();
-		this.repaint();
-		
-		
 	}
+	
+	// mở web
+	private static void openWebLink(String url) {
+        if (Desktop.isDesktopSupported()) {
+            Desktop desktop = Desktop.getDesktop();
+            try {
+                desktop.browse(new URI(url));
+            } catch (IOException | URISyntaxException e) {
+                e.printStackTrace();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Máy tính không hỗ trợ");
+        }
+    }
 	// phần xủ lý đăng xuất
 	public void xuLyDangXuat(ActionEvent e) {
 		Object o = e.getSource();

@@ -15,8 +15,11 @@ import bus.BUSHoaDon;
 import bus.BUSNhanVien;
 import connect.ConnectDB;
 import entity.ChiTietDonDoiTra;
+import entity.ChiTietHoaDon;
+import entity.ChuongTrinhKhuyenMai;
 import entity.DonDoiTra;
 import entity.HoaDon;
+import entity.KhachHang;
 import entity.NhanVien;
 
 public class DAODonDoiTra {

@@ -39,26 +39,41 @@ public class BUSKhachHang {
     }
     
     public String themKhachHang(KhachHang kh) {
-    	String message = kiemTraThongTinKhachHangHopLe(kh);
-    	if(message.equals("success")) {
-    		if(daoKhachHang.themKhachHang(kh)) {
-    			message = "Thêm khách hàng thành công";
-    		} else {
-    			message = "Thêm không thành công vì mã khách hàng đã tồn tại";
-    		}
+    	String message = "";
+    	if(daoKhachHang.timKhachHangTheoMa(kh.getMaKhachHang()) != null) {
+    		message = "Mã khách hàng đã tồn tại";
+    	} else {
+        	message = kiemTraThongTinKhachHangHopLe(kh);
+        	if(message.equals("success")) {
+        		KhachHang khsdt = daoKhachHang.timKhachHangTheoSDT(kh.getSdt());
+        		if(khsdt != null) {
+    				message = "Số điện thoại khách hàng đã tồn tại";
+        		} else {
+            		if(daoKhachHang.themKhachHang(kh)) {
+            			message = "Thêm khách hàng thành công";
+            		} else {
+            			message = "Thêm không thành công vì mã khách hàng đã tồn tại";
+            		}
+        		}
+        	}
     	}
     	return message;
     }
     
     public String capNhatThongTinKhachHang(KhachHang kh) {
     	String message = kiemTraThongTinKhachHangHopLe(kh);
-    	if(message.equals("success")) {
-    		if(daoKhachHang.capNhatThongTinKhachHang(kh)) {
-    			message = "Cập nhật khách hàng thành công";
-    		} else {
-    			message = "Cập nhật không thành công vì mã khách hàng không tồn tại";
-    		}
-    	}
+		if(message.equals("success")) {
+			KhachHang khsdt = daoKhachHang.timKhachHangTheoSDT(kh.getSdt());
+			if(khsdt != null && !khsdt.getMaKhachHang().equals(kh.getMaKhachHang())) {
+				message = "Số điện thoại khách hàng đã tồn tại";
+			} else {
+				if(daoKhachHang.capNhatThongTinKhachHang(kh)) {
+	    			message = "Cập nhật khách hàng thành công";
+	    		} else {
+	    			message = "Cập nhật khách hàng không thành công";
+	    		}
+			}
+		}
     	return message;
     }
     public KhachHang timKhachHangTheoSDT(String sdtkh) {
@@ -97,6 +112,7 @@ public class BUSKhachHang {
         Pattern email = Pattern.compile("^(\\w)+\\@gmail.com$");
         Matcher matchEmail = email.matcher(kh.getEmail());
         // các trường hợp thông tin không hợp lệ, đưa ra message ngoài gui
+        if(kh.getMaKhachHang().trim().equals("")) return "Vui lòng nhấn nút tạo mã khách hàng";
         if(kh.getTenKhachHang().trim().equals("")) return "Tên khách hàng không được để trống";
         if(!matchTenKh.find()) {
         	return "Tên khách hàng chỉ chứa chữ và khoảng trắng";
