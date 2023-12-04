@@ -61,6 +61,7 @@ public class GUIThongKe extends JPanel {
 	private JComboBox cboThongKeTheoTuan;
 	private DefaultComboBoxModel cbmodelThongKeTheoTuan;
 	private DefaultCategoryDataset datasetThongKeDoanhThuNVTrongTuan = new DefaultCategoryDataset();
+	private DefaultCategoryDataset datasetThongKeDoanhThuNV = new DefaultCategoryDataset();
 	private DefaultPieDataset datasetThongKeTheoQuy = new DefaultPieDataset();
 	NhanVien nv ;
 	private JPanel pnlThongKeTrongTuan;
@@ -75,6 +76,7 @@ public class GUIThongKe extends JPanel {
 	private JLabel lblSoLuongDDTCH;
 	private JComboBox cbThongKeSanPhamTrongQuy;
 	private JComboBox cbThongKeTrangThaiSanPham;
+	private JComboBox cbThongKeNhanVien;
 	
 	public GUIThongKe(NhanVien nv) {
 		this.setBackground(new Color(240, 240, 240));
@@ -319,8 +321,8 @@ public class GUIThongKe extends JPanel {
 		pnlThongKeDoanhThuQuy.add(cpnlThongKeDoanhThuTheoQuy);
 		
 		// Thêm dữ liệu vào bảng và biểu đồ
-		thayDoiDuLieuBangVaBieuDoTheoQuyCuaCH();
-		
+//		thayDoiDuLieuBangVaBieuDoTheoQuyCuaCH();
+//		
 		JPanel pnlThongKeCacThanhPhanThangCH = new JPanel();
 		pnlThongKeCacThanhPhanThangCH.setBackground(new Color(255, 255, 255));
 		pnlThongKeCacThanhPhanThangCH.setBounds(21, 303, 1205, 434);
@@ -456,7 +458,7 @@ public class GUIThongKe extends JPanel {
 		
 		modelThongKeThanhPhanTrongThang = new DefaultTableModel(
 				new Object[] {"Ngày","Tổng hóa đơn","Tổng sản phẩm","Tổng đơn đổi trả","Doanh Thu"}, 0);
-		thayDoiDuLieuBangVaPanelTrongThangCuaCH();
+		//thayDoiDuLieuBangVaPanelTrongThangCuaCH();
 		
 
 		tbThongKeThanhPhanTrongThang = new MyTable(modelThongKeThanhPhanTrongThang);
@@ -594,14 +596,7 @@ public class GUIThongKe extends JPanel {
 		// Hiển thị thông tin thống kê nhân viên
 		busTK.hienThiThongTinThongKeNV(lblTongNV, lblNVDaNghi, lblNVBanHang, lblNVQL);
 		
-		JFreeChart bCThongKeDoanhThuNhanVien = ChartFactory.createBarChart("Biểu đồ doanh thu theo tháng", "Mã nhân viên", "VNĐ", taoBieuDoDoanhThuNhanVien(),PlotOrientation.VERTICAL,false,true,true);
-		ChartPanel cpnlThongKeDoanhThuNhanVien= new ChartPanel(bCThongKeDoanhThuNhanVien);
-		cpnlThongKeDoanhThuNhanVien.setBackground(new Color(255, 255, 255));
-		cpnlThongKeDoanhThuNhanVien.setSize(645, 470);
-		cpnlThongKeDoanhThuNhanVien.setLocation(10, 30);
 		
-		
-		panel.add(cpnlThongKeDoanhThuNhanVien);
 		pnlThongKeNhanVien.add(panel);
 		panel.setLayout(null);
 		
@@ -611,15 +606,16 @@ public class GUIThongKe extends JPanel {
 		pnlThongKeNhanVien.add(panel_1);
 		panel_1.setLayout(null);
 		
-		JLabel lblNewLabel_1 = new JLabel("Danh sách 10 nhân viên doanh thu cao nhất");
+		JLabel lblNewLabel_1 = new JLabel("Thống kê số liệu của từng nhân viên");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblNewLabel_1.setBounds(10, 11, 320, 20);
 		panel_1.add(lblNewLabel_1);
 		
-		JComboBox cbThongKeNhanVien = new JComboBox();
-		cbThongKeNhanVien.setModel(new DefaultComboBoxModel(new String[] {"Tất cả", "Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"}));
+		cbThongKeNhanVien = new JComboBox();
+		cbThongKeNhanVien.setModel(new DefaultComboBoxModel(new String[] {"Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"}));
 		cbThongKeNhanVien.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		cbThongKeNhanVien.setBounds(140, 42, 142, 22);
+		cbThongKeNhanVien.setActionCommand("cbThongKeNhanVien");
 		panel_1.add(cbThongKeNhanVien);
 		
 		JLabel lblNewLabel_2 = new JLabel("Năm 2023");
@@ -630,16 +626,7 @@ public class GUIThongKe extends JPanel {
 		modelThongKeNhanVien = new DefaultTableModel(
 				new Object[] {"Mã nhân viên","Tên nhân viên","Tổng hóa đơn","Tổng sản phẩm","Tổng đơn đổi trả","Doanh Thu"}, 0);
 		
-		modelThongKeNhanVien.addRow(new Object[] {"NV1","Huỳnh Quốc Bẻo","1023","600","50","10.000.000"});
-		modelThongKeNhanVien.addRow(new Object[] {"NV2","Huỳnh Quốc Kiều","1023","600","50","10.000.000"});
-		modelThongKeNhanVien.addRow(new Object[] {"NV3","Huỳnh Quốc Hiếu","1023","600","50","10.000.000"});
-		modelThongKeNhanVien.addRow(new Object[] {"NV4","Võ Mạnh Bảo","1023","600","50","10.000.000"});
-		modelThongKeNhanVien.addRow(new Object[] {"NV5","Nguyễn Mạnh Hiếu","1023","600","50","10.000.000"});
-		modelThongKeNhanVien.addRow(new Object[] {"NV6","Nguyễn Quốc Bảo","1023","600","50","10.000.000"});
-		modelThongKeNhanVien.addRow(new Object[] {"NV7","Nguyễn Quốc Bảo","1023","600","50","10.000.000"});
-		modelThongKeNhanVien.addRow(new Object[] {"NV8","Nguyễn Quốc Bảo","1023","600","50","10.000.000"});
-		modelThongKeNhanVien.addRow(new Object[] {"NV9","Nguyễn Quốc Bảo","1023","600","50","10.000.000"});
-		modelThongKeNhanVien.addRow(new Object[] {"NV10","Nguyễn Quốc Bo","1023","600","50","10.000.000"});
+		
 		
 		tbThongKeNhanVien = new MyTable(modelThongKeNhanVien);
 		tbThongKeNhanVien.setRowHeight(31);
@@ -649,10 +636,24 @@ public class GUIThongKe extends JPanel {
 		tbThongKeNhanVien.getColumnModel().getColumn(2).setPreferredWidth(100);
 		tbThongKeNhanVien.getColumnModel().getColumn(3).setPreferredWidth(100);
 		tbThongKeNhanVien.getColumnModel().getColumn(4).setPreferredWidth(100);
+		tbThongKeNhanVien.getColumnModel().getColumn(5).setPreferredWidth(150);
 		
+		
+		// hàm đổ dữ liệu vào bảng thống kê nhân viên
+		thayDoiDuLieuNhanVien();
 		
 		JScrollPane scrollPane = new JScrollPane(tbThongKeNhanVien,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setBounds(20, 101, 469, 398);
+		
+		JFreeChart bCThongKeDoanhThuNhanVien = ChartFactory.createBarChart("Biểu đồ doanh thu theo tháng", "Mã nhân viên", "VNĐ", datasetThongKeDoanhThuNV,PlotOrientation.VERTICAL,false,true,true);
+		ChartPanel cpnlThongKeDoanhThuNhanVien= new ChartPanel(bCThongKeDoanhThuNhanVien);
+		cpnlThongKeDoanhThuNhanVien.setBackground(new Color(255, 255, 255));
+		cpnlThongKeDoanhThuNhanVien.setSize(645, 470);
+		cpnlThongKeDoanhThuNhanVien.setLocation(10, 30);
+		
+		
+		panel.add(cpnlThongKeDoanhThuNhanVien);
+		
 		panel_1.add(scrollPane);
 		
 		JPanel pnlThongKeSanPham = new JPanel();
@@ -820,14 +821,18 @@ public class GUIThongKe extends JPanel {
 		lblNewLabel_8.setBounds(10, 11, 318, 20);
 		panel_9.add(lblNewLabel_8);
 		
-		thayDoiDuLieuBangThongKeSanPham();
-		thongKeSanPhamBiDoiTra();
+//		thayDoiDuLieuBangThongKeSanPham();
+//		thongKeSanPhamBiDoiTra();
 		//thêm sự kiện
 		cboThongKeTheoTuan.addActionListener(new ControllerThongKe(this));
 		cbThongKeCuaHangTheoQuy.addActionListener(new ControllerThongKe(this));
 		cboThongKeThangCH.addActionListener(new ControllerThongKe(this));
 		cbThongKeSanPhamTrongQuy.addActionListener(new ControllerThongKe(this));
 		cbThongKeTrangThaiSanPham.addActionListener(new ControllerThongKe(this));
+
+		cbThongKeNhanVien.addActionListener(new ControllerThongKe(this));
+		tbThongKeNhanVien.addMouseListener(new ControllerThongKe(this));
+
 		if(nv.getChucVu().equals("Quản lý")) {
 			tabbedPane.addTab("Sản phẩm", null, pnlThongKeSanPham, null);
 			pnlThongKeSanPham.setLayout(null);
@@ -836,19 +841,9 @@ public class GUIThongKe extends JPanel {
 			tabbedPane.addTab("Cửa hàng", null, pnlCuaHang, null);
 			pnlCuaHang.setLayout(null);
 		}
+
 	}
-	//Hàm tạo dữ liệu cho biểu đồ thống kê theo tuần
-	private CategoryDataset  taoBieuDoDoanhThuTuan() {
-		DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
-		dataSet.addValue(4000000, "VNĐ", "Thứ 2");
-		dataSet.addValue(1000000, "VNĐ", "Thứ 3");
-		dataSet.addValue(3000000, "VNĐ", "Thứ 4");
-		dataSet.addValue(7000000, "VNĐ", "Thứ 5");
-		dataSet.addValue(2000000, "VNĐ", "Thứ 6");
-		dataSet.addValue(9000000, "VNĐ", "Thứ 7");
-		dataSet.addValue(8000000, "VNĐ", "Chủ Nhật");
-		return dataSet;
-	}
+
 	//Hàm tạo dữ liệu cho biểu đồ thống kê nhân viên
 	private CategoryDataset  taoBieuDoDoanhThuNhanVien() {
 		DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
@@ -892,5 +887,12 @@ public class GUIThongKe extends JPanel {
 	public void thongKeSanPhamBiDoiTra() {
 		busTK.lay10SPBiDoiTraNhieuNhat(modelDanhSachSanPhamDoiTra, LocalDate.of(LocalDate.now().getYear(),1,1), LocalDate.of(LocalDate.now().getYear(),12,31));
 	}
+	// Hàm thống kê số liệu nhân viên
+	public void thayDoiDuLieuNhanVien() {
+		modelThongKeNhanVien.setRowCount(0);
+		datasetThongKeDoanhThuNV.clear();
+		busTK.hienSoLieuCuaNhanVienTrongThang(cbThongKeNhanVien.getSelectedItem().toString(), modelThongKeNhanVien,datasetThongKeDoanhThuNV);
+	}
+	
 	
 }

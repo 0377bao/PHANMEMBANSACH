@@ -107,9 +107,13 @@ public class GUISanPhamDoiTra extends JFrame implements ActionListener {
 						textField_1.getText().trim()+ "-"+ textField.getText().trim() });
 				thayDoiTienVaSoLuong();
 			} else {
+				
 				if ((Integer.parseInt(tb.getValueAt(timSanPhamTrongDonDoiTra(), 2).toString())
 						+ Integer.parseInt(textField_1.getText().trim())) > soLuongTrongHD) {
 					JOptionPane.showMessageDialog(this, "Số lượng đổi trả phải thấp hơn hoặc bằng số lượng đã mua");
+				}else if((Integer.parseInt(tb.getValueAt(timSanPhamTrongDonDoiTra(), 2).toString())
+						+ Integer.parseInt(textField_1.getText().trim())) > new BUSSanPham().timKiemSanPham(ma).getSoLuongTon()){
+					JOptionPane.showMessageDialog(this, "Số lượng tồn không đủ để thực hiện đổi trả");
 				} else {
 					thayDoiTienVaSoLuong();
 					tb.setValueAt((Integer.parseInt(tb.getValueAt(timSanPhamTrongDonDoiTra(), 2).toString())
@@ -129,7 +133,7 @@ public class GUISanPhamDoiTra extends JFrame implements ActionListener {
 		if (phuongThucDoiTra.equals("Đổi Hàng")) {
 			tongSoSP.setText(Integer.parseInt(tongSoSP.getText()) + Integer.parseInt(textField_1.getText()) + "");
 		} else {
-			float tongTienDDT = Float.parseFloat(tongTien.getText().replaceAll("[,VND]", "")) + ((gia-gia*(new BUSHoaDon().hamLayGiamGiaCuaChiTietHoaDon(ctkm,new BUSSanPham().timKiemSanPham(ma))/100)) * Integer.parseInt(textField_1.getText())) + Integer.parseInt(diemHT.getText())*10000;
+			float tongTienDDT = Float.parseFloat(tongTien.getText().replaceAll("[,VND]", "")) + ((gia-gia*(new BUSHoaDon().hamLayGiamGiaCuaChiTietHoaDon(ctkm,new BUSSanPham().timKiemSanPham(ma))/100)) * Integer.parseInt(textField_1.getText())) + Integer.parseInt(diemHT.getText())*10000 +(gia*(new BUSSanPham().timKiemSanPham(ma).getThue()/100));
 			tongTien.setText(Tools.dinhDangTien((tongTienDDT-soDiemHoanTra(tongTienDDT)*10000))+ "");
 			diemHT.setText(soDiemHoanTra(tongTienDDT)+"");
 		}
@@ -142,12 +146,15 @@ public class GUISanPhamDoiTra extends JFrame implements ActionListener {
 				JOptionPane.showMessageDialog(this,
 						"Số lượng phải lớn hơn 0 và nhỏ hơn hoặc bằng số lượng trong hóa đơn");
 				return false;
+			}else if(soLuong > new BUSSanPham().timKiemSanPham(ma).getSoLuongTon()) {
+				JOptionPane.showMessageDialog(this, "Số lượng tồn không đủ để thực hiện đổi trả");
+				return false;
 			}
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this, "Hãy nhập đúng thông tin số lượng");
 			return false;
 		}
-		if (textField.getText().equals("")) {
+		if (textField.getText().trim().equals("")) {
 			JOptionPane.showMessageDialog(this, "Vui lòng điền đầy đủ thông tin");
 			return false;
 		}

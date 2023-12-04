@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
@@ -17,6 +18,7 @@ import entity.DonDoiTra;
 import entity.HoaDon;
 import entity.KhachHang;
 import tool.Tools;
+import ui.GUIDoiTraHang;
 
 public class BUSDonDoiTra {
 	private DAODonDoiTra daoDonDoiTra = new DAODonDoiTra();
@@ -61,8 +63,7 @@ public class BUSDonDoiTra {
 	public void layDanhSachHoaDonKhachHangTrong7Ngay(DefaultTableModel model, String sdt) {
 		LocalDate hanChoPhep = LocalDate.now().minusDays(6);
 		model.setRowCount(0);
-		if (new BUSKhachHang().timKhachHangTheoSDT(sdt) != null) {
-
+		
 			for (HoaDon hd : new BUSHoaDon()
 					.layLichSuGiaoDichKhachHang(new BUSKhachHang().timKhachHangTheoSDT(sdt).getMaKhachHang())) {
 
@@ -75,7 +76,7 @@ public class BUSDonDoiTra {
 							soLuongSP, Tools.dinhDangTien(hd.getThanhTien()) });
 				}
 			}
-		}
+		
 	}
 
 	// hiện danh sách sản phẩm trong hóa đơn được chọn
@@ -112,7 +113,7 @@ public class BUSDonDoiTra {
 						* (Float.parseFloat(tb.getValueAt(i, 3).toString().replaceAll("[,VND]", ""))
 								- Float.parseFloat(tb.getValueAt(i, 3).toString())
 										* (new BUSHoaDon().hamLayGiamGiaCuaChiTietHoaDon(ctkm,
-												new BUSSanPham().timKiemSanPham(tb.getValueAt(i, 0).toString()))/100));
+												new BUSSanPham().timKiemSanPham(tb.getValueAt(i, 0).toString()))/100)+(Float.parseFloat(tb.getValueAt(i, 3).toString())*(new BUSSanPham().timKiemSanPham(tb.getValueAt(i, 0).toString()).getThue()/100)));
 			}
 			tongTien.setText(Tools.dinhDangTien(tong - soDiemHoanTra(tong, diemTrongHD) * 10000 )+ "");
 			diemHT.setText(soDiemHoanTra(tong, diemTrongHD) + "");
