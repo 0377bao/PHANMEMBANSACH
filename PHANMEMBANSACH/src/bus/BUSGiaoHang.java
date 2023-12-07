@@ -53,8 +53,8 @@ public class BUSGiaoHang {
    }
    
 
-   public ArrayList<DonGiaoHang> sapXepTheoTongTienVanChuyenGiamDan() {
-   	ArrayList<DonGiaoHang> ds = daoDonGiaoHang.layDSDonHang();
+   public ArrayList<DonGiaoHang> sapXepTheoTongTienVanChuyenGiamDan(ArrayList<DonGiaoHang> ds_one) {
+   	ArrayList<DonGiaoHang> ds = ds_one.size() > 0 ? ds_one : daoDonGiaoHang.layDSDonHang();
        Collections.sort(ds,new Comparator<DonGiaoHang>() {
 
 			@Override
@@ -67,8 +67,8 @@ public class BUSGiaoHang {
       return ds;
    }
    
-   public ArrayList<DonGiaoHang> sapXepTheoTongTienVanChuyenTangDan() {
-	   	ArrayList<DonGiaoHang> ds = daoDonGiaoHang.layDSDonHang();
+   public ArrayList<DonGiaoHang> sapXepTheoTongTienVanChuyenTangDan(ArrayList<DonGiaoHang> ds_one) {
+	   	ArrayList<DonGiaoHang> ds = ds_one.size() > 0 ? ds_one : daoDonGiaoHang.layDSDonHang();
 	       Collections.sort(ds,new Comparator<DonGiaoHang>() {
 
 				@Override

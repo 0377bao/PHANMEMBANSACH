@@ -1,9 +1,12 @@
 package bus;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import dao.DAOChuongTrinhKhuyenMai;
+import dao.DAOMucKhuyenMai;
 import entity.ChuongTrinhKhuyenMai;
+import entity.MucKhuyenMai;
 
 public class BUSChuongTrinhKhuyenMai {
 	private String mes ="";
@@ -42,13 +45,18 @@ public class BUSChuongTrinhKhuyenMai {
 			mes = "Vui lòng tạo mã chương trình khuyến mãi trước";
 			return false;
 		}
-		if(ctkm.getTenCTKM().equals("")) {
+		if(ctkm.getTenCTKM().equals("") || ctkm.getTenCTKM().startsWith(" ")) {
 			mes = "Vui lòng nhập tên chương trình khuyến mãi";
 			return false;
-		}else if(!ctkm.getTenCTKM().matches("^[\\p{L}0-9 ]+\\/?[\\p{L}0-9 ]+$")) {
+		}else if(ctkm.getTenCTKM().startsWith("/")) {
+			mes = "Tên chương trình khuyến mãi không bắt đầu bằng dấu /";
+			return false;
+		}
+		else if(!ctkm.getTenCTKM().matches("^[\\p{L}0-9 ]+\\/?[\\p{L}0-9 ]+$")) {
 			mes = "Tên chương trình khuyến mãi không hợp lệ, tên chương trình chỉ được bao gồm chữ, số, dấu / " + "và khoảng trắng, không có kí tự đặc biệt";
 			return false;
-		}else {
+		}
+		else {
 			ArrayList<ChuongTrinhKhuyenMai> dsCTKM = new DAOChuongTrinhKhuyenMai().layDSChuongTrinhKhuyenMai();
 			for(ChuongTrinhKhuyenMai p : dsCTKM) {
 				if(ctkm.getTenCTKM().equals(p.getTenCTKM())) {
@@ -67,4 +75,10 @@ public class BUSChuongTrinhKhuyenMai {
 	public String getMessage() {
 		return mes;
 	}
+	
+	public boolean capNhatMucKhuyenMai(String ma,MucKhuyenMai m) {
+		return new DAOMucKhuyenMai().capNhatMucKhuyenMai(ma, m);
+	}
+	
+	
 }
