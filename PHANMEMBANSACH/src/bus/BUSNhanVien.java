@@ -19,9 +19,19 @@ public class BUSNhanVien {
 	}
 
 	// lấy danh sách nhân viên
-
 	public ArrayList<NhanVien> layDSNhanVien() {
 		return daoNhanVien.layDSNhanVien();
+	}
+
+	// lấy danh sách nhân viên còn làm
+	public ArrayList<NhanVien> layDSNhanVienDangLam() {
+		ArrayList<NhanVien> dsNV = new ArrayList<>();
+		for (NhanVien nv : daoNhanVien.layDSNhanVien()) {
+			if (nv.getTrangThai().equals("Đang làm")) {
+				dsNV.add(nv);
+			}
+		}
+		return dsNV;
 	}
 
 	// ràng buộc để thêm nhân viên
@@ -49,6 +59,16 @@ public class BUSNhanVien {
 				mes = "Số điện thoại bắt đầu là 02 gồm 11 số hoặc bắt đầu là 03 - 05 - 07 - 09 gồm 10 số";
 				return false;
 			}
+			if (daoNhanVien.layNhanVienTheoMa(maNhanVien) == null) {
+				for (NhanVien nv : daoNhanVien.layDSNhanVien()) {
+					if (nv.getSdt().equals(sdt)) {
+						mes = "Số điện thoại đã tồn tại";
+						return false;
+					}
+				}
+			} else {
+				return true;
+			}
 		}
 		if (cCCD.equals("")) {
 			mes = "Vui lòng nhập căn cước công dân";
@@ -57,6 +77,12 @@ public class BUSNhanVien {
 			if (!(cCCD.matches("^0\\d{11}"))) {
 				mes = "CCCD gồm 12 số và bắt đầu bằng 0";
 				return false;
+			}
+			for (NhanVien nv : daoNhanVien.layDSNhanVien()) {
+				if (nv.getcCCD().equals(cCCD)) {
+					mes = "Căn cước công dân đã tồn tại";
+					return false;
+				}
 			}
 		}
 		if (email.equals("")) {
@@ -80,6 +106,11 @@ public class BUSNhanVien {
 		if (taiKhoan.equals("")) {
 			mes = "Vui lòng nhập mật khẩu để tạo tài khoản";
 			return false;
+		} else {
+			if (!(taiKhoan.matches("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[!@#$%^&*]).{8,}$"))) {
+				mes = "Mật khẩu ít nhất 8 ký tự bao gồm chữ hoa, chữ thường, ký tự đặc biệt và số";
+				return false;
+			}
 		}
 		if (hinhAnh == null) {
 			mes = "Vui lòng chọn ảnh";
@@ -164,7 +195,7 @@ public class BUSNhanVien {
 			ds.addAll(dsNV);
 		}
 	}
-	
+
 	public String layEmailNhanVienTheoMa(String maNV) {
 		return daoNhanVien.layEmailNhanVienTheoMa(maNV);
 	}
@@ -172,7 +203,7 @@ public class BUSNhanVien {
 	public boolean capNhatMatKhauNV(String nv, String matKhau) {
 		return daoNhanVien.capNhatMatKhauNV(nv, matKhau);
 	}
-	
+
 	// lọc nhân viên theo trạng thái
 	public ArrayList<NhanVien> locNVTheoTrangThai(String trangThai) {
 		ArrayList<NhanVien> dsNVTheoTrangThai = new ArrayList<>();
@@ -183,10 +214,10 @@ public class BUSNhanVien {
 		}
 		return dsNVTheoTrangThai;
 	}
-	
+
 	// lấy mật khẩu nhân viên theo mã nhân viên
 	public String layMatKhauNhanVienTheoMa(String ma) {
 		return daoNhanVien.layMatKhauNhanVienTheoMa(ma);
 	}
-	
+
 }

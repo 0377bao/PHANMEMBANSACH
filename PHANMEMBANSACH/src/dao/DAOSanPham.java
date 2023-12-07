@@ -88,8 +88,6 @@ public class DAOSanPham {
 						tg, nhaXB, namXB);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 		return sach;
 	}
@@ -122,8 +120,6 @@ public class DAOSanPham {
 						ncc, chatLieu, danhMuc);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 		return vpp;
 	}
@@ -268,5 +264,5 @@ public class DAOSanPham {
 		}
 		return n > 0;
 	}
-	
+
 }

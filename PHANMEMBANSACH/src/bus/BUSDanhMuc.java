@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import dao.DAODanhMuc;
 import entity.DanhMuc;
-import entity.NhaCungCap;
 
 public class BUSDanhMuc {
 	DAODanhMuc daoDanhMuc = new DAODanhMuc();

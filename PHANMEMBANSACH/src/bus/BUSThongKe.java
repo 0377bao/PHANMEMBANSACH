@@ -1,9 +1,6 @@
 package bus;
 
-import java.sql.Date;
 import java.time.LocalDate;
-import java.time.Month;
-import java.time.MonthDay;
 import java.time.YearMonth;
 import java.util.ArrayList;
 
@@ -11,11 +8,8 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableModel;
 
-import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
-
-import com.itextpdf.text.api.Spaceable;
 
 import entity.ChiTietDonDoiTra;
 import entity.ChiTietHoaDon;
@@ -252,8 +246,7 @@ public class BUSThongKe {
 		dataSet.setValue("Quý 4", tongDoanhThuQ4);
 	}
 	// Hàm thống kê quý hiện tại
-	
-	
+
 	// Hàm thống kê cửa hàng theo tháng
 	public void thongKeCuaHangTrongThang(String thang, JLabel soHD, JLabel doanhThu, JLabel soLuongSP, JLabel soDDT,
 			DefaultTableModel model) {
@@ -398,36 +391,35 @@ public class BUSThongKe {
 
 		int flag = 0;
 		for (NhanVien nv : busNV.layDSNhanVien()) {
-			
-		
-		for (DonDoiTra ddt : dsDDTTheoNV(nv, x, y)) {
-			for (ChiTietDonDoiTra ctddt : ddt.getDsChiTietDonDoiTra()) {
-				for (int i = 0; i < SP.size(); ++i) {
-					if (i == 0 && SP.size() == 1) {
-						SP.set(i, ctddt.getSanPham().getMaSanPham());
-						SL.set(i, ctddt.getSoLuongTra());
-						SP.add("");
-						SL.add(0);
-						flag = 1;
-						break;
-					}
-					if (SP.get(i).equals(ctddt.getSanPham().getMaSanPham())) {
-						SL.set(i, SL.get(i) + ctddt.getSoLuongTra());
-						flag = 1;
-						break;
-					}
-				}
-				if (flag == 0) {
-					SP.add(ctddt.getSanPham().getMaSanPham());
-					SL.add(ctddt.getSoLuongTra());
 
+			for (DonDoiTra ddt : dsDDTTheoNV(nv, x, y)) {
+				for (ChiTietDonDoiTra ctddt : ddt.getDsChiTietDonDoiTra()) {
+					for (int i = 0; i < SP.size(); ++i) {
+						if (i == 0 && SP.size() == 1) {
+							SP.set(i, ctddt.getSanPham().getMaSanPham());
+							SL.set(i, ctddt.getSoLuongTra());
+							SP.add("");
+							SL.add(0);
+							flag = 1;
+							break;
+						}
+						if (SP.get(i).equals(ctddt.getSanPham().getMaSanPham())) {
+							SL.set(i, SL.get(i) + ctddt.getSoLuongTra());
+							flag = 1;
+							break;
+						}
+					}
+					if (flag == 0) {
+						SP.add(ctddt.getSanPham().getMaSanPham());
+						SL.add(ctddt.getSoLuongTra());
+
+					}
+					flag = 0;
 				}
-				flag = 0;
 			}
 		}
-		}
-		if(SP.size()==1) {
-			return ;
+		if (SP.size() == 1) {
+			return;
 		}
 		SP.remove(1);
 		SL.remove(1);
@@ -450,7 +442,7 @@ public class BUSThongKe {
 	}
 
 	// Hàm thống kê sản phẩm
-	public void ThongKeSanPham( String trangThaiTK, String Quy, DefaultTableModel modelSach,
+	public void ThongKeSanPham(String trangThaiTK, String Quy, DefaultTableModel modelSach,
 			DefaultTableModel modelVPP) {
 
 		LocalDate x = LocalDate.now();
@@ -493,4 +485,25 @@ public class BUSThongKe {
 		nvBanHang.setText(nvBH + "");
 		nvQuanLy.setText(nvQL + "");
 	}
+
+	// Hàm hiển thị số liệu làm việc của nhân viên
+	public void hienSoLieuCuaNhanVienTrongThang(String thang, DefaultTableModel model, DefaultCategoryDataset dataSet) {
+		thang = thang.replace("Tháng ", "");
+		int thangTK = Integer.parseInt(thang);
+		int soNgayTrongThang  = YearMonth.of(LocalDate.now().getYear(), thangTK).lengthOfMonth();
+		for (NhanVien nv : busNV.layDSNhanVien()) {
+			float doanhThu = tongDoanhThu(nv, LocalDate.of(LocalDate.now().getYear(), thangTK, 1),
+					LocalDate.of(LocalDate.now().getYear(), thangTK, soNgayTrongThang));
+			int tongSP = tongSoSanPham(nv, LocalDate.of(LocalDate.now().getYear(), thangTK, 1),
+					LocalDate.of(LocalDate.now().getYear(), thangTK, soNgayTrongThang));
+			int tongHD = dsHDTheoNV(nv, LocalDate.of(LocalDate.now().getYear(), thangTK, 1),
+					LocalDate.of(LocalDate.now().getYear(), thangTK, soNgayTrongThang)).size();
+			int tongDDT = dsDDTTheoNV(nv, LocalDate.of(LocalDate.now().getYear(), thangTK, 1),
+					LocalDate.of(LocalDate.now().getYear(), thangTK, soNgayTrongThang)).size();
+			model.addRow(new Object[] {nv.getMaNhanVien(),nv.getTenNhanVien(),tongHD,tongSP,tongDDT,Tools.dinhDangTien(doanhThu)});
+			dataSet.setValue(doanhThu, "VND", nv.getMaNhanVien());
+		}
+	}
+	// Ghi file excel Nhân viên
+	
 }

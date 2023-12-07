@@ -43,7 +43,7 @@ public class ControllerSanPham implements ActionListener, MouseListener, KeyList
 			guiSP.xuLyTimKiemSach();
 		} else if (btn.equals("btnTimMaSach")) {
 			guiSP.timSachTheoMa();
-		} else if (btn.equals("btnKiemTraSoLuongSach")) {
+		} else if (btn.equals("chkSoLuongSach")) {
 			guiSP.kiemTraSoLuongSach();
 		} else if (btn.equals("btnTimMaNCCSach")) {
 			guiSP.chonNCCSach();
@@ -67,7 +67,7 @@ public class ControllerSanPham implements ActionListener, MouseListener, KeyList
 			guiSP.xuLyTimKiemVPP();
 		} else if (btn.equals("btnTimMaVPP")) {
 			guiSP.timVPPTheoMa();
-		} else if (btn.equals("btnKiemTraSoLuongVPP")) {
+		} else if (btn.equals("chkSoLuongVPP")) {
 			guiSP.kiemTraSoLuongVPP();
 		} else if (btn.equals("btnThemDanhMuc")) {
 			guiSP.themDanhMuc();
@@ -84,8 +84,17 @@ public class ControllerSanPham implements ActionListener, MouseListener, KeyList
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-
+		JTextField txt = (JTextField) e.getSource();
+		if (txt.getName().equals("txtTimKiemSachTheoMa")) {
+			if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+				guiSP.timSachTheoMa();
+			}
+		}
+		if (txt.getName().equals("txtTimKiemVPPTheoMa")) {
+			if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+				guiSP.timVPPTheoMa();
+			}
+		}
 	}
 
 	@Override
@@ -137,9 +146,9 @@ public class ControllerSanPham implements ActionListener, MouseListener, KeyList
 	@Override
 	public void focusGained(FocusEvent e) {
 		JTextField txt = (JTextField) e.getSource();
-		if (txt.getName().equals("txtTimKiemSach")) {
+		if (txt.getName().equals("txtTimKiemSachTheoMa")) {
 			guiSP.focusGainedSach();
-		} else if (txt.getName().equals("txtTimKiemVPP")) {
+		} else if (txt.getName().equals("txtTimKiemVPPTheoMa")) {
 			guiSP.focusGainedVPP();
 		} else if (txt.getName().equals("txtMaNCCSach")) {
 			guiSP.focusGainedNCCSach();

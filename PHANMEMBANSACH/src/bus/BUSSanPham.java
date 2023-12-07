@@ -81,6 +81,7 @@ public class BUSSanPham {
 			}
 		} else {
 			mes = "Vui lòng nhập số lượng";
+			return false;
 		}
 		if (!thue.equals("")) {
 			try {
@@ -109,6 +110,7 @@ public class BUSSanPham {
 			}
 		} else {
 			mes = "Vui lòng nhập giá nhập";
+			return false;
 		}
 		if (!loiNhuan.equals("")) {
 			try {
@@ -123,6 +125,7 @@ public class BUSSanPham {
 			}
 		} else {
 			mes = "Vui lòng nhập lợi nhuận";
+			return false;
 		}
 		if (ke.equals("")) {
 			mes = "Vui lòng nhập tên kệ";
@@ -148,12 +151,13 @@ public class BUSSanPham {
 			}
 		} else {
 			mes = "Vui lòng nhập năm xuất bản";
+			return false;
 		}
 		if (tacGia.equals("")) {
 			mes = "Vui lòng nhập tác giả";
 			return false;
 		} else {
-			if (!tacGia.matches("[\\p{L}0-9 ]+")) {
+			if (!tacGia.matches("[\\p{L}0-9/.,' -]+")) {
 				mes = "Tác giả không chứa ký tự đặc biệt";
 				return false;
 			}
@@ -237,21 +241,6 @@ public class BUSSanPham {
 		dsSach.addAll(temp);
 		return dsSach;
 	}
-//	public ArrayList<SanPham> locSachTheoNCC(String tenNCC) {
-//		ArrayList<SanPham> dsSach = layDSSachConBan();
-//		ArrayList<SanPham> temp = new ArrayList<>();
-//		for (SanPham sanPham : dsSach) {
-//			if (sanPham.getMaSanPham().startsWith("SPS") && sanPham.getNhaCungCap().getTenNhaCungCap().equals(tenNCC)) {
-//				temp.add(sanPham);
-//			}
-//			if (sanPham.getMaSanPham().startsWith("SPS") && tenNCC.equals("Tất cả")) {
-//				temp.add(sanPham);
-//			}
-//		}
-//		dsSach.clear();
-//		dsSach.addAll(temp);
-//		return dsSach;
-//	}
 
 	// lọc sách theo năm xuất bản
 	public ArrayList<SanPham> locSachTheoNamXB(ArrayList<SanPham> ds, int namXB) {
@@ -308,7 +297,7 @@ public class BUSSanPham {
 		}
 		return dsSach;
 	}
-	
+
 //// lấy danh sách vpp còn bán
 	public ArrayList<SanPham> layDSVPPConBan() {
 		ArrayList<SanPham> dsSP = new ArrayList<>();
@@ -362,7 +351,7 @@ public class BUSSanPham {
 				temp.add(sanPham);
 			} else {
 				if (sanPham.getMaSanPham().startsWith("SPVPP")
-						&& ((VanPhongPham) sanPham).getDanhMuc().getMaDanhMuc().equals(danhMuc)) {
+						&& ((VanPhongPham) sanPham).getDanhMuc().getTenDanhMuc().equals(danhMuc)) {
 					temp.add(sanPham);
 				}
 			}
@@ -448,10 +437,7 @@ public class BUSSanPham {
 				return false;
 			}
 		}
-		if (hinhAnh == null) {
-			mes = "Vui lòng chọn ảnh";
-			return false;
-		}
+
 		if (!soLuongTon.equals("")) {
 			try {
 				int sl = Integer.parseInt(soLuongTon);
@@ -465,6 +451,7 @@ public class BUSSanPham {
 			}
 		} else {
 			mes = "Vui lòng nhập số lượng";
+			return false;
 		}
 		if (!thue.equals("")) {
 			try {
@@ -479,6 +466,7 @@ public class BUSSanPham {
 			}
 		} else {
 			mes = "Vui lòng nhập thuế";
+			return false;
 		}
 		if (!giaNhap.equals("")) {
 			try {
@@ -493,6 +481,7 @@ public class BUSSanPham {
 			}
 		} else {
 			mes = "Vui lòng nhập giá nhập";
+			return false;
 		}
 		if (!loiNhuan.equals("")) {
 			try {
@@ -507,12 +496,13 @@ public class BUSSanPham {
 			}
 		} else {
 			mes = "Vui lòng nhập lợi nhuận";
+			return false;
 		}
 		if (theLoai.equals("")) {
 			mes = "Vui lòng nhập thể loại";
 			return false;
 		} else {
-			if (!theLoai.matches("[\\p{L} ]+")) {
+			if (!theLoai.matches("[\\p{L}0-9 ]+")) {
 				mes = "Thể loại không chứa ký tự đặc biệt và số";
 				return false;
 			}
@@ -525,6 +515,10 @@ public class BUSSanPham {
 				mes = "Chất liệu không chứa ký tự đặc biệt";
 				return false;
 			}
+		}
+		if (hinhAnh == null) {
+			mes = "Vui lòng chọn ảnh";
+			return false;
 		}
 		return true;
 	}

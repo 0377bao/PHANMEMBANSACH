@@ -33,24 +33,27 @@ public class DAODonDoiTra {
 			statement = con.prepareStatement(sql);
 			statement.setString(1, maDDT);
 			ResultSet rs = statement.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				HoaDon hd = new BUSHoaDon().timHoaDonTheoMa(rs.getString("maHoaDon").trim());
 				NhanVien nv = new BUSNhanVien().layNhanVienTheoMa(rs.getString("maNhanVien").trim());
 				String hinhThucDoiTra = rs.getString("hinhThucDoiTra").trim();
 				Date ngay = rs.getDate("ngayDoiTra");
 				Calendar c = Calendar.getInstance();
 				c.setTime(ngay);
-				LocalDate ngayLap = LocalDate.of(c.get(Calendar.YEAR), c.get(Calendar.MONTH) + 1, c.get(Calendar.DAY_OF_MONTH));
-				ArrayList<ChiTietDonDoiTra> dsChiTietDonDoiTra = new BUSChiTietDonDoiTra().layChiTietDonDoiTraCuaDonDoiTra(maDDT);
+				LocalDate ngayLap = LocalDate.of(c.get(Calendar.YEAR), c.get(Calendar.MONTH) + 1,
+						c.get(Calendar.DAY_OF_MONTH));
+				ArrayList<ChiTietDonDoiTra> dsChiTietDonDoiTra = new BUSChiTietDonDoiTra()
+						.layChiTietDonDoiTraCuaDonDoiTra(maDDT);
 				int diemHoanTra = rs.getInt("diemHoanTra");
-				donDoiTra = new DonDoiTra(maDDT, ngayLap, dsChiTietDonDoiTra, hd, nv, hinhThucDoiTra,diemHoanTra);
+				donDoiTra = new DonDoiTra(maDDT, ngayLap, dsChiTietDonDoiTra, hd, nv, hinhThucDoiTra, diemHoanTra);
 			}
-		}catch (Exception e) {
+		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
 		return donDoiTra;
 	}
+
 	public ArrayList<DonDoiTra> layHetDSDonDoiTra() {
 		ArrayList<DonDoiTra> ds = new ArrayList<>();
 		Connection con = ConnectDB.getConnection();
@@ -59,18 +62,20 @@ public class DAODonDoiTra {
 		try {
 			statement = con.createStatement();
 			ResultSet rs = statement.executeQuery(sql);
-			while(rs.next()) {
+			while (rs.next()) {
 				String maDonDoiTra = rs.getString("maDonDoiTra").trim();
 				Date ngay = rs.getDate("ngayDoiTra");
 				Calendar c = Calendar.getInstance();
 				c.setTime(ngay);
-				LocalDate ngayLap = LocalDate.of(c.get(Calendar.YEAR), c.get(Calendar.MONTH) + 1, c.get(Calendar.DAY_OF_MONTH));
+				LocalDate ngayLap = LocalDate.of(c.get(Calendar.YEAR), c.get(Calendar.MONTH) + 1,
+						c.get(Calendar.DAY_OF_MONTH));
 				String phuongThucDoiTra = rs.getString("hinhThucDoiTra").trim();
 				NhanVien nv = new DAONhanVien().layNhanVienTheoMa(rs.getString("maNhanVien"));
-				ArrayList<ChiTietDonDoiTra> ctddt = new BUSChiTietDonDoiTra().layChiTietDonDoiTraCuaDonDoiTra(maDonDoiTra);
+				ArrayList<ChiTietDonDoiTra> ctddt = new BUSChiTietDonDoiTra()
+						.layChiTietDonDoiTraCuaDonDoiTra(maDonDoiTra);
 				HoaDon hd = new BUSHoaDon().timHoaDonTheoMa(rs.getString("maHoaDon").trim());
 				int diemHoanTra = rs.getInt("diemHoanTra");
-				ds.add(new DonDoiTra(maDonDoiTra, ngayLap, ctddt, hd, nv, phuongThucDoiTra,diemHoanTra));
+				ds.add(new DonDoiTra(maDonDoiTra, ngayLap, ctddt, hd, nv, phuongThucDoiTra, diemHoanTra));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -78,15 +83,15 @@ public class DAODonDoiTra {
 		}
 		return ds;
 	}
+
 	public boolean themDonDoiTra(DonDoiTra donDoiTra) {
-		
+
 		Connection con = ConnectDB.getConnection();
 		String sql = "insert into DonDoiTra values(?,?,?,?,?,?,?,?)";
 		int n = 0;
 		boolean m = true;
 		PreparedStatement statement = null;
 		try {
-			System.out.println(donDoiTra);
 			statement = con.prepareStatement(sql);
 			statement.setString(1, donDoiTra.getMaDonDoiTra());
 			Date date = Date.valueOf(donDoiTra.getNgayDoiTra());
@@ -101,13 +106,14 @@ public class DAODonDoiTra {
 			for (ChiTietDonDoiTra ct : donDoiTra.getDsChiTietDonDoiTra()) {
 				m = new BUSChiTietDonDoiTra().themChiTietDonDoiTra(donDoiTra.getMaDonDoiTra(), ct);
 			}
-			
-		}catch (Exception e) {
+
+		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
-		return (n>0 && m);
+		return (n > 0 && m);
 	}
+
 	public ArrayList<DonDoiTra> layDonDoiTraTheoHoaDon(String maHD) {
 		ArrayList<DonDoiTra> ds = new ArrayList<>();
 		ConnectDB.getInstance();
@@ -118,7 +124,7 @@ public class DAODonDoiTra {
 			statement = con.prepareStatement(sql);
 			statement.setString(1, maHD);
 			ResultSet rs = statement.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				String maDonDoiTra = rs.getString("maDonDoiTra");
 				HoaDon hd = new BUSHoaDon().timHoaDonTheoMa(rs.getString("maHoaDon").trim());
 				NhanVien nv = new BUSNhanVien().layNhanVienTheoMa(rs.getString("maNhanVien").trim());
@@ -126,17 +132,20 @@ public class DAODonDoiTra {
 				Date ngay = rs.getDate("ngayDoiTra");
 				Calendar c = Calendar.getInstance();
 				c.setTime(ngay);
-				LocalDate ngayLap = LocalDate.of(c.get(Calendar.YEAR), c.get(Calendar.MONTH) + 1, c.get(Calendar.DAY_OF_MONTH));
-				ArrayList<ChiTietDonDoiTra> dsChiTietDonDoiTra = new BUSChiTietDonDoiTra().layChiTietDonDoiTraCuaDonDoiTra(maDonDoiTra);
+				LocalDate ngayLap = LocalDate.of(c.get(Calendar.YEAR), c.get(Calendar.MONTH) + 1,
+						c.get(Calendar.DAY_OF_MONTH));
+				ArrayList<ChiTietDonDoiTra> dsChiTietDonDoiTra = new BUSChiTietDonDoiTra()
+						.layChiTietDonDoiTraCuaDonDoiTra(maDonDoiTra);
 				int diemHoanTra = rs.getInt("diemHoanTra");
-				ds.add(new DonDoiTra(maDonDoiTra, ngayLap, dsChiTietDonDoiTra, hd, nv, hinhThucDoiTra,diemHoanTra));
+				ds.add(new DonDoiTra(maDonDoiTra, ngayLap, dsChiTietDonDoiTra, hd, nv, hinhThucDoiTra, diemHoanTra));
 			}
-		}catch (Exception e) {
+		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
 		return ds;
 	}
+
 	public ArrayList<DonDoiTra> layDonDoiTraTuNgayXDenNgayY(LocalDate x, LocalDate y) {
 		ArrayList<DonDoiTra> ds = new ArrayList<DonDoiTra>();
 		ConnectDB.getInstance();
@@ -150,7 +159,7 @@ public class DAODonDoiTra {
 			statement.setDate(1, ngayx);
 			statement.setDate(2, ngayy);
 			ResultSet rs = statement.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				String maDDT = rs.getString("maDonDoiTra");
 				HoaDon hd = new BUSHoaDon().timHoaDonTheoMa(rs.getString("maHoaDon").trim());
 				NhanVien nv = new BUSNhanVien().layNhanVienTheoMa(rs.getString("maNhanVien").trim());
@@ -158,15 +167,17 @@ public class DAODonDoiTra {
 				Date ngay = rs.getDate("ngayDoiTra");
 				Calendar c = Calendar.getInstance();
 				c.setTime(ngay);
-				LocalDate ngayLap = LocalDate.of(c.get(Calendar.YEAR), c.get(Calendar.MONTH) + 1, c.get(Calendar.DAY_OF_MONTH));
-				ArrayList<ChiTietDonDoiTra> dsChiTietDonDoiTra = new BUSChiTietDonDoiTra().layChiTietDonDoiTraCuaDonDoiTra(maDDT);
+				LocalDate ngayLap = LocalDate.of(c.get(Calendar.YEAR), c.get(Calendar.MONTH) + 1,
+						c.get(Calendar.DAY_OF_MONTH));
+				ArrayList<ChiTietDonDoiTra> dsChiTietDonDoiTra = new BUSChiTietDonDoiTra()
+						.layChiTietDonDoiTraCuaDonDoiTra(maDDT);
 				int diemHoanTra = rs.getInt("diemHoanTra");
-				ds.add(new DonDoiTra(maDDT, ngayLap, dsChiTietDonDoiTra, hd, nv, hinhThucDoiTra,diemHoanTra));
+				ds.add(new DonDoiTra(maDDT, ngayLap, dsChiTietDonDoiTra, hd, nv, hinhThucDoiTra, diemHoanTra));
 			}
-		}catch (Exception e) {
+		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
 		return ds;
 	}
-	}
+}

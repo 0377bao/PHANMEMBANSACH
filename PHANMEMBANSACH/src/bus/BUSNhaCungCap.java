@@ -31,12 +31,8 @@ public class BUSNhaCungCap {
 		if (tenNhaCungCap.equals("")) {
 			mes = "Vui lòng nhập tên nhà cung cấp";
 			return false;
-		} else {
-			if (!(tenNhaCungCap.matches("^[\\p{L}0-9][\\p{L}0-9/.,'& -]+"))) {
-				mes = "Tên nhà cung cấp không chứa ký tự đặc biệt";
-				return false;
-			}
 		}
+
 		if (sdt.equals("")) {
 			mes = "Vui lòng nhập số điện thoại";
 			return false;
@@ -45,12 +41,23 @@ public class BUSNhaCungCap {
 				mes = "Số điện thoại bắt đầu là 02 gồm 11 số hoặc bắt đầu là 03 - 05 - 07 - 09 gồm 10 số";
 				return false;
 			}
+			if (daoNCC.timNhaCungCapTheoMa(maNhaCungCap) == null) {
+				for (NhaCungCap ncc : daoNCC.layDSNhaCungCap()) {
+					if (ncc.getSdt().equals(sdt)) {
+						mes = "Số điện thoại đã tồn tại";
+						return false;
+					}
+				}
+			} else {
+				return true;
+			}
+
 		}
 		if (email.equals("")) {
 			mes = "Vui lòng nhập email";
 			return false;
 		} else {
-			if (!email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")) {
+			if (!email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z.-]+\\.[a-zA-Z]{2,}$")) {
 				mes = "Email không hợp lệ";
 				return false;
 			}
@@ -93,43 +100,51 @@ public class BUSNhaCungCap {
 	}
 
 	// lọc nhà cung cấp theo sdt
-	public ArrayList<NhaCungCap> layNCCTheoSdt(String sdt) {
+	public void layNCCTheoSdt(ArrayList<NhaCungCap> ds, String sdt) {
 		ArrayList<NhaCungCap> dsNCC = new ArrayList<>();
 		Pattern p = Pattern.compile(sdt, Pattern.CASE_INSENSITIVE);
-		for (NhaCungCap ncc : daoNCC.layDSNhaCungCap()) {
+		for (NhaCungCap ncc : ds) {
 			Matcher m = p.matcher(ncc.getSdt());
 			if (m.find()) {
 				dsNCC.add(ncc);
 			}
 		}
-		return dsNCC;
+		ds.clear();
+		ds.addAll(dsNCC);
+//		return ds;
 	}
 
 	// lọc nhà cung cấp theo tên
-	public ArrayList<NhaCungCap> layNCCTheoTen(String ten) {
+	public void layNCCTheoTen(ArrayList<NhaCungCap> ds, String ten) {
 		ArrayList<NhaCungCap> dsNCC = new ArrayList<>();
 		Pattern p = Pattern.compile(ten, Pattern.CASE_INSENSITIVE);
-		for (NhaCungCap ncc : daoNCC.layDSNhaCungCap()) {
+		for (NhaCungCap ncc : ds) {
 			Matcher m = p.matcher(ncc.getTenNhaCungCap());
 			if (m.find()) {
 				dsNCC.add(ncc);
 			}
 		}
-		return dsNCC;
+		ds.clear();
+		ds.addAll(dsNCC);
+//		return ds;
 	}
 
 	// lọc nhà cung cấp theo địa chỉ
-	public ArrayList<NhaCungCap> layNCCTheoDiaChi(String diaChi) {
+	public void layNCCTheoDiaChi(ArrayList<NhaCungCap> ds, String diaChi) {
 		ArrayList<NhaCungCap> dsNCC = new ArrayList<>();
+
 		Pattern p = Pattern.compile(diaChi, Pattern.CASE_INSENSITIVE);
-		for (NhaCungCap ncc : daoNCC.layDSNhaCungCap()) {
+		for (NhaCungCap ncc : ds) {
 			Matcher m = p.matcher(ncc.getDiaChi());
 			if (m.find()) {
 				dsNCC.add(ncc);
-			} else if (diaChi.equals("Tất cả")) {
+			}
+			if (diaChi.equals("Tất cả")) {
 				dsNCC.add(ncc);
 			}
 		}
-		return dsNCC;
+		ds.clear();
+		ds.addAll(dsNCC);
+//		return dsNCC;
 	}
 }
