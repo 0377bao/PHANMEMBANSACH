@@ -71,16 +71,15 @@ public class TrangChu extends JFrame{
 	public TrangChu(NhanVien nv) {
 		this.nvHienTai = nv;
 
-//		Thread daemonThread = new Thread(() -> {
-//            guiTK = new GUIThongKe(nvHienTai);
-//            
-   //     });
+		Thread daemonThread = new Thread(() -> {
+            guiTK = new GUIThongKe(nvHienTai);
+        });
 
         // Đặt thread là daemon
-       // daemonThread.setDaemon(true);
+        daemonThread.setDaemon(true);
 
         // Bắt đầu thực thi luồng
-       // daemonThread.start();
+        daemonThread.start();
         // Bắt đầu thực thi luồng mới
 
 		this.setTitle("PHẦN MỀM NHÀ SÁCH");
@@ -317,11 +316,21 @@ public class TrangChu extends JFrame{
 				btnNhanVien.setForeground(Color.white);
 			} 
 			if(src.equals("QL Thống kê")) {
-				pnlHienTai = new GUIThongKe(nvHienTai);
+				while(guiTK==null) {
+					try {
+			            // Đứng 1 giây (1000 milliseconds)
+			            Thread.sleep(1000);
+			        } catch (InterruptedException e) {
+			            e.printStackTrace();
+			        }
+				}
+				pnlHienTai = guiTK;
+				guiTK.xoaTabCaNhan();
+				guiTK.taoTabCaNhan();
+				
 				btnThongKe.setBackground(colorBtnActive);
 				btnThongKe.setForeground(Color.white);
 			} 
-			
 			getContentPane().add(pnlHienTai);
 			this.revalidate();
 			this.repaint();

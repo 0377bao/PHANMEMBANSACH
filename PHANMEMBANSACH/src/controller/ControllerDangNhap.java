@@ -19,11 +19,14 @@ public class ControllerDangNhap implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		String src = e.getActionCommand();
-		if(src.equals("btnDangNhap")) {
+		if(src.equals("btnDangNhap") || src.equals("txtMatKhau")) {
 			this.view.xuLyDangNhap();
 		}
 		if(src.equals("btnQuenMatKhau")) {
 			this.view.xuLyQuenMatKhau();
+		}
+		if(src.equals("txtTenDangNhap")) {
+			this.view.xuLyEnterTenTaiKhoan();
 		}
 	}
 }

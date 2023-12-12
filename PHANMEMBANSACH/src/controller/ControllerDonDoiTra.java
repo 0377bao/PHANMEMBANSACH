@@ -40,7 +40,7 @@ public class ControllerDonDoiTra implements FocusListener,ActionListener,MouseLi
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		String src = e.getActionCommand();
-		if(src.equals("btnTimKiemKhachHang")) {
+		if(src.equals("btnTimKiemKhachHang")|| src.equals("txtTimKiemHoaDon")) {
 			guiDonDoiTra.timKiemHoaDonCuaKhachHangTrong7Ngay();
 		}else if(src.equals("btnTaoDonDoiTra")) {
 			guiDonDoiTra.taoDonDoiTra();

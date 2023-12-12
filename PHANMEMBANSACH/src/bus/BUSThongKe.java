@@ -308,9 +308,7 @@ public class BUSThongKe {
 		int flag = 0;
 
 		for (NhanVien nv : busNV.layDSNhanVien()) {
-
 			for (HoaDon hd : dsHDTheoNV(nv, x, y)) {
-
 				for (ChiTietHoaDon cthd : hd.getDsChiTietHoaDon()) {
 					for (int i = 0; i < SP.size(); ++i) {
 						if (i == 0 && SP.size() == 1) {
@@ -502,11 +500,8 @@ public class BUSThongKe {
 					LocalDate.of(LocalDate.now().getYear(), thangTK, soNgayTrongThang));
 			int tongSP = tongSoSanPham(nv, LocalDate.of(LocalDate.now().getYear(), thangTK, 1),
 					LocalDate.of(LocalDate.now().getYear(), thangTK, soNgayTrongThang));
-			int tongHD = dsHDTheoNV(nv, LocalDate.of(LocalDate.now().getYear(), thangTK, 1),
-					LocalDate.of(LocalDate.now().getYear(), thangTK, soNgayTrongThang)).size();
-			int tongDDT = dsDDTTheoNV(nv, LocalDate.of(LocalDate.now().getYear(), thangTK, 1),
-					LocalDate.of(LocalDate.now().getYear(), thangTK, soNgayTrongThang)).size();
-			model.addRow(new Object[] {nv.getMaNhanVien(),nv.getTenNhanVien(),tongHD,tongSP,tongDDT,Tools.dinhDangTien(doanhThu)});
+			
+			model.addRow(new Object[] {nv.getMaNhanVien(),nv.getTenNhanVien(),tongSP,Tools.dinhDangTien(doanhThu)});
 			dataSet.setValue(doanhThu, "VND", nv.getMaNhanVien());
 		}
 	}

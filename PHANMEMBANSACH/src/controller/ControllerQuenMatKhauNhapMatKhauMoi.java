@@ -17,8 +17,11 @@ public class ControllerQuenMatKhauNhapMatKhauMoi implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String src = e.getActionCommand();
-		if(src.equals("btnXacNhan")) {
+		if(src.equals("btnXacNhan") || src.equals("txtNhapLaiMatKhau")) {
 			this.view.xuLyXacNhan();
+		}
+		if(src.equals("txtMatKhau")) {
+			this.view.xuLyEnterMatKhauMoi();
 		}
 	}
 	

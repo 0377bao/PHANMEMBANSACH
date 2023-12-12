@@ -19,7 +19,7 @@ public class ControllerQuenMatKhauNhapMa implements ActionListener {
 		if(src.equals("btnGuiMa")) {
 			this.view.xuLyGuiMa();
 		}
-		if(src.equals("btnXacNhan")) {
+		if(src.equals("btnXacNhan") || src.equals("txtXacNhan")) {
 			this.view.xuLyXacNhan();
 		}
 	}

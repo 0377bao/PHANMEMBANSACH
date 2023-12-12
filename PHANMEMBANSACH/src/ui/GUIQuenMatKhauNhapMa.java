@@ -114,6 +114,7 @@ public class GUIQuenMatKhauNhapMa extends JFrame {
 		pnlContent.add(lblXacNhan);
 		
 		txtXacNhan = new JTextField();
+		txtXacNhan.setActionCommand("txtXacNhan");
 		txtXacNhan.setFont(new Font("Tahoma", Font.BOLD, 13));
 		txtXacNhan.setColumns(10);
 		txtXacNhan.setBounds(321, 288, 317, 30);
@@ -131,6 +132,7 @@ public class GUIQuenMatKhauNhapMa extends JFrame {
 		//xử lý
 		btnGuiMa.addActionListener(ctrQuenMK);
 		btnXacNhan.addActionListener(ctrQuenMK);
+		txtXacNhan.addActionListener(ctrQuenMK);
 	}
 
 	// gửi mã 4 số

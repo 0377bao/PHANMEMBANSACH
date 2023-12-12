@@ -439,6 +439,7 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
 		pnlSanPham.add(lblTimSanPham);
 
 		txtMaSanPham = new JTextField();
+		txtMaSanPham.setActionCommand("txtMaSanPham");
 		txtMaSanPham.setColumns(10);
 		txtMaSanPham.setBounds(102, 17, 440, 25);
 		pnlSanPham.add(txtMaSanPham);
@@ -675,6 +676,7 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
 		pnlKhachHang.add(lblSdtKhchHng);
 
 		txtTimKhachHang = new JTextField();
+		txtTimKhachHang.setActionCommand("txtTimKhachHang");
 		txtTimKhachHang.setBounds(10, 70, 228, 25);
 		pnlKhachHang.add(txtTimKhachHang);
 		txtTimKhachHang.setColumns(10);
@@ -743,6 +745,13 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
 
 		this.capNhatDSHoaDonCho(dsHoaDonCho);
 		this.capNhatHoaDonHienTai();
+		if(dsHoaDonCho.size() != 0) {
+			tableHoaDonCho.setRowSelectionInterval(0, 0);
+			cbbDiemGiamGia.removeAllItems();
+			for(int i = 0; i <= khachHang.getDiemTichLuy() / 5; i++) {
+				cbbDiemGiamGia.addItem(5 * i);
+			}
+		}
 
 		//Tạo webcam
 		initWebCam();
@@ -759,6 +768,8 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
 		tableHoaDonCho.addMouseListener(acBanHang);
 		btnXoaTatCa.addActionListener(acBanHang);
 		btnXoa.addActionListener(acBanHang);
+		txtMaSanPham.addActionListener(acBanHang);
+		txtTimKhachHang.addActionListener(acBanHang);
 		btnCapNhat.addActionListener(acBanHang);
 
 		// cập nhật this_gui
@@ -929,6 +940,12 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
 		if(hoaDonHienTai != null) {
 			if(hoaDonHienTai.getKhachHang().getMaKhachHang().equals("KH0")) {
 				JOptionPane.showMessageDialog(this, "Không thể tạo hóa đơn chờ mới khi hóa đơn hiện tại là khách hàng lẻ");
+				return;
+			}
+		}
+		for (HoaDon hoaDon : dsHoaDonCho) {
+			if(hoaDon.getKhachHang().getSdt().equals("0")) {
+				JOptionPane.showMessageDialog(this, "Danh sách đang tồn tài một hóa đơn chờ của khách hàng lẻ không thể tạo thêm cho khách hàng lẻ");
 				return;
 			}
 		}
@@ -1206,12 +1223,17 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
 
 	public void xuLyHuyHoaDon() {
 		if(hoaDonHienTai != null) {
-			dsHoaDonCho.remove(hoaDonHienTai);
-			xuLyLamMoi();
-			lblMaHoaDon.setText("Vui lòng tạo!");
-			lblTienThua.setText("0");
-			hoaDonHienTai = null;
-			capNhatDSHoaDonCho(dsHoaDonCho);
+			int result = JOptionPane.showConfirmDialog(this, "Bạn có muốn hủy hóa đơn", "Xác nhận hủy hóa đơn", JOptionPane.YES_NO_OPTION);
+			if(result == JOptionPane.YES_OPTION) {
+				dsHoaDonCho.remove(hoaDonHienTai);
+				xuLyLamMoi();
+				lblMaHoaDon.setText("Vui lòng tạo!");
+				lblTienThua.setText("0");
+				hoaDonHienTai = null;
+				capNhatDSHoaDonCho(dsHoaDonCho);
+			}
+		} else {
+			JOptionPane.showMessageDialog(this, "Vui lòng tạo hóa đơn");
 		}
 	}
 

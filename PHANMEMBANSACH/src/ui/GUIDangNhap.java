@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
@@ -92,6 +93,7 @@ public class GUIDangNhap extends JFrame {
 		pnlContent.add(lblTenDangNhap);
 
 		txtTenDangNhap = new JTextField();
+		txtTenDangNhap.setActionCommand("txtTenDangNhap");
 		txtTenDangNhap.setFont(new Font("Tahoma", Font.BOLD, 13));
 		txtTenDangNhap.setText("NV10");
 		txtTenDangNhap.setBounds(327, 145, 317, 30);
@@ -104,9 +106,10 @@ public class GUIDangNhap extends JFrame {
 		pnlContent.add(lblMatKhau);
 
 		txtMatKhau = new JPasswordField();
+		txtMatKhau.setActionCommand("txtMatKhau");
 		txtMatKhau.setFont(new Font("Tahoma", Font.BOLD, 13));
 
-		txtMatKhau.setText("P446699");
+		txtMatKhau.setText("Pb446699@");
 		txtMatKhau.setColumns(10);
 		txtMatKhau.setBounds(327, 222, 317, 30);
 
@@ -131,6 +134,8 @@ public class GUIDangNhap extends JFrame {
 		ActionListener ac = new ControllerDangNhap(this);
 		btnDangNhap.addActionListener(ac);
 		btnQuenMatKhau.addActionListener(ac);
+		txtTenDangNhap.addActionListener(ac);
+		txtMatKhau.addActionListener(ac);
 	}
 
 	public void xuLyDangNhap() {
@@ -177,5 +182,10 @@ public class GUIDangNhap extends JFrame {
 				this.setVisible(false);
 			}
 		}
+	}
+	
+	public void xuLyEnterTenTaiKhoan() {
+		txtMatKhau.requestFocus();
+		txtMatKhau.selectAll();
 	}
 }

@@ -92,6 +92,7 @@ public class GUIQuenMatKhauNhapMatKhauMoi extends JFrame {
 		pnlContent.add(lblNhapMK);
 		
 		txtMatKhau = new JPasswordField();
+		txtMatKhau.setActionCommand("txtMatKhau");
 		txtMatKhau.setFont(new Font("Tahoma", Font.BOLD, 13));
 		txtMatKhau.setBounds(327, 145, 317, 30);
 		pnlContent.add(txtMatKhau);
@@ -103,6 +104,7 @@ public class GUIQuenMatKhauNhapMatKhauMoi extends JFrame {
 		pnlContent.add(lblNhapLaiMK);
 		
 		txtNhapLaiMatKhau = new JPasswordField();
+		txtNhapLaiMatKhau.setActionCommand("txtNhapLaiMatKhau");
 		txtNhapLaiMatKhau.setFont(new Font("Tahoma", Font.BOLD, 13));
 		txtNhapLaiMatKhau.setColumns(10);
 		txtNhapLaiMatKhau.setBounds(327, 222, 317, 30);
@@ -117,6 +119,8 @@ public class GUIQuenMatKhauNhapMatKhauMoi extends JFrame {
 		this.setComponentZOrder(lblBgrDangNhap, 1);
 		
 		btnXacNhan.addActionListener(ctrNhapMatKhau);
+		txtMatKhau.addActionListener(ctrNhapMatKhau);
+		txtNhapLaiMatKhau.addActionListener(ctrNhapMatKhau);
 	}
 	
 	public void xuLyXacNhan() {
@@ -142,5 +146,9 @@ public class GUIQuenMatKhauNhapMatKhauMoi extends JFrame {
 				}
 			}
 		}
+	}
+	
+	public void xuLyEnterMatKhauMoi() {
+		txtNhapLaiMatKhau.requestFocus();
 	}
 }

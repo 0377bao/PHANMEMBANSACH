@@ -685,6 +685,7 @@ public class GUIDoiTraHang extends JPanel {
 
 		// thêm sự kiện
 		txtTimKiemHoaDon.addFocusListener(new ControllerDonDoiTra(this));
+		txtTimKiemHoaDon.addActionListener(new ControllerDonDoiTra(this));
 		btnTimKiemKhachHang.addActionListener(new ControllerDonDoiTra(this));
 		tbDanhSachHoaDon.addMouseListener(new ControllerDonDoiTra(this));
 		btnTaoDonDoiTtra.addActionListener(new ControllerDonDoiTra(this));

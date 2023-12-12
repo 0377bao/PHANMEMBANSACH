@@ -164,7 +164,7 @@ public class GUIHoaDon extends JPanel {
 		lblDanhSchHa.setBounds(10, 10, 137, 20);
 		pnlQLHDDSHoaDon.add(lblDanhSchHa);
 
-		String[] colsHoaDon = {"Mã hóa đơn", "Tổng tiền", "Thanh toán", "Tiền khách trả", "Tiền thừa", "Phương thức thanh toán", "Ngày lập hóa đơn", "Tên CTKM", "Mã NV", "Tên NV", "Tên KH", "SDT KH", "Ghi chú"};
+		String[] colsHoaDon = {"Mã hóa đơn", "Tổng tiền", "Tổng thuế", "Giảm giá", "Thanh toán", "Tiền khách trả", "Tiền thừa", "Phương thức thanh toán", "Ngày lập hóa đơn", "Tên CTKM", "Mã NV", "Tên NV", "Tên KH", "SDT KH", "Ghi chú"};
 		modelHoaDon = new DefaultTableModel(colsHoaDon, 0);
 		tableHoaDon = new MyTable(modelHoaDon);
 		tableHoaDon.setName("tableHoaDon");
@@ -241,6 +241,8 @@ public class GUIHoaDon extends JPanel {
 				modelHoaDon.addRow(new Object[] {
 						hoaDon.getMaHoaDon(),
 						Tools.dinhDangTien(hoaDon.tinhTongTien()),
+						Tools.dinhDangTien(hoaDon.tinhThue()),
+						Tools.dinhDangTien(hoaDon.tinhGiamGia() + (hoaDon.getDiemGiamGia() * 10000)),
 						Tools.dinhDangTien(hoaDon.getThanhTien()),
 						Tools.dinhDangTien(hoaDon.getTienKhachDua()),
 						Tools.dinhDangTien(hoaDon.tinhTienThua()),
