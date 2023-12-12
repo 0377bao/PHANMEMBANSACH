@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
@@ -16,9 +15,7 @@ import entity.ChiTietHoaDon;
 import entity.ChuongTrinhKhuyenMai;
 import entity.DonDoiTra;
 import entity.HoaDon;
-import entity.KhachHang;
 import tool.Tools;
-import ui.GUIDoiTraHang;
 
 public class BUSDonDoiTra {
 	private DAODonDoiTra daoDonDoiTra = new DAODonDoiTra();
@@ -63,20 +60,20 @@ public class BUSDonDoiTra {
 	public void layDanhSachHoaDonKhachHangTrong7Ngay(DefaultTableModel model, String sdt) {
 		LocalDate hanChoPhep = LocalDate.now().minusDays(6);
 		model.setRowCount(0);
-		
-			for (HoaDon hd : new BUSHoaDon()
-					.layLichSuGiaoDichKhachHang(new BUSKhachHang().timKhachHangTheoSDT(sdt).getMaKhachHang())) {
 
-				if (!hd.getNgayLap().isBefore(hanChoPhep)) {
-					int soLuongSP = 0;
-					for (ChiTietHoaDon cthd : hd.getDsChiTietHoaDon()) {
-						soLuongSP += cthd.getSoLuongMua();
-					}
-					model.addRow(new Object[] { hd.getMaHoaDon(), hd.getNgayLap(), hd.getNhanVien().getTenNhanVien(),
-							soLuongSP, Tools.dinhDangTien(hd.getThanhTien()) });
+		for (HoaDon hd : new BUSHoaDon()
+				.layLichSuGiaoDichKhachHang(new BUSKhachHang().timKhachHangTheoSDT(sdt).getMaKhachHang())) {
+
+			if (!hd.getNgayLap().isBefore(hanChoPhep)) {
+				int soLuongSP = 0;
+				for (ChiTietHoaDon cthd : hd.getDsChiTietHoaDon()) {
+					soLuongSP += cthd.getSoLuongMua();
 				}
+				model.addRow(new Object[] { hd.getMaHoaDon(), hd.getNgayLap(), hd.getNhanVien().getTenNhanVien(),
+						soLuongSP, Tools.dinhDangTien(hd.getThanhTien()) });
 			}
-		
+		}
+
 	}
 
 	// hiện danh sách sản phẩm trong hóa đơn được chọn
@@ -99,7 +96,7 @@ public class BUSDonDoiTra {
 
 	// Tính tiền và số lượng đổi trả trong đơn
 	public void tinhTongDDT(String PhuongThucDoiTra, MyTable tb, JTextField tongTien, JTextField tongSL,
-			JTextField diemHT, int diemTrongHD, ChuongTrinhKhuyenMai ctkm) {
+			JTextField diemHT, int diemTrongHD, ChuongTrinhKhuyenMai ctkm, JTextField tienGiam) {
 		if (PhuongThucDoiTra.equals("Đổi Hàng")) {
 			int tong = 0;
 			for (int i = 0; i < tb.getRowCount(); i++) {
@@ -108,26 +105,34 @@ public class BUSDonDoiTra {
 			tongSL.setText(tong + "");
 		} else {
 			float tong = 0;
+			float tongTienGiam = 0;
 			for (int i = 0; i < tb.getRowCount(); i++) {
-				tong += Integer.parseInt(tb.getValueAt(i, 2).toString())
-						* (Float.parseFloat(tb.getValueAt(i, 3).toString().replaceAll("[,VND]", ""))
-								- Float.parseFloat(tb.getValueAt(i, 3).toString())
-										* (new BUSHoaDon().hamLayGiamGiaCuaChiTietHoaDon(ctkm,
-												new BUSSanPham().timKiemSanPham(tb.getValueAt(i, 0).toString()))/100)+(Float.parseFloat(tb.getValueAt(i, 3).toString())*(new BUSSanPham().timKiemSanPham(tb.getValueAt(i, 0).toString()).getThue()/100)));
+				int soLuongSP = Integer.parseInt(tb.getValueAt(i, 2).toString());
+				tongTienGiam += Float.parseFloat(tb.getValueAt(i, 3).toString().replaceAll("[,VND]", ""))
+						* (new BUSHoaDon().hamLayGiamGiaCuaChiTietHoaDon(ctkm,
+								new BUSSanPham().timKiemSanPham(tb.getValueAt(i, 0).toString())) / 100)
+						* soLuongSP
+						+ (Float.parseFloat(tb.getValueAt(i, 3).toString().replaceAll("[,VND]", ""))
+								* (new BUSSanPham().timKiemSanPham(tb.getValueAt(i, 0).toString()).getThue() / 100)
+								* soLuongSP);
+				tong += soLuongSP * (Float.parseFloat(tb.getValueAt(i, 3).toString().replaceAll("[,VND]", "")))
+						- tongTienGiam;
 			}
-			tongTien.setText(Tools.dinhDangTien(tong - soDiemHoanTra(tong, diemTrongHD) * 10000 )+ "");
 			diemHT.setText(soDiemHoanTra(tong, diemTrongHD) + "");
+			tongTien.setText(Tools.dinhDangTien(tong - Float.parseFloat(diemHT.getText()) * 10000));
+
+			tienGiam.setText(Tools.dinhDangTien(tongTienGiam + Float.parseFloat(diemHT.getText()) * 10000));
 		}
 	}
 
 	// Tìm kiếm đơn đổi trả
 	public void timKiemBangMaDonDoiTra(ArrayList<DonDoiTra> ds, String maDDT) {
-		if(!maDDT.equals("")) {
+		if (!maDDT.equals("")) {
 			ArrayList<DonDoiTra> tam = new ArrayList<>();
 			Pattern p = Pattern.compile(maDDT);
 			for (DonDoiTra ddt : ds) {
 				Matcher m = p.matcher(ddt.getMaDonDoiTra());
-				if(m.find()) {
+				if (m.find()) {
 					tam.add(ddt);
 				}
 			}
@@ -135,13 +140,14 @@ public class BUSDonDoiTra {
 			ds.addAll(tam);
 		}
 	}
+
 	public void timKiemBangSDT(ArrayList<DonDoiTra> ds, String sdt) {
-		if(!sdt.equals("")) {
+		if (!sdt.equals("")) {
 			ArrayList<DonDoiTra> tam = new ArrayList<>();
 			Pattern p = Pattern.compile(sdt);
 			for (DonDoiTra ddt : ds) {
 				Matcher m = p.matcher(ddt.getHoaDon().getKhachHang().getSdt());
-				if(m.find()) {
+				if (m.find()) {
 					tam.add(ddt);
 				}
 			}
@@ -149,13 +155,14 @@ public class BUSDonDoiTra {
 			ds.addAll(tam);
 		}
 	}
+
 	public void timKiemBangMaHoaDon(ArrayList<DonDoiTra> ds, String maHD) {
-		if(!maHD.equals("")) {
+		if (!maHD.equals("")) {
 			ArrayList<DonDoiTra> tam = new ArrayList<>();
 			Pattern p = Pattern.compile(maHD);
 			for (DonDoiTra ddt : ds) {
 				Matcher m = p.matcher(ddt.getHoaDon().getMaHoaDon());
-				if(m.find()) {
+				if (m.find()) {
 					tam.add(ddt);
 				}
 			}
@@ -163,7 +170,8 @@ public class BUSDonDoiTra {
 			ds.addAll(tam);
 		}
 	}
-	public ArrayList<DonDoiTra> layDonDoiTraTuNgayXDenNgayY(LocalDate x, LocalDate y){
+
+	public ArrayList<DonDoiTra> layDonDoiTraTuNgayXDenNgayY(LocalDate x, LocalDate y) {
 		return daoDonDoiTra.layDonDoiTraTuNgayXDenNgayY(x, y);
 	}
 

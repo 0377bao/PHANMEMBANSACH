@@ -93,7 +93,7 @@ public class GUISendEmail extends JFrame {
 		mes.setBounds(97, 90, 271, 81);
 		panel_1.add(mes);
 
-		txtTo.setText("thuykieu130303@gmail.com,trongdat1822@gmail.com");
+		txtTo.setText("thuykieu130303@gmail.com,trongdat1822@gmail.com,vomanhhieu62@gmail.com");
 		txtSubject.setText("HELLO");
 		mes.setText("Chúc bạn may mắn lần sau");
 		

@@ -369,7 +369,6 @@ public class Tools {
 		try {
 			MimeMessage mimeMessage = new MimeMessage(session);
 			mimeMessage.setFrom(new InternetAddress(from));
-			mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 
 			String[] emails = to.split(",");
 			InternetAddress[] toAddresses = new InternetAddress[emails.length];
@@ -382,10 +381,13 @@ public class Tools {
 			mimeMessage.setText(message);
 
 			Transport.send(mimeMessage);
+			
 //			return messageSuccess;
 		} catch (MessagingException mex) {
 
 		}
 		return messageSuccess;
 	}
+	
+	
 }

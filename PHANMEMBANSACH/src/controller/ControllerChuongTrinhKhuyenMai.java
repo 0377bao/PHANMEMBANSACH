@@ -21,6 +21,7 @@ public class ControllerChuongTrinhKhuyenMai implements ActionListener, MouseList
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
 		view.loadChiTietChuongTrinhKhuyenMai();
+		view.loadChuongTrinhKhuyenMaiCanChinhSua();
 	}
 
 	@Override

@@ -103,13 +103,12 @@ public class GUISanPham extends JPanel {
 	private JTextField txtTenNCCVPP;
 	private JTextField txtMaNCCVPP;
 	private MyButton btnTimMaNCCVPP;
+	private JCheckBox chkSoLuongSach;
+	private JCheckBox chkSoLuongVPP;
 
 	private BUSSanPham busSP = new BUSSanPham();
 	private BUSNhaCungCap busNCC = new BUSNhaCungCap();
 	private BUSDanhMuc busDanhMuc = new BUSDanhMuc();
-//	private ArrayList<SanPham> dsSP = busSP.layDSSanPham();
-	private JCheckBox chkSoLuongSach;
-	private JCheckBox chkSoLuongVPP;
 
 	public GUISanPham() {
 		this.setBackground(new Color(255, 255, 255));
@@ -168,7 +167,7 @@ public class GUISanPham extends JPanel {
 		txtMaSach.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtMaSach.setEnabled(false);
 		txtMaSach.setColumns(10);
-		txtMaSach.setBounds(116, 30, 197, 25);
+		txtMaSach.setBounds(116, 30, 216, 25);
 		pnlThongTinS.add(txtMaSach);
 
 		txtTenSach = new JTextField();
@@ -323,9 +322,9 @@ public class GUISanPham extends JPanel {
 		txtTimKiemSachTheoMa.setFont(new Font("Tahoma", Font.ITALIC, 13));
 		txtTimKiemSachTheoMa.setText("Nhập mã sách cần tìm");
 		txtTimKiemSachTheoMa.setForeground(new Color(128, 128, 128));
-		txtTimKiemSachTheoMa.setBounds(25, 30, 320, 21);
+		txtTimKiemSachTheoMa.setBounds(25, 30, 180, 21);
 		pnlTimKiemS.add(txtTimKiemSachTheoMa);
-		txtTimKiemSachTheoMa.setName("txtTimKiemSach");
+		txtTimKiemSachTheoMa.setName("txtTimKiemSachTheoMa");
 		txtTimKiemSachTheoMa.setColumns(10);
 
 		JPanel pnlLocS = new JPanel();
@@ -341,7 +340,7 @@ public class GUISanPham extends JPanel {
 		pnlLocS.add(lblLocNCC);
 
 		JLabel lblLocTheLoai = new JLabel("Thể loại");
-		lblLocTheLoai.setBounds(599, 67, 70, 13);
+		lblLocTheLoai.setBounds(599, 29, 70, 13);
 		pnlLocS.add(lblLocTheLoai);
 
 		JLabel lblLocNamXB = new JLabel("Năm xuất bản");
@@ -353,7 +352,7 @@ public class GUISanPham extends JPanel {
 		pnlLocS.add(lblLocTacGia);
 
 		txtLocTheLoaiS = new JTextField();
-		txtLocTheLoaiS.setBounds(658, 63, 150, 21);
+		txtLocTheLoaiS.setBounds(658, 25, 150, 21);
 		pnlLocS.add(txtLocTheLoaiS);
 		txtLocTheLoaiS.setName("txtLocTheLoaiS");
 		txtLocTheLoaiS.setColumns(10);
@@ -387,20 +386,14 @@ public class GUISanPham extends JPanel {
 		lblLocTen.setBounds(25, 67, 70, 13);
 		pnlLocS.add(lblLocTen);
 
-		chkSoLuongSach = new JCheckBox("Sản phẩm có số lượng dưới 10");
-		chkSoLuongSach.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		chkSoLuongSach.setBounds(599, 25, 209, 21);
-		chkSoLuongSach.setActionCommand("chkSoLuongSach");
-		pnlLocS.add(chkSoLuongSach);
-
 		btnTimMaSach = new MyButton("Tìm");
 		btnTimMaSach.setForeground(new Color(255, 255, 255));
-		btnTimMaSach.setBounds(365, 29, 69, 21);
+		btnTimMaSach.setBounds(215, 29, 60, 21);
 		btnTimMaSach.setActionCommand("btnTimMaSach");
 		pnlTimKiemS.add(btnTimMaSach);
 
 		cboLocTrangThaiSach = new MyCombobox();
-		cboLocTrangThaiSach.setBounds(650, 29, 215, 21);
+		cboLocTrangThaiSach.setBounds(715, 29, 150, 21);
 		cboLocTrangThaiSach.setActionCommand("cboLocTrangThaiSach");
 		pnlTimKiemS.add(cboLocTrangThaiSach);
 
@@ -409,8 +402,15 @@ public class GUISanPham extends JPanel {
 		cboLocTrangThaiSach.addItem("Không còn bán");
 
 		JLabel lblLocTrangThaiS = new JLabel("Kiểm tra trạng thái");
-		lblLocTrangThaiS.setBounds(538, 33, 104, 13);
+		lblLocTrangThaiS.setBounds(601, 33, 104, 13);
 		pnlTimKiemS.add(lblLocTrangThaiS);
+
+		chkSoLuongSach = new JCheckBox("Sản phẩm có số lượng dưới 10");
+		chkSoLuongSach.setBackground(new Color(255, 255, 255));
+		chkSoLuongSach.setBounds(330, 30, 209, 21);
+		pnlTimKiemS.add(chkSoLuongSach);
+		chkSoLuongSach.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		chkSoLuongSach.setActionCommand("chkSoLuongSach");
 
 		// chức năng
 		JPanel pnlChucNang = new JPanel();
@@ -422,7 +422,7 @@ public class GUISanPham extends JPanel {
 		pnlChucNang.setLayout(null);
 
 		btnThemSach = new MyButton("THÊM SẢN PHẨM");
-		btnThemSach.setBackground(new Color(128, 255, 0));
+		btnThemSach.setBackground(new Color(128, 255, 128));
 		btnThemSach.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnThemSach.setForeground(new Color(255, 255, 255));
 		btnThemSach.setText("Thêm");
@@ -431,7 +431,7 @@ public class GUISanPham extends JPanel {
 		pnlChucNang.add(btnThemSach);
 
 		btnCapNhatSach = new MyButton("CẬP NHẬT ");
-		btnCapNhatSach.setBackground(new Color(225, 128, 0));
+		btnCapNhatSach.setBackground(new Color(255, 128, 0));
 		btnCapNhatSach.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnCapNhatSach.setText("Cập nhật");
 		btnCapNhatSach.setForeground(new Color(255, 255, 255));
@@ -449,7 +449,7 @@ public class GUISanPham extends JPanel {
 		pnlChucNang.add(btnXoaTrangSach);
 
 		btnTaiLaiSach = new MyButton("TẢI LẠI");
-		btnTaiLaiSach.setBackground(new Color(128, 128, 255));
+		btnTaiLaiSach.setBackground(new Color(97, 166, 247));
 		btnTaiLaiSach.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnTaiLaiSach.setText("Tải lại");
 		btnTaiLaiSach.setForeground(new Color(255, 255, 255));
@@ -563,7 +563,7 @@ public class GUISanPham extends JPanel {
 		txtMaVPP.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtMaVPP.setEnabled(false);
 		txtMaVPP.setColumns(10);
-		txtMaVPP.setBounds(116, 30, 197, 25);
+		txtMaVPP.setBounds(116, 30, 216, 25);
 		pnlThongTin.add(txtMaVPP);
 
 		txtTenVPP = new JTextField();
@@ -707,7 +707,7 @@ public class GUISanPham extends JPanel {
 		txtTimKiemVPPTheoMa.setForeground(new Color(128, 128, 128));
 		txtTimKiemVPPTheoMa.setBounds(25, 30, 180, 21);
 		pnlTimKiem.add(txtTimKiemVPPTheoMa);
-		txtTimKiemVPPTheoMa.setName("txtTimKiemVPP");
+		txtTimKiemVPPTheoMa.setName("txtTimKiemVPPTheoMa");
 		txtTimKiemVPPTheoMa.setColumns(10);
 
 		JPanel pnlLoc;
@@ -795,7 +795,7 @@ public class GUISanPham extends JPanel {
 		pnlChucNang_1.setLayout(null);
 
 		btnThemVPP = new MyButton("Thêm");
-		btnThemVPP.setBackground(new Color(0, 255, 0));
+		btnThemVPP.setBackground(new Color(128, 255, 128));
 		btnThemVPP.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnThemVPP.setForeground(new Color(255, 255, 255));
 		btnThemVPP.setText("Thêm");
@@ -822,7 +822,7 @@ public class GUISanPham extends JPanel {
 		pnlChucNang_1.add(btnXoaTrangVPP);
 
 		btnTaiLaiVPP = new MyButton("Tải lại");
-		btnTaiLaiVPP.setBackground(new Color(128, 128, 255));
+		btnTaiLaiVPP.setBackground(new Color(97, 166, 247));
 		btnTaiLaiVPP.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnTaiLaiVPP.setText("Tải lại");
 		btnTaiLaiVPP.setForeground(new Color(255, 255, 255));
@@ -918,7 +918,8 @@ public class GUISanPham extends JPanel {
 		ArrayList<DanhMuc> dsDM = busDanhMuc.layDSDanhMuc();
 		for (DanhMuc danhMuc : dsDM) {
 			cboDanhMuc.addItem(danhMuc.getTenDanhMuc());
-			cboLocDanhMuc.addItem(danhMuc.getMaDanhMuc());
+//			cboLocDanhMuc.addItem(danhMuc.getMaDanhMuc());
+			cboLocDanhMuc.addItem(danhMuc.getTenDanhMuc());
 		}
 
 		// sự kiện
@@ -959,6 +960,8 @@ public class GUISanPham extends JPanel {
 		txtLocTenSach.addKeyListener(new ControllerSanPham(this));
 		txtLocTheLoai.addKeyListener(new ControllerSanPham(this));
 		txtLocTenVPP.addKeyListener(new ControllerSanPham(this));
+		txtTimKiemSachTheoMa.addKeyListener(new ControllerSanPham(this));
+		txtTimKiemVPPTheoMa.addKeyListener(new ControllerSanPham(this));
 
 		txtTimKiemSachTheoMa.addFocusListener(new ControllerSanPham(this));
 		txtTimKiemVPPTheoMa.addFocusListener(new ControllerSanPham(this));
@@ -1036,10 +1039,15 @@ public class GUISanPham extends JPanel {
 			JOptionPane.showMessageDialog(this, "Vui lòng nhập mã sản phẩm cần tìm");
 		} else {
 			SanPham s = busSP.timKiemSanPham(ma);
-			xoaDuLieuBangSach();
-			modelSach.addRow(new Object[] { s.getMaSanPham(), s.getTenSanPham(), s.getNhaCungCap().getTenNhaCungCap(),
-					((Sach) s).getTacGia(), s.getTheLoai(), ((Sach) s).getNhaXuatBan(), ((Sach) s).getNamXuatBan(),
-					s.getKe(), s.getSoLuongTon(), Tools.dinhDangTien(s.getGiaNhap()) });
+			if (s == null) {
+				xoaDuLieuBangSach();
+			} else {
+				xoaDuLieuBangSach();
+				modelSach.addRow(new Object[] { s.getMaSanPham(), s.getTenSanPham(),
+						s.getNhaCungCap().getTenNhaCungCap(), ((Sach) s).getTacGia(), s.getTheLoai(),
+						((Sach) s).getNhaXuatBan(), ((Sach) s).getNamXuatBan(), s.getKe(), s.getSoLuongTon(),
+						Tools.dinhDangTien(s.getGiaNhap()) });
+			}
 		}
 
 	}
@@ -1050,6 +1058,7 @@ public class GUISanPham extends JPanel {
 		cboLocTrangThaiSach.setSelectedIndex(0);
 		cboLocNCC_Sach.setSelectedIndex(0);
 		chkSoLuongSach.setSelected(false);
+		chkTrangThaiSach.setSelected(true);
 		hienThiDuLieuSach(busSP.layDSSachConBan());
 		txtLocNamXB.setText("");
 		txtLocTacGia.setText("");
@@ -1216,6 +1225,7 @@ public class GUISanPham extends JPanel {
 		chkTrangThaiSach.setSelected(true);
 		txtTenNCCSach.setText("");
 		tableSach.clearSelection();
+		btnTaoMaSach.setEnabled(true);
 	}
 
 	// chọn thông tin sách trong bảng hiện lên
@@ -1391,11 +1401,15 @@ public class GUISanPham extends JPanel {
 			JOptionPane.showMessageDialog(this, "Vui lòng nhập mã sản phẩm cần tìm");
 		} else {
 			SanPham vpp = busSP.timKiemSanPham(ma);
-			xoaDuLieuBangVPP();
-			modelVPP.addRow(new Object[] { vpp.getMaSanPham(), vpp.getTenSanPham(),
-					vpp.getNhaCungCap().getTenNhaCungCap(), ((VanPhongPham) vpp).getDanhMuc().getTenDanhMuc(),
-					vpp.getTheLoai(), ((VanPhongPham) vpp).getChatLieu(), vpp.getKe(), vpp.getSoLuongTon(),
-					Tools.dinhDangTien(vpp.getGiaNhap()) });
+			if (vpp == null) {
+				xoaDuLieuBangVPP();
+			} else {
+				xoaDuLieuBangVPP();
+				modelVPP.addRow(new Object[] { vpp.getMaSanPham(), vpp.getTenSanPham(),
+						vpp.getNhaCungCap().getTenNhaCungCap(), ((VanPhongPham) vpp).getDanhMuc().getTenDanhMuc(),
+						vpp.getTheLoai(), ((VanPhongPham) vpp).getChatLieu(), vpp.getKe(), vpp.getSoLuongTon(),
+						Tools.dinhDangTien(vpp.getGiaNhap()) });
+			}
 		}
 	}
 
@@ -1455,10 +1469,11 @@ public class GUISanPham extends JPanel {
 	// tải lại danh sách VPP
 	public void taiLaiVPP() {
 		xoaDuLieuBangVPP();
-		hienThiDuLieuVPP(busSP.layDSVPPConBan());
 		cboLocTrangThaiVPP.setSelectedIndex(0);
 		cboLocNCC_VPP.setSelectedIndex(0);
 		cboLocDanhMuc.setSelectedIndex(0);
+		chkTrangThaiVPP.setSelected(true);
+		hienThiDuLieuVPP(busSP.layDSVPPConBan());
 		txtLocTenVPP.setText("");
 		txtLocTheLoai.setText("");
 		txtTimKiemVPPTheoMa.setFont(new Font("Tahoma", Font.ITALIC, 13));

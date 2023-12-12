@@ -53,8 +53,8 @@ public class BUSGiaoHang {
    }
    
 
-   public ArrayList<DonGiaoHang> sapXepTheoTongTienVanChuyenGiamDan() {
-   	ArrayList<DonGiaoHang> ds = daoDonGiaoHang.layDSDonHang();
+   public ArrayList<DonGiaoHang> sapXepTheoTongTienVanChuyenGiamDan(ArrayList<DonGiaoHang> ds_one) {
+   	ArrayList<DonGiaoHang> ds = ds_one.size() > 0 ? ds_one : daoDonGiaoHang.layDSDonHang();
        Collections.sort(ds,new Comparator<DonGiaoHang>() {
 
 			@Override
@@ -67,8 +67,8 @@ public class BUSGiaoHang {
       return ds;
    }
    
-   public ArrayList<DonGiaoHang> sapXepTheoTongTienVanChuyenTangDan() {
-	   	ArrayList<DonGiaoHang> ds = daoDonGiaoHang.layDSDonHang();
+   public ArrayList<DonGiaoHang> sapXepTheoTongTienVanChuyenTangDan(ArrayList<DonGiaoHang> ds_one) {
+	   	ArrayList<DonGiaoHang> ds = ds_one.size() > 0 ? ds_one : daoDonGiaoHang.layDSDonHang();
 	       Collections.sort(ds,new Comparator<DonGiaoHang>() {
 
 				@Override
@@ -100,7 +100,7 @@ public class BUSGiaoHang {
 		   mes = "Vui lòng nhập số điện thoại để liên lạc nhận hàng";
 		   return false;
 	   }else if(!sdt.matches("^(02|03|05|07|08|09)\\d{8}$")) {
-		   mes = "Số điện thoại không hợp lệ, số điện thoại phải bắt đầu bằng 02 hoặc 03 hoặc 05 hoặc 07 hoặc 08 hoặc 09 và tối đa 10 chữ số";
+		   mes = "Số điện thoại không hợp lệ, số điện thoại phải bắt đầu bằng 02 hoặc 03 hoặc 05 hoặc 07 hoặc 08 hoặc 09 và theo sau là 8 chữ số";
 		   return false;
 	   } 
 	   

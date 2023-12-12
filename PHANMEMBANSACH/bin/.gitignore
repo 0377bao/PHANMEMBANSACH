@@ -1,12 +1,21 @@
+<<<<<<< HEAD
 /dao/
 /mapdata/
 /bill/
+=======
+>>>>>>> 646792450d80d47eaa2a8e92f87b41ac8a3d9368
 /bus/
 /connect/
 /controller/
 /customUI/
 /entity/
+/mapdata/
 /model/
 /tool/
 /ui/
 /view/
+<<<<<<< HEAD
+=======
+/bill/
+>>>>>>> 646792450d80d47eaa2a8e92f87b41ac8a3d9368
+/image/

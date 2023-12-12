@@ -36,11 +36,10 @@ public class GUINhaCungCap extends JPanel {
 	private MyTable table;
 	private MyButton btnTaiLai;
 	private DefaultTableModel modelNCC;
-
-	private BUSNhaCungCap busNCC = new BUSNhaCungCap();
 	private JTextField txtTimTheoTen;
 	private JComboBox<String> cboDiaChi;
 
+	private BUSNhaCungCap busNCC = new BUSNhaCungCap();
 	private ArrayList<NhaCungCap> dsNCC = busNCC.layDSNhaCungCap();
 
 	public GUINhaCungCap() {
@@ -182,6 +181,7 @@ public class GUINhaCungCap extends JPanel {
 		pnlChucNang.setLayout(null);
 
 		btnThemNCC = new MyButton("Thêm");
+		btnThemNCC.setBackground(new Color(128, 255, 128));
 		btnThemNCC.setForeground(new Color(255, 255, 255));
 		btnThemNCC.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnThemNCC.setBounds(55, 57, 150, 35);
@@ -189,6 +189,7 @@ public class GUINhaCungCap extends JPanel {
 		pnlChucNang.add(btnThemNCC);
 
 		btnCapNhat = new MyButton("Cập nhật");
+		btnCapNhat.setBackground(new Color(255, 128, 0));
 		btnCapNhat.setForeground(new Color(255, 255, 255));
 		btnCapNhat.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnCapNhat.setBounds(245, 57, 150, 35);
@@ -196,6 +197,7 @@ public class GUINhaCungCap extends JPanel {
 		pnlChucNang.add(btnCapNhat);
 
 		btnXoaTrang = new MyButton("Xóa trắng");
+		btnXoaTrang.setBackground(new Color(255, 45, 45));
 		btnXoaTrang.setForeground(new Color(255, 255, 255));
 		btnXoaTrang.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnXoaTrang.setBounds(55, 123, 150, 35);
@@ -236,7 +238,7 @@ public class GUINhaCungCap extends JPanel {
 
 		// dữ liệu test
 		txtTenNCC.setText("Công Ty TNHH Thương Mại Và Dịch Vụ Sách Gia Định");
-		txtSdt.setText("0287303680");
+		txtSdt.setText("02873036801");
 		txtEmail.setText("giadinhbook@gmail.com");
 		txtDiaChi.setText("6/20A Lê Đức Thọ, P. 16, Q. Gò Vấp, Tp. Hồ Chí Minh");
 
@@ -326,17 +328,22 @@ public class GUINhaCungCap extends JPanel {
 		String sdt = txtSdt.getText().trim();
 		String email = txtEmail.getText().trim();
 		String diaChi = txtDiaChi.getText().trim();
-		if (busNCC.validData(ma, ten, diaChi, sdt, email)) {
-			NhaCungCap ncc = new NhaCungCap(ma, ten, diaChi, sdt, email);
-			if (busNCC.themNCC(ncc)) {
-				xoaTrang();
-				taiLai();
-				JOptionPane.showMessageDialog(this, "Thêm thành công");
-			} else {
-				JOptionPane.showMessageDialog(this, "Thêm thất bại - Mã nhà cung cấp đã tồn tại");
-			}
+		if (table.getSelectedRow() != -1) {
+			JOptionPane.showMessageDialog(this, "Đang trong chế độ sửa không được phép thêm");
+			return;
 		} else {
-			JOptionPane.showMessageDialog(this, busNCC.mes);
+			if (busNCC.validData(ma, ten, diaChi, sdt, email)) {
+				NhaCungCap ncc = new NhaCungCap(ma, ten, diaChi, sdt, email);
+				if (busNCC.themNCC(ncc)) {
+					xoaTrang();
+					taiLai();
+					JOptionPane.showMessageDialog(this, "Thêm thành công");
+				} else {
+					JOptionPane.showMessageDialog(this, "Thêm thất bại - Mã nhà cung cấp đã tồn tại");
+				}
+			} else {
+				JOptionPane.showMessageDialog(this, busNCC.mes);
+			}
 		}
 
 	}

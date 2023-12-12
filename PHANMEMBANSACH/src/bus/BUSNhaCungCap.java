@@ -32,6 +32,7 @@ public class BUSNhaCungCap {
 			mes = "Vui lòng nhập tên nhà cung cấp";
 			return false;
 		}
+
 		if (sdt.equals("")) {
 			mes = "Vui lòng nhập số điện thoại";
 			return false;
@@ -40,6 +41,17 @@ public class BUSNhaCungCap {
 				mes = "Số điện thoại bắt đầu là 02 gồm 11 số hoặc bắt đầu là 03 - 05 - 07 - 09 gồm 10 số";
 				return false;
 			}
+			if (daoNCC.timNhaCungCapTheoMa(maNhaCungCap) == null) {
+				for (NhaCungCap ncc : daoNCC.layDSNhaCungCap()) {
+					if (ncc.getSdt().equals(sdt)) {
+						mes = "Số điện thoại đã tồn tại";
+						return false;
+					}
+				}
+			} else {
+				return true;
+			}
+
 		}
 		if (email.equals("")) {
 			mes = "Vui lòng nhập email";

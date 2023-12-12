@@ -79,6 +79,7 @@ public class GUIGiaoHang extends JPanel implements MouseListener{
         private int soKgTemp = 0;
         private float soKmTemp = 0;
         private JCheckBox checkBoxSapXep;
+        private ArrayList<DonGiaoHang> dsTemp_one = new ArrayList<>();
 		public GUIGiaoHang(HoaDon HD) {
 			this.hd = HD;
 			this.setBackground(new Color(255, 255, 255));
@@ -553,6 +554,7 @@ public class GUIGiaoHang extends JPanel implements MouseListener{
 				btnTaoDonHang.setEnabled(false);
 				btnTaoMaDonHang.setEnabled(false);
 				btnHuyTaoDon.setEnabled(false);
+				btnTinhKhoangCach.setEnabled(false);
 			}else {
 				txtMaHoaDon.setText(hd.getMaHoaDon());
 				txtTenNVLapHD.setText(hd.getNhanVien().getTenNhanVien());
@@ -594,14 +596,27 @@ public class GUIGiaoHang extends JPanel implements MouseListener{
 	    	if(src.equals("Chọn khách hàng mặc định")) {
 	    		if(hd != null) {
 	    			if(checkBoxKH.isSelected()) {
-		    			txtTenKhachHang.setText(hd.getKhachHang().getTenKhachHang());
-		    			txtTenKhachHang.setEditable(false);
+	    				if(hd.getKhachHang().getTenKhachHang().equalsIgnoreCase("Khách hàng lẻ")) {
+	    					JOptionPane.showMessageDialog(this, "Vì là khách hàng lẻ nên vui lòng nhập thông tin");
+	    					checkBoxKH.setSelected(false);
+	    					return;
+	    				}else {
+	    					txtTenKhachHang.setText(hd.getKhachHang().getTenKhachHang());
+			    			txtTenKhachHang.setEditable(false);
+			    			txtSDT.setText(hd.getKhachHang().getSdt());
+			    			txtSDT.setEditable(false);
+	    				}
+		    			
 		    		}else {
 		    			txtTenKhachHang.setText("");
 		    			txtTenKhachHang.setEditable(true);
+		    			txtSDT.setText("");
+		    			txtSDT.setEditable(true);
 		    		}
 	    		}else {
 	    			JOptionPane.showMessageDialog(this, "Không có hóa đơn để lấy tên khách hàng");
+	    			checkBoxKH.setSelected(false);
+	    			return;
 	    		}
 	    		
 	    		
@@ -612,7 +627,6 @@ public class GUIGiaoHang extends JPanel implements MouseListener{
 	    		String maDonHang = txtMaDonHang.getText();
 	    		String maHoaDon = txtMaHoaDon.getText();
                 hd = new BUSHoaDon().timHoaDonTheoMa(maHoaDon);
-	    		Date ngayLap = Date.valueOf(LocalDate.now());
 	    		String phuongThucThanhToan = cboPTTT.getSelectedItem().toString();
 	    		String sdt = txtSDT.getText();
 	    		String tenKhachHang = txtTenKhachHang.getText();
@@ -628,7 +642,6 @@ public class GUIGiaoHang extends JPanel implements MouseListener{
 	    	    	String text = kiemTraHoaDonDaGiaoChua();
 	    	    	if(!text.equals("")) {
 	    	    		JOptionPane.showMessageDialog(this, text);
-	    	    		btnTaoDonHang.setEnabled(false);
 	    	    		return;
 	    	    	}
 	    	    	if(busGiaoHang.themDonHangMoi(dgh)) {
@@ -638,6 +651,9 @@ public class GUIGiaoHang extends JPanel implements MouseListener{
 		    			xoaTrangThongTinDonHang();
 		    			btnTaoDonHang.setEnabled(false);
 		    			checkBoxKH.setSelected(false);
+		    			btnTinhKhoangCach.setEnabled(false);
+		    			btnHuyDon.setEnabled(false);
+		    			btnTaoMaDonHang.setEnabled(false);
 		    		}else {
 		    			JOptionPane.showMessageDialog(this, "Tạo đơn hàng thất bại do mã đơn hàng đã tồn tại");
 		    		}
@@ -654,13 +670,21 @@ public class GUIGiaoHang extends JPanel implements MouseListener{
 		    		txtSoKG.setText("");
 		    		txtDiaChi.setText("");
 		    		txtSoKM.setText("");
-		    		txtThanhTien.setText("");
+		    		txtThanhTien.setText("0 VND");
+		    		txtTenKhachHang.setEditable(true);
+		    		txtSDT.setEditable(true);
+		    		checkBoxKH.setSelected(false);
 	    		}
 	    		
 	    	}
 	    	if(src.equals("Hủy tạo đơn")) {
-	    		xoaTrangThongTinDonHang();
-	    		btnTaoDonHang.setEnabled(false);
+	    		if(JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn hủy tạo đơn hàng này không?", "Yes", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+	    			xoaTrangThongTinDonHang();
+		    		btnTaoDonHang.setEnabled(false);
+	    		}else {
+	    			JOptionPane.showMessageDialog(this, "Đơn giao hàng được giữ lại");
+	    		}
+
 	    	}
 	    	if(src.equals("Tạo mã đơn hàng")) {            
 	    		txtMaDonHang.setText(busGiaoHang.taoMaDonHang());
@@ -679,18 +703,25 @@ public class GUIGiaoHang extends JPanel implements MouseListener{
 		    		DonGiaoHang dghCT = new BUSGiaoHang().timDonHangTheoMaDonHang(maDH);
 		    	    String ghiChu = JOptionPane.showInputDialog(this, "Nhập lý do đơn hàng bị hủy");
 		    	    if(ghiChu != null) {
-		    	    	dghCT.setGhiChu(ghiChu);
-			    		modelQLDonHangCHT.addRow(new Object[] {dghCT.getMaDonGiaoHang(), dghCT.getHoaDon().getMaHoaDon(), 
-			    				dghCT.getHoaDon().getNhanVien().getTenNhanVien(), dghCT.getHoaDon().getNgayLap(),
-			    				dghCT.getTenKhachHang(), dghCT.getDiaChi(), dghCT.getSdt(), dghCT.getSoKg(), dghCT.getTienVanChuyen(),
-			                    dghCT.isTrangThai() == false ? "Chưa hoàn thành" : "", dghCT.getGhiChu()});
-			    		if(new BUSGiaoHang().capNhatThongTinDonHang(dghCT)) {
-			    			xoaTrangThongTinDonHang();
-			    			JOptionPane.showMessageDialog(this, "Đơn hàng đã bị hủy");
-			    			modelDonHang.removeRow(index);
-			    		}else {
-			    			JOptionPane.showMessageDialog(this, "Hủy đơn hàng không thành công do gặp lỗi");
-			    		}
+		    	    	if(ghiChu.equals("")) {
+		    	    		JOptionPane.showMessageDialog(this, "Vui lòng nhập lý do hủy đơn hàng");
+		    	    		return;
+		    	    	}else {
+		    	    		dghCT.setGhiChu(ghiChu);
+				    		modelQLDonHangCHT.addRow(new Object[] {dghCT.getMaDonGiaoHang(), dghCT.getHoaDon().getMaHoaDon(), 
+				    				dghCT.getHoaDon().getNhanVien().getTenNhanVien(), dghCT.getHoaDon().getNgayLap(),
+				    				dghCT.getTenKhachHang(), dghCT.getDiaChi(), dghCT.getSdt(), dghCT.getSoKg(), new Tools().dinhDangTien(dghCT.getTienVanChuyen()),
+				                    dghCT.isTrangThai() == false ? "Chưa hoàn thành" : "", dghCT.getGhiChu()});
+				    		if(new BUSGiaoHang().capNhatThongTinDonHang(dghCT)) {
+				    			xoaTrangThongTinDonHang();
+				    			JOptionPane.showMessageDialog(this, "Đơn hàng đã bị hủy");
+				    			modelDonHang.removeRow(index);
+				    		}else {
+				    			JOptionPane.showMessageDialog(this, "Hủy đơn hàng không thành công do gặp lỗi");
+				    			return;
+				    		}
+		    	    	}
+		    	    	
 		    	    }
 	    		}
 
@@ -706,7 +737,7 @@ public class GUIGiaoHang extends JPanel implements MouseListener{
 		    		dghCT.setTrangThai(true);
 		    		modelQLDonHangHT.addRow(new Object[] {dghCT.getMaDonGiaoHang(), dghCT.getHoaDon().getMaHoaDon(), 
 		    				dghCT.getHoaDon().getNhanVien().getTenNhanVien(), dghCT.getHoaDon().getNgayLap(),
-		    				dghCT.getTenKhachHang(), dghCT.getDiaChi(), dghCT.getSdt(), dghCT.getSoKg(), dghCT.getTienVanChuyen(),
+		    				dghCT.getTenKhachHang(), dghCT.getDiaChi(), dghCT.getSdt(), dghCT.getSoKg(), new Tools().dinhDangTien(dghCT.getTienVanChuyen()),
 		                    dghCT.isTrangThai() ? "Hoàn thành": ""});
 		    		if(new BUSGiaoHang().capNhatThongTinDonHang(dghCT)) {
 		    			xoaTrangThongTinDonHang();
@@ -719,7 +750,7 @@ public class GUIGiaoHang extends JPanel implements MouseListener{
 	    	if(src.equals("Sắp xếp tổng tiền")) {
 	    		
 	    		if(checkBoxSapXep.isSelected()) {
-	    			ArrayList<DonGiaoHang> dsTemp = new BUSGiaoHang().sapXepTheoTongTienVanChuyenTangDan();
+	    			ArrayList<DonGiaoHang> dsTemp = new BUSGiaoHang().sapXepTheoTongTienVanChuyenTangDan(dsTemp_one);
 	    			if(cboLocDonHang.getSelectedIndex() == 0) {
 		    			modelQLDonHangHT.setRowCount(0);
 		    			for(DonGiaoHang dgh : dsTemp) {
@@ -744,7 +775,7 @@ public class GUIGiaoHang extends JPanel implements MouseListener{
 		    				
 		    		}
 	    		}else {
-	    			ArrayList<DonGiaoHang> dsTemp = new BUSGiaoHang().sapXepTheoTongTienVanChuyenGiamDan();
+	    			ArrayList<DonGiaoHang> dsTemp = new BUSGiaoHang().sapXepTheoTongTienVanChuyenGiamDan(dsTemp_one);
 	    			if(cboLocDonHang.getSelectedIndex() == 0) {
 		    			modelQLDonHangHT.setRowCount(0);
 		    			for(DonGiaoHang dgh : dsTemp) {
@@ -780,8 +811,10 @@ public class GUIGiaoHang extends JPanel implements MouseListener{
 		    		printer.inPhieuGiaoHang(dghCT);
 		    		JOptionPane.showMessageDialog(this, "In phiếu đơn hàng thành công");
 		    		xoaTrangThongTinDonHang();
+		    		tbDonHang.clearSelection();
 	    		}else {
 	    			JOptionPane.showMessageDialog(this, "Vui lòng chọn đơn hàng cần in phiếu");
+	    			return;
 	    		}
 	    		
 	    	}
@@ -793,10 +826,10 @@ public class GUIGiaoHang extends JPanel implements MouseListener{
 	    }
 	    
 	    public void layDiaChi(String diaDiem) {
-	    	txtDiaChi.setText(diaDiem);
+	    	txtDiaChi.setText(diaDiem);	
 	    }
 	    public void kiemTraDeDongMap(String src, GUIMap map) {
-	    	if(src.equals("Hoàn tất")) {
+	    	if(src.equals("Hoàn tất")) { 		
 	    		map.setVisible(false);
 	    	}
 	    }
@@ -812,6 +845,7 @@ public class GUIGiaoHang extends JPanel implements MouseListener{
     			float result = dh.tinhTienVanChuyen();
     			if(result == -1) {
     				JOptionPane.showMessageDialog(this, "Số kilomet trên mức quy định nên không giao hàng");
+    				return;
     			}else if(result == 0){
     				JOptionPane.showMessageDialog(this, "Đơn hàng được vận chuyển miễn phí");
     				txtThanhTien.setText(new Tools().dinhDangTien(result) + "");
@@ -953,10 +987,14 @@ public class GUIGiaoHang extends JPanel implements MouseListener{
 	    	xuLyTimKiemFieldSDTTabQL(ds);
 	    	xuLyTimKiemFieldTenKhachHangTabQL(ds);
 	    	if(cboLocDonHang.getSelectedIndex() == 0) {
+	    		dsTemp_one.clear();
 	    		modelQLDonHangHT.setRowCount(0);
+	    		dsTemp_one.addAll(ds);
 	    		loaddulieulentableTabQL(modelQLDonHangHT, ds);
 	    	}else {
+	    		dsTemp_one.clear();
 	    		modelQLDonHangCHT.setRowCount(0);
+	    		dsTemp_one.addAll(ds);
 	    		loaddulieulentableTabQL(modelQLDonHangCHT, ds);
 	    	}
 	    	
@@ -1068,6 +1106,12 @@ public class GUIGiaoHang extends JPanel implements MouseListener{
 			txtSoKG.setText(dgh.getSoKg() + "");
 			txtSoKM.setText(dgh.getSoKm() + "");
 			txtThanhTien.setText(new Tools().dinhDangTien(dgh.getTienVanChuyen()));
+			checkBoxKH.setEnabled(false);
+			txtTenKhachHang.setEditable(false);
+			txtSoKG.setEditable(false);
+			txtSDT.setEditable(false);
+			btnTinhKhoangCach.setEnabled(false);
+			cboPTTT.setEnabled(false);
 		}
 		
 		public String kiemTraHoaDonDaGiaoChua() {
@@ -1076,7 +1120,7 @@ public class GUIGiaoHang extends JPanel implements MouseListener{
 			ArrayList<DonGiaoHang> ds2 = busGiaoHang.layDSDonHangGiaoThanhCong();
 			for(DonGiaoHang dgh : ds) {
 				if(dgh.getHoaDon().getMaHoaDon().equals(hd.getMaHoaDon())) {
-					return "Hóa đơn này đang được giao";
+					return "Hóa đơn này đang được giao\nVui lòng chọn hóa đơn khác";
 				}
 			}
 			
@@ -1088,7 +1132,7 @@ public class GUIGiaoHang extends JPanel implements MouseListener{
 			
 			for(DonGiaoHang dgh : ds2) {
 				if(dgh.getHoaDon().getMaHoaDon().equals(hd.getMaHoaDon())) {
-					return "Hóa đơn này đã giao thành công. Vui lòng chọn hóa đơn khác";
+					return "Hóa đơn này đã giao thành công\nVui lòng chọn hóa đơn khác";
 				}
 			}
 			return "";

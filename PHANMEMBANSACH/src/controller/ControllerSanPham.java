@@ -84,8 +84,17 @@ public class ControllerSanPham implements ActionListener, MouseListener, KeyList
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-
+		JTextField txt = (JTextField) e.getSource();
+		if (txt.getName().equals("txtTimKiemSachTheoMa")) {
+			if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+				guiSP.timSachTheoMa();
+			}
+		}
+		if (txt.getName().equals("txtTimKiemVPPTheoMa")) {
+			if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+				guiSP.timVPPTheoMa();
+			}
+		}
 	}
 
 	@Override
@@ -137,9 +146,9 @@ public class ControllerSanPham implements ActionListener, MouseListener, KeyList
 	@Override
 	public void focusGained(FocusEvent e) {
 		JTextField txt = (JTextField) e.getSource();
-		if (txt.getName().equals("txtTimKiemSach")) {
+		if (txt.getName().equals("txtTimKiemSachTheoMa")) {
 			guiSP.focusGainedSach();
-		} else if (txt.getName().equals("txtTimKiemVPP")) {
+		} else if (txt.getName().equals("txtTimKiemVPPTheoMa")) {
 			guiSP.focusGainedVPP();
 		} else if (txt.getName().equals("txtMaNCCSach")) {
 			guiSP.focusGainedNCCSach();

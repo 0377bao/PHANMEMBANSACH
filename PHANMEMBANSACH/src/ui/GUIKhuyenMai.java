@@ -4,8 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JLabel;
@@ -18,6 +20,7 @@ import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.security.GuardedObject;
 import java.util.ArrayList;
@@ -26,7 +29,9 @@ import java.util.regex.Pattern;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 import javax.swing.SwingWorker;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 import bus.BUSChuongTrinhKhuyenMai;
 import bus.BUSKhachHang;
@@ -46,7 +51,7 @@ import javax.swing.border.TitledBorder;
 import java.awt.Component;
 import javax.swing.ScrollPaneConstants;
 
-public class GUIKhuyenMai extends JPanel{
+public class GUIKhuyenMai extends JPanel implements MouseListener{
 	private DefaultTableModel modelKMDT, modelDSKhuyenMai, modelChiTietKM;
 	private JTextField txtMaCTKM;
 	private JTextField txtPhanTram;
@@ -54,13 +59,15 @@ public class GUIKhuyenMai extends JPanel{
 	private JTextField txtMaCTKMTK;
 	private JTextField txtTenCTKMTK;
 	private JTextField txtTrangThai;
-	private MyButton btnApDungCT, btnLuu, btnThem, btnTaoMaCTKM;
+	private MyButton btnApDungCT, btnLuu, btnThem, btnTaoMaCTKM, btnCapNhat, btnXoa, btnLuuCapNhat;
 	private MyCombobox cboTrangThai, cboSanPham, cboMucKM, cboTheLoai;
 	private JTextArea txtAreaTenCTKM;
 	private int viTriDongDuocChon = -1;
-	private int soThuTuKhuyenMai = 0;
+	private String arrayTheLoaiSach[] = new String[]{"Chính trị", "Kinh tế", "Lịch sử", "Giả tưởng", "Giáo khoa", "Kinh dị", "Nấu ăn", "Tâm lý", "Tình cảm", "Thiếu nhi", "Truyện", "Văn học nghệ thuật"};
+	private String arrayTheLoaiVPP[] = new String[]{"Balo", "Bàn", "Bút", "Thước", "Đèn học", "Vở", "Máy tính cầm tay", "Ghế"};
 	private ArrayList<MucKhuyenMai> dsMucKhuyenMaiDangTao = new ArrayList<>();
 	private JTextField txtMaDuocChon;
+	private JCheckBox checkBoxChinhSuaMKM;
 	
 	private PopUp thongBao = new PopUp("Đang tiến hành gửi thống báo");
 	public GUIKhuyenMai() {
@@ -82,7 +89,7 @@ public class GUIKhuyenMai extends JPanel{
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(255, 255, 255));
 		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel.setBounds(10, 11, 549, 767);
+		panel.setBounds(10, 10, 549, 767);
 		panel_2.add(panel);
 		panel.setLayout(null);
 		
@@ -99,8 +106,8 @@ public class GUIKhuyenMai extends JPanel{
 		lblNewLabel.setBounds(89, 7, 245, 24);
 		panel_1.add(lblNewLabel);
 		
-		JLabel lblNewLabel_1 = new JLabel("MaCTKM:");
-		lblNewLabel_1.setBounds(42, 62, 78, 14);
+		JLabel lblNewLabel_1 = new JLabel("Mã CTKM:");
+		lblNewLabel_1.setBounds(44, 62, 78, 14);
 		panel.add(lblNewLabel_1);
 		
 		txtMaCTKM = new JTextField();
@@ -109,13 +116,14 @@ public class GUIKhuyenMai extends JPanel{
 		panel.add(txtMaCTKM);
 		txtMaCTKM.setColumns(10);
 		
-		JLabel lblNewLabel_2 = new JLabel("TenCTKM:");
-		lblNewLabel_2.setBounds(42, 98, 62, 14);
+		JLabel lblNewLabel_2 = new JLabel("Tên CTKM:");
+		lblNewLabel_2.setBounds(42, 98, 78, 14);
 		panel.add(lblNewLabel_2);
 		
 		txtAreaTenCTKM = new JTextArea();
-		txtAreaTenCTKM.setBackground(new Color(192, 192, 192));
+		txtAreaTenCTKM.setBackground(new Color(255, 255, 255));
 		txtAreaTenCTKM.setBounds(153, 93, 315, 45);
+		txtAreaTenCTKM.setBorder(BorderFactory.createLineBorder(Color.black, 1));
 		panel.add(txtAreaTenCTKM);
 		
 		btnLuu = new MyButton("Lưu");
@@ -171,7 +179,7 @@ public class GUIKhuyenMai extends JPanel{
 		
 		btnThem = new MyButton("Thêm");
 		btnThem.setBackground(new Color(97, 166, 247));
-		btnThem.setBounds(186, 194, 120, 30);
+		btnThem.setBounds(372, 194, 106, 30);
 		btnThem.setIcon(new ImageIcon("src\\image\\khuyenmai\\iconplus.png"));
 		panel_3.add(btnThem);
 		
@@ -191,13 +199,34 @@ public class GUIKhuyenMai extends JPanel{
 		panel_9.setBounds(10, 234, 480, 278);
 		panel_3.add(panel_9);
 		
+		btnXoa = new MyButton("Xóa");
+		btnXoa.setText("Xóa");
+		btnXoa.setBackground(new Color(97, 166, 247));
+		btnXoa.setBounds(256, 194, 106, 30);
+		btnXoa.setEnabled(false);
+		panel_3.add(btnXoa);
+		
+		btnCapNhat = new MyButton("Cập nhật");
+		btnCapNhat.setText("Cập nhật");
+		btnCapNhat.setBackground(new Color(97, 166, 247));
+		btnCapNhat.setBounds(140, 194, 106, 30);
+		btnCapNhat.setEnabled(false);
+		panel_3.add(btnCapNhat);
+		
+		btnLuuCapNhat = new MyButton("Cập nhật");
+		btnLuuCapNhat.setText("Lưu cập nhật");
+		btnLuuCapNhat.setBackground(new Color(97, 166, 247));
+		btnLuuCapNhat.setBounds(25, 194, 106, 30);
+		btnLuuCapNhat.setEnabled(false);
+		panel_3.add(btnLuuCapNhat);
+		
 		JLabel lblNewLabel_13 = new JLabel("Trạng thái:");
 		lblNewLabel_13.setBounds(42, 157, 78, 14);
 		panel.add(lblNewLabel_13);
 		
 		txtTrangThai = new JTextField();
 		txtTrangThai.setEditable(false);
-		txtTrangThai.setText("chưa áp dụng");
+		txtTrangThai.setText("Không áp dụng");
 		txtTrangThai.setBounds(153, 153, 315, 20);
 		panel.add(txtTrangThai);
 		txtTrangThai.setColumns(10);
@@ -233,18 +262,18 @@ public class GUIKhuyenMai extends JPanel{
 		panel_4.add(panel_7);
 		panel_7.setLayout(null);
 		
-		JLabel lblNewLabel_9 = new JLabel("MaCTKM:");
+		JLabel lblNewLabel_9 = new JLabel("Mã CTKM:");
 		lblNewLabel_9.setBounds(29, 24, 78, 14);
 		panel_7.add(lblNewLabel_9);
 		
 		txtMaCTKMTK = new JTextField();
-		txtMaCTKMTK.setBounds(90, 21, 188, 20);
+		txtMaCTKMTK.setBounds(97, 20, 188, 20);
 		txtMaCTKMTK.setName("maCT");
 		panel_7.add(txtMaCTKMTK);
 		txtMaCTKMTK.setColumns(10);
 		
-		JLabel lblNewLabel_9_1 = new JLabel("TenCTKM:");
-		lblNewLabel_9_1.setBounds(346, 24, 78, 14);
+		JLabel lblNewLabel_9_1 = new JLabel("Tên CTKM:");
+		lblNewLabel_9_1.setBounds(337, 24, 78, 14);
 		panel_7.add(lblNewLabel_9_1);
 		
 		txtTenCTKMTK = new JTextField();
@@ -348,6 +377,12 @@ public class GUIKhuyenMai extends JPanel{
 		lblNewLabel_6.setBounds(10, 395, 237, 13);
 		panel_6.add(lblNewLabel_6);
 		
+		checkBoxChinhSuaMKM = new JCheckBox("Chỉnh sửa mục khuyến mãi");
+		checkBoxChinhSuaMKM.setBackground(new Color(255, 255, 255));
+		checkBoxChinhSuaMKM.setBounds(446, 116, 199, 21);
+		checkBoxChinhSuaMKM.setFocusable(false);
+		panel_6.add(checkBoxChinhSuaMKM);
+		
 		loadDSKhuyenMai();
 		MouseListener mouse = new ControllerChuongTrinhKhuyenMai(this);
 		ActionListener ac = new ControllerChuongTrinhKhuyenMai(this);
@@ -359,11 +394,17 @@ public class GUIKhuyenMai extends JPanel{
 		btnTaoMaCTKM.addActionListener(ac);
 		btnThem.addActionListener(ac);
 		btnLuu.addActionListener(ac);
+		btnXoa.addActionListener(ac);
+		btnCapNhat.addActionListener(ac);
+		btnLuuCapNhat.addActionListener(ac);
+		tbMucKhuyenMai.addMouseListener(this);
+		checkBoxChinhSuaMKM.addActionListener(ac);
 		
 		// sự kiện cho textField khi tìm kiếm
 		KeyListener key = new ControllerChuongTrinhKhuyenMai(this);
 		txtMaCTKMTK.addKeyListener(key);
 		txtTenCTKMTK.addKeyListener(key);
+		
 	}
 	
     public void loadDSKhuyenMai() {
@@ -387,6 +428,7 @@ public class GUIKhuyenMai extends JPanel{
     		modelChiTietKM.addRow(new Object[] {mkm.getTenMucKhuyenMai(), mkm.getTiLeKhuyenMai()});
     	}
     	cboMucKM.setSelectedIndex(0);
+
     }
     
     public void xuLySuKienCboTrangThai(Object o) {
@@ -404,6 +446,7 @@ public class GUIKhuyenMai extends JPanel{
         		for(ChuongTrinhKhuyenMai ctkm : ds) {
             		modelDSKhuyenMai.addRow(new Object[] {++stt, ctkm.getMaCTKM(), ctkm.getTenCTKM(), ctkm.isTrangThai() ? "Đang áp dụng" : "Không áp dụng"});
             	}
+        		xoaTrangToanBo();
         	}
         	if(index == 1) {
         		
@@ -412,6 +455,7 @@ public class GUIKhuyenMai extends JPanel{
         				modelDSKhuyenMai.addRow(new Object[] {++stt, ctkm.getMaCTKM(), ctkm.getTenCTKM(), "Đang áp dụng"});
         			}
             	}
+        	    xoaTrangToanBo();
         	}
         	if(index == 2) {
         		
@@ -420,6 +464,7 @@ public class GUIKhuyenMai extends JPanel{
         				modelDSKhuyenMai.addRow(new Object[] {++stt,ctkm.getMaCTKM(), ctkm.getTenCTKM(), "Không áp dụng"});
         			}
             	}
+        		xoaTrangToanBo();
         	}
     	}
     	
@@ -553,6 +598,7 @@ public class GUIKhuyenMai extends JPanel{
     		// load lại dữ liệu
     		modelDSKhuyenMai.setRowCount(0);
     		loadDSKhuyenMai();
+    		tbDSKhuyenMai.getSelectionModel().setSelectionInterval(viTriDongDuocChon, viTriDongDuocChon);
     	}
     	if(src.equals("Tạo mã CTKM")) {
     		txtMaCTKM.setText(new BUSChuongTrinhKhuyenMai().taoMaCTKM());
@@ -568,6 +614,11 @@ public class GUIKhuyenMai extends JPanel{
     					JOptionPane.showMessageDialog(this, "Phần trăm phải là 1 số dương");
     					return;
     				}
+    				if(phanTram > 100) {
+    					JOptionPane.showMessageDialog(this, "Phần trăm không được vượt quá 100");
+    					return;
+    				}
+    				
     			}catch(Exception e) {
     				JOptionPane.showMessageDialog(this, "Phần trăm phải là kí tự số");
     				return;
@@ -598,8 +649,10 @@ public class GUIKhuyenMai extends JPanel{
     		BUSChuongTrinhKhuyenMai bus_ctkm = new BUSChuongTrinhKhuyenMai();
     		String maCTKM = txtMaCTKM.getText();
     		String tenCTKM = txtAreaTenCTKM.getText();
-            boolean trangThai = txtTrangThai.getText().trim().equals("chưa áp dụng") ? false : true;
+            boolean trangThai = txtTrangThai.getText().trim().equals("Không áp dụng") ? false : true;
             ChuongTrinhKhuyenMai ctkm = new ChuongTrinhKhuyenMai(maCTKM, tenCTKM, dsMucKhuyenMaiDangTao, trangThai);
+            String listItem = loadMucKhuyenMai(ctkm);
+            String gmail = layGmailKhachHang();
             if(bus_ctkm.validateChuongTrinhKhuyenMai(ctkm)) {
             	if(bus_ctkm.themChuongTrinhKhuyenMai(ctkm)) {
                 	JOptionPane.showMessageDialog(this, "Thêm thành công chương trình khuyến mãi");
@@ -607,37 +660,175 @@ public class GUIKhuyenMai extends JPanel{
                 	capNhatTrangThaiBangDSKhuyenMai();
                 	modelKMDT.setRowCount(0);
                 	xoaTrangTextField();
+                	btnXoa.setEnabled(false);
+                	btnCapNhat.setEnabled(false);
                 	
                 	// gửi chương trình khuyến mãi cho tất cả khách hàng
                 	if(JOptionPane.showConfirmDialog(this, "Bạn có muốn gửi chương trình khuyến mãi này cho khách hàng không?","Có", JOptionPane.YES_NO_OPTION)== JOptionPane.YES_OPTION) {
-                		ArrayList<KhachHang> dsKh = new BUSKhachHang().layDSKhachHang();
-                		String gmail = "";
-                		String userMail = "thuykieu.13032003@gmail.com";
-                		String password = "tirfdrdpsbjxqemq";
-                		String subject = "Chương trình khuyến mãi hàng tháng của cửa hàng";
-                		String message = "Chúc ngày mới vui vẻ";
-                		for(KhachHang kh : dsKh) {
-                			if(dsKh.indexOf(kh) == 0) {
-                				continue;
-                			}
-                			if(dsKh.indexOf(kh) == dsKh.size() - 1) {
-                				gmail += kh.getEmail();
-                			}else {
-                				gmail += kh.getEmail() + ",";
-                			}
-                		}
-                		System.out.println(gmail);
-                		phanLuong pl = new phanLuong(thongBao,gmail, subject, message, "Gửi chương trình khuyến mãi thành công");
+//                		String userMail = "thuykieu.13032003@gmail.com";
+//                		String password = "tirfdrdpsbjxqemq";
+                		String subject = "Chương trình khuyến mãi tri ân khách hàng của hiệu sách HBDK";
+                		String message = "Chào quý khách hàng thân mến, những người đã và đang mua hàng tại hiệu sách chúng tôi.\n" + "Nhân dịp " + "'" + ctkm.getTenCTKM() + "'" + " hiệu sách của chúng tôi sẽ áp dụng ưu đãi cho những sản phẩm sau:\n"
+                				         + listItem + "\n" + "Cảm ơn bạn đã ủng hộ hiệu sách của chúng tôi!\n" + "Trân trọng";
+         		
+                		phanLuong pl = new phanLuong(thongBao,gmail.trim(), subject, message, "Gửi chương trình khuyến mãi thành công");
                 		pl.execute();
                 	}
                 }else {
                 	JOptionPane.showMessageDialog(this, "Thêm chương trình khuyến mãi thất bại do trùng mã CTKM");
+                	return;
                 }
             }else {
             	JOptionPane.showMessageDialog(this, bus_ctkm.getMessage());
+            	return;
             }
             
     	}
+    	
+    	if(src.equals("Xóa")) {
+    		int index = tbMucKhuyenMai.getSelectedRow();
+    		if(index == -1) {
+    			JOptionPane.showMessageDialog(this, "Vui lòng chọn mục khuyến mãi cần xóa");
+    			return;
+    		}else {
+    			if(JOptionPane.showConfirmDialog(this, "Bạn có muốn xóa mục khuyến mãi này không", "Yes", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+    				modelKMDT.removeRow(index);
+        			dsMucKhuyenMaiDangTao.remove(index);
+        			cboSanPham.setEnabled(true);
+        			cboTheLoai.setEnabled(true);
+        			txtPhanTram.setText("");
+    			}
+    			
+    		}
+    	}
+    	
+    	if(src.equals("Cập nhật")) {
+    		int index = tbMucKhuyenMai.getSelectedRow();
+    		float phanTram = -1;
+    		String tenMucKhuyenMai = "";
+    		if(index == -1) {
+    			JOptionPane.showMessageDialog(this, "Vui lòng chọn mục khuyến mãi cần cập nhật");
+    			return;
+    		}else {
+    			
+    			try {
+    				phanTram = Float.parseFloat(txtPhanTram.getText());
+    				if(phanTram <= 0) {
+    					JOptionPane.showMessageDialog(this, "Phần trăm không được <= 0");
+    					return;
+    				}
+    				if(phanTram > 100) {
+    					JOptionPane.showMessageDialog(this, "Phần trăm không được vượt quá 100");
+    					return;
+    				}
+    			}catch(Exception e) {
+    				JOptionPane.showMessageDialog(this, "Phần trăm không hợp lệ");
+    				return;
+    			}
+    		}
+    		modelKMDT.setValueAt(phanTram, index, 1);
+    		if(checkBoxChinhSuaMKM.isSelected() == false) {
+    			tenMucKhuyenMai = cboTheLoai.getSelectedItem().toString();
+    			modelKMDT.setValueAt(tenMucKhuyenMai, index, 0);
+    		}
+    		MucKhuyenMai m = new MucKhuyenMai(tenMucKhuyenMai.equals("") ? modelKMDT.getValueAt(index, 0).toString() : tenMucKhuyenMai, phanTram);
+    		dsMucKhuyenMaiDangTao.set(index, m);
+    		if(checkBoxChinhSuaMKM.isSelected()) {
+    			txtAreaTenCTKM.setEditable(false);
+    		}else {
+    			txtAreaTenCTKM.setEditable(true);
+    		}
+    		
+    		txtPhanTram.setText("");
+    		tbMucKhuyenMai.clearSelection();
+    	}
+    	
+    	if(src.equals("Lưu cập nhật")) {
+    		boolean flag = false;
+    		 for(MucKhuyenMai m : dsMucKhuyenMaiDangTao) {
+    			 flag = new BUSChuongTrinhKhuyenMai().capNhatMucKhuyenMai(txtMaCTKM.getText(), m);
+    		 }
+    		 if(flag == true) {
+    			 JOptionPane.showMessageDialog(this, "Cập nhật thành công mục khuyến mãi của chương trình này");
+    			 xoaTrangToanBo();
+    			 btnCapNhat.setEnabled(false);
+    			 dsMucKhuyenMaiDangTao.clear();
+    			 checkBoxChinhSuaMKM.setSelected(false);
+    		 }else {
+    			 JOptionPane.showMessageDialog(this, "Cập nhật không thành công mục khuyến mãi vì trùng khóa");
+    			 return;
+    		 }
+    	}
+    	
+    	if(src.equals("Chỉnh sửa mục khuyến mãi")) {
+    		if(checkBoxChinhSuaMKM.isSelected()) {
+    			if(tbDSKhuyenMai.getSelectedRow() != -1) {
+    			    loadChuongTrinhKhuyenMaiCanChinhSua();
+    			    btnCapNhat.setEnabled(true);
+    		    	btnLuuCapNhat.setEnabled(true);
+    		    	btnLuu.setEnabled(false);
+    		    	btnTaoMaCTKM.setEnabled(false);
+    		    	btnXoa.setEnabled(false);
+    			}else {
+    				JOptionPane.showMessageDialog(this, "Vui lòng chọn chương trình khuyến mãi có mục khuyến mãi cần chỉnh sửa");
+    				checkBoxChinhSuaMKM.setSelected(false);
+    				return;
+    			}	
+    		}else {
+    			loadChuongTrinhKhuyenMaiCanChinhSua();
+    	    	btnLuuCapNhat.setEnabled(false);
+    	    	btnCapNhat.setEnabled(false);
+    	    	cboSanPham.setEnabled(true);
+    	    	cboTheLoai.setEnabled(true);
+    	    	txtPhanTram.setText("");
+    	    	btnLuu.setEnabled(true);
+		    	btnTaoMaCTKM.setEnabled(true);
+    		}
+    	}
+    	
+    }
+    
+    // lấy gmail khách hàng
+    public String layGmailKhachHang() {
+    	String mail = "";
+    	ArrayList<KhachHang> dsKh = new BUSKhachHang().layDSKhachHang();
+    	for(KhachHang kh : dsKh) {
+			if(dsKh.indexOf(kh) == 0) {
+				continue;
+			}
+			if(dsKh.indexOf(kh) == dsKh.size() - 1) {
+				mail += kh.getEmail();
+			}else {
+				mail += kh.getEmail() + ",";
+			}
+		}
+    	return mail;
+    }
+    
+    // load mục khuyến mãi
+    public String loadMucKhuyenMai(ChuongTrinhKhuyenMai ctkm) {
+    	String message = "";
+    	for(MucKhuyenMai c : ctkm.getDsMucKhuyenMai()) {
+    		message += "+ " + c.getTenMucKhuyenMai() + " : " + c.getTiLeKhuyenMai() + "%" + "\n";
+    	}
+    	return message;
+    }
+// xóa trắng tất cả các field
+    public void xoaTrangToanBo() {
+    	xoaTrangTextField();
+		modelKMDT.setRowCount(0);
+		 cboSanPham.setEnabled(true);
+		 cboTheLoai.setEnabled(true);
+		 txtAreaTenCTKM.setEditable(true);
+		 tbDSKhuyenMai.clearSelection();
+		 txtPhanTram.setText("");
+		 modelChiTietKM.setRowCount(0);
+		 btnLuuCapNhat.setEnabled(false);
+		 btnLuu.setEnabled(true);
+	    btnTaoMaCTKM.setEnabled(true);
+	    txtMaDuocChon.setText("");
+	    txtTrangThai.setText("Không áp dụng");
+	    viTriDongDuocChon = -1;
     }
     
     public boolean kiemTraMucKhuyenMai(MucKhuyenMai m) {
@@ -694,7 +885,6 @@ public class GUIKhuyenMai extends JPanel{
     }
     
     public void xuLyKhiTimKiem(KeyEvent e) {
-    	Object o = e.getSource();
     	char key = e.getKeyChar();
     	if((Character.isLetterOrDigit(key))|| key == e.VK_BACK_SPACE) {
     		xuLyTimKiemTheoTextField(new BUSChuongTrinhKhuyenMai().layDSChuongTrinhKhuyenMai());
@@ -743,4 +933,110 @@ public class GUIKhuyenMai extends JPanel{
     		modelDSKhuyenMai.addRow(new Object[] {++stt,ctkm.getMaCTKM(), ctkm.getTenCTKM(), ctkm.isTrangThai() ? "Đang áp dụng" : "Không áp dụng"});
     	}
     }
+    
+    public String kiemTraTheLoaiThuocSanPham(String m) {
+    	for(String SanPham : arrayTheLoaiSach) {
+    		if(SanPham.equals(m)) {
+    			return "Sản phẩm";
+    		}
+    	}
+    	
+    	for(String Vpp : arrayTheLoaiVPP) {
+    		if(Vpp.equals(m)) {
+    			return "Văn phòng phẩm";
+    		}
+    	}
+    	return null;
+    }
+    
+    public void loadChuongTrinhKhuyenMaiCanChinhSua() {
+    	if(checkBoxChinhSuaMKM.isSelected()) {
+    		modelChiTietKM.setRowCount(0);
+    		int viTri = tbDSKhuyenMai.getSelectedRow();
+        	txtMaCTKM.setText(modelDSKhuyenMai.getValueAt(viTri, 1).toString());
+        	txtAreaTenCTKM.setText(modelDSKhuyenMai.getValueAt(viTri, 2).toString());
+        	txtTrangThai.setText(modelDSKhuyenMai.getValueAt(viTri, 3).toString());
+        	txtAreaTenCTKM.setEditable(false);
+        	ArrayList<MucKhuyenMai> ds = new DAOMucKhuyenMai().layDSMucKhuyenMaiCuaCTKM(modelDSKhuyenMai.getValueAt(viTri, 1).toString());
+        	dsMucKhuyenMaiDangTao.clear();
+        	dsMucKhuyenMaiDangTao.addAll(ds);
+        	modelKMDT.setRowCount(0);
+        	for(MucKhuyenMai mkm : dsMucKhuyenMaiDangTao) {
+        		modelKMDT.addRow(new Object[] {mkm.getTenMucKhuyenMai(), mkm.getTiLeKhuyenMai()});
+        	}
+    	}else {
+    		modelKMDT.setRowCount(0);
+    		txtMaCTKM.setText("");
+        	txtAreaTenCTKM.setText("");
+        	txtTrangThai.setText("Không áp dụng");
+        	txtAreaTenCTKM.setEditable(true);
+        	dsMucKhuyenMaiDangTao.clear();
+        	loadChiTietChuongTrinhKhuyenMai();
+    	}
+    	
+    }
+    
+    public String catChuoiPhanTram(String chuoi) {
+    	if(chuoi.length() == 3) {
+    		return chuoi.substring(0, 1);
+    	}
+    	if(chuoi.length() == 4) {
+    		return chuoi.substring(0, 2);
+    	}
+    	if(chuoi.length() == 5) {
+    		return chuoi.substring(0, 3);
+    	}
+    	return null;
+    }
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		int row = tbMucKhuyenMai.getSelectedRow();
+		String theLoai = modelKMDT.getValueAt(row, 0).toString();
+		String sanPham = kiemTraTheLoaiThuocSanPham(theLoai);
+		if(sanPham.equals("Sản phẩm")) {
+			cboSanPham.setSelectedIndex(0);
+			cboTheLoai.setSelectedItem(theLoai);
+		}else {
+			cboSanPham.setSelectedIndex(1);
+			cboTheLoai.setSelectedItem(theLoai);
+		}
+		String phanTramTemp = catChuoiPhanTram(modelKMDT.getValueAt(row, 1).toString());
+		txtPhanTram.setText(phanTramTemp);
+		if(tbDSKhuyenMai.getSelectedRow() != -1) {
+			cboSanPham.setEnabled(false);
+			cboTheLoai.setEnabled(false);
+		}else {
+			cboSanPham.setEnabled(true);
+			cboTheLoai.setEnabled(true);
+			btnXoa.setEnabled(true);
+			btnCapNhat.setEnabled(true);
+		}
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 }
