@@ -66,7 +66,7 @@ public class BUSChuongTrinhKhuyenMai {
 			}
 		}
 		if(ctkm.getDsMucKhuyenMai().size() == 0) {
-			mes = "Vui lòng thêm mục khuyến mãi trước khi tạo chương trình khuyến mãi";
+			mes = "Vui lòng thêm mục khuyến mãi trước khi lưu chương trình khuyến mãi";
 			return false;
 		}
 		return true;
