@@ -231,6 +231,7 @@ public class GUINhanVien extends JPanel {
 		txtTimNVTheoMa.setName("txtTimNVTheoMa");
 
 		btnTimTheoMa = new MyButton("Tìm");
+		btnTimTheoMa.setForeground(new Color(255, 255, 255));
 		btnTimTheoMa.setBounds(223, 30, 85, 21);
 		btnTimTheoMa.setActionCommand("btnTimTheoMa");
 		pnlTimKiemNV.add(btnTimTheoMa);
@@ -298,6 +299,7 @@ public class GUINhanVien extends JPanel {
 		pnlChucNang.add(btnThemNV);
 
 		btnCapNhatNV = new MyButton("Cặp nhật");
+		btnCapNhatNV.setBackground(new Color(255, 128, 0));
 		btnCapNhatNV.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnCapNhatNV.setForeground(new Color(255, 255, 255));
 		btnCapNhatNV.setText("Cập nhật");
@@ -306,6 +308,7 @@ public class GUINhanVien extends JPanel {
 		pnlChucNang.add(btnCapNhatNV);
 
 		btnXoaTrang = new MyButton("Xóa trắng");
+		btnXoaTrang.setBackground(new Color(255, 45, 45));
 		btnXoaTrang.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnXoaTrang.setForeground(new Color(255, 255, 255));
 		btnXoaTrang.setBounds(70, 89, 150, 30);

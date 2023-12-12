@@ -188,6 +188,7 @@ public class GUINhaCungCap extends JPanel {
 		pnlChucNang.add(btnThemNCC);
 
 		btnCapNhat = new MyButton("Cập nhật");
+		btnCapNhat.setBackground(new Color(255, 128, 0));
 		btnCapNhat.setForeground(new Color(255, 255, 255));
 		btnCapNhat.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnCapNhat.setBounds(245, 57, 150, 35);
@@ -195,6 +196,7 @@ public class GUINhaCungCap extends JPanel {
 		pnlChucNang.add(btnCapNhat);
 
 		btnXoaTrang = new MyButton("Xóa trắng");
+		btnXoaTrang.setBackground(new Color(255, 45, 45));
 		btnXoaTrang.setForeground(new Color(255, 255, 255));
 		btnXoaTrang.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnXoaTrang.setBounds(55, 123, 150, 35);

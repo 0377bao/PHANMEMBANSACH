@@ -322,7 +322,7 @@ public class GUISanPham extends JPanel {
 		txtTimKiemSachTheoMa.setFont(new Font("Tahoma", Font.ITALIC, 13));
 		txtTimKiemSachTheoMa.setText("Nhập mã sách cần tìm");
 		txtTimKiemSachTheoMa.setForeground(new Color(128, 128, 128));
-		txtTimKiemSachTheoMa.setBounds(25, 30, 320, 21);
+		txtTimKiemSachTheoMa.setBounds(25, 30, 180, 21);
 		pnlTimKiemS.add(txtTimKiemSachTheoMa);
 		txtTimKiemSachTheoMa.setName("txtTimKiemSachTheoMa");
 		txtTimKiemSachTheoMa.setColumns(10);
@@ -340,7 +340,7 @@ public class GUISanPham extends JPanel {
 		pnlLocS.add(lblLocNCC);
 
 		JLabel lblLocTheLoai = new JLabel("Thể loại");
-		lblLocTheLoai.setBounds(599, 67, 70, 13);
+		lblLocTheLoai.setBounds(599, 29, 70, 13);
 		pnlLocS.add(lblLocTheLoai);
 
 		JLabel lblLocNamXB = new JLabel("Năm xuất bản");
@@ -352,7 +352,7 @@ public class GUISanPham extends JPanel {
 		pnlLocS.add(lblLocTacGia);
 
 		txtLocTheLoaiS = new JTextField();
-		txtLocTheLoaiS.setBounds(658, 63, 150, 21);
+		txtLocTheLoaiS.setBounds(658, 25, 150, 21);
 		pnlLocS.add(txtLocTheLoaiS);
 		txtLocTheLoaiS.setName("txtLocTheLoaiS");
 		txtLocTheLoaiS.setColumns(10);
@@ -386,20 +386,14 @@ public class GUISanPham extends JPanel {
 		lblLocTen.setBounds(25, 67, 70, 13);
 		pnlLocS.add(lblLocTen);
 
-		chkSoLuongSach = new JCheckBox("Sản phẩm có số lượng dưới 10");
-		chkSoLuongSach.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		chkSoLuongSach.setBounds(599, 25, 209, 21);
-		chkSoLuongSach.setActionCommand("chkSoLuongSach");
-		pnlLocS.add(chkSoLuongSach);
-
 		btnTimMaSach = new MyButton("Tìm");
 		btnTimMaSach.setForeground(new Color(255, 255, 255));
-		btnTimMaSach.setBounds(365, 29, 69, 21);
+		btnTimMaSach.setBounds(215, 29, 60, 21);
 		btnTimMaSach.setActionCommand("btnTimMaSach");
 		pnlTimKiemS.add(btnTimMaSach);
 
 		cboLocTrangThaiSach = new MyCombobox();
-		cboLocTrangThaiSach.setBounds(650, 29, 215, 21);
+		cboLocTrangThaiSach.setBounds(715, 29, 150, 21);
 		cboLocTrangThaiSach.setActionCommand("cboLocTrangThaiSach");
 		pnlTimKiemS.add(cboLocTrangThaiSach);
 
@@ -408,8 +402,15 @@ public class GUISanPham extends JPanel {
 		cboLocTrangThaiSach.addItem("Không còn bán");
 
 		JLabel lblLocTrangThaiS = new JLabel("Kiểm tra trạng thái");
-		lblLocTrangThaiS.setBounds(538, 33, 104, 13);
+		lblLocTrangThaiS.setBounds(601, 33, 104, 13);
 		pnlTimKiemS.add(lblLocTrangThaiS);
+
+		chkSoLuongSach = new JCheckBox("Sản phẩm có số lượng dưới 10");
+		chkSoLuongSach.setBackground(new Color(255, 255, 255));
+		chkSoLuongSach.setBounds(330, 30, 209, 21);
+		pnlTimKiemS.add(chkSoLuongSach);
+		chkSoLuongSach.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		chkSoLuongSach.setActionCommand("chkSoLuongSach");
 
 		// chức năng
 		JPanel pnlChucNang = new JPanel();
@@ -421,7 +422,7 @@ public class GUISanPham extends JPanel {
 		pnlChucNang.setLayout(null);
 
 		btnThemSach = new MyButton("THÊM SẢN PHẨM");
-		btnThemSach.setBackground(new Color(128, 255, 0));
+		btnThemSach.setBackground(new Color(97, 166, 247));
 		btnThemSach.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnThemSach.setForeground(new Color(255, 255, 255));
 		btnThemSach.setText("Thêm");
@@ -448,7 +449,7 @@ public class GUISanPham extends JPanel {
 		pnlChucNang.add(btnXoaTrangSach);
 
 		btnTaiLaiSach = new MyButton("TẢI LẠI");
-		btnTaiLaiSach.setBackground(new Color(128, 128, 255));
+		btnTaiLaiSach.setBackground(new Color(97, 166, 247));
 		btnTaiLaiSach.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnTaiLaiSach.setText("Tải lại");
 		btnTaiLaiSach.setForeground(new Color(255, 255, 255));
@@ -794,7 +795,7 @@ public class GUISanPham extends JPanel {
 		pnlChucNang_1.setLayout(null);
 
 		btnThemVPP = new MyButton("Thêm");
-		btnThemVPP.setBackground(new Color(0, 255, 0));
+		btnThemVPP.setBackground(new Color(97, 166, 247));
 		btnThemVPP.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnThemVPP.setForeground(new Color(255, 255, 255));
 		btnThemVPP.setText("Thêm");
@@ -821,7 +822,7 @@ public class GUISanPham extends JPanel {
 		pnlChucNang_1.add(btnXoaTrangVPP);
 
 		btnTaiLaiVPP = new MyButton("Tải lại");
-		btnTaiLaiVPP.setBackground(new Color(128, 128, 255));
+		btnTaiLaiVPP.setBackground(new Color(97, 166, 247));
 		btnTaiLaiVPP.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnTaiLaiVPP.setText("Tải lại");
 		btnTaiLaiVPP.setForeground(new Color(255, 255, 255));
