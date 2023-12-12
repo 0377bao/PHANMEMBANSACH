@@ -224,8 +224,13 @@ public class GUIMap extends JFrame {
 		JButton btnHoanTat = new MyButton("Hoàn tất");
 		btnHoanTat.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				guiGH.hoanThanhKM(textField_1.getText());
-				guiGH.layDiaChi(textField.getText());
+				if(textField_1.getText().equals("")) {
+					JOptionPane.showMessageDialog(frame, "Vui lòng nhập địa chỉ nhận hàng và chọn chức năng tìm trước khi hoàn tất");
+					return;
+				}else {
+					guiGH.hoanThanhKM(textField_1.getText());
+					guiGH.layDiaChi(textField.getText());
+				}
                 guiGH.kiemTraDeDongMap(e.getActionCommand(), frame);
                 guiGH.tinhThanhTienDH();
 			}
@@ -263,6 +268,9 @@ public class GUIMap extends JFrame {
 
 			}
 		});
+	}
+	public String getTextFielQuangDuong() {
+		return textField.getText();
 	}
 
 	public void init() {

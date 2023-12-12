@@ -47,4 +47,21 @@ public class DAOMucKhuyenMai {
 		}
 		return n > 0;
 	}
+	
+	public boolean capNhatMucKhuyenMai(String maCTKM, MucKhuyenMai mkm) {
+		int n = 0;
+		Connection con = ConnectDB.getConnection();
+		String sql = "update MucKhuyenMai set tiLeKhuyenMai=? where tenMucKhuyenMai=? and maCTKM=?";
+		try {
+			PreparedStatement statement = con.prepareStatement(sql);
+			statement.setFloat(1, mkm.getTiLeKhuyenMai());
+			statement.setString(2, mkm.getTenMucKhuyenMai());	
+			statement.setString(3, maCTKM);
+			n = statement.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return n > 0;
+	}
 }
