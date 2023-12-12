@@ -930,7 +930,7 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
 		lblTongTien.setText(Tools.dinhDangTien(hoaDonHienTai.tinhTongTien()));
 		lblTienGiamCTKM.setText(Tools.dinhDangTien(hoaDonHienTai.tinhGiamGia()));
 		lblTenChuongTrinhKhuyenMai.setText(hoaDonHienTai.getCtkm().getTenCTKM());
-		lblTienGiamDGG.setText(Tools.dinhDangTien(hoaDonHienTai.getDiemGiamGia() * 10));
+		lblTienGiamDGG.setText(Tools.dinhDangTien(hoaDonHienTai.getDiemGiamGia() * 10000));
 		lblTongThue.setText(Tools.dinhDangTien(hoaDonHienTai.tinhThue()));
 		lblThanhToan.setText(Tools.dinhDangTien(hoaDonHienTai.getThanhTien()));
 		xuLyHienThiTienThua();
