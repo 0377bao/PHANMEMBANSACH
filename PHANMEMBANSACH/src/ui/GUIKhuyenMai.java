@@ -583,6 +583,10 @@ public class GUIKhuyenMai extends JPanel implements MouseListener{
     public void xuLySuKienTrenCacBtn(String src) {
     	
     	if(src.equals("Áp dụng chương trình khuyến mãi")) {
+    		if(viTriDongDuocChon == -1) {
+    			JOptionPane.showMessageDialog(this, "Vui lòng chọn chương trình khuyến mãi cần áp dụng");
+    			return;
+    		}
     		String ma = modelDSKhuyenMai.getValueAt(viTriDongDuocChon, 1).toString();
     		// chuyển trạng thái cái sản phẩm về false hết
     		ArrayList<ChuongTrinhKhuyenMai> ds = new BUSChuongTrinhKhuyenMai().layDSChuongTrinhKhuyenMai();

@@ -22,6 +22,7 @@ import javax.tools.Tool;
 
 import bus.BUSGiaoHang;
 import bus.BUSHoaDon;
+import bus.BUSKhachHang;
 import controller.ControllerGiaoHang;
 import customUI.MyButton;
 import customUI.MyCombobox;
@@ -82,6 +83,9 @@ public class GUIGiaoHang extends JPanel implements MouseListener{
         private ArrayList<DonGiaoHang> dsTemp_one = new ArrayList<>();
 		public GUIGiaoHang(HoaDon HD) {
 			this.hd = HD;
+			if(hd != null) {
+				this.hd = new BUSHoaDon().timHoaDonTheoMa(HD.getMaHoaDon());
+			}	
 			this.setBackground(new Color(255, 255, 255));
 			this.setBounds(250, 0, 1250, 800);
 			this.setLayout(null);
@@ -595,6 +599,7 @@ public class GUIGiaoHang extends JPanel implements MouseListener{
 	    public void XuLyDonHang(String src) {
 	    	if(src.equals("Chọn khách hàng mặc định")) {
 	    		if(hd != null) {
+	    			System.out.println(hd);
 	    			if(checkBoxKH.isSelected()) {
 	    				if(hd.getKhachHang().getTenKhachHang().equalsIgnoreCase("Khách hàng lẻ")) {
 	    					JOptionPane.showMessageDialog(this, "Vì là khách hàng lẻ nên vui lòng nhập thông tin");
@@ -652,7 +657,7 @@ public class GUIGiaoHang extends JPanel implements MouseListener{
 		    			btnTaoDonHang.setEnabled(false);
 		    			checkBoxKH.setSelected(false);
 		    			btnTinhKhoangCach.setEnabled(false);
-		    			btnHuyDon.setEnabled(false);
+		    			btnHuyTaoDon.setEnabled(false);
 		    			btnTaoMaDonHang.setEnabled(false);
 		    		}else {
 		    			JOptionPane.showMessageDialog(this, "Tạo đơn hàng thất bại do mã đơn hàng đã tồn tại");
@@ -678,11 +683,23 @@ public class GUIGiaoHang extends JPanel implements MouseListener{
 	    		
 	    	}
 	    	if(src.equals("Hủy tạo đơn")) {
+	    		if(txtMaDonHang.getText().equals("")) {
+    				JOptionPane.showMessageDialog(this, "Chưa có đơn giao hàng đang tạo để thực hiện hủy.\n Vui lòng tạo đơn giao hàng trước");
+    				return;
+    			}
 	    		if(JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn hủy tạo đơn hàng này không?", "Yes", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-	    			xoaTrangThongTinDonHang();
-		    		btnTaoDonHang.setEnabled(false);
+	    				xoaTrangThongTinDonHang();
+			    		btnTaoDonHang.setEnabled(false);
+			    		btnTaoMaDonHang.setEnabled(false);
+			    		btnTinhKhoangCach.setEnabled(false);
+			    		checkBoxKH.setSelected(false);
+			    		txtTenKhachHang.setEditable(true);
+			    		txtSDT.setEditable(true);
+			    		hd = null;
+			    		return;
 	    		}else {
 	    			JOptionPane.showMessageDialog(this, "Đơn giao hàng được giữ lại");
+	    			return;
 	    		}
 
 	    	}
