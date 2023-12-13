@@ -1153,7 +1153,7 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
 						}
 						if(guiHoaDon != null) guiHoaDon.xuLyKhiThemHoaDon(hoaDonHienTai);
 						int luaChon = JOptionPane.showConfirmDialog(this, "Thanh toán thành công và xuất hóa đơn. Bạn có muốn chuyển hóa đơn thành đơn giao hàng không?", ghiChu, JOptionPane.YES_NO_OPTION);
-						if(luaChon == 0) {
+						if(luaChon == JOptionPane.YES_OPTION) {
 							this.chuyenHoaDonQuaGiaoHang(hoaDonHienTai);
 						}
 						dsHoaDonCho.remove(hoaDonHienTai);
@@ -1188,9 +1188,11 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
 		if(hoaDonHienTai == null) {
 			JOptionPane.showMessageDialog(this, "Vui lòng tạo hóa đơn");
 		} else {
-			hoaDonHienTai.getDsChiTietHoaDon().clear();
-			capNhatGioHang();
-			capNhatThongTinThanhToan();
+			if(JOptionPane.showConfirmDialog(this, "Bạn có muốn xóa tất cả sản phẩm", "Xác nhận", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+				hoaDonHienTai.getDsChiTietHoaDon().clear();
+				capNhatGioHang();
+				capNhatThongTinThanhToan();
+			}
 		}
 	}
 
@@ -1199,9 +1201,11 @@ public class GUIBanHang extends JPanel implements Runnable,ThreadFactory{
 		if(row == -1) {
 			JOptionPane.showMessageDialog(this, "Vui lòng chọn sản phẩm trong giỏ hàng cần xóa");
 		} else {
-			hoaDonHienTai.getDsChiTietHoaDon().remove(row);
-			capNhatGioHang();
-			capNhatThongTinThanhToan();
+			if(JOptionPane.showConfirmDialog(this, "Bạn có muốn xóa sản phẩm ra khỏi giỏ hàng", "Xác nhận", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+				hoaDonHienTai.getDsChiTietHoaDon().remove(row);
+				capNhatGioHang();
+				capNhatThongTinThanhToan();
+			}
 		}
 	}
 

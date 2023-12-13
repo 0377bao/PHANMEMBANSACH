@@ -588,6 +588,7 @@ public class GUINhanVien extends JPanel {
 				NhanVien nv = new NhanVien(maNV, tenNV, sdt, email, gt, diaChi, chucVu, cccd, hinhAnh, trangThai, tk);
 				if (busNhanVien.themNhanVien(nv) && busTaiKhoan.themTaiKhoan(tk)) {
 					taiLai();
+					dsNV = busNhanVien.layDSNhanVienDangLam();
 					xoaTrang();
 					JOptionPane.showMessageDialog(this, "Thêm thành công");
 				} else {

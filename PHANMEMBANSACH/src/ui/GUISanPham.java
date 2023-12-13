@@ -1039,7 +1039,7 @@ public class GUISanPham extends JPanel {
 			JOptionPane.showMessageDialog(this, "Vui lòng nhập mã sản phẩm cần tìm");
 		} else {
 			SanPham s = busSP.timKiemSanPham(ma);
-			if (s == null) {
+			if (s == null || s.getMaSanPham().startsWith("SPVPP")) {
 				xoaDuLieuBangSach();
 			} else {
 				xoaDuLieuBangSach();
@@ -1402,7 +1402,7 @@ public class GUISanPham extends JPanel {
 			JOptionPane.showMessageDialog(this, "Vui lòng nhập mã sản phẩm cần tìm");
 		} else {
 			SanPham vpp = busSP.timKiemSanPham(ma);
-			if (vpp == null) {
+			if (vpp == null || vpp.getMaSanPham().startsWith("SPS")) {
 				xoaDuLieuBangVPP();
 			} else {
 				xoaDuLieuBangVPP();
