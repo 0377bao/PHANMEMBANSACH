@@ -336,7 +336,9 @@ public class GUINhaCungCap extends JPanel {
 				NhaCungCap ncc = new NhaCungCap(ma, ten, diaChi, sdt, email);
 				if (busNCC.themNCC(ncc)) {
 					xoaTrang();
-					taiLai();
+					ArrayList<NhaCungCap> dsNCC = busNCC.layDSNhaCungCap();
+					xoaDuLieuBang();
+					hienThiDuLieu(dsNCC);
 					JOptionPane.showMessageDialog(this, "Thêm thành công");
 				} else {
 					JOptionPane.showMessageDialog(this, "Thêm thất bại - Mã nhà cung cấp đã tồn tại");

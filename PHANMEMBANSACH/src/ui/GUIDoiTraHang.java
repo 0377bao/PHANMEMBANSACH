@@ -417,7 +417,7 @@ public class GUIDoiTraHang extends JPanel {
 
 		pnlThongTinDonDoiTra.add(btnXoaSanPham);
 
-		JLabel lblTngTinGim = new JLabel("Tổng tiền giảm:");
+		JLabel lblTngTinGim = new JLabel("Tiền giảm giá:");
 		lblTngTinGim.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblTngTinGim.setBounds(321, 46, 100, 20);
 		pnlThongTinDonDoiTra.add(lblTngTinGim);

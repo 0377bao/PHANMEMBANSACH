@@ -1039,7 +1039,7 @@ public class GUISanPham extends JPanel {
 			JOptionPane.showMessageDialog(this, "Vui lòng nhập mã sản phẩm cần tìm");
 		} else {
 			SanPham s = busSP.timKiemSanPham(ma);
-			if (s == null) {
+			if (s == null || s.getMaSanPham().startsWith("SPVPP")) {
 				xoaDuLieuBangSach();
 			} else {
 				xoaDuLieuBangSach();
@@ -1175,7 +1175,8 @@ public class GUISanPham extends JPanel {
 				SanPham sach = new Sach(maSach, tenSach, soLuong, giaNhap, theLoai, ke, hinhAnh, thue, loiNhuan,
 						trangThai, ncc, tacGia, nhaXB, namXB);
 				if (busSP.themSanPham(sach)) {
-					taiLaiSach();
+					xoaDuLieuBangSach();
+					hienThiDuLieuSach(busSP.layDSSachConBan());
 					xoaTrangSach();
 					JOptionPane.showMessageDialog(this, "Thêm thành công");
 				} else {
@@ -1401,7 +1402,7 @@ public class GUISanPham extends JPanel {
 			JOptionPane.showMessageDialog(this, "Vui lòng nhập mã sản phẩm cần tìm");
 		} else {
 			SanPham vpp = busSP.timKiemSanPham(ma);
-			if (vpp == null) {
+			if (vpp == null || vpp.getMaSanPham().startsWith("SPS")) {
 				xoaDuLieuBangVPP();
 			} else {
 				xoaDuLieuBangVPP();
@@ -1455,7 +1456,8 @@ public class GUISanPham extends JPanel {
 						trangThai, ncc, chatLieu, danhMuc);
 				if (busSP.themSanPham(vpp)) {
 					xoaTrangVPP();
-					taiLaiVPP();
+					xoaDuLieuBangVPP();
+					hienThiDuLieuVPP(busSP.layDSVPPConBan());
 					JOptionPane.showMessageDialog(this, "Thêm thành công");
 				} else {
 					JOptionPane.showMessageDialog(this, "Mã sản phẩm đã tồn tại");
